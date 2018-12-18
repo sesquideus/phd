@@ -1,5 +1,4 @@
 ## Anotácia
-
 Primárnym cieľom vedeckej práce je vytvoriť priestorový model rozloženia a dynamiky
 malých meteoroidných častíc vo vnútornej Slnečnej sústave.
 

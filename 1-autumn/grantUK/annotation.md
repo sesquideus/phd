@@ -1,0 +1,16 @@
+## Anotácia
+
+Primárnym cieľom vedeckej práce je vytvoriť priestorový model rozloženia a dynamiky
+malých meteoroidných častíc vo vnútornej Slnečnej sústave.
+
+Hlavným zdrojom častíc sú malé telesá Slnečnej sústavy, najmä kométy
+a blízkozemské asteroidy
+
+Ťažiskovou časťou práce je numerická simulácia častíc.
+
+
+
+
+
+V rámci riešenia projektu sa plánujem zúčastniť na konferencii Meteoroids 2019
+a prezentovať doterajšie výsledky vo forme príspevku alebo postera.

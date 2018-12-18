@@ -1,0 +1,82 @@
+\subsection{Rozbor aktuálneho stavu riešenia témy
+projektu}\label{rozbor-aktuuxe1lneho-stavu-rieux161enia-tuxe9my-projektu}
+
+súčasné modely sú vo viacerých ohľadoch nedostatočné.
+
+Bežné vizuálne alebo prístrojové pozorovacie metódy obvykle neberú do
+úvahy výberové efekty (selection bias). Do zaznamenaných pozorovaní
+vstupuje rad efektov, ktoré skresľujú výslednú štatistickú vzorku. Tieto
+vplyvy môžeme rozdeliť na
+
+\begin{itemize}
+\tightlist
+\item
+  prirodzené, teda spôsobené fyzikálnymi danosťami prostredia, napríklad
+
+  \begin{itemize}
+  \tightlist
+  \item
+    rôzne vzdialenosti medzi pozorovateľom a meteorom,
+  \item
+    pokles intenzity kvôli absorpcii v atmosfére,
+  \item
+    prírodné alebo umelé svetelné znečistenie;
+  \end{itemize}
+\item
+  inštrumentálne, čiže spôsobené nedokonalosťou prístroja, ako napríklad
+
+  \begin{itemize}
+  \tightlist
+  \item
+    vinetácia (pokles osvitu senzora smerom k okrajom zorného poľa),
+  \item
+    softvérové chyby a chyby pri spracovaní obrazu.
+  \end{itemize}
+\end{itemize}
+
+Automatické videostanice, fotografické prístroje aj priame vizuálne
+pozorovania prirodzene preferujú meteory s väčšou zdanlivou jasnosťou,
+väčšou zdanlivou dĺžkou dráhy a menšou vzdialenosťou od zenitu. Tieto
+efekty je potrebné zmerať a vyvinúť procedúry na ich odstránenie.
+Alternatívnym spôsobom korekcie je numerická simulácia, v ktorej
+vytvoríme populáciu meteoroidov, simulujeme ich vstup do atmosféry a
+následne štatisticky vyhodnocujeme pozorovaný súbor meteorov. Porovnaním
+výstupu simulácie so skutočnými pozorovaniami za rovnakých podmienok
+získavame mieru zhody. Postupnými zmenami parametrov simulácie a
+veľkosti výberových efektov sme schopní určiť hodnoty parametrov, pre
+ktoré je dosiahnutá najlepšia možná zhoda medzi simuláciou a pozorovaním
+a simulovanú populáciu vyhlásiť za model rozloženia meteoroidných
+častíc.
+
+Podobné postupy sú využívané na odstránenie výberových efektov pri
+astronomických pozorovaniach blízkozemských asteroidov (Chesley and
+Vereš 2017), ale dosiaľ neboli aplikované na opravu štatistických dát
+pri pozemských pozorovaniach meteorov (Gural 2002).
+
+nadväzuje na numerickú simuláciu častíc, ktorá bola vyvinutá v rámci
+diplomovej práce (Baláž 2018)
+
+podozrenie, že udávané hodnoty hmotnostného exponentu \(s\) sú všeobecne
+skreslené nedostatočným zahrnutím všetkých pôsobiacich výberových
+efektov. Publikované dáta následne často udávajú podstatne nižšie
+hodnoty \(s\), ako je reálne.
+
+\subsubsection*{Referencie}\label{referencie}
+\addcontentsline{toc}{subsubsection}{Referencie}
+
+\hypertarget{refs}{}
+\hypertarget{ref-balaz2018}{}
+Baláž, Martin. 2018. ``Determination of Total Meteoroid Flux in
+Millimetre to Metre Size Range.'' Master's thesis, Bratislava, Slovakia:
+Comenius University in Bratislava.
+
+\hypertarget{ref-chesley2017}{}
+Chesley, Steven R., and Peter Vereš. 2017. ``Projected Near-Earth Object
+Discovery Performance of the Large Synoptic Survey Telescope.'' In
+\emph{2016 Ieee Aerospace Conference}.
+\url{https://doi.org/10.1109/AERO.2016.7500539}.
+
+\hypertarget{ref-gural2002}{}
+Gural, Peter. 2002. ``Meteor Observation Simulation Tool.'' In
+\emph{Proceedings of the International Meteor Conference 2001, Cerkno,
+Slovenia}, 29--35.

@@ -1,9 +1,12 @@
 \subsection{Rozbor aktuálneho stavu riešenia témy
 projektu}\label{rozbor-aktuuxe1lneho-stavu-rieux161enia-tuxe9my-projektu}
 
-súčasné modely sú vo viacerých ohľadoch nedostatočné.
+Hlavným parametrom konkrétnej populácie meteoroidov je \emph{hmotnostný
+exponent} \(s\), ktorým popisujeme distribúciu hmotností častíc ako
+mocninnú závislosť \(N(m) \propto m^{-s}\) (Pokorný and Brown 2016). Pre
+častice súčasné modely sú vo viacerých ohľadoch nedostatočné.
 
-Bežné vizuálne alebo prístrojové pozorovacie metódy obvykle neberú do
+Tradičné vizuálne alebo prístrojové pozorovacie metódy však neberú do
 úvahy výberové efekty (selection bias). Do zaznamenaných pozorovaní
 vstupuje rad efektov, ktoré skresľujú výslednú štatistickú vzorku. Tieto
 vplyvy môžeme rozdeliť na
@@ -30,6 +33,8 @@ vplyvy môžeme rozdeliť na
   \item
     vinetácia (pokles osvitu senzora smerom k okrajom zorného poľa),
   \item
+    nehomogenity optickej cesty alebo čipu,
+  \item
     softvérové chyby a chyby pri spracovaní obrazu.
   \end{itemize}
 \end{itemize}
@@ -51,15 +56,25 @@ a simulovanú populáciu vyhlásiť za model rozloženia meteoroidných
 Podobné postupy sú využívané na odstránenie výberových efektov pri
 astronomických pozorovaniach blízkozemských asteroidov (Chesley and
 Vereš 2017), ale dosiaľ neboli aplikované na opravu štatistických dát
-pri pozemských pozorovaniach meteorov (Gural 2002).
+pri pozemských pozorovaniach meteorov. Úspešne však boli použité na
+odhad celkového počtu viditeľných meteorov (Gural 2002). Výsledky sú
+priamo porovnateľné s hodnotami získanými inými metódami, napríklad
+vizuálnymi pozorovaniami vykonanými skupinou pozorovateľov, priamou
+redukciou dát z kamerových systémov AMOS (Zigo, Tóth, and Kalmančok
+2013) a CILBO (Koschny and others 2013) alebo inými metódami (Blaauw,
+Campbell-Brown, and Kingery 2016). Špeciálnu pozornosť sme venovali
+porovnaniu s analýzami konkrétnych pozorovacích nocí, publikovanými
+napríklad portálom \texttt{MeteorFlux.io} (Molau and Barentsen 2018).
 
-nadväzuje na numerickú simuláciu častíc, ktorá bola vyvinutá v rámci
-diplomovej práce (Baláž 2018)
-
-podozrenie, že udávané hodnoty hmotnostného exponentu \(s\) sú všeobecne
-skreslené nedostatočným zahrnutím všetkých pôsobiacich výberových
-efektov. Publikované dáta následne často udávajú podstatne nižšie
-hodnoty \(s\), ako je reálne.
+Predbežné výsledky (Baláž 2018) indikujú, že udávané hodnoty
+hmotnostného exponentu \(s\) sú všeobecne skreslené ignorovaním
+pôsobiacich výberových efektov. Publikované dáta (Hughes 1995)
+(Krisciunas 1980) udávajú hodnoty \(s\) približne \num{1.85}, prípadne
+iba \num{1.7} (Bel'kovich and Ishmukhametova 2006). Tieto hodnoty však
+nie sú konzistentné s výsledkami simulácií, keďže najlepšia zhoda s
+experimentálnymi dátami je dosiahnutá až pri podstatne vyššej hodnote
+\(s = \num{2.15}\). Pravdepodobným vysvetlením je práve nízka detekčná
+schopnosť pozorovateľov pri zaznamenávaní menej hmotných častíc.
 
 \subsubsection*{Referencie}\label{referencie}
 \addcontentsline{toc}{subsubsection}{Referencie}
@@ -69,6 +84,17 @@ hodnoty \(s\), ako je reálne.
 Baláž, Martin. 2018. ``Determination of Total Meteoroid Flux in
 Millimetre to Metre Size Range.'' Master's thesis, Bratislava, Slovakia:
 Comenius University in Bratislava.
+
+\hypertarget{ref-belkovich2006}{}
+Bel'kovich, O. I., and M. G. Ishmukhametova. 2006. ``Mass Distribution
+of Perseid Meteoroids.'' \emph{Solar System Research} 40 (3). Pleiades
+Publishing: 208--13. \url{https://doi.org/10.1134/S003809460603004X}.
+
+\hypertarget{ref-blaauw2016}{}
+Blaauw, R. C., M. Campbell-Brown, and A. Kingery. 2016. ``Optical Meteor
+Fluxes and Application to the 2015 Perseids.'' \emph{Monthly Notices of
+the Royal Astronomical Society} 463 (1): 441--48.
+\url{https://doi.org/10.1093/mnras/stw1979}.
 
 \hypertarget{ref-chesley2017}{}
 Chesley, Steven R., and Peter Vereš. 2017. ``Projected Near-Earth Object
@@ -80,3 +106,33 @@ Discovery Performance of the Large Synoptic Survey Telescope.'' In
 Gural, Peter. 2002. ``Meteor Observation Simulation Tool.'' In
 \emph{Proceedings of the International Meteor Conference 2001, Cerkno,
 Slovenia}, 29--35.
+
+\hypertarget{ref-hughes1995}{}
+Hughes, David W. 1995. ``The Perseid Meteor Shower.'' \emph{Earth, Moon
+and Planets}, nos. 1-3 (January): 31--70.
+\url{https://doi.org/10.1007/BF00671498}.
+
+\hypertarget{ref-koschny2013}{}
+Koschny, Detlef, and others. 2013. ``A Double-Station Meteor Camera
+Set-up in the Canary Islands.'' \emph{Geoscientific Instrumentation
+Methods and Data Systems} 2: 339--48.
+
+\hypertarget{ref-krisciunas1980}{}
+Krisciunas, K. 1980. ``The Luminosity Functions of the 1969 Perseid and
+Orionid Meteor Showers.'' \emph{Icarus} 43 (3): 381--84.
+\url{https://doi.org/10.1016/0019-1035(80)90182-7}.
+
+\hypertarget{ref-meteorflux}{}
+Molau, Sirko, and Geert Barentsen. 2018. ``MeteorFlux.io.''
+\url{http://meteorflux.io/}.
+
+\hypertarget{ref-pokorny-brown2016}{}
+Pokorný, P., and P. G. Brown. 2016. ``A Reproducible Method to Determine
+the Meteoroid Mass Index.'' \emph{Astronomy \& Astrophysics} 592.
+\url{https://doi.org/10.1051/0004-6361/201628134}.
+
+\hypertarget{ref-zigo2013}{}
+Zigo, Pavol, Juraj Tóth, and Dušan Kalmančok. 2013. ``All-Sky Meteor
+Orbit System AMOS.'' In \emph{Proceedings of the International Meteor
+Conference, 31st Imc, La Palma, Canary Islands, Spain, 2012}, edited by
+M. Gyssens and P. Roggemans, 18--20.

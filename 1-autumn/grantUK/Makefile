@@ -1,8 +1,7 @@
 .SECONDEXPANSION:
 
 %.tex: $$*.md
-	pandoc $< --to latex --smart \
-	--bibliography ../../kvik.bib --output $@
+	pandoc $< --to latex --smart --filter ~/.cabal/bin/pandoc-citeproc --bibliography ../../kvik.bib --output $@
 
 %.pdf: out-$$*.tex $$*.tex
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode $<

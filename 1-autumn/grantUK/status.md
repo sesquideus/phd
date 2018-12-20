@@ -1,30 +1,20 @@
 ## Rozbor aktuálneho stavu riešenia témy projektu
+Moderné siete fotografických staníc a videostaníc poskytujú dáta dostatočne presné na
+určenie pozorovaných aj pôvodných dráh telies [@borovicka1990].
+Nemožnosť reprodukovania meteorov v laboratórnych podmienkach
+však necháva pomerne veľké neistoty v určení hodnôt niektorých základných parametrov,
+ako sú skutočná hmotnosť meteoroidov alebo distribúcia hmotností v populácii.
 
-
-
-Hlavným parametrom konkrétnej populácie meteoroidov je _hmotnostný exponent_ $s$,
+Základným parametrom konkrétnej populácie meteoroidov je _hmotnostný exponent_ $s$,
 ktorým popisujeme distribúciu hmotností častíc ako mocninnú závislosť $N(m) \propto m^{-s}$ [@pokorny-brown2016].
-Pre častice 
-súčasné modely sú vo viacerých ohľadoch nedostatočné.
-
-
+Súčasné modely určenia hmotnostného exponentu sú však vo viacerých ohľadoch nedostatočné.
 Pri redukcii dát z tradičných vizuálnych alebo prístrojových pozorovacích metód sa obvykle neuvažujú výberové efekty (selection bias).
-Do zaznamenaných pozorovaní vstupuje rad vplyvy, ktoré skresľujú výslednú štatistickú vzorku.
-Tieto efekty môžeme rozdeliť na
-
-- prirodzené, teda spôsobené fyzikálnymi danosťami prostredia, napríklad
-    - rôzne vzdialenosti medzi pozorovateľom a meteorom,
-    - pokles intenzity kvôli absorpcii v atmosfére,
-    - prírodné alebo umelé svetelné znečistenie;
-    
-- inštrumentálne, čiže spôsobené nedokonalosťou prístroja, ako napríklad
-    - vinetácia (pokles osvitu senzora smerom k okrajom zorného poľa),
-    - nehomogenity optickej cesty alebo čipu,
-    - softvérové chyby a chyby pri spracovaní obrazu.
-
+Do zaznamenaných pozorovaní vstupuje rad prirodzených aj inštrumentálnych vplyvov, ktoré skresľujú výslednú štatistickú vzorku.
 Automatické videostanice, fotografické prístroje aj priame vizuálne pozorovania prirodzene
 preferujú meteory s väčšou zdanlivou jasnosťou, väčšou zdanlivou dĺžkou dráhy a menšou vzdialenosťou od zenitu.
-Tieto efekty je potrebné zmerať a vyvinúť procedúry na ich odstránenie.
+Tieto efekty je potrebné zmerať a vyvinúť procedúry na ich odstránenie, a všetky ďalšie závery
+činiť až po očistení a spracovaní štatistického súboru.
+
 Alternatívnym spôsobom korekcie je numerická simulácia, v ktorej vytvoríme populáciu
 meteoroidov, simulujeme ich vstup do atmosféry a následne štatisticky vyhodnocujeme
 pozorovaný súbor meteorov. Porovnaním výstupu simulácie so skutočnými pozorovaniami za
@@ -45,9 +35,10 @@ alebo inými metódami [@blaauw2016].
 publikovanými napríklad portálom `MeteorFlux.io` [@meteorflux].
 
 Predbežné výsledky [@balaz2018] indikujú, že udávané hodnoty hmotnostného exponentu $s$ sú všeobecne skreslené ignorovaním
-pôsobiacich výberových efektov. Publikované dáta [@hughes1995] [@krisciunas1980] udávajú hodnoty $s$ približne \num{1.85},
-prípadne iba \num{1.7} [@belkovich2006]. Tieto hodnoty však nie sú konzistentné s výsledkami simulácií,
-keďže najlepšia zhoda s experimentálnymi dátami je dosiahnutá až pri podstatne vyššej hodnote $s = \num{2.15}$.
-Pravdepodobným vysvetlením je práve nízka detekčná schopnosť pozorovateľov pri zaznamenávaní menej hmotných častíc.
+pôsobiacich výberových efektov. Publikované dáta udávajú hodnoty $s$ približne \num{1.85} [@hughes1995] [@krisciunas1980],
+prípadne iba \num{1.7} [@belkovich2006]. Tieto hodnoty však nie sú konzistentné s výsledkami simulácií -- zhoda
+s experimentálnymi dátami je dosiahnutá až pri podstatne vyššej hodnote $s = \num{2.15}$.
+Pravdepodobným vysvetlením je práve nízka detekčná schopnosť pozorovateľov pri zaznamenávaní menej hmotných častíc
+a z nej vyplývajúce podhodnotenie ich skutočného počtu.
 
 ### Referencie

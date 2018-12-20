@@ -6,7 +6,8 @@
             **Meteoroids 2019**, organizovanej v Bratislave 16. -- 21. 06. 2019.
         - úhrada nákladov spojených s cestovaním na Astronomické a Geofyzikálne Observatórium v Modre
     a. **Materiál a dodávky (\SI{800}{\eur})**
-        - zakúpenie 
+        - zakúpenie počítačového vybavenia za účelom vykonávania a kontroly simulácií
+        - nákup kancelárskych potrieb podľa potreby
     a. **Ostatné tovary a služby (\SI{200}{\eur})**
         - nákup odborných knižných publikácií
 1. **Kapitálové výdavky (\SI{0}{\eur})**

@@ -1,48 +1,28 @@
 \subsection{Rozbor aktuálneho stavu riešenia témy
 projektu}\label{rozbor-aktuuxe1lneho-stavu-rieux161enia-tuxe9my-projektu}
 
-Hlavným parametrom konkrétnej populácie meteoroidov je \emph{hmotnostný
-exponent} \(s\), ktorým popisujeme distribúciu hmotností častíc ako
-mocninnú závislosť \(N(m) \propto m^{-s}\) (Pokorný and Brown 2016). Pre
-častice súčasné modely sú vo viacerých ohľadoch nedostatočné.
+Moderné siete fotografických staníc a videostaníc poskytujú dáta
+dostatočne presné na určenie pozorovaných aj pôvodných dráh telies
+(Borovička 1990). Nemožnosť reprodukovania meteorov v laboratórnych
+podmienkach však necháva pomerne veľké neistoty v určení hodnôt
+niektorých základných parametrov, ako sú skutočná hmotnosť meteoroidov
+alebo distribúcia hmotností v populácii.
 
-Tradičné vizuálne alebo prístrojové pozorovacie metódy však neberú do
-úvahy výberové efekty (selection bias). Do zaznamenaných pozorovaní
-vstupuje rad efektov, ktoré skresľujú výslednú štatistickú vzorku. Tieto
-vplyvy môžeme rozdeliť na
+Základným parametrom konkrétnej populácie meteoroidov je
+\emph{hmotnostný exponent} \(s\), ktorým popisujeme distribúciu
+hmotností častíc ako mocninnú závislosť \(N(m) \propto m^{-s}\) (Pokorný
+and Brown 2016). Súčasné modely určenia hmotnostného exponentu sú však
+vo viacerých ohľadoch nedostatočné. Pri redukcii dát z tradičných
+vizuálnych alebo prístrojových pozorovacích metód sa obvykle neuvažujú
+výberové efekty (selection bias). Do zaznamenaných pozorovaní vstupuje
+rad prirodzených aj inštrumentálnych vplyvov, ktoré skresľujú výslednú
+štatistickú vzorku. Automatické videostanice, fotografické prístroje aj
+priame vizuálne pozorovania prirodzene preferujú meteory s väčšou
+zdanlivou jasnosťou, väčšou zdanlivou dĺžkou dráhy a menšou
+vzdialenosťou od zenitu. Tieto efekty je potrebné zmerať a vyvinúť
+procedúry na ich odstránenie, a všetky ďalšie závery činiť až po
+očistení a spracovaní štatistického súboru.
 
-\begin{itemize}
-\tightlist
-\item
-  prirodzené, teda spôsobené fyzikálnymi danosťami prostredia, napríklad
-
-  \begin{itemize}
-  \tightlist
-  \item
-    rôzne vzdialenosti medzi pozorovateľom a meteorom,
-  \item
-    pokles intenzity kvôli absorpcii v atmosfére,
-  \item
-    prírodné alebo umelé svetelné znečistenie;
-  \end{itemize}
-\item
-  inštrumentálne, čiže spôsobené nedokonalosťou prístroja, ako napríklad
-
-  \begin{itemize}
-  \tightlist
-  \item
-    vinetácia (pokles osvitu senzora smerom k okrajom zorného poľa),
-  \item
-    nehomogenity optickej cesty alebo čipu,
-  \item
-    softvérové chyby a chyby pri spracovaní obrazu.
-  \end{itemize}
-\end{itemize}
-
-Automatické videostanice, fotografické prístroje aj priame vizuálne
-pozorovania prirodzene preferujú meteory s väčšou zdanlivou jasnosťou,
-väčšou zdanlivou dĺžkou dráhy a menšou vzdialenosťou od zenitu. Tieto
-efekty je potrebné zmerať a vyvinúť procedúry na ich odstránenie.
 Alternatívnym spôsobom korekcie je numerická simulácia, v ktorej
 vytvoríme populáciu meteoroidov, simulujeme ich vstup do atmosféry a
 následne štatisticky vyhodnocujeme pozorovaný súbor meteorov. Porovnaním
@@ -68,13 +48,14 @@ napríklad portálom \texttt{MeteorFlux.io} (Molau and Barentsen 2018).
 
 Predbežné výsledky (Baláž 2018) indikujú, že udávané hodnoty
 hmotnostného exponentu \(s\) sú všeobecne skreslené ignorovaním
-pôsobiacich výberových efektov. Publikované dáta (Hughes 1995)
-(Krisciunas 1980) udávajú hodnoty \(s\) približne \num{1.85}, prípadne
-iba \num{1.7} (Bel'kovich and Ishmukhametova 2006). Tieto hodnoty však
-nie sú konzistentné s výsledkami simulácií, keďže najlepšia zhoda s
-experimentálnymi dátami je dosiahnutá až pri podstatne vyššej hodnote
-\(s = \num{2.15}\). Pravdepodobným vysvetlením je práve nízka detekčná
-schopnosť pozorovateľov pri zaznamenávaní menej hmotných častíc.
+pôsobiacich výberových efektov. Publikované dáta udávajú hodnoty \(s\)
+približne \num{1.85} (Hughes 1995) (Krisciunas 1980), prípadne iba
+\num{1.7} (Bel'kovich and Ishmukhametova 2006). Tieto hodnoty však nie
+sú konzistentné s výsledkami simulácií -- zhoda s experimentálnymi
+dátami je dosiahnutá až pri podstatne vyššej hodnote \(s = \num{2.15}\).
+Pravdepodobným vysvetlením je práve nízka detekčná schopnosť
+pozorovateľov pri zaznamenávaní menej hmotných častíc a z nej
+vyplývajúce podhodnotenie ich skutočného počtu.
 
 \subsubsection*{Referencie}\label{referencie}
 \addcontentsline{toc}{subsubsection}{Referencie}
@@ -95,6 +76,11 @@ Blaauw, R. C., M. Campbell-Brown, and A. Kingery. 2016. ``Optical Meteor
 Fluxes and Application to the 2015 Perseids.'' \emph{Monthly Notices of
 the Royal Astronomical Society} 463 (1): 441--48.
 \url{https://doi.org/10.1093/mnras/stw1979}.
+
+\hypertarget{ref-borovicka1990}{}
+Borovička, J. 1990. ``The Comparison of Two Methods of Determining
+Meteor Trajectories from Photographs.'' \emph{Bulletin of the
+Astronomical Institutes of Czechoslovakia} 41 (December): 391--96.
 
 \hypertarget{ref-chesley2017}{}
 Chesley, Steven R., and Peter Vereš. 2017. ``Projected Near-Earth Object

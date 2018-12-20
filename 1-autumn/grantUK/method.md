@@ -1,14 +1,8 @@
 ## Návrh metódy riešenia projektu
-Projekt nadväzuje na našu diplomovú prácu [@balaz2018] a rozširuje platnosť získaných výsledkov
-na všetky hlavné zdroje mete
-
-
-
-V nasledujúcej fáze navrhujeme metódu, ktorou je možné získané výsledky rozšíriť na oblasť vnútornej Slnečnej sústavy,
-resp. oblasť dráhy Zeme, keďže pozemské pozorovanie meteorov neumožňujú vykonávať priame merania
-vo vzdialenejších oblastiach. Dáta je však možné priamo extrapolovať do blízkeho okolia.
+Projektom nadväzujeme na diplomovú prácu [@balaz2018], v ktorej sme sa zaoberali tokom meteoroidných
+častíc v hornej atmosfére. Ďalším krokom je rozšírenie zamerania práce na pôvod a vývoj týchto telies,
+teda na obdobie od ich uvoľnenia z materského telesa až po zánik v zemskej atmosfére.
 Základom metódy je numerická $N$-body simulácia s využitím masívnej paralelizácie pomocou GPU.
-
 Simulácia vytvára jednotlivé častice pri známych materských telesách meteoroidov
 a následne numerickou integráciu pohybových rovníc určuje ich budúcu polohu.
 
@@ -26,7 +20,7 @@ Ak počas integrácie dôjde ku kolízii niektorej z častíc so Zemou, daná č
 spozorovaná. Sumárny štatistický súbor všetkých takýchto častíc je po aplikácii výberových efektov
 možné porovnať s pozemskými pozorovaniami a určiť zhodu s experimentálnymi dátami. Variáciou parametrov
 simulácie a minimalizáciou odchýlok sme schopní určiť skutočnú distribúciu a pôvodnú dráhu telies.
-Opävotné spustenie simulácie s optimálnymi hodnotami parametrov spolu so znalosťou dráhy skutočného
+Opätovné spustenie simulácie s optimálnymi hodnotami parametrov spolu so znalosťou dráhy skutočného
 materského telesa nám umožnia identifikovať prúdy častíc a predpovedať aktivitu meteorických rojov.
 
 ### Referencie

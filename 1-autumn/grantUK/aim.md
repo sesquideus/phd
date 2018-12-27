@@ -1,23 +1,30 @@
 ## Charakteristika vedeckých cieľov projektu
-Meteory sú pozorované a, neboli však považované za súčasť astronómie.
-Kozmický pôvod tohoto javu bol definitívne potvrdený až v roku 1798 [@czegka2000].
-Meteory sú často združené do *meteorických rojov*, teda zoskupení telies s podobnými dráhami, ktoré pri pozorovaní
-z konkrétneho miesta na zemskom povrchu vytvárajú ilúziu bodového zdroja, čiže *radiantu*.
-
-Dominantným zdrojom meteoroidov sú malé telesá Slnečnej sústavy, najmä kométy
-a blízkozemské asteroidy, ktoré pri preletoch blízko Slnka uvoľňujú drobné telieska,
-prípadne fragmentujú pri vzájomných zrážkach alebo tesných priblíženiach k Slnku.
-Mierne odlišnosti počiatočných rýchlostí telies, gravitačné perturbácie pochádzajúce od planét
-a negravitačné efekty pôsobiace na častice spôsobujú, že ich dráhy sa na dlhých časových škálach
-menia a diverzifikujú. Na škálach stoviek až tisícov rokov vytvoria široký prstenec
-okolo orbity pôvodného materského telesa; na ešte dlhších škálach sa prstence rozpadajú
-a prispievajú do tzv. *sporadického pozadia*, teda zdroja rozptýlených meteoroidov na zdanlivo náhodných dráhach [@jenniskens1998].
-
-Meteoroidy nie je kvôli ich malým rozmerom pri súčasnom stave techniky možné pozorovať priamo
+Meteoroidy, čiže malé kamenné alebo železné telieska obiehajúce okolo Slnka,
+sú jedným z najcennejších zdrojov informácií o pôvode a vývoji Slnečnej sústavy.
+Za meteoroidy považujeme telesá s rozmermi v rozpätí \SI{30}{\micro\metre} až
+\SI{1}{\metre} [@imo-meteor]; pričom väčšie telesá nazývame asteroidmi
+a pri menších telesách hovoríme o medziplanetárnom prachu.
+Pri súčasnom stave techniky nie je možné meteoroidy možné pozorovať priamo
 v otvorenom medziplanetárnom priestore. Naše znalosti o nich pochádzajú najmä zo sledovania
 ich interakcie s vrchnými vrstvami atmosféry Zeme. Ak dráha meteoroidu križuje dráhu Zeme
 a teleso vstúpi do zemskej atmosféry, jeho kinetická energia je dostatočná na roztavenie a ionizáciu materiálu.
 Tento jav následne môžeme pozorovať ako meteor.
+
+Zdanlivý pohyb meteorov je oproti ostatným nebeským telesám veľmi rýchly.
+Pravdepodobne aj preto boli meteory historicky považované skôr za meteorologický, než astronomický úkaz,
+a ich kozmický pôvod bol definitívne potvrdený až v roku 1798 [@czegka2000].
+Pozorovaním meteorov zo zemského povrchu je možné zistiť, že sú často združené do *meteorických rojov*,
+teda zoskupení telies s podobnými geocentrickými dráhami. Projekcia na oblohu vytvára ilúziu bodového zdroja, čiže *radiantu*.
+
+Dominantným zdrojom meteoroidov sú malé telesá Slnečnej sústavy, najmä kométy
+a blízkozemské asteroidy, ktoré pri preletoch blízko Slnka uvoľňujú drobné telieska,
+prípadne fragmentujú pri vzájomných zrážkach.
+Mierne odlišnosti počiatočných rýchlostí telies, gravitačné perturbácie pochádzajúce od planét
+a negravitačné efekty pôsobiace na častice spôsobujú, že ich dráhy sa na dlhých časových škálach
+pomaly menia a diverzifikujú. Na škálach stoviek až tisícov rokov vytvoria široký prstenec
+okolo pôvodnej orbity svojho materského telesa. Na ešte dlhších škálach sa prstence rozpadajú
+a prispievajú do tzv. *sporadického pozadia*, teda zdroja rozptýlených
+meteoroidov na zdanlivo náhodných dráhach [@jenniskens1998].
 
 Mimo zemskej atmosféry tieto telieska predstavujú vážne nebezpečenstvo pre ľudské misie a komerčné satelity.
 Potreba presných dát o priestorovej koncentrácii a toku meteoroidných častíc v okolí Zeme a jej dráhy sa s narastajúcim vedeckým a komerčným využívaním
@@ -26,13 +33,20 @@ kozmického priestoru bude neustále zvyšovať. Detailné poznanie dráhových 
 a majú potenciál spôsobiť značné škody, od lokálnych materiálnych škôd až po katastrofy globálneho charakteru.
 
 V práci sa zameriame na pôvod a dynamický vývoj prúdov meteoroidov od ich vzniku až po zánik v atmosfére.
-Cieľom projektu je preskúmať (...) a vytvoriť ucelený model ich priestorového rozloženia vo vnútornej Slnečnej sústave.
-Primárnym zdrojom dát na našom pracovisku sú kamery systému AMOS, ktorý bol vyvinutý a je prevádzkovaný
-Oddelením astronómie a astrofyziky KAFZM FMFI UK [@zigo2013] [@toth2015].
+Cieľom projektu je vytvoriť ucelený model ich priestorového rozloženia vo vnútornej Slnečnej sústave.
 Vhodným nástrojom na výskum dráhovej dynamiky a evolučných ciest meteorických rojov sú numerické $N$-body simulácie.
+Výsledok simulácie je možné porovnať s observačnými dátami a optimalizačnými metódami dosiahnuť najlepšiu možnú zhodu.
+Primárnym zdrojom observačných dát na našom pracovisku sú kamery systému AMOS, ktorý bol vyvinutý a je prevádzkovaný
+Oddelením astronómie a astrofyziky KAFZM FMFI UK [@zigo2013; @toth2015].
+Počas riešenia projektu očakávame splnenie nasledujúcich úloh:
 
-V rámci projektu sa plánujeme zúčastniť na konferencii **Meteoroids 2019**, ktorú
-v tomto roku organizuje Univerzita Komenského v Bratislave, a prezentovať doterajšie výsledky
-vo forme príspevku alebo postera.
+- návrh $N$-body simulácie s využitím masívnej paralelizácie pomocou GPU,
+- implementácia simulácie v jazyku Python alebo C++,
+- vývoj porovnávacích algoritmov a optimalizačných procedúr,
+- porovnanie výsledkov s inými modelmi, napríklad [@ryabova2013],
+
+V rámci projektu sa taktiež plánujeme zúčastniť na konferencii **Meteoroids 2019**, ktorú
+v tomto roku organizuje Univerzita Komenského v Bratislave, a prezentovať dovtedy získané výsledky
+vo forme príspevku alebo postera; prípadne tiež na konferencii IMC 2019 v Bollmannsruh v Nemecku.
 
 ### Referencie

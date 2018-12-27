@@ -12,6 +12,5 @@ početný a hmotnostný tok častíc dopadajúcich na Zem.
 Porovnaním výsledkov s inými publikáciami dokážeme zistiť, do akej miery sú
 staršie dáta získané priamou redukciou observačných dát zaťažené výberovými
 efektami a prispejeme k tvorbe predstavy o populácii meteoroidov vo vnútornej Slnečnej sústave.
-
 V rámci riešenia projektu sa plánujeme zúčastniť na konferencii Meteoroids 2019
 a prezentovať doterajšie výsledky vo forme príspevku alebo postera.

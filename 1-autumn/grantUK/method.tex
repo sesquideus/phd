@@ -8,22 +8,22 @@ telies, teda na obdobie od ich uvoľnenia z materského telesa až po zánik
 v zemskej atmosfére.
 
 Základom metódy je numerická \(N\)-body simulácia s využitím masívnej
-paralelizácie pomocou GPU. V simulácii budeme vytvárať jednotlivé
+paralelizácie pomocou GPU. V~simulácii budeme vytvárať jednotlivé
 častice pri známych materských telesách meteoroidov a následne
-numerickou integráciu pohybových rovníc určuje ich budúcu polohu.
+numerickou integráciou pohybových rovníc určíme ich budúcu polohu.
 Celkové silové pôsobenie je dané najmä gravitačným pôsobením Slnka ako
 centrálneho telesa, rušiacimi gravitačnými vplyvmi planét a krátkodobo
 aj pôsobením materského objektu. Pre častice s veľmi malými rozmermi sú
 dôležité aj negravitačné vplyvy, najmä tlak slnečného žiarenia a
-Poynting-Robertsonov efekt.
+Poyntingov-Robertsonov efekt.
 
 Jednotlivé častice sú nezávislé a ich vzájomné silové pôsobenie môžeme
 úplne zanedbať. Pri využití masívnej paralelizácie pomocou GPU očakávame
 podstatné zvýšenie výpočtového výkonu na úroveň miliárd integračných
-krokov za sekundu, čo umožní simulovať milióny častíc (Nguyen, 2007).
-Vysoký počet simulovaných častíc je dôležitý, keďže k zrážkam so Zemou
-dochádza pomerne zriedkavo, kým pre účely štatistického vyhodnotenia
-súboru potrebujeme získať dostatočne početnú populáciu.
+krokov za sekundu, čo umožní simulovať milióny častíc (Nyland et al.,
+2007). Vysoký počet simulovaných častíc je dôležitý, keďže k zrážkam so
+Zemou dochádza pomerne zriedkavo, kým pre účely štatistického
+vyhodnotenia súboru potrebujeme získať dostatočne početnú populáciu.
 
 Ak počas integrácie dôjde ku kolízii niektorej z častíc so Zemou, daná
 častica je označená ako spozorovaná. Sumárny štatistický súbor všetkých
@@ -33,7 +33,8 @@ Variáciou parametrov simulácie a minimalizáciou odchýlok sme schopní
 určiť skutočnú distribúciu a pôvodnú dráhu telies. Opätovné spustenie
 simulácie s optimálnymi hodnotami parametrov spolu so znalosťou dráhy
 skutočného materského telesa nám umožnia identifikovať jednotlivé prúdy
-častíc a predpovedať aktivitu zodpovedajúcich meteorických rojov.
+častíc, predpovedať aktivitu zodpovedajúcich meteorických rojov a určiť
+tok a distribúciu častíc v danej oblasti Slnečnej sústavy.
 
 \subsubsection*{Referencie}\label{referencie}
 \addcontentsline{toc}{subsubsection}{Referencie}
@@ -44,5 +45,6 @@ Baláž, M., 2018. Determination of total meteoroid flux in millimetre to
 metre size range (Master's thesis). Comenius University in Bratislava,
 Bratislava, Slovakia.
 
-\hypertarget{ref-nguyen2007}{}
-Nguyen, H., 2007. GPU Gems 3. Addison-Wesley Professional.
+\hypertarget{ref-nyland2007}{}
+Nyland, L., Harris, M., Prins, J., 2007. GPU Gems 3, chapter 31: Fast
+N-Body Simulation with CUDA. Addison-Wesley Professional.

@@ -20,8 +20,8 @@ Alternatívnym spôsobom korekcie je numerická simulácia, v ktorej vytvoríme 
 meteoroidov, simulujeme ich vstup do atmosféry a pozorovaný súbor meteorov následne štatisticky vyhodnocujeme.
 Porovnaním výstupu simulácie so skutočnými pozorovaniami za rovnakých podmienok získavame mieru zhody.
 Postupnými zmenami parametrov simulácie a veľkosti výberových efektov sme schopní určiť hodnoty parametrov,
-pre ktoré je dosiahnutá najlepšia možná zhoda medzi simuláciou a pozorovaním a simulovanú populáciu vyhlásiť za
-štatistický model skutočného rozloženia meteoroidných častíc.
+pre ktoré je dosiahnutá najlepšia možná zhoda medzi simuláciou a pozorovaním. Simulovanú populáciu potom
+môžeme vyhlásiť za štatistický model skutočného rozloženia meteoroidných častíc.
 
 Podobné postupy sú využívané na odstránenie výberových efektov pri astronomických pozorovaniach
 blízkozemských asteroidov [@chesley2017], ale dosiaľ neboli aplikované na opravu štatistických

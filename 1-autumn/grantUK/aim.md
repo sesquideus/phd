@@ -27,8 +27,8 @@ a prispievajú do tzv. *sporadického pozadia*, teda zdroja rozptýlených
 meteoroidov na zdanlivo náhodných dráhach [@jenniskens1998].
 
 Mimo zemskej atmosféry tieto telieska predstavujú vážne nebezpečenstvo pre ľudské misie a komerčné satelity.
-Potreba presných dát o priestorovej koncentrácii a toku meteoroidných častíc v okolí Zeme a jej dráhy sa s narastajúcim vedeckým a komerčným využívaním
-kozmického priestoru bude neustále zvyšovať. Detailné poznanie dráhových charakteristík, početnosti a distribúcie veľkostí
+Potreba presných dát o priestorovej koncentrácii a toku meteoroidných častíc v okolí Zeme a jej dráhy sa bude s narastajúcim vedeckým a komerčným využívaním
+kozmického priestoru neustále zvyšovať. Detailné poznanie dráhových charakteristík, početnosti a distribúcie veľkostí
 častí je dôležité aj pre zhodnotenie ohrozenia povrchu Zeme. Objekty s rozmermi viac ako 10 metrov predstavujú nebezpečenstvo
 a majú potenciál spôsobiť značné škody, od lokálnych materiálnych škôd až po katastrofy globálneho charakteru.
 
@@ -43,10 +43,10 @@ Počas riešenia projektu očakávame splnenie nasledujúcich úloh:
 - návrh $N$-body simulácie s využitím masívnej paralelizácie pomocou GPU,
 - implementácia simulácie v jazyku Python alebo C++,
 - vývoj porovnávacích algoritmov a optimalizačných procedúr,
-- porovnanie výsledkov s inými modelmi, napríklad [@ryabova2013],
+- porovnanie výsledkov s inými modelmi, napríklad [@ryabova2013].
 
 V rámci projektu sa taktiež plánujeme zúčastniť na konferencii **Meteoroids 2019**, ktorú
 v tomto roku organizuje Univerzita Komenského v Bratislave, a prezentovať dovtedy získané výsledky
-vo forme príspevku alebo postera; prípadne tiež na konferencii IMC 2019 v Bollmannsruh v Nemecku.
+vo forme príspevku alebo postera; prípadne tiež na konferencii **IMC 2019** v Bollmannsruh v Nemecku.
 
 ### Referencie

@@ -8,14 +8,14 @@ telies, teda na obdobie od ich uvoľnenia z materského telesa až po zánik
 v zemskej atmosfére.
 
 Základom metódy je numerická \(N\)-body simulácia s využitím masívnej
-paralelizácie pomocou GPU. V~simulácii budeme vytvárať jednotlivé
-častice pri známych materských telesách meteoroidov a následne
-numerickou integráciou pohybových rovníc určíme ich budúcu polohu.
-Celkové silové pôsobenie je dané najmä gravitačným pôsobením Slnka ako
-centrálneho telesa, rušiacimi gravitačnými vplyvmi planét a krátkodobo
-aj pôsobením materského objektu. Pre častice s veľmi malými rozmermi sú
-dôležité aj negravitačné vplyvy, najmä tlak slnečného žiarenia a
-Poyntingov-Robertsonov efekt.
+paralelizácie pomocou grafického procesora (GPU). V~simulácii budeme
+vytvárať jednotlivé častice pri známych materských telesách meteoroidov
+a následne numerickou integráciou pohybových rovníc určíme ich budúcu
+polohu. Celkové silové pôsobenie je dané najmä gravitačným pôsobením
+Slnka ako centrálneho telesa, rušiacimi gravitačnými vplyvmi planét a
+krátkodobo aj pôsobením materského objektu. Pre častice s veľmi malými
+rozmermi sú dôležité aj negravitačné vplyvy, najmä tlak slnečného
+žiarenia a Poyntingov-Robertsonov efekt.
 
 Jednotlivé častice sú nezávislé a ich vzájomné silové pôsobenie môžeme
 úplne zanedbať. Pri využití masívnej paralelizácie pomocou GPU očakávame

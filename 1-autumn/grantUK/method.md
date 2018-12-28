@@ -3,7 +3,7 @@ Projektom nadväzujeme na diplomovú prácu [@balaz2018], v ktorej sme sa zaober
 častíc v hornej atmosfére. Prirodzeným ďalším krokom je rozšírenie zamerania práce na pôvod a vývoj týchto telies,
 teda na obdobie od ich uvoľnenia z materského telesa až po zánik v zemskej atmosfére.
 
-Základom metódy je numerická $N$-body simulácia s využitím masívnej paralelizácie pomocou GPU.
+Základom metódy je numerická $N$-body simulácia s využitím masívnej paralelizácie pomocou grafického procesora (GPU).
 V\ simulácii budeme vytvárať jednotlivé častice pri známych materských telesách meteoroidov
 a následne numerickou integráciou pohybových rovníc určíme ich budúcu polohu.
 Celkové silové pôsobenie je dané najmä gravitačným pôsobením Slnka ako centrálneho telesa,

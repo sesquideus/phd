@@ -8,7 +8,7 @@ Pri súčasnom stave techniky nie je možné meteoroidy možné pozorovať priam
 v otvorenom medziplanetárnom priestore. Naše znalosti o nich pochádzajú najmä zo sledovania
 ich interakcie s vrchnými vrstvami atmosféry Zeme. Ak dráha meteoroidu križuje dráhu Zeme
 a teleso vstúpi do zemskej atmosféry, jeho kinetická energia je dostatočná na roztavenie a ionizáciu materiálu.
-Tento jav následne môžeme pozorovať ako meteor.
+Vznikajúcu svetelnú stopu následne môžeme pozorovať ako meteor.
 
 Zdanlivý pohyb meteorov je oproti ostatným nebeským telesám veľmi rýchly.
 Pravdepodobne aj preto boli meteory historicky považované skôr za meteorologický, než astronomický úkaz,
@@ -23,7 +23,7 @@ Mierne odlišnosti počiatočných rýchlostí telies, gravitačné perturbácie
 a negravitačné efekty pôsobiace na častice spôsobujú, že ich dráhy sa na dlhých časových škálach
 pomaly menia a diverzifikujú. Na škálach stoviek až tisícov rokov vytvoria široký prstenec
 okolo pôvodnej orbity svojho materského telesa. Na ešte dlhších škálach sa prstence rozpadajú
-a prispievajú do tzv. *sporadického pozadia*, teda zdroja rozptýlených
+a prispievajú do *sporadického pozadia*, teda zdroja rozptýlených
 meteoroidov na zdanlivo náhodných dráhach [@jenniskens1998].
 
 Mimo zemskej atmosféry tieto telieska predstavujú vážne nebezpečenstvo pre ľudské misie a komerčné satelity.
@@ -32,15 +32,16 @@ kozmického priestoru neustále zvyšovať. Detailné poznanie dráhových chara
 častí je dôležité aj pre zhodnotenie ohrozenia povrchu Zeme. Objekty s rozmermi viac ako 10 metrov predstavujú nebezpečenstvo
 a majú potenciál spôsobiť značné škody, od lokálnych materiálnych škôd až po katastrofy globálneho charakteru.
 
-V práci sa zameriame na pôvod a dynamický vývoj prúdov meteoroidov od ich vzniku až po zánik v atmosfére.
+V práci sa zameriame na pôvod a dynamický vývoj prúdov meteoroidov od ich vzniku až po zánik v\ atmosfére.
 Cieľom projektu je vytvoriť ucelený model ich priestorového rozloženia vo vnútornej Slnečnej sústave.
 Vhodným nástrojom na výskum dráhovej dynamiky a evolučných ciest meteorických rojov sú numerické $N$-body simulácie.
-Výsledok simulácie je možné porovnať s observačnými dátami a optimalizačnými metódami dosiahnuť najlepšiu možnú zhodu.
-Primárnym zdrojom observačných dát na našom pracovisku sú kamery systému AMOS, ktorý bol vyvinutý a je prevádzkovaný
-Oddelením astronómie a astrofyziky KAFZM FMFI UK [@zigo2013; @toth2015].
+Výsledok simulácie je možné štatisticky porovnať s\ observačnými dátami a následne optimalizačnými metódami nájsť
+najlepšiu možnú zhodu. Takto získaná virtuálna populácia dobre popisuje skutočné rozloženie častíc.
+Primárnym zdrojom observačných dát na našom pracovisku sú kamery systému AMOS (All-sky Meteor Orbit System),
+ktorý bol vyvinutý a je prevádzkovaný Oddelením astronómie a astrofyziky KAFZM FMFI UK [@zigo2013; @toth2015].
 Počas riešenia projektu očakávame splnenie nasledujúcich úloh:
 
-- návrh $N$-body simulácie s využitím masívnej paralelizácie pomocou GPU,
+- návrh $N$-body simulácie s využitím masívnej paralelizácie pomocou grafického procesora (GPU),
 - implementácia simulácie v jazyku Python alebo C++,
 - vývoj porovnávacích algoritmov a optimalizačných procedúr,
 - porovnanie výsledkov s inými modelmi, napríklad [@ryabova2013].

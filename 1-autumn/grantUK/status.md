@@ -12,7 +12,7 @@ Súčasné modely určenia hmotnostného exponentu sú však vo viacerých ohľa
 Pri redukcii dát z tradičných vizuálnych alebo prístrojových pozorovacích metód sa obvykle neuvažujú výberové efekty (_selection bias_).
 Do zaznamenaných pozorovaní vstupuje rad prirodzených aj inštrumentálnych vplyvov, ktoré skresľujú výslednú štatistickú vzorku.
 Automatické videostanice, fotografické prístroje aj vizuálne pozorovania prirodzene
-preferujú meteory s väčšou zdanlivou jasnosťou, väčšou zdanlivou dĺžkou dráhy a menšou vzdialenosťou od zenitu.
+preferujú meteory s väčšou zdanlivou jasnosťou a dĺžkou dráhy a menšou vzdialenosťou od zenitu.
 Tieto efekty je potrebné zmerať a vyvinúť procedúry na ich odstránenie. Ďalšie parametre
 populácie je možné určiť až po oprave štatistického súboru o výberové efekty.
 

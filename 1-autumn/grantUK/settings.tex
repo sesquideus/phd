@@ -2,9 +2,9 @@
     paper                   = a4paper,
     left                    = 20mm,
     right                   = 20mm,
-    top                     = 20mm,
+    top                     = 30mm,
     bottom                  = 20mm,
-    headheight              = 0pt,
+    headheight              = 16pt,
     footskip                = 0pt, 
 ]{geometry}
 
@@ -116,7 +116,8 @@
 \emergencystretch=10pt
 
 \fancypagestyle{main}{
-    \pagestyle{title}
+    \fancyhf{}
+    \fancyhead[C]{\textit{Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave akcelerovaná pomocou GPU}}
 }
 
 \fancypagestyle{plain}{

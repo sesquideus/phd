@@ -1,0 +1,68 @@
+\input{../../kvik.sty}
+
+\RequirePackage[
+    paper                   = a4paper,
+    left                    = 20mm,
+    right                   = 20mm,
+    top                     = 20mm,
+    bottom                  = 20mm,
+    headheight              = 16pt,
+    headsep                 = 16pt,
+    footskip                = 32pt,
+    includeheadfoot,                                        % we wish to include header and footer into page dimensions
+    %showframe                                              % display visual frame (must be turned off for production)
+]{geometry}
+
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+% Setup enumitem options for *description*, *enumerate* and *itemize*
+
+\setlist[enumerate]{
+    topsep          =   0mm,
+    itemsep         =   0mm,
+}
+\setlist[itemize]{
+    topsep          =   0mm,
+    itemsep         =   0mm,
+}
+\setlist[description]{
+    style           = multiline,
+    labelindent     =       8mm,
+    leftmargin      =      50mm,
+    itemsep         =       0mm,
+}
+
+\definecolor{colour-url}{RGB}{0, 137, 162}
+\definecolor{colour-link}{RGB}{0, 137, 162}
+\definecolor{colour-cite}{RGB}{0, 137, 49}
+
+\hypersetup{
+    colorlinks              = true,
+    linkcolor               = colour-link,                  % custom Trojsten link colour
+    urlcolor                = colour-url,                   % custom Trojsten URL link colour
+    citecolor               = colour-cite,                  % custom Trojsten URL link colour
+}
+
+\setallmainfonts{Minion Pro}
+\setmonofont{Consolas}
+\newfontfamily{\semibold}{Adobe Garamond Pro Semibold}
+
+\RenewDocumentCommand{\implies}{}{\quad\Rightarrow\quad}
+\NewDocumentCommand{\dt}{m}{\skew{3}\dot{#1}}
+\NewDocumentCommand{\ddt}{m}{\skew{3}\ddot{#1}}
+\RenewDocumentCommand{\emph}{m}{{\semibold#1}}
+
+\titleformat{\section}[hang]{\bfseries\LARGE}{}{0pt}{}
+\titleformat{\subsection}[hang]{\bfseries\large}{}{0pt}{}[]
+\titleformat{\subsubsection}[hang]{\bfseries}{}{0pt}{}[]
+\titleformat{\paragraph}[hang]{\semibold}{}{0pt}{}[]
+
+\makeatletter
+
+\def\new@mathgroup{\alloc@8\mathgroup\mathchardef\@cclvi}
+\patchcmd{\document@select@group}{\sixt@@n}{\@cclvi}{}{}
+\patchcmd{\select@group}{\sixt@@n}{\@cclvi}{}{}
+
+\mathcode`\%="7025
+\makeatother

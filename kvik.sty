@@ -1,0 +1,122 @@
+\RequirePackage{
+    amsmath,
+    amssymb,
+    calc,
+    cancel,
+    booktabs,
+    color,
+    siunitx,
+    tikz,
+    wrapfig,
+    array,
+    leftidx,
+    float,
+    etoolbox,
+    fancyhdr,
+    longtable,
+    hyperref,
+    ltcaption,
+    wasysym,
+    ulem,
+    accents,
+    pifont,
+}
+
+\sisetup{
+    detect-all              = true,
+    separate-uncertainty    = true,                                   % 7.2 ± 0.5
+    multi-part-units        = single,
+    per-mode                = reciprocal,                   % symbol for "m/s", reciprocal for "ms^{-1}"
+    group-separator         = {\,},
+    group-minimum-digits    = 3,
+    inter-unit-product      = {\kern 0.10em},
+    exponent-product        = \cdot,                        % \times for 5 × 10^7, \cdot for 5 . 1O^7    
+    number-unit-product     = {\ },
+    output-decimal-marker   = {\text{.}},
+    range-units             = single,
+    range-phrase            = {\text{ -- }},
+    list-units              = single,
+    list-final-separator    = {\text{\ a\ }},
+    retain-explicit-plus    = true,
+}
+
+\hypersetup{
+    hidelinks,
+    breaklinks              = true,
+}
+
+\usepackage[
+    final
+]{pdfpages}
+
+\usepackage[many]{tcolorbox}
+\usepackage[e]{esvect}
+\RenewDocumentCommand{\vec}{m}{\vv{#1}}
+
+\RequirePackage{mathspec}                         % includes fontspec
+\RequirePackage{polyglossia}                                % multi-language support
+\RequirePackage{xunicode}
+\setdefaultlanguage{english}
+
+% Setup fonts -- see fontspec/mathspec documentation.
+% Fonts are loaded from .ttf and .otf files in the core/fonts/ directory. We NEVER use system fonts.
+\defaultfontfeatures{
+    Mapping         = tex-text,
+    Scale           = MatchLowercase,
+    Ligatures       = TeX
+}
+
+\DeclareSIUnit\au{AU}
+\DeclareSIUnit\pixel{px}
+\DeclareSIUnit\lightyear{ly}
+\DeclareSIUnit\parsec{pc}
+\DeclareSIUnit\earthmass{M_{\earth}}
+\DeclareSIUnit\speedoflight{c}
+\DeclareSIUnit\mag{\!^{m}}
+\DeclareSIUnit\foe{foe}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\eur{€}
+\DeclareSIUnit\solarmass{M_{\astrosun}}
+\DeclareSIUnit\solarluminosity{L_{\astrosun}}
+\DeclareSIUnit{\byte}{B}
+
+\DeclareMathOperator{\diff}{\mathrm{d}\!}
+\DeclareMathOperator{\pdiff}{\partial\!}
+
+\NewDocumentCommand{\slashfrac}{m m}{\left.#1\middle/#2\right.}
+\NewDocumentCommand{\derive}{O{} m m}{\frac{\mathop{\mathrm{d}^{#1}#2}}{\mathop{\mathrm{d}#3^{#1}}}}
+%\NewDocumentCommand{\derive}{O{} m m}{\frac{\diffe^{#1}#2}{\diffe#3^{#1}}}
+\NewDocumentCommand{\pderive}{O{} m m}{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+
+\NewDocumentCommand{\integrate}{O{} O{} m m}{\int\limits_{#1}^{#2} \! #3 \, \diff#4}
+\NewDocumentCommand{\iintegrate}{O{} O{} m m m}{\iint\limits_{#1}^{\quad#2} #3 \d#4\!\d#5}
+\NewDocumentCommand{\iiintegrate}{O{} O{} m m m m}{\iiint\limits_{#1}^{\quad#2} #3 \d#4\!\d#5\!\d#6}
+
+\NewDocumentCommand{\labelmath}{m +m}{%
+    \begin{equation}%
+        #2%
+        \label{#1}%
+    \end{equation}%
+}
+
+\NewDocumentCommand{\labelalign}{m +m}{%
+    \begin{align}%
+        #2%
+        \label{#1}%
+    \end{align}%
+}
+
+\linespread{1.0}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+\setlength{\abovedisplayskip}{0mm}
+\setlength{\belowdisplayskip}{0mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{0mm}
+\setlength{\itemindent}{0pt}
+\setlength{\textfloatsep}{0mm}
+\setlength{\tabcolsep}{3mm}
+\setlength{\LTcapwidth}{0.8\textwidth}
+\renewcommand{\arraystretch}{1.2}
+
+\setcounter{secnumdepth}{2}

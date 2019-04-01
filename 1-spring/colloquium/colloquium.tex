@@ -1,0 +1,256 @@
+\documentclass[10pt, aspectratio=1610]{beamer}
+\input{kvik.sty}
+\input{kvik-beamer.sty}
+
+\usepackage{tabularx}
+
+
+\title{The AMOS database system}
+\subtitle{Storing data, one meteor at a time}
+\author{Mgr. Martin Baláž}
+\institute{DAPEM FMPH UK}
+\date{2019--04--17}
+
+\begin{document}
+    \begin{frame}
+        \titlepage
+    \end{frame}
+                
+    \section{Overview}
+        \frejm{Contents}{
+            \setbeamersize{description width = 30mm}
+            \begin{description}
+                \item[objective]        What are we doing?
+                \item[motivation]       Why?
+                \item[implementation]   How?
+                \item[results]          What have we done?
+            \end{description}
+        }
+        
+        
+        \frejm{Objective}{
+            \begin{itemize}
+                \item to build a database system for storing real meteor data
+                
+                \item it must be
+                \setbeamersize{description width = 30mm}
+                \begin{description}
+                    \item[web-based]        accessible from anywhere
+                    \item[comprehensible]   we are able to identify interesting events easily
+                    \item[autonomous]       integrate the entire processing pipeline
+                \end{description}
+                
+            \end{itemize}
+        }
+        
+        \frejm{Motivation}{
+            Current state is a disaster
+            \begin{itemize}
+                \item no unified file format
+                \item data spread across multiple computers
+                \item analysis impossible
+                \begin{itemize}
+                    \item and we badly missed it in diploma thesis
+                \end{itemize}
+            \end{itemize}
+        }
+        
+    \section{Data}{
+        \frejm{Acquisition}{
+            Data are acquired by cameras...
+            \begin{itemize}
+                \item 
+            \end{itemize}
+        }
+        
+        \frejm{Pre-processing}{
+            (at remote machines)
+        }
+        
+        \frejm{Retrieval}{
+            (VPN or what, networking issue, wtf)
+        }
+        
+        \frejm{Processing}{
+            (Fero)
+        }
+        
+        \frejm{Storage}{
+            (database)
+        }
+    }
+        
+    \section{Database}
+        \frejm{Design}{
+            Underlying data are well-structured and suitable for an \emph{object-relational} database
+        
+            \begin{itemize}
+                \item we require full ACID compliance
+                \item PostgreSQL
+            \end{itemize}
+            
+        }
+        
+        
+        
+        
+        \frejm{The database}{
+            \emph{Problem}: We need a way to visualize and comprehend the data
+            \begin{itemize}
+                \item at least well-formed data from AMOS
+            \end{itemize}
+            \pause
+            \emph{Solution}: A relational database and a simple web interface
+            \begin{itemize}
+                \item provides a basic framework for operations on the data
+                \item much more user-friendly than a bare directory listing
+                \begin{itemize}
+                    \item Django
+                    \item PostgreSQL
+                    \item AstroPy
+                    \item Gnuplot / matplotlib
+                    \item \dots
+                \end{itemize}
+                \item needs import scripts and utilities
+            \end{itemize}
+        }
+        
+        \frejm{Models}{
+            In an object-relational database, rows (records) are objects
+            \begin{itemize}
+                \item \texttt{Meteor}
+                \item \texttt{Sighting}
+                \item \texttt{Observer}
+                \item \texttt{Location}
+                \item \texttt{VideoFrame}... not yet, maybe later
+            \end{itemize}
+        }
+        
+        \frejm{Model \texttt{Sighting}}{
+            Describes the \emph{sighting} of a single meteor by an AMOS camera
+            \begin{itemize}    
+                \item maximum apparent magnitude            
+                \item timestamp
+                \item observed projected position on the sky
+                    \item three coordinates
+                    \begin{itemize}
+                        \item azimuth
+                        \item altitude
+                        \item distance (from \texttt{Meteor})
+                    \end{itemize}
+                    \item at three timestamps
+                        \begin{itemize}
+                            \item beginning
+                            \item maximum brightness
+                            \item end
+                        \end{itemize}      
+            \end{itemize}
+        }
+        
+        \frejm{Model \texttt{Sighting} -- miscellanea}{
+            \begin{itemize}
+
+                \item miscellaneous computed information
+                    \begin{itemize}
+                        \item arc length
+                        \item duration
+                        \item Sun and Moon info
+                        \begin{itemize}
+                            \item position
+                            \item elongation
+                            \item magnitude
+                        \end{itemize}
+                    \end{itemize}
+                \item visualisation
+                    \begin{itemize}
+                        \item real photograph from AMOS
+                        \item corresponding simulation (?)
+                    \end{itemize}                    
+            \end{itemize}
+            
+            (link)
+        }
+        
+        \frejm{Model \texttt{Meteor}}{  
+            Describes the actual \emph{event}, an atmospheric entry of a meteoroid particle
+            \begin{itemize}
+                \item \emph{timestamp}
+                \item true geographic location
+                \begin{itemize}
+                    \item again, three coordinates
+                    \begin{itemize}
+                        \item \emph{latitude}
+                        \item \emph{longitude}
+                        \item \emph{altitude}
+                    \end{itemize}
+                    \pause
+                    \item at three timestamps
+                    \begin{itemize}
+                        \item beginning
+                        \item maximum brightness
+                        \item end
+                    \end{itemize}
+                \end{itemize}
+            \end{itemize}
+        }
+        
+        \frejm{Model \texttt{Meteor} -- auxiliary data}{
+            \begin{itemize}                
+                \item true \emph{trail length}
+                \begin{itemize}
+                    \item this is not well-defined
+                \end{itemize}
+                \item computed \emph{absolute magnitude} (least-squares)
+                \item \emph{visualisation}
+                \begin{itemize}
+                    \item KML file for Google Earth
+                    \item online map (OpenLayers)
+                \end{itemize}
+            \end{itemize}
+            
+            (link)
+        }
+        
+        \frejm{System in operation}{
+            \begin{itemize}
+                \item \href{http://192.168.153.128:4805/list-meteors/}{Meteor list}
+                \item \href{http://192.168.153.128:4805/list-sightings/}{Sighting list}
+                \item \href{http://192.168.153.128:4805/sighting/2537}{Example of a sighting}
+                \item \href{http://192.168.153.128:4805/meteor/1}{Example of a meteor}
+                \item \href{http://192.168.153.128:4805/meteor/1/path}{Example of a meteor path}
+            \end{itemize}                 
+        }
+        
+    
+    
+    \section{Visualisation}
+    
+    
+    
+    
+        
+
+    
+        \frejm{Thank you for your attention}{
+            \textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
+            \scriptsize
+            \begin{flushright}
+                Claude Lévi-Strauss\\
+                Le Cru et le Cuit, 1964
+            \end{flushright}
+        }      
+                
+        \frejm{References}{
+            \begin{itemize}
+                \item \textbf{Jones, W.; Halliday, I.}:
+                    Effects of Excitation and Ionization in Meteor Trains. MNRAS 320, 4, 417--423 (2001)
+                \item \textbf{Luciuk, M.}:
+                    Meteor Showers. {\footnotesize \url{http://www.asterism.org/tutorials/tut36\%20Meteor\%20Showers.pdf}}.
+                \item \textbf{Hill, K. A.; Rogers, L. A.; Hawkes, R. L.}:
+                    High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005) 
+                \item \textbf{Öpik, E. J.}:
+                    Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.  
+            \end{itemize}
+        }
+            
+\end{document}

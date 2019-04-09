@@ -1,1 +1,111 @@
-\linespread{1.0}\setlength{\parindent}{0cm}\setlength{\parskip}{6pt}\setlength{\abovedisplayskip}{0mm}\setlength{\belowdisplayskip}{0mm}\setlength{\abovedisplayshortskip}{0mm}\setlength{\belowdisplayshortskip}{0mm}\setlength{\itemindent}{0pt}\setlength{\textfloatsep}{0mm}\setlength{\tabcolsep}{3mm}\renewcommand{\arraystretch}{1.2}\setcounter{secnumdepth}{0}\NewDocumentCommand{\fspicture}{m O{W} O{black}}{    {        \setbeamertemplate{navigation symbols}{}        \setbeamercolor{background canvas}{bg = #3}        \begin{frame}[plain]            \begin{tikzpicture}[remember picture, overlay]                \node[at=(current page.center)] {                    \ifstrequal{H}{#2}{                                                          \includegraphics[height=\paperheight]{#1}%                    }{%                        \includegraphics[width=\paperwidth]{#1}%                    }                };            \end{tikzpicture}        \end{frame}    }}\NewDocumentCommand{\frejm}{m +m}{    \begin{frame}        \frametitle{#1}        #2    \end{frame}}\defbeamertemplate{description item}{align center}{\hfill\insertdescriptionitem\hfill}\definecolor{desc}{rgb}{0.66, 0, 0}\definecolor{citem}{rgb}{0.72, 0, 0}\definecolor{csitem}{rgb}{0.90, 0, 0}\definecolor{cssitem}{rgb}{1, 0.1, 0.1}\definecolor{qprimarybg}{rgb}{0.95, 0.95, 0.95}\definecolor{check}{rgb}{0, 0.8, 0}\setbeamertemplate{navigation symbols}{}\newfontfamily{\semibold}{Segoe UI Semibold}\RenewDocumentCommand{\emph}{m}{{\semibold#1}}
+\linespread{1.0}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+\setlength{\abovedisplayskip}{0mm}
+\setlength{\belowdisplayskip}{0mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{0mm}
+\setlength{\itemindent}{0pt}
+\setlength{\textfloatsep}{0mm}
+\setlength{\tabcolsep}{3mm}
+\renewcommand{\arraystretch}{1.2}
+
+\setcounter{secnumdepth}{0}
+
+\NewDocumentCommand{\fspicture}{m O{W} O{black}}{
+    {
+        \setbeamertemplate{navigation symbols}{}
+        \setbeamercolor{background canvas}{bg = #3}
+        \begin{frame}[plain]
+            \begin{tikzpicture}[remember picture, overlay]
+                \node[at=(current page.center)] {
+                    \ifstrequal{H}{#2}{                                  
+                        \includegraphics[height=\paperheight]{#1}%
+                    }{%
+                        \includegraphics[width=\paperwidth]{#1}%
+                    }
+                };
+            \end{tikzpicture}
+        \end{frame}
+    }
+}
+
+\NewDocumentCommand{\frejm}{m +m}{
+    \begin{frame}
+        \frametitle{#1}
+        #2
+    \end{frame}
+}
+\defbeamertemplate{description item}{align center}{\hfill\insertdescriptionitem\hfill}
+\definecolor{desc}{rgb}{0.66, 0, 0}
+\definecolor{citem}{rgb}{0.72, 0, 0}
+\definecolor{csitem}{rgb}{0.90, 0, 0}
+\definecolor{cssitem}{rgb}{1, 0.1, 0.1}
+\definecolor{qprimarybg}{rgb}{0.95, 0.95, 0.95}
+\definecolor{check}{rgb}{0, 0.8, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\newfontfamily{\semibold}{Segoe UI Semibold}
+\RenewDocumentCommand{\emph}{m}{{\semibold#1}}
+
+\mode<presentation> {
+    \usetheme{Szeged}
+    \usecolortheme{beaver}
+    
+    \usefonttheme{professionalfonts}
+    \setallmainfonts{Minion Pro}
+    \setmathrm{Minion Pro}
+    
+    \setsansfont{Segoe UI}
+    \setmonofont{Consolas}
+    \setbeamercolor*{enumerate item}{fg = citem}
+    \setbeamercolor*{enumerate subitem}{fg = csitem}
+    \setbeamercolor*{enumerate subsubitem}{fg = cssitem}
+    \setbeamercolor*{description item}{fg = desc}
+    \setbeamercolor*{itemize item}{fg = citem}
+    \setbeamercolor*{itemize subitem}{fg = csitem}
+    \setbeamercolor*{itemize subsubitem}{fg = cssitem}
+    \setbeamercolor*{palette primary}{fg = red, bg = qprimarybg}
+}
+
+\AtBeginSection[]{
+%    \subsection{\insertsection}
+    \begin{frame}
+        \vfill
+        \centering
+        \begin{beamercolorbox}[sep = 8pt, center, shadow = true, rounded = true]{title}
+            \usebeamerfont{title}\insertsectionhead\\[5.5mm]%
+            \vfill
+        \end{beamercolorbox}
+        \vfill
+    \end{frame}
+}
+\makeatletter
+
+% Render percent sign with nice font, not ugly Computer modern
+    \mathcode`\%="7025
+
+% Fixes mathspec bug -- URL numbers are rendered with wrong font
+    \ernewcommand\eu@MathPunctuation@symfont{Latin:m:n}
+    \DeclareMathSymbol{,}{\mathpunct}{\eu@MathPunctuation@symfont}{`,}
+    \DeclareMathSymbol{.}{\mathord}{\eu@MathPunctuation@symfont}{`.}
+    \DeclareMathSymbol{<}{\mathrel}{\eu@MathPunctuation@symfont}{`<}
+    \DeclareMathSymbol{>}{\mathrel}{\eu@MathPunctuation@symfont}{`>}
+    \DeclareMathSymbol{/}{\mathord}{\eu@MathPunctuation@symfont}{`/}
+    \DeclareMathSymbol{;}{\mathpunct}{\eu@MathPunctuation@symfont}{`;}
+    \DeclareMathSymbol{(}{\mathopen}{\eu@DigitsArabic@symfont}{`(}
+    \DeclareMathSymbol{)}{\mathclose}{\eu@DigitsArabic@symfont}{`)}
+    \XeTeXDeclareMathSymbol{^^^^2026}{\mathinner}{\eu@MathPunctuation@symfont}{"2026}[\mathellipsis]
+    \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
+    \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
+    \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
+    \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
+    \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
+    \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
+    \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
+    \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
+    \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
+    \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
+\makeatother
+
+

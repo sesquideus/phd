@@ -1,6 +1,6 @@
-\documentclass[10pt, aspectratio=1610]{beamer}
-\input{kvik.sty}
-\input{kvik-beamer.sty}
+\documentclass[12pt, aspectratio=1610]{beamer}
+\input{../../kvik.sty}
+\input{../../kvik-beamer.sty}
 
 \usepackage{tabularx}
 
@@ -17,6 +17,7 @@
     \end{frame}
                 
     \section{Overview}
+    \subsection{Overview}
         \frejm{Contents}{
             \setbeamersize{description width = 30mm}
             \begin{description}
@@ -26,7 +27,6 @@
                 \item[results]          What have we done?
             \end{description}
         }
-        
         
         \frejm{Objective}{
             \begin{itemize}
@@ -56,6 +56,7 @@
         }
         
     \section{Data}{
+    \subsection{Data}
         \frejm{Acquisition}{
             Data are acquired by cameras...
             \begin{itemize}
@@ -76,19 +77,34 @@
         }
         
         \frejm{Storage}{
-            (database)
+            At this point data are ready to be stored
+            \begin{itemize}
+                \item in a \emph{structured} and \emph{semantic} way
+                \item consistency is \emph{enforced} at all times
+                \item auxiliary data
+                \item 
+            \end{itemize}
+
+            To prevent problems down the line, we should
+            \begin{itemize}
+                \item keep \emph{all} data available
+            \end{itemize}
         }
     }
         
     \section{Database}
+    \subsection{Database}
         \frejm{Design}{
             Underlying data are well-structured and suitable for an \emph{object-relational} database
         
             \begin{itemize}
-                \item we require full ACID compliance
-                \item PostgreSQL
-            \end{itemize}
-            
+                \item we require
+                \begin{itemize}
+                    \item full ACID compliance
+                    \item free
+                    \item PostgreSQL
+                \end{itemize}
+            \end{itemize} 
         }
         
         
@@ -213,18 +229,18 @@
         
         \frejm{System in operation}{
             \begin{itemize}
-                \item \href{http://192.168.153.128:4805/list-meteors/}{Meteor list}
-                \item \href{http://192.168.153.128:4805/list-sightings/}{Sighting list}
-                \item \href{http://192.168.153.128:4805/sighting/2537}{Example of a sighting}
-                \item \href{http://192.168.153.128:4805/meteor/1}{Example of a meteor}
-                \item \href{http://192.168.153.128:4805/meteor/1/path}{Example of a meteor path}
+                \item \href{http://192.168.0.177:4805/meteors/}{Meteor list}
+                \item \href{http://192.168.0.177:4805/sightings/}{Sighting list}
+                \item \href{http://192.168.0.177:4805/sighting/2537}{Example of a sighting}
+                \item \href{http://192.168.0.177:4805/meteor/example}{Example of a meteor}
+                \item \href{http://192.168.0.177:4805/meteor/example/path}{Example of a meteor path}
             \end{itemize}                 
         }
         
     
     
     \section{Visualisation}
-    
+        \subsection{Visualisation}
     
     
     
@@ -232,11 +248,11 @@
 
     
         \frejm{Thank you for your attention}{
-            \textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
+            \textit{Above all else, show the data.}
             \scriptsize
             \begin{flushright}
-                Claude Lévi-Strauss\\
-                Le Cru et le Cuit, 1964
+                Edward R. Tufte\\
+                The Visual Display of Quantitative Information, 1983
             \end{flushright}
         }      
                 

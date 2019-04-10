@@ -36,6 +36,17 @@
         #2
     \end{frame}
 }
+
+
+\NewDocumentCommand{\fragfrejm}{m +m}{
+    \begin{frame}[fragile]
+        \frametitle{#1}
+        #2
+    \end{frame}
+}
+
+
+
 \defbeamertemplate{description item}{align center}{\hfill\insertdescriptionitem\hfill}
 \definecolor{desc}{rgb}{0.66, 0, 0}
 \definecolor{citem}{rgb}{0.72, 0, 0}

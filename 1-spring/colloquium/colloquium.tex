@@ -60,8 +60,8 @@
             \frejm{Acquisition}{
                 Data are acquired by AMOS cameras
                 \begin{itemize}
-                    \item UFO by \emph{SonotaCo}
-                    \item AMOS by \emph{Kvant}
+                    \item \emph{UFOCapture} by SonotaCo
+                    \item \emph{AMOS} by Kvant
                     \begin{itemize}
                         \item will be ready in about two months...
                         \pause
@@ -71,11 +71,20 @@
             }
             
             \frejm{Pre-processing}{
-                (at remote machines)
+                Pre
+
+                \begin{itemize}
+                    \item meteor recognition and data extraction
+                    \begin{itemize}
+                        \item position in the sky
+                        \item magnitude
+                        \item angular speed
+                        \item 
+                    \end{itemize}
+                \end{itemize}
             }
             
             \frejm{Retrieval}{
-                (VPN or what, networking issue, wtf)
                 \emph{Currently}:
                 \begin{itemize}
                     \item UFOCapture launches a \code{bat} file
@@ -86,7 +95,7 @@
                 \emph{Proposal}:
                 \begin{itemize}
                     \item video capturing software forwards data to a daemon
-                    \item sent over HTTP as a POST request
+                    \item sent over HTTP in a POST request
                     \pause
                     \item we need an \emph{API}
                     \begin{itemize}
@@ -103,7 +112,7 @@
                 \begin{itemize}
                     \item remove invalid data (false detections, ...)
                     \item compute \code{Meteor}s from multiple \code{Sighting}s
-                    
+                    \item 
 
                 \end{itemize}
             }
@@ -116,13 +125,20 @@
                     \item auxiliary data
                     \begin{itemize}
                         \item housekeeping
-                        \item 
+                        \item statistics
                     \end{itemize}
                 \end{itemize}
+            }
 
+            \frejm{Data retention}{
                 To prevent problems down the line, we should
                 \begin{itemize}
-                    \item keep \emph{all} data available
+                    \item keep \emph{all} raw data available
+                    \item never delete anything (unless provably incorrect)
+                    \item enable raw data re-processing
+                    \begin{itemize}
+                        \item for example to import data from an offline station
+                    \end{itemize}
                 \end{itemize}
             }
 
@@ -137,6 +153,7 @@
                                     \item temperature
                                     \item humidity
                                     \item pressure
+                                    \item ...
                                 \end{itemize}
                         \end{itemize}
                     \end{column}
@@ -148,6 +165,7 @@
                                     \item system uptime
                                     \item network connection
                                     \item UPS status
+                                    \item ...
                                 \end{itemize}
                         \end{itemize}
                     \end{column}
@@ -155,7 +173,6 @@
 
                 \begin{itemize}
                     \item displayed on dashboard
-                    \item auxiliary tables
                 \end{itemize}
             }
         }
@@ -190,18 +207,44 @@
                 \onslide<-2>{text files}    \onslide<-6>{PostgreSQL}    \onslide<-3>{SQLite}     \onslide<-4>{MySQL}
             }
             
-            
-            
-            
+            \frejm{ORDBMS}{
+                \begin{itemize}
+                    \item data are stored in \emph{relations} (tables)
+                    \item each column stores the same \emph{property}
+                    \item each row stores a single \emph{entity} (object)
+                    \item each object has an identifier (primary key)
+                    \item fields may point to other tables (foreign keys)
+                    \item data are accessed and manipulated using a query language
+                \end{itemize}
+            }
+
+            \begin{frame}[fragile]
+                \frametitle{ORDBMS}
+                \small
+                \begin{verbatim}
+SELECT "id", "timestamp", "magnitude" \
+FROM "meteors" \
+WHERE "timestamp" BETWEEN "2019-04-16 15:00:00" AND "2019-04-17 09:00:00" \
+ORDER BY "magnitude" ASC LIMIT 5;
+                \end{verbatim}
+                \pause
+                \begin{verbatim}
+356, "2019-04-17 03:45:10", -5.8
+728, "2019-04-17 04:14:23", -3.2
+456, "2019-04-16 23:56:04", -2.7
+908, "2019-04-17 01:23:45", -2.5
+854, "2019-04-16 21:58:35", -2.2
+                \end{verbatim}
+            \end{frame}
                     
             \frejm{Models}{
-                In an object-relational database, rows (records) are objects
+                We should be able to naturally translate the real world to models
                 \begin{itemize}
                     \item \code{Meteor}
                     \item \code{Sighting}
                     \item \code{Station}
                     \item \code{Subnetwork}
-                    \item \code{VideoFrame}... not yet, maybe later
+                    \item \code{Country}
                 \end{itemize}
             }
             
@@ -225,9 +268,8 @@
                 \end{itemize}
             }
             
-            \frejm{Model \code{Sighting} -- miscellanea}{
+            \frejm{Model \code{Sighting} -- extras}{
                 \begin{itemize}
-
                     \item miscellaneous computed information
                         \begin{itemize}
                             \item arc length
@@ -279,7 +321,7 @@
                     \begin{itemize}
                         \item this is not well-defined
                     \end{itemize}
-                    \item computed \emph{absolute magnitude} (least-squares)
+                    \item computed maximal \emph{absolute magnitude} (least-squares)
                     \item \emph{visualisation}
                     \begin{itemize}
                         \item KML file for Google Earth

@@ -43,10 +43,12 @@
 \definecolor{cssitem}{rgb}{1, 0.1, 0.1}
 \definecolor{qprimarybg}{rgb}{0.95, 0.95, 0.95}
 \definecolor{check}{rgb}{0, 0.8, 0}
+\definecolor{coded}{rgb}{0.9, 0.9, 0.9}
 
 \setbeamertemplate{navigation symbols}{}
 \newfontfamily{\semibold}{Segoe UI Semibold}
 \RenewDocumentCommand{\emph}{m}{{\semibold#1}}
+\NewDocumentCommand{\code}{m}{\colorbox{coded}{\textcolor{desc}{\texttt{#1}}}}
 
 \mode<presentation> {
     \usetheme{Szeged}

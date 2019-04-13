@@ -31,7 +31,9 @@
             \frejm{Objective}{
                 \begin{itemize}
                     \item to build a database system for storing real meteor data
-                    
+                    \pause
+                    \item and a simple dashboard for monitoring the status
+                    \pause 
                     \item it should be
                     \setbeamersize{description width = 40mm}
                     \begin{description}
@@ -90,7 +92,7 @@
                 \end{itemize}
                 \pause
                 \begin{itemize}
-                    \item not much can be done about this
+                    \item not much can be easily done about this
                 \end{itemize}
             }
             
@@ -106,13 +108,20 @@
                 \begin{itemize}
                     \item video capturing software forwards data to a daemon
                     \item sent over HTTP in a POST request
-                    \pause
-                    \item we need an \emph{API}
+                \end{itemize}
+            }
+
+            \frejm{Retrieval -- proposed approach}{
+                We may need an \emph{API}
+                \begin{itemize}
+                    \item station submits a new \code{Sighting}
+                    \item website retrieves a list of \code{Meteor}s
+                    \item daemon periodically computes \code{Meteor} data
+                    \item data exports
                     \begin{itemize}
-                        \item station submits a new \code{Sighting}
-                        \item website retrieves a list of \code{Meteor}s
-                        \item daemon periodically computes \code{Meteor} data
-                        \item other internal use (maps, analyses...)
+                        \item scientific analyses
+                        \item maps (with JavaScript)
+                        \item integration with other services
                     \end{itemize}
                 \end{itemize}
             }
@@ -122,8 +131,9 @@
                 \begin{itemize}
                     \item remove invalid data (false detections, ...)
                     \item compute \code{Meteor}s from multiple \code{Sighting}s
-                    \item 
-
+                    \begin{itemize}
+                        \item currently (HOW IS THIS DONE???)
+                    \end{itemize}
                 \end{itemize}
             }
             
@@ -146,9 +156,9 @@
                 \begin{itemize}
                     \item keep \emph{all} raw data available
                     \pause
-                    \item never delete anything
+                    \item \emph{never} delete anything
                     \begin{itemize}
-                        \item unless provably incorrect
+                        \item unless provably \emph{incorrect}
                     \end{itemize}
                     \pause
                     \item enable raw data re-processing
@@ -164,7 +174,7 @@
                 \textit{Def:} Data of \emph{low scientific value} but \emph{high operational importance}\\[10mm]
                 \pause
                 \begin{columns}
-                    \begin{column}{0.5\textwidth}
+                    \begin{column}{0.33\textwidth}
                         \begin{itemize}
                             \item environment
                                 \begin{itemize}
@@ -175,29 +185,39 @@
                                 \end{itemize}
                         \end{itemize}
                     \end{column}
-                    \pause
-                    \begin{column}{0.5\textwidth}
+                    \begin{column}{0.33\textwidth}
+                        \begin{itemize}
+                            \item station
+                                \begin{itemize}
+                                    \item system uptime
+                                    \item UPS status
+                                    \item disk usage
+                                    \item ...
+                                \end{itemize}
+                        \end{itemize}
+                    \end{column}
+                    \begin{column}{0.33\textwidth}
                         \begin{itemize}
                             \item network
                                 \begin{itemize}
-                                    \item system uptime
-                                    \item network connection
-                                    \item UPS status
+                                    \item connection
+                                    \item IP address
+                                    \item last data
                                     \item ...
                                 \end{itemize}
                         \end{itemize}
                     \end{column}
                 \end{columns}
                 \pause
-                \begin{itemize}
-                    \item displayed on dashboard
-                \end{itemize}
+                \vspace{8mm}
+                Everything is displayed on a \emph{dashboard}
             }
         
     \section{Database}
         \subsection{Database}
             \frejm{The database}{
                 \emph{Problem}: We need a way to visualize and comprehend the data
+
                 \pause
                 \emph{Solution}: A database and a simple web interface
                 \begin{itemize}
@@ -211,40 +231,29 @@
                 Underlying data are well-structured and suitable for an \emph{object-relational} database
             
                 \begin{itemize}
-                    \item we require
+                    \item ORDBMS
                     \begin{itemize}
-                        \item<2-> full ACID compliance
-                        \item<3-> free
-                        \item<4-> able to scale well
-                        \item<5-> decoupled from the rest of the system
-                        \item<6-> I like it
+                        \item data are stored in \emph{relations} (tables)
+                        \item each column stores the same \emph{property}
+                        \item each row stores a single \emph{entity} (object)
+                        \item each object has an identifier -- \emph{primary key}
+                        \item fields may point to other tables -- \emph{foreign keys}
+                        \item data are accessed and manipulated using a \emph{query language}
                     \end{itemize}
-                \end{itemize}
-
-                \onslide<-2>{text files}    \onslide<-6>{PostgreSQL}    \onslide<-3>{SQLite}     \onslide<-5>{MySQL}      \onslide<-4>{NoSQL}
-            }
-            
-            \frejm{ORDBMS}{
-                \begin{itemize}
-                    \item data are stored in \emph{relations} (tables)
-                    \item each column stores the same \emph{property}
-                    \item each row stores a single \emph{entity} (object)
-                    \item each object has an identifier -- \emph{primary key}
-                    \item fields may point to other tables -- \emph{foreign keys}
-                    \item data are accessed and manipulated using a \emph{query language}
                 \end{itemize}
             }
 
             \begin{frame}[fragile]
                 \frametitle{ORDBMS}
                 \small
-                \begin{overlayarea}{\textwidth}{0.6 \textheight}
+                \begin{overlayarea}{\textwidth}{0.7 \textheight}
                     \ \\
                     \highlightbox<2>{orange}{\texttt{SELECT "id", "timestamp", "magnitude" \textbackslash}} \\
                     \highlightbox<3>{orange}{\texttt{FROM "meteors" \textbackslash}} \\
                     \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2019-04-16 15:00:00" AND "2019-04-17 09:00:00" \textbackslash}} \\
                     \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" \textbackslash}} \\
                     \highlightbox<6>{orange}{\texttt{ASC LIMIT 5;}}
+                    \vspace{5mm}
                     \begin{onlyenv}<7>
                     \begin{verbatim}
 356, "2019-04-17 03:45:10", -5.8
@@ -259,6 +268,7 @@
                     
             \frejm{Models}{
                 The art and science of creating databases...
+
                 \pause
                 ...is to naturally translate the real world to models:
                 \pause
@@ -274,6 +284,7 @@
             
             \frejm{Model \code{Sighting}}{
                 Describes the \emph{sighting} of a single meteor by an AMOS camera
+                \pause
                 \begin{itemize}    
                     \item identifier
                     \item observed projected position on the sky
@@ -373,13 +384,14 @@
 
             \frejm{Dashboard}{
                 We need to detect problems and bring them to attention
+                \pause
                 \begin{itemize}
                     \item add \code{status} property to \code{Station}
                     \item various problems can be detected and addressed
                     \begin{itemize}
                         \item lost connection
                         \item lost power
-                        \item software problem
+                        \item software problems
                         \item AMOS hardware failure
                         \item no data
                         \item ...
@@ -392,10 +404,10 @@
             \frejm{System in operation}{
                 As of now, the core of the system is operational
                 \begin{itemize}
-                    \item \href{http://192.168.0.177:4805/}{Dashboard}
-                    \item \href{http://192.168.0.177:4805/meteors/}{Meteor list}
-                    \item \href{http://192.168.0.177:4805/sighting/2537}{Example of a sighting}
-                    \item \href{http://192.168.0.177:4805/meteor/example/path}{Example of a meteor path}
+                    \item \href{http://192.168.0.177:4805/}{dashboard}
+                    \item \href{http://192.168.0.177:4805/meteors/}{meteor list}
+                    \item \href{http://192.168.0.177:4805/sighting/2537}{example of a sighting}
+                    \item \href{http://192.168.0.177:4805/meteor/example/path}{example of a meteor path}
                 \end{itemize}                 
                 \pause
                 We need to implement
@@ -403,11 +415,20 @@
                     \item remote station monitoring
                     \item data import routines
                     \item data export (\code{CSV}, \code{JSON}, ...)
+                    \item API
                 \end{itemize}
             }
 
             \frejm{And then?}{
-                (add what to do then)
+                The system will enable us to do much more:
+                \begin{itemize}
+                    \item sort and display meteors by any criteria
+                    \pause
+                    \item display meteor activity
+                    \item use data from \textsc{Asmodeus} to estimate flux
+                    \pause
+                    \item provide foundation for my PhD thesis
+                \end{itemize}
             }
     
         \frejm{Thank you for your attention}{

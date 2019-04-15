@@ -55,11 +55,15 @@
 \definecolor{qprimarybg}{rgb}{0.95, 0.95, 0.95}
 \definecolor{check}{rgb}{0, 0.8, 0}
 \definecolor{coded}{rgb}{0.9, 0.9, 0.9}
+\definecolor{todo}{rgb}{1.0, 0.3, 0.3}
+\definecolor{model}{rgb}{0.75, 0, 0}
 
 \setbeamertemplate{navigation symbols}{}
 \newfontfamily{\semibold}{Segoe UI Semibold}
 \RenewDocumentCommand{\emph}{m}{{\semibold#1}}
-\NewDocumentCommand{\code}{m}{\colorbox{coded}{\textcolor{desc}{\texttt{#1}}}}
+\NewDocumentCommand{\code}{m}{\textcolor{desc}{\texttt{#1}}}
+\NewDocumentCommand{\model}{m}{\colorbox{coded}{\textcolor{model}{\texttt{#1}}}}
+\NewDocumentCommand{\todo}{m}{\colorbox{todo}{#1}}
 
 \mode<presentation> {
     \usetheme{Szeged}

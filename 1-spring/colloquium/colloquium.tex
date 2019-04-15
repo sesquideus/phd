@@ -30,9 +30,9 @@
             
             \frejm{Objective}{
                 \begin{itemize}
-                    \item to build a database system for storing real meteor data
+                    \item to build a database system for storing AMOS meteor data
                     \pause
-                    \item and a simple dashboard for monitoring the status
+                    \item and a simple dashboard for monitoring the network status
                     \pause 
                     \item it should be
                     \setbeamersize{description width = 40mm}
@@ -103,7 +103,7 @@
                     \item mail transfer via SMTP (e-mail)
                     \item processed by \code{charon}
                 \end{itemize}
-
+                \pause
                 \emph{Proposal}:
                 \begin{itemize}
                     \item video capturing software forwards data to a daemon
@@ -114,9 +114,9 @@
             \frejm{Retrieval -- proposed approach}{
                 We may need an \emph{API}
                 \begin{itemize}
-                    \item station submits a new \code{Sighting}
-                    \item website retrieves a list of \code{Meteor}s
-                    \item daemon periodically computes \code{Meteor} data
+                    \item station submits a new \model{Sighting}
+                    \item website retrieves a list of \model{Meteor}s
+                    \item daemon periodically computes \model{Meteor} data
                     \item data exports
                     \begin{itemize}
                         \item scientific analyses
@@ -130,15 +130,17 @@
                 Data need to be \emph{validated} and \emph{processed}
                 \begin{itemize}
                     \item remove invalid data (false detections, ...)
-                    \item compute \code{Meteor}s from multiple \code{Sighting}s
+                    \item compute actual meteor positions from multiple sightings
                     \begin{itemize}
-                        \item currently (HOW IS THIS DONE???)
+                        \item currently done by \code{MT}
+                        \item only use its output
+                        \item write import routines
                     \end{itemize}
                 \end{itemize}
             }
             
             \frejm{Storage}{
-                At this point data are ready to be stored
+                At this point the data are ready to be stored
                 \begin{itemize}
                     \item in a \emph{structured} and \emph{semantic} way
                     \item consistency is \emph{enforced} at all times
@@ -251,8 +253,8 @@
                     \highlightbox<2>{orange}{\texttt{SELECT "id", "timestamp", "magnitude" \textbackslash}} \\
                     \highlightbox<3>{orange}{\texttt{FROM "meteors" \textbackslash}} \\
                     \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2019-04-16 15:00:00" AND "2019-04-17 09:00:00" \textbackslash}} \\
-                    \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" \textbackslash}} \\
-                    \highlightbox<6>{orange}{\texttt{ASC LIMIT 5;}}
+                    \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" ASC \textbackslash}} \\
+                    \highlightbox<6>{orange}{\texttt{LIMIT 5;}}
                     \vspace{5mm}
                     \begin{onlyenv}<7>
                     \begin{verbatim}
@@ -273,16 +275,16 @@
                 ...is to naturally translate the real world to models:
                 \pause
                 \begin{itemize}
-                    \item \code{Meteor}
-                    \item \code{Sighting}
-                    \item \code{Station}
-                    \item \code{Subnetwork}
-                    \item \code{Country}
+                    \item \model{Meteor}
+                    \item \model{Sighting}
+                    \item \model{Station}
+                    \item \model{Subnetwork}
+                    \item \model{Country}
                     \item ...more as needed
                 \end{itemize}
             }
             
-            \frejm{Model \code{Sighting}}{
+            \frejm{Model \model{Sighting}}{
                 Describes the \emph{sighting} of a single meteor by an AMOS camera
                 \pause
                 \begin{itemize}    
@@ -304,7 +306,7 @@
                 \end{itemize}
             }
             
-            \frejm{Model \code{Sighting} -- extras}{
+            \frejm{Model \model{Sighting} -- extras}{
                 \begin{itemize}
                     \item miscellaneous computed information
                         \begin{itemize}
@@ -327,7 +329,7 @@
                 \end{itemize}
             }
             
-            \frejm{Model \code{Meteor}}{  
+            \frejm{Model \model{Meteor}}{  
                 Describes the actual \emph{event}, an atmospheric entry of a meteoroid particle
                 \begin{itemize}
                     \item \emph{timestamp}
@@ -351,7 +353,7 @@
                 \end{itemize}
             }
             
-            \frejm{Model \code{Meteor} -- auxiliary data}{
+            \frejm{Model \model{Meteor} -- auxiliary data}{
                 \begin{itemize}                
                     \item true \emph{trail length}
                     \begin{itemize}
@@ -386,7 +388,7 @@
                 We need to detect problems and bring them to attention
                 \pause
                 \begin{itemize}
-                    \item add \code{status} property to \code{Station}
+                    \item add \code{status} to \model{Station}
                     \item various problems can be detected and addressed
                     \begin{itemize}
                         \item lost connection
@@ -421,14 +423,23 @@
 
             \frejm{And then?}{
                 The system will enable us to do much more:
-                \begin{itemize}
-                    \item sort and display meteors by any criteria
-                    \pause
-                    \item display meteor activity
-                    \item use data from \textsc{Asmodeus} to estimate flux
-                    \pause
-                    \item provide foundation for my PhD thesis
-                \end{itemize}
+                \begin{columns}
+                    \begin{column}{0.6\textwidth}
+                        \begin{itemize}
+                            \item sort and display meteors by any criteria
+                            \pause
+                            \item display meteor activity
+                            \item use data from \code{Asmodeus} to estimate flux
+                            \pause
+                            \item provide foundation for my PhD thesis
+                            \pause
+                            \item provide data for \emph{you}
+                        \end{itemize}
+                    \end{column}
+                    \begin{column}{0.3\textwidth}
+                        \includegraphics[width = \linewidth]{unclesam.jpg}
+                    \end{column}
+                \end{columns}
             }
     
         \frejm{Thank you for your attention}{
@@ -444,7 +455,10 @@
             \begin{itemize}
                 \item \textbf{Database.Guide}:
                     What is an ORDBMS? \texttt{https://database.guide/what-is-an-ordbms/}
-                \item \textbf{}
+                \item \textbf{James Montgomery Flagg}:
+                    Uncle Sam Needs You (US Propaganda material). 1917.
+                \item \textbf{holistics.io}:
+                    \texttt{dbdiagram.io} database relationship diagram tool. \texttt{https://dbdiagram.io/}.
             \end{itemize}
         }
             

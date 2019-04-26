@@ -1,0 +1,18 @@
+firstname:  Martin
+lastname:   Baláž
+email:      martin.balaz@trojsten.sk
+title:      Determination of meteor flux in millimetre to metre size range
+authors:
+    -       Baláž, Martin
+    -       Tóth, Juraj
+type:       oral
+category:   Influx of Interstellar Matter
+abstract: >
+    Deployment of multi-station video meteor networks presents a unique opportunity to measure the total mass flux of meteoroids impinging on
+    the surface of the Earth. However, direct measurement of particle flux is not possible as the data are
+    heavily distorted by selection bias. We present a
+    method for debiasing the data using a simulation of
+    meteoroid particles entering the atmosphere. The trajectory of each virtual meteoroid is tracked and after application of biases the resulting meteor observation is recorded. Once a sufficiently large dataset is
+    obtained, statistical tests are performed and the distributions are compared to observational data from
+    AMOS camera network. The entire procedure is repeated and the parameters of the simulation are gradually adjusted until best possible agreement with observational data is found.
+keywords:   [meteoroid, meteor, flux, observation, simulation]

@@ -10,23 +10,25 @@ authors:
 type:       oral
 category:   Future Methods and Techniques
 abstract: >
-    Deployment of multi-station all-sky video meteor networks presents an opportunity to measure the total
-    flux of meteoroids impinging on the surface of the Earth. However, direct measurement of particle flux is not
-    possible since observed meteoroid populations are invariably distorted by selection bias.
-    Most detection systems, including human observers, favour meteors that are brighter and closer to the centre of the field of view.
-    We present a method for debiasing the data using a numerical simulation of meteoroid particles entering the Earth's atmosphere.
+Deployment of multi-station all-sky video meteor networks presents an opportunity to measure the total
+flux of meteoroids impinging on the surface of the Earth. However, direct measurement of particle flux is not
+possible since observed meteoroid populations are invariably distorted by selection bias.
+Most detection systems, including human observers, favour meteors that are brighter and closer to the centre of the field of view.
+We present a method for debiasing the data using a numerical simulation of meteoroid particles entering the Earth's atmosphere.
 
-    A population of virtual meteoroid particles is generated and their atmospheric entry is simulated.
-    The trajectory of each virtual meteoroid is tracked and its peak magnitude is determined as seen by predefined ground-based observers.
-    After application of bias-generating effects the resulting meteor is marked as either recorded or missed.
-    Once a sufficiently large dataset is obtained, the sample is statistically processed and distributions of various properties,
-    such as apparent magnitude or altitude, are compared to equivalent statistics computed from observational data.
-    Finally, the parameters of the population and selection bias are gradually adjusted and the entire
-    procedure is repeated until the best possible agreement with observational data is found.
-    The final set of parameters is then used as a statistical model of the actual meteoroid population.
+A population of virtual meteoroid particles is generated and their atmospheric entry is simulated.
+The trajectory of each virtual meteoroid is tracked and its peak magnitude is determined as seen by predefined ground-based observers.
+After application of bias-generating effects the resulting meteor is marked as either recorded or missed.
+Once a sufficiently large dataset is obtained, the sample is statistically processed and distributions of various properties,
+such as apparent magnitude or altitude, are compared to equivalent statistics computed from observational data.
+Finally, the parameters of the population and selection bias are gradually adjusted and the entire
+procedure is repeated until the best possible agreement with observational data is found.
+The final set of parameters is then used as a statistical model of the actual meteoroid population.
 
-    We used the simulation in an analysis of the 2016 Perseids observed by a single AMOS camera during two nights of maximal activity.
-    The simulation shows there is a marked difference between values of mass index $s$ before and after correcting the
-    observations for selection bias and that commonly reported values of $s$ are likely underestimated.
-    The developed method can be easily adapted to any observational method or existing meteor sighting database
-    and used to measure and understand the sources of selection bias distorting meteor observation statistics.
+We used the simulation in an analysis of the 2016 Perseids observed by a single AMOS camera during two nights of maximal activity.
+The simulation shows there is a marked difference between values of mass index $s$ before and after correcting the
+observations for selection bias and that commonly reported values of $s$ are likely underestimated.
+The developed method can be easily adapted to any observational method or existing meteor sighting database
+and used to measure and understand the sources of selection bias distorting meteor observation statistics.
+
+keywords:   [meteoroid, meteor, flux, observation, simulation]

@@ -1,12 +1,14 @@
 firstname:  Martin
 lastname:   Baláž
 email:      martin.balaz@trojsten.sk
-title:      Determination of meteoroid flux using a numerical simulation
+title:      Determination of Meteoroid Flux from Meteor Data after Debiasing by Numerical Simulation
 authors:
-    -       Baláž, Martin
-    -       Tóth, Juraj
+    -       Martin Baláž
+    -       Juraj Tóth
+    -       Peter Vereš
+    -       Robert Jedicke
 type:       oral
-category:   Influx of Interstellar Matter
+category:   Future Methods and Techniques
 abstract: >
     Deployment of multi-station all-sky video meteor networks presents an opportunity to measure the total
     flux of meteoroids impinging on the surface of the Earth. However, direct measurement of particle flux is not
@@ -28,5 +30,3 @@ abstract: >
     observations for selection bias and that commonly reported values of $s$ are likely underestimated.
     The developed method can be easily adapted to any observational method or existing meteor sighting database
     and used to measure and understand the sources of selection bias distorting meteor observation statistics.
-
-keywords:   [meteoroid, meteor, flux, observation, simulation]

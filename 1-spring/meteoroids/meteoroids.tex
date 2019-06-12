@@ -37,10 +37,10 @@
     \setbeamercolor*{palette primary}{fg = red, bg = qprimarybg}
 }
 
-\title{Numerical Simulation of Meteors as a Means of Debiasing AMOS Data}
-\author{\small Martin Baláž \hspace{1cm} Juraj Tóth, PhD. \hspace{1cm} Robert Jedicke, PhD. \hspace{1cm} Peter Vereš, PhD.}
+\title{Determination of Meteoroid Flux from Meteor Data after Debiasing by Numerical Simulation}
+\author{\small Martin Baláž \hspace{8mm} Juraj Tóth, PhD. \hspace{8mm} Robert Jedicke, PhD. \hspace{8mm} Peter Vereš, PhD.}
 \institute{Meteoroids 2019, Bratislava}
-\date{2019--06--18}
+\date{2019--06--18, 16:45}
 
 \begin{document}
     \begin{frame}
@@ -52,9 +52,9 @@
 			\frejm{Contents}{
 				\setbeamersize{description width = 25mm}
 				\begin{description}
-					\item[aim]				What are we doing?
-					\item[implementation]   How do we do it?
-					\item[results]          What have we done?
+					\item[aim]				\hspace{5mm}What are we doing?
+					\item[implementation]   \hspace{5mm}How do we do it?
+					\item[results]          \hspace{5mm}What have we done?
 				\end{description}
 			}
 			
@@ -91,6 +91,7 @@
 						\begin{itemize}
 							\item limiting magnitude, altitude angular, speed, ...
 						\end{itemize}
+                    \pause
 					\item calculate the statistic and compare to AMOS data 
 					\item adjust the particle distribution and observational bias parameters 
 					\pause
@@ -140,7 +141,7 @@
 				}
 				
 				\frejm{Simulation of flight}{
-					modified Runge--Kutta integrator (RK4)
+					Customized \emph{Runge--Kutta} integrator (RK4)
 					\begin{itemize}
 						\item run until complete ablation of the particle
 						\item snapshots taken 20 times per second
@@ -153,7 +154,7 @@
 					\begin{itemize}
 						\item multiple observers on the ground
 						\item each represents an AMOS camera
-						\item only the brightest frame is analyzed
+						\item only the \emph{brightest frame} is analyzed
 					\end{itemize}           
 				}
 					
@@ -189,7 +190,7 @@
 						\item assume the effects are \emph{independent}
 					\end{itemize}
 				}        
-				\fspicture{limmag.pdf}[W][white]
+				\fspicture{limmag.pdf}[H][white]
 				
 				\fspicture{angularSpeed-teplicne-dots.png}[H][black]
 				\fspicture{angularSpeed-teplicne-biased.png}[H][black]
@@ -199,11 +200,20 @@
 			\frejm{What is it}{
 				\textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator
 				\begin{itemize}
-					\item a suite of five \emph{Python} scripts
+					\item a suite of seven scripts in \emph{Python}
 					\item implements the described model
 				\end{itemize}
 			}
-					
+
+            \frejm{What is it for}{
+                advertise cross scatters
+                advertise histograms
+                share on GitHub
+            }
+            					
+
+    \section{Flux}
+        \subsection{Flux}
 			\frejm{Evaluation}{
 				\begin{itemize}
 					\item we processed one model night
@@ -211,9 +221,9 @@
 						\item Perseids 2016 (August 11--12)
 						\item observed from \emph{Tepličné} (\ang{48.6822}~N, \ang{19.8580}~E, \SI{700}{\metre})
 						\item seven hours (19:00 -- 02:00 UTC)
-						\item mass index $s =$ 1.8, later varied
+						\item mass index $s$ = 1.8, later varied
 					\end{itemize}
-					\item 100000 meteoroids are generated
+					\item 100000 meteoroids
 					\pause
 				\end{itemize}            
 			}        
@@ -230,7 +240,7 @@
 				\end{itemize}
 				\pause
 				\begin{itemize}
-					\item find values of parameters where $\chi^2$ is minimal
+					\item find values of parameters $m_0$, $\omega$ where $\chi^2$ is minimal
 					\item account for statistical noise
 				\end{itemize}
 			}        
@@ -247,7 +257,7 @@
 						\item a full range \numrange{1.6}{2.8} was tried
 					\end{itemize}
 					\item best fit for $s = \text{2.15}$
-					\item no value below 2 is consistent with observations
+					\item no value below 2 consistent with observations
 				\end{itemize}
 			
 			}        
@@ -258,7 +268,7 @@
 					A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
 				$$
 				\begin{itemize}                
-					\item only a simple 1D fit
+					\item only a simple 1D fit for $\alpha$
 					\item a very well defined minimum at $\alpha = \text{0.4}$
 				\end{itemize}
 			}
@@ -310,8 +320,7 @@
 					\item it is a \emph{surprisingly good} method
 					\begin{itemize}
 						\item correct geometry and luminance data and statistic
-						\item observations \emph{comparable} to real data
-						\item and the results are aesthetically pleasing
+						\item aesthetically pleasing
 						\item applicable to almost \emph{any} meteor observing system
 					\end{itemize}
 				\end{itemize}
@@ -320,12 +329,12 @@
 					\item flux values are not perfect
 					\begin{itemize}
 						\item we were able to estimate the flux
-						\item a good fit was found
-						\pause
 						\item mass index seems to be much higher than known values
-						\item a much larger observational dataset is needed
+						\item more data and a more precise calibration are needed
 					\end{itemize}
 				\end{itemize}
+                \pause
+                Let us share the tool...
 			}
 			
 			\fspicture{fireworks.png}[H][black]

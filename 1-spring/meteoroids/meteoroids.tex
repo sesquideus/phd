@@ -40,7 +40,7 @@
 \title{Determination of Meteoroid Flux from Meteor Data after Debiasing by Numerical Simulation}
 \author{\small Martin Baláž \hspace{8mm} Juraj Tóth, PhD. \hspace{8mm} Robert Jedicke, PhD. \hspace{8mm} Peter Vereš, PhD.}
 \institute{Meteoroids 2019, Bratislava}
-\date{2019--06--18, 16:45}
+\date{2019--06--18}
 
 \begin{document}
     \begin{frame}
@@ -50,7 +50,7 @@
     \section{Overview}
 		\subsection{Overview}
 			\frejm{Contents}{
-				\setbeamersize{description width = 25mm}
+				\setbeamersize{description width = 35mm}
 				\begin{description}
 					\item[aim]				\hspace{5mm}What are we doing?
 					\item[implementation]   \hspace{5mm}How do we do it?
@@ -84,117 +84,119 @@
 					\pause
 					\item compute meteor sightings as seen by predefined observers
 						\begin{itemize}
-							\item calculate position in the sky, magnitude, angular speed, ...
+							\item position in the sky, magnitude, entry angle, ...
 						\end{itemize}
 					\pause
 					\item apply observational bias 
 						\begin{itemize}
-							\item limiting magnitude, altitude angular, speed, ...
+							\item limiting magnitude, altitude, angular speed, ...
 						\end{itemize}
                     \pause
-					\item calculate the statistic and compare to AMOS data 
+					\item calculate the statistic and compare it with AMOS data 
 					\item adjust the particle distribution and observational bias parameters 
 					\pause
 					\item repeat
 				\end{enumerate}
 			}
 						
-		\setbeamersize{description width = 5mm}
-		\section{Simulation}
-			\subsection{Simulation}
-				\frejm{Model}{            
-					Designed by \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
-					
-					We assume
-					\begin{itemize}
-						\item spherical, continuously ablating particles
-						\item moving in a straight line
-					\end{itemize}
-					
-					We need
-					\begin{itemize}
-						\item equations of motion
-						\item equations of luminance
-						\item to construct a virtual CCD image
-						\item to compute the statistic
-					\end{itemize}            
-				}
-			
-				\frejm{Equations of motion}{
-					\begin{itemize}
-						\item braking equation
-						$$
-							\diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
-						$$
-						\item equation of ablation
-						$$
-							\diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
-						$$
-						\item equation of luminance
-						$$
-							L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
-						$$
-						\begin{itemize}
-							\item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
-						\end{itemize}
-					\end{itemize}
-				}
-				
-				\frejm{Simulation of flight}{
-					Customized \emph{Runge--Kutta} integrator (RK4)
-					\begin{itemize}
-						\item run until complete ablation of the particle
-						\item snapshots taken 20 times per second
-						\item multiple integration steps between frames
-					\end{itemize}
-				}
-				
-				\frejm{Virtual observations}{
-					Next, we create observations
-					\begin{itemize}
-						\item multiple observers on the ground
-						\item each represents an AMOS camera
-						\item only the \emph{brightest frame} is analyzed
-					\end{itemize}           
-				}
-					
-				\fspicture{angularSpeed-teplicne-streaks.png}[H][black]
-				\fspicture{angularSpeed-teplicne-dots.png}[H][black]
-				
-				\frejm{Selection bias}{
-					\emph{Detection efficiency is not constant!}            
-					\begin{itemize}
-						\item probability of detection is higher for meteors that are
-						\begin{itemize}
-							\item bright
-							\item fast
-							\item close to zenith
-							\item ...
-						\end{itemize}
-					\end{itemize}
-				}
-				
-				\frejm{Selection bias -- quantitative}{            
-					Bias summarized in \emph{detection probability functions}
-					\begin{itemize}
-						\item determine whether a meteor is detected
-						\item magnitude dependence
-						$$
-							D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
-						$$
-						\item altitudinal dependence
-						$$
-							A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
-						$$
-						\item we need to establish values of parameters $f$, $m_0$, $\omega$, $\alpha$
-						\item assume the effects are \emph{independent}
-					\end{itemize}
-				}        
-				\fspicture{limmag.pdf}[H][white]
-				
-				\fspicture{angularSpeed-teplicne-dots.png}[H][black]
-				\fspicture{angularSpeed-teplicne-biased.png}[H][black]
-								
+    \setbeamersize{description width = 5mm}
+    \section{Simulation}
+        \subsection{Simulation}
+            \frejm{Model}{            
+                Designed by \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
+                
+                We assume
+                \begin{itemize}
+                    \item spherical, continuously ablating particles
+                    \item moving in a straight line
+                \end{itemize}
+                
+                We need
+                \begin{itemize}
+                    \item equations of motion
+                    \item equations of luminance
+                    \item to find out how the cameras see meteors
+                    \item to compute the statistic
+                \end{itemize}            
+            }
+        
+            \frejm{Equations of motion}{
+                \begin{itemize}
+                    \item braking equation
+                    $$
+                        \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+                    $$
+                    \item equation of ablation
+                    $$
+                        \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                    $$
+                    \item equation of luminance
+                    $$
+                        L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+                    $$
+                    \begin{itemize}
+                        \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
+                    \end{itemize}
+                \end{itemize}
+            }
+            
+            \frejm{Simulation of flight}{
+                Customized \emph{Runge--Kutta} integrator (RK4)
+                \begin{itemize}
+                    \item run until complete ablation of the particle
+                    \item snapshots taken 20 times per second
+                    \item multiple integration steps between snapshots
+                \end{itemize}
+            }
+            
+            \frejm{Virtual observations}{
+                Next, we create observations
+                \begin{itemize}
+                    \item multiple observers on the ground
+                    \item each represents an AMOS camera
+                    \item only the \emph{brightest frame} is analyzed
+                \end{itemize}           
+            }
+                
+            \fspicture{angularSpeed-teplicne-streaks.png}[H][black]
+            \fspicture{angularSpeed-teplicne-dots.png}[H][black]
+            
+            \frejm{Selection bias}{
+                \emph{Detection efficiency is not constant!}            
+                \begin{itemize}
+                    \item probability of detection is higher for meteors that are
+                    \begin{itemize}
+                        \item bright
+                        \item fast
+                        \item close to zenith
+                        \item ...
+                    \end{itemize}
+                \end{itemize}
+            }
+            
+            \frejm{Selection bias}{            
+                Bias summarized in \emph{detection probability functions}
+                \begin{itemize}
+                    \item determine whether a meteor is detected
+                    \item magnitude dependence
+                    $$
+                        D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
+                    $$
+                    \pause
+                    \item altitudinal dependence
+                    $$
+                        A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
+                    $$
+                    \pause
+                    \item we need to establish values of parameters $f$, $m_0$, $\omega$, $\alpha$
+                    \item assume the effects are \emph{independent}
+                \end{itemize}
+            }        
+            \fspicture{limmag.pdf}[H][white]
+            
+            \fspicture{angularSpeed-teplicne-dots.png}[H][black]
+            \fspicture{angularSpeed-teplicne-biased.png}[H][black]
+                            
     \section{Asmodeus}    
 		\subsection{Asmodeus}
 			\frejm{What is it}{
@@ -205,12 +207,28 @@
 				\end{itemize}
 			}
 
-            \frejm{What is it for}{
-                advertise cross scatters
-                advertise histograms
-                share on GitHub
+            \frejm{What is it good for}{
+                A multi-purpose tool for statistical evaluation of meteor populations
+                \begin{itemize}
+                    \item generate a meteoroid population
+                    \item observe virtual meteors
+                \end{itemize}
+                \pause
+
+                We are able to
+                \begin{itemize}
+                    \item estimate particle density and flux
+                    \item capture all relevant parameters
+                    \item examine correlations
+                \end{itemize}
+                \pause
+                Everything will be shared on \emph{GitHub}
             }
-            					
+        
+            \fspicture{mjd-entryAngle-appMag.png}
+            \fspicture{logInitMass-elevation-appMag.png}
+            \fspicture{logInitMass-absMag-appMag.png}
+            \fspicture{absMag-elevation-appMag.png}
 
     \section{Flux}
         \subsection{Flux}
@@ -224,7 +242,6 @@
 						\item mass index $s$ = 1.8, later varied
 					\end{itemize}
 					\item 100000 meteoroids
-					\pause
 				\end{itemize}            
 			}        
 			\fspicture{example-magnitude-nobias.pdf}[][white]
@@ -289,7 +306,6 @@
 				\begin{itemize}
 					\item \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour}
 					\item \SI{0.338}{\kilo\gram} per \SI{1000000}{\kilo\metre\squared\hour} $\approx$ \SI{43}{\kilo\gram\per\hour} over entire Earth
-					\item all particles in size range \SI{1}{\milli\metre} -- \SI{1}{\metre}
 				\end{itemize}
 			}
 			
@@ -300,7 +316,7 @@
 						\item \emph{Blaauw et al., 2016}: \num{98000} particles per \SI{1000000}{\kilo\metre\squared\hour}
 						\item \emph{Molau, 2017}: \num{47000} particles per \SI{1000000}{\kilo\metre\squared\hour} (but up to 6.5$^\text{m}$)
 					\end{itemize}
-					\item high fraction of small particles ($s = \text{2.15}$)
+					\item but a high fraction of small particles ($s = \text{2.15}$)
 				\end{itemize}
 				
 				\begin{itemize}
@@ -320,21 +336,22 @@
 					\item it is a \emph{surprisingly good} method
 					\begin{itemize}
 						\item correct geometry and luminance data and statistic
-						\item aesthetically pleasing
-						\item applicable to almost \emph{any} meteor observing system
+						\item applicable to \emph{almost any} meteor observing system
+						\item also aesthetically pleasing
 					\end{itemize}
 				\end{itemize}
 				\pause
 				\begin{itemize}
-					\item flux values are not perfect
+					\item we were able to estimate the \emph{flux}
 					\begin{itemize}
-						\item we were able to estimate the flux
+						\item values are not perfect
 						\item mass index seems to be much higher than known values
-						\item more data and a more precise calibration are needed
 					\end{itemize}
 				\end{itemize}
                 \pause
-                Let us share the tool...
+				\begin{itemize}
+                    \item the tool will be shared and free to use
+				\end{itemize}
 			}
 			
 			\fspicture{fireworks.png}[H][black]
@@ -358,6 +375,8 @@
 						Optical meteor fluxes and application to the 2015 Perseids. MNRAS vol. 463, 2016, pp441--448.
 					\item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
 						High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005) 
+                    \item \textbf{Jones, W. -- Halliday, I.}:
+                        Effects of Excitation and Ionization in Meteor Trains. MNRAS vol. 321, 2001, pp417--423.
 				\end{itemize}
 			}
 				

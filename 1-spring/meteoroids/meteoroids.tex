@@ -1,4 +1,4 @@
-\documentclass[12pt, aspectratio=1610]{beamer}
+\documentclass[12pt]{beamer}
 \input{../../kvik.sty}
 \input{../../kvik-beamer.sty}
 
@@ -38,7 +38,7 @@
 }
 
 \title{Determination of Meteoroid Flux from Meteor Data after Debiasing by Numerical Simulation}
-\author{\small Martin Baláž \hspace{8mm} Juraj Tóth, PhD. \hspace{8mm} Robert Jedicke, PhD. \hspace{8mm} Peter Vereš, PhD.}
+\author{\small Martin Baláž \\ Juraj Tóth, PhD. \\ Robert Jedicke, PhD. \\ Peter Vereš, PhD.}
 \institute{Meteoroids 2019, Bratislava}
 \date{2019--06--18}
 
@@ -50,7 +50,7 @@
     \section{Overview}
 		\subsection{Overview}
 			\frejm{Contents}{
-				\setbeamersize{description width = 35mm}
+				\setbeamersize{description width = 25mm}
 				\begin{description}
 					\item[aim]				\hspace{5mm}What are we doing?
 					\item[implementation]   \hspace{5mm}How do we do it?
@@ -73,7 +73,7 @@
 				\end{itemize}
 				\vspace{5mm}
 				\pause
-				Let us \emph{simulate} the population and try to match it to observational data!
+				Let us \emph{simulate} the population and try to match it to the data!
 			}
 			
 			\frejm{Algorithm}{
@@ -93,7 +93,7 @@
 						\end{itemize}
                     \pause
 					\item calculate the statistic and compare it with AMOS data 
-					\item adjust the particle distribution and observational bias parameters 
+					\item adjust the particle distribution and bias parameters 
 					\pause
 					\item repeat
 				\end{enumerate}
@@ -103,7 +103,7 @@
     \section{Simulation}
         \subsection{Simulation}
             \frejm{Model}{            
-                Designed by \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
+                \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
                 
                 We assume
                 \begin{itemize}
@@ -166,33 +166,20 @@
                 \begin{itemize}
                     \item probability of detection is higher for meteors that are
                     \begin{itemize}
-                        \item bright
-                        \item fast
-                        \item close to zenith
+                        \item brighter
+                        \item slower
+                        \item closer to zenith
                         \item ...
+                    \end{itemize}
+                    \pause
+                    \item for each meteor
+                    \begin{itemize}
+                        \item decide if it is detected
+                        \item based on properties of the brightest frame
+                        \item compare the resulting set to observation
                     \end{itemize}
                 \end{itemize}
             }
-            
-            \frejm{Selection bias}{            
-                Bias summarized in \emph{detection probability functions}
-                \begin{itemize}
-                    \item determine whether a meteor is detected
-                    \item magnitude dependence
-                    $$
-                        D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
-                    $$
-                    \pause
-                    \item altitudinal dependence
-                    $$
-                        A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
-                    $$
-                    \pause
-                    \item we need to establish values of parameters $f$, $m_0$, $\omega$, $\alpha$
-                    \item assume the effects are \emph{independent}
-                \end{itemize}
-            }        
-            \fspicture{limmag.pdf}[H][white]
             
             \fspicture{angularSpeed-teplicne-dots.png}[H][black]
             \fspicture{angularSpeed-teplicne-biased.png}[H][black]
@@ -261,8 +248,16 @@
 					\item account for statistical noise
 				\end{itemize}
 			}        
-			\fspicture{chiSquare-magnitude-1d8.pdf}[][white]
-			\fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
+            \fspicture{limmag.pdf}[H][white]
+
+            \frejm{Heatmap}{
+                \hspace*{-8mm}%
+                \includegraphics[width = \paperwidth]{chiSquare-magnitude-1d8.pdf}
+            }
+            \frejm{Heatmap -- zooming in}{
+                \hspace*{-8mm}%
+                \includegraphics[width = \paperwidth]{chiSquare-magnitude-1d8z.pdf}
+            }
 			\fspicture{histogram-magnitude-1d8-optimum.pdf}[][white]
 			
 			\frejm{Mass index $s$}{
@@ -295,13 +290,13 @@
 		\subsection{Results}    
 			\frejm{Total flux}{
 				Finally, we may calculate the total flux
+                \pause
 				\begin{itemize}
 					\item simulation is run again with AMOS's \emph{optimal DPF parameters}
 					$$A(\theta) = \left(\sin \theta\right)^{0.4}$$
 					$$D(m) = \frac{0.93}{1 + e^{\frac{m + 0.1}{0.35}}}$$
 					\item the number of meteors is \emph{scaled} to match observations
 				\end{itemize}
-				
 				\pause
 				\begin{itemize}
 					\item \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour}
@@ -309,12 +304,12 @@
 				\end{itemize}
 			}
 			
-			\frejm{Comparison to known values}{
+			\frejm{Comparison}{
 				\begin{itemize}
 					\item results consistent with recent estimates
 					\begin{itemize}
 						\item \emph{Blaauw et al., 2016}: \num{98000} particles per \SI{1000000}{\kilo\metre\squared\hour}
-						\item \emph{Molau, 2017}: \num{47000} particles per \SI{1000000}{\kilo\metre\squared\hour} (but up to 6.5$^\text{m}$)
+						\item \emph{Molau, 2017}: \num{47000} particles per \SI{1000000}{\kilo\metre\squared\hour} (up to 6.5$^\text{m}$)
 					\end{itemize}
 					\item but a high fraction of small particles ($s = \text{2.15}$)
 				\end{itemize}
@@ -328,10 +323,6 @@
     \section{Conclusion}
 		\subsection{Conclusion}
 			\frejm{Summary}{
-				\begin{itemize}
-					\item we have designed and implemented the simulation
-				\end{itemize}
-				\pause
 				\begin{itemize}
 					\item it is a \emph{surprisingly good} method
 					\begin{itemize}
@@ -351,6 +342,7 @@
                 \pause
 				\begin{itemize}
                     \item the tool will be shared and free to use
+                    \item any comments or suggestions are welcome
 				\end{itemize}
 			}
 			

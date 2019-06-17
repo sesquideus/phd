@@ -7,7 +7,6 @@
 *.log
 *.out
 *.run.xml
-*.pdf
 *.nav
 *.toc
 *.snm

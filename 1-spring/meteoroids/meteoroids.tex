@@ -1,4 +1,4 @@
-\documentclass[12pt]{beamer}
+\documentclass[12pt,aspectratio=1610]{beamer}
 \input{../../kvik.sty}
 \input{../../kvik-beamer.sty}
 
@@ -38,39 +38,31 @@
 }
 
 \title{Determination of Meteoroid Flux from Meteor Data after Debiasing by Numerical Simulation}
-\author{\small Martin Baláž \\ Juraj Tóth, PhD. \\ Robert Jedicke, PhD. \\ Peter Vereš, PhD.}
+\author{\small \emph{Martin Baláž} \\ Juraj Tóth, PhD. \\ Peter Vereš, PhD. \\ Robert Jedicke, PhD.}
 \institute{Meteoroids 2019, Bratislava}
 \date{2019--06--18}
 
 \begin{document}
-    \begin{frame}
-        \titlepage
-    \end{frame}
+    {
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{fireworks-i.png}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
                 
     \section{Overview}
 		\subsection{Overview}
-			\frejm{Contents}{
-				\setbeamersize{description width = 25mm}
-				\begin{description}
-					\item[aim]				\hspace{5mm}What are we doing?
-					\item[implementation]   \hspace{5mm}How do we do it?
-					\item[results]          \hspace{5mm}What have we done?
-				\end{description}
-			}
-			
 			\frejm{Objective}{
-				To \emph{determine} the total meteoroid flux utilizing data from \emph{AMOS}
+                To \emph{determine} the total meteoroid flux utilizing data from \emph{AMOS}\\[4mm]
 				\pause
-				\begin{itemize}
-					\item an \emph{extrapolation} from collected data
-					\item we need to
-						\begin{itemize}
-							\item analyze the detection ability of AMOS
-							\item calibrate the system
-							\item \emph{de-bias} the observations
-						\end{itemize}
-					\item estimate the flux
-				\end{itemize}
+                \emph{Problem}: data is severely distorted by selection bias\\[4mm]
+                \pause
+                \emph{Solution}: \emph{extrapolate} from collected data
+                    \begin{itemize}
+                        \item analyze the detection ability of AMOS
+                        \item calibrate the system
+                        \item \emph{de-bias} the observations
+                    \end{itemize}
 				\vspace{5mm}
 				\pause
 				Let us \emph{simulate} the population and try to match it to the data!
@@ -92,8 +84,8 @@
 							\item limiting magnitude, altitude, angular speed, ...
 						\end{itemize}
                     \pause
-					\item calculate the statistic and compare it with AMOS data 
-					\item adjust the particle distribution and bias parameters 
+					\item calculate the statistic and compare it to AMOS data 
+					\item adjust bias parameters 
 					\pause
 					\item repeat
 				\end{enumerate}
@@ -108,43 +100,43 @@
                 We assume
                 \begin{itemize}
                     \item spherical, continuously ablating particles
-                    \item moving in a straight line
+                    \item no gravity
                 \end{itemize}
                 
                 We need
                 \begin{itemize}
                     \item equations of motion
-                    \item equations of luminance
-                    \item to find out how the cameras see meteors
+                    \item equation of luminance
+                    \item atmospheric and instrumental effects
                     \item to compute the statistic
                 \end{itemize}            
             }
         
-            \frejm{Equations of motion}{
-                \begin{itemize}
-                    \item braking equation
-                    $$
-                        \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
-                    $$
-                    \item equation of ablation
-                    $$
-                        \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
-                    $$
-                    \item equation of luminance
-                    $$
-                        L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
-                    $$
-                    \begin{itemize}
-                        \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
-                    \end{itemize}
-                \end{itemize}
-            }
+            %\frejm{Equations of motion}{
+            %    \begin{itemize}
+            %        \item braking equation
+            %        $$
+            %            \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+            %        $$
+            %        \item equation of ablation
+            %        $$
+            %            \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+            %        $$
+            %        \item equation of luminance
+            %        $$
+            %            L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+            %        $$
+            %        \begin{itemize}
+            %            \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
+            %        \end{itemize}
+            %    \end{itemize}
+            %}
             
             \frejm{Simulation of flight}{
                 Customized \emph{Runge--Kutta} integrator (RK4)
                 \begin{itemize}
                     \item run until complete ablation of the particle
-                    \item snapshots taken 20 times per second
+                    \item \emph{snapshots} taken 20 times per second
                     \item multiple integration steps between snapshots
                 \end{itemize}
             }
@@ -152,15 +144,30 @@
             \frejm{Virtual observations}{
                 Next, we create observations
                 \begin{itemize}
-                    \item multiple observers on the ground
-                    \item each represents an AMOS camera
-                    \item only the \emph{brightest frame} is analyzed
+                    \item observers on the ground
+                    \begin{itemize}
+                        \item each represents an AMOS camera
+                    \end{itemize}
+                    \item sequence of frames
                 \end{itemize}           
             }
                 
             \fspicture{angularSpeed-teplicne-streaks.png}[H][black]
-            \fspicture{angularSpeed-teplicne-dots.png}[H][black]
             
+            \frejm{Virtual observations}{
+                Next, we create observations
+                \begin{itemize}
+                    \item observers on the ground
+                    \begin{itemize}
+                        \item each represents an AMOS camera
+                    \end{itemize}
+                    \item sequence of frames
+                    \item only the \emph{brightest frame} is analyzed
+                \end{itemize}           
+            }
+            \fspicture{angularSpeed-teplicne-streaks.png}[H][black]
+            \fspicture{angularSpeed-teplicne-dots.png}[H][black]
+                
             \frejm{Selection bias}{
                 \emph{Detection efficiency is not constant!}            
                 \begin{itemize}
@@ -172,54 +179,33 @@
                         \item ...
                     \end{itemize}
                     \pause
-                    \item for each meteor
-                    \begin{itemize}
-                        \item decide if it is detected
-                        \item based on properties of the brightest frame
-                        \item compare the resulting set to observation
-                    \end{itemize}
+                    \item for each meteor \emph{decide} whether it is \emph{detected}
+                    \item compare visible meteors to real data
                 \end{itemize}
             }
             
             \fspicture{angularSpeed-teplicne-dots.png}[H][black]
             \fspicture{angularSpeed-teplicne-biased.png}[H][black]
+
+            \fspicture{limmag.pdf}[H][white]
                             
-    \section{Asmodeus}    
-		\subsection{Asmodeus}
-			\frejm{What is it}{
-				\textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator
+			\frejm{Tool: ASMODEUS}{
+                \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator\\[5mm]
+                A multi-purpose virtual meteor observatory
 				\begin{itemize}
-					\item a suite of seven scripts in \emph{Python}
+					\item suite of seven scripts in \emph{Python}
 					\item implements the described model
+                    \item numerous analysis and visualisation tools
 				\end{itemize}
 			}
-
-            \frejm{What is it good for}{
-                A multi-purpose tool for statistical evaluation of meteor populations
-                \begin{itemize}
-                    \item generate a meteoroid population
-                    \item observe virtual meteors
-                \end{itemize}
-                \pause
-
-                We are able to
-                \begin{itemize}
-                    \item estimate particle density and flux
-                    \item capture all relevant parameters
-                    \item examine correlations
-                \end{itemize}
-                \pause
-                Everything will be shared on \emph{GitHub}
-            }
-        
-            \fspicture{mjd-entryAngle-appMag.png}
-            \fspicture{logInitMass-elevation-appMag.png}
-            \fspicture{logInitMass-absMag-appMag.png}
-            \fspicture{absMag-elevation-appMag.png}
+            
+            %\fspicture{mjd-entryAngle-appMag.png}
+            %\fspicture{logInitMass-absMag-appMag.png}
+            %\fspicture{absMag-elevation-appMag.png}
 
     \section{Flux}
         \subsection{Flux}
-			\frejm{Evaluation}{
+			\frejm{Analysis}{
 				\begin{itemize}
 					\item we processed one model night
 					\begin{itemize}
@@ -231,60 +217,66 @@
 					\item 100000 meteoroids
 				\end{itemize}            
 			}        
-			\fspicture{example-magnitude-nobias.pdf}[][white]
-			\fspicture{example-magnitude-bias.pdf}[][white]
-		
+
 			\frejm{Magnitude DPF}{
+                \begin{itemize}
+                    \item devise a \emph{detection probability function}
+                \end{itemize}
 				$$
 					D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
 				$$
+                \pause
 				\begin{itemize}
-					\item a wide range of parameter combinations was searched
-					\item fill factor $f$ does not contribute any information
-				\end{itemize}
-				\pause
-				\begin{itemize}
-					\item find values of parameters $m_0$, $\omega$ where $\chi^2$ is minimal
+					\item a range of parameter combinations is searched
+				    \pause
+					\item find values of parameters $m_0$, $\omega$ where $\chi^2$ value is minimal
 					\item account for statistical noise
 				\end{itemize}
 			}        
-            \fspicture{limmag.pdf}[H][white]
 
+			\fspicture{nobias.pdf}[][white]
+			\fspicture{somebias.pdf}[][white]
+		
             \frejm{Heatmap}{
-                \hspace*{-8mm}%
-                \includegraphics[width = \paperwidth]{chiSquare-magnitude-1d8.pdf}
+                \includegraphics[width = 0.875\paperwidth]{chiSquare-magnitude-1d8.pdf}
             }
             \frejm{Heatmap -- zooming in}{
-                \hspace*{-8mm}%
-                \includegraphics[width = \paperwidth]{chiSquare-magnitude-1d8z.pdf}
+                \includegraphics[width = 0.875\paperwidth]{chiSquare-magnitude-1d8z.pdf}
             }
-			\fspicture{histogram-magnitude-1d8-optimum.pdf}[][white]
+			\fspicture{best.pdf}[][white]
 			
 			\frejm{Mass index $s$}{
-				There are way too many bright meteors...
+				There are too many bright meteors...
 				\pause
 				\begin{itemize}                
-					\item a natural reaction is to try another value of $s$
+					\item a natural reaction is to try other values of $s$
 					\begin{itemize}
 						\item a full range \numrange{1.6}{2.8} was tried
 					\end{itemize}
 					\item best fit for $s = \text{2.15}$
-					\item no value below 2 consistent with observations
+                    \pause
+                    \item \emph{no value below 2 consistent with observations}
 				\end{itemize}
-			
 			}        
-			\fspicture{histogram-magnitude-total-optimum.pdf}[][white]
+			\fspicture{bestofbest.pdf}[][white]
 			
-			\frejm{Altitudinal DPF}{
+			\frejm{DPF for altitude and angular speed}{
 				$$
 					A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
 				$$
 				\begin{itemize}                
 					\item only a simple 1D fit for $\alpha$
-					\item a very well defined minimum at $\alpha = \text{0.4}$
+					\item a well defined minimum at $\alpha = \text{0.4}$
 				\end{itemize}
+                \vspace*{8mm}
+                \pause
+                \begin{itemize}
+                    \item no discernible optimum for angular speed DPF
+                \end{itemize}
+                $$
+                    S(\omega) \equiv 1
+                $$
 			}
-			\fspicture{chiSquare-altitude-2d15.pdf}[][white]
     
     \section{Results}    
 		\subsection{Results}    
@@ -293,9 +285,9 @@
                 \pause
 				\begin{itemize}
 					\item simulation is run again with AMOS's \emph{optimal DPF parameters}
-					$$A(\theta) = \left(\sin \theta\right)^{0.4}$$
-					$$D(m) = \frac{0.93}{1 + e^{\frac{m + 0.1}{0.35}}}$$
+                        $$A(\theta) = \left(\sin \theta\right)^{0.4} \qquad D(m) = \frac{0.93}{1 + e^{\frac{m + 0.17}{0.362}}} \qquad S(\omega) \equiv 1$$
 					\item the number of meteors is \emph{scaled} to match observations
+                    \item this should correspond to the real population
 				\end{itemize}
 				\pause
 				\begin{itemize}
@@ -313,11 +305,15 @@
 					\end{itemize}
 					\item but a high fraction of small particles ($s = \text{2.15}$)
 				\end{itemize}
-				
-				\begin{itemize}
-					\item more precise evaluation is needed
-					\item a larger observational dataset would also help
-				\end{itemize}
+				\pause
+                \begin{itemize}
+                    \item but we still need
+                    \begin{itemize}
+                        \item multiparametric evaluation
+                        \item a larger observational dataset
+                        \item detailed camera calibration
+                    \end{itemize}
+                \end{itemize}
 			}
 							
     \section{Conclusion}
@@ -326,37 +322,25 @@
 				\begin{itemize}
 					\item it is a \emph{surprisingly good} method
 					\begin{itemize}
-						\item correct geometry and luminance data and statistic
+                        \item versatile, universal tool
 						\item applicable to \emph{almost any} meteor observing system
-						\item also aesthetically pleasing
 					\end{itemize}
 				\end{itemize}
 				\pause
 				\begin{itemize}
 					\item we were able to estimate the \emph{flux}
 					\begin{itemize}
-						\item values are not perfect
-						\item mass index seems to be much higher than known values
+						\item mass index seems higher than known values
+                        \item but consistent with our expectations
 					\end{itemize}
 				\end{itemize}
                 \pause
 				\begin{itemize}
-                    \item the tool will be shared and free to use
+                    \item the tools will be \emph{shared} and free to use
                     \item any comments or suggestions are welcome
 				\end{itemize}
 			}
 			
-			\fspicture{fireworks.png}[H][black]
-		
-			\frejm{Thank you for your attention}{
-				\textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
-				\scriptsize
-				\begin{flushright}
-					Claude Lévi-Strauss\\
-					Le Cru et le Cuit, 1964
-				\end{flushright}
-			}      
-					
 			\frejm{References}{
 				\begin{itemize}
 					\item \textbf{Öpik, E. J.}:

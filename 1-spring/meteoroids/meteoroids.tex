@@ -53,11 +53,22 @@
     \section{Overview}
 		\subsection{Overview}
 			\frejm{Objective}{
-                To \emph{determine} the total meteoroid flux utilizing data from \emph{AMOS}\\[4mm]
+                To \emph{determine} the total meteoroid flux utilizing data from \emph{AMOS}\\[8mm]
 				\pause
-                \emph{Problem}: data is severely distorted by selection bias\\[4mm]
-                \pause
-                \emph{Solution}: \emph{extrapolate} from collected data
+                \emph{Problem}: data are severely distorted by selection bias   
+                \begin{itemize}
+                \item probability of detection is higher for meteors that are
+                    \begin{itemize}
+                        \item brighter
+                        \item slower
+                        \item closer to zenith
+                        \item ...
+                    \end{itemize}
+                \end{itemize}
+            }
+
+            \frejm{Solution}{
+                \emph{Solution}: extrapolate from collected data
                     \begin{itemize}
                         \item analyze the detection ability of AMOS
                         \item calibrate the system
@@ -169,25 +180,22 @@
             \fspicture{angularSpeed-teplicne-dots.png}[H][black]
                 
             \frejm{Selection bias}{
-                \emph{Detection efficiency is not constant!}            
+                \emph{Detection efficiency is not constant!}\\[4mm]
                 \begin{itemize}
-                    \item probability of detection is higher for meteors that are
+                    \item for each meteor:
                     \begin{itemize}
-                        \item brighter
-                        \item slower
-                        \item closer to zenith
-                        \item ...
+                        \item \emph{decide} whether it is detected
+                        \item based on its \emph{properties}
                     \end{itemize}
-                    \pause
-                    \item for each meteor \emph{decide} whether it is \emph{detected}
-                    \item compare visible meteors to real data
+                    \item compare only visible meteors to real data
                 \end{itemize}
             }
+
+            \fspicture{limmag.pdf}[H][white]
             
             \fspicture{angularSpeed-teplicne-dots.png}[H][black]
             \fspicture{angularSpeed-teplicne-biased.png}[H][black]
 
-            \fspicture{limmag.pdf}[H][white]
                             
 			\frejm{Tool: ASMODEUS}{
                 \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator\\[5mm]
@@ -195,7 +203,7 @@
 				\begin{itemize}
 					\item suite of seven scripts in \emph{Python}
 					\item implements the described model
-                    \item numerous analysis and visualisation tools
+                    \item numerous analytic tools and visualisations
 				\end{itemize}
 			}
             
@@ -287,11 +295,11 @@
 					\item simulation is run again with AMOS's \emph{optimal DPF parameters}
                         $$A(\theta) = \left(\sin \theta\right)^{0.4} \qquad D(m) = \frac{0.93}{1 + e^{\frac{m + 0.17}{0.362}}} \qquad S(\omega) \equiv 1$$
 					\item the number of meteors is \emph{scaled} to match observations
-                    \item this should correspond to the real population
+                    \item this is our \emph{model} of the \emph{real} population
 				\end{itemize}
 				\pause
 				\begin{itemize}
-					\item \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour}
+                    \item \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour} (>\SI{1}{\milli\metre})
 					\item \SI{0.338}{\kilo\gram} per \SI{1000000}{\kilo\metre\squared\hour} $\approx$ \SI{43}{\kilo\gram\per\hour} over entire Earth
 				\end{itemize}
 			}

@@ -1,0 +1,66 @@
+\section{Methods}
+    Here we describe the used methods.
+    
+    \subsection{Meteor flight model}
+        Describe the used model by Öpik
+        
+        equations of motion (keep it simple)
+        
+        equation of luminosity + tau(v)
+        
+        Runge-Kutta integrator with variable mass
+
+        supplementary quantities (air mass, density, angular speed) -- very briefly
+    
+        \begin{equation}
+            \mathrm{d}v = -\frac{\Gamma A \rho_{\mathrm{air}} v^2}{m^{1/3} \rho^{2/3}} \mathrm{d}t\text{.}
+            \label{m-dv}
+        \end{equation}
+        
+        \begin{equation}
+            \mathrm{d}m = -\frac{\Lambda}{2Q} \frac{Am^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \mathrm{d}t\text{.}
+            \label{m-dm}
+        \end{equation}
+        
+        \cite{jones-halliday2001} defined the excitation coefficient~$\zeta$, which represents
+        the sum of all excitation probabilities over collisions and obtained the following relationship between $\zeta$ and $\tau$:
+        \begin{equation}
+            \tau = \frac{2\epsilon\zeta}{mv^2}\text{,}
+            \label{m-tau}
+        \end{equation}
+    
+        where $\epsilon$ is the mean excitation energy. For estimation of $\zeta$ we used a slightly improved version of the
+        model compiled by \cite{hill2005}. In the formulae speed $v$ is stated in metres per second.
+        To obtain the total flux of emitted visible light $F_0$, we take the time derivative of the particle's kinetic energy.
+        Neglecting the second (deceleration) term yields the following \emph{equation of luminance}:
+        \begin{equation}
+            F_0 = \tau(v) \frac{\Lambda}{4Q} \rho_{\mathrm{air}} v^5\text{.}
+            \label{m-f0}
+        \end{equation}
+        
+    \subsection{Generating the meteoroids}
+        material properties, spherical Earth model
+        
+        initial masses
+        
+        initial velocities and positions (ensure uniform distribution)
+        
+        initial times
+        
+    \subsection{Simulation of observations}
+        apparent magnitude
+        
+    \subsection{Application of selection bias}
+        
+\section{Statistical analysis}
+    \subsection{Detection probability functions}
+
+    \subsection{Calibration of AMOS cameras}
+
+    
+    
+
+
+
+
+    

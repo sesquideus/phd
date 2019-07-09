@@ -1,0 +1,86 @@
+%                                                                 aa.dem
+% AA vers. 8.2, LaTeX class for Astronomy & Astrophysics
+% demonstration file
+%                                                       (c) EDP Sciences
+%-----------------------------------------------------------------------
+%
+%\documentclass[referee]{aa} % for a referee version
+%\documentclass[onecolumn]{aa} % for a paper on 1 column  
+%\documentclass[longauth]{aa} % for the long lists of affiliations 
+%\documentclass[rnote]{aa} % for the research notes
+%\documentclass[letter]{aa} % for the letters 
+%\documentclass[bibyear]{aa} % if the references are not structured 
+% according to the author-year natbib style
+
+
+\documentclass[referee]{aa}
+%\documentclass{aa}
+
+%
+\usepackage{graphicx}
+\usepackage{siunitx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{txfonts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[options]{hyperref}
+% To add links in your PDF file, use the package "hyperref"
+% with options according to your LaTeX or PDFLaTeX drivers.
+%
+\begin{document} 
+    \title{Determination of Perseid Meteoroid Flux from Meteor Data Debiased by Numerical Simulation}
+    \subtitle{I. }
+
+    \author{
+        M. Baláž\inst{1}\fnmsep\thanks{martin.balaz@fmph.uniba.sk}
+        \and
+        J. Tóth\inst{1}
+        \and
+        P. Vereš\inst{2}
+        \and
+        R. Jedicke\inst{3}
+    }
+
+    \institute{
+        Comenius University in Bratislava,
+        Mlynská dolina, 84248 Bratislava, Slovak Republic \\
+        \email{martin.balaz@fmph.uniba.sk} \\
+        \email{juraj.toth@fmph.uniba.sk}
+        \and
+        Minor Planet Center \\
+        \email{peter.veres@cfa.harvard.edu}
+        \and
+        University of Hawaii \\
+        \email{jedicke@hawaii.edu}
+    }
+
+   \date{Received September 15, 1996; accepted March 16, 1997}
+
+% \abstract{}{}{}{}{} 
+% 5 {} token are mandatory
+
+\input{abstract.tex}
+
+
+\titlerunning{Debiased Perseid Meteor Flux}
+\maketitle
+%
+%________________________________________________________________
+
+\input{introduction.tex}
+\input{methods.tex}
+\input{results.tex}
+\input{conclusion.tex}
+
+\input{content.tex}
+
+\begin{acknowledgements}
+    This work has been supported by the special stipendium provided by FMPH CU (October 2017), UK grant number 123456
+\end{acknowledgements}
+
+
+%-------------------------------------------------------------------
+
+\bibliographystyle{aa}
+\bibliography{references.bib}
+
+\end{document}

@@ -6,6 +6,10 @@ name = "pypi"
 [dev-packages]
 
 [packages]
+numpy = "*"
+scipy = "*"
+pandas = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.7"

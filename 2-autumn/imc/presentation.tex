@@ -1,0 +1,198 @@
+\documentclass[12pt,aspectratio=1610]{beamer}
+\input{../../kvik-beamer.tex}
+
+\title{Investigation of meteor models with numerical simulation}
+\author{\small \emph{Martin Baláž} \\ Juraj Tóth, PhD. \\ Peter Vereš, PhD.}
+\institute{IMC 2019, Bollmannsruh}
+\date{2019--10--05}
+
+\begin{document}
+    {
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{fireworks-i.png}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
+                
+    \section{Overview}
+        \frejm{Objective}{
+
+            \begin{itemize}
+                \item we are left with a highly capable simulation
+            \end{itemize}
+        }
+
+        \frejm{Solution}{
+        }
+        
+        \frejm{Algorithm}{
+            \begin{enumerate}
+                \item generate the meteoroid population
+                \pause
+                \item simulate atmospheric entry and create meteor objects
+                \pause
+                \item compute meteor sightings as seen by predefined observers
+                    \begin{itemize}
+                        \item position in the sky, magnitude, entry angle, ...
+                    \end{itemize}
+                \pause
+                \item apply observational bias 
+                    \begin{itemize}
+                        \item limiting magnitude, altitude, angular speed, ...
+                    \end{itemize}
+                \pause
+                \item calculate the statistic and compare it to AMOS data 
+                \item adjust bias parameters 
+                \pause
+                \item repeat
+            \end{enumerate}
+        }
+						
+    \setbeamersize{description width = 5mm}
+    \section{Simulation}
+        \frejm{Model}{            
+            \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
+            
+            We assume
+            \begin{itemize}
+                \item spherical, continuously ablating particles
+                \item no gravity
+            \end{itemize}
+            
+            We need
+            \begin{itemize}
+                \item equations of motion
+                \item equation of luminance
+                \item atmospheric and instrumental effects
+                \item to compute the statistic
+            \end{itemize}            
+        }
+    
+        %\frejm{Equations of motion}{
+        %    \begin{itemize}
+        %        \item braking equation
+        %        $$
+        %            \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+        %        $$
+        %        \item equation of ablation
+        %        $$
+        %            \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+        %        $$
+        %        \item equation of luminance
+        %        $$
+        %            L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+        %        $$
+        %        \begin{itemize}
+        %            \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
+        %        \end{itemize}
+        %    \end{itemize}
+        %}
+        
+        \frejm{Simulation of flight}{
+            Customized \emph{Runge--Kutta} integrator (RK4)
+            \begin{itemize}
+                \item run until complete ablation of the particle
+                \item \emph{snapshots} taken 20 times per second
+                \item multiple integration steps between snapshots
+            \end{itemize}
+        }
+        
+        \frejm{Virtual observations}{
+            Next, we create observations
+            \begin{itemize}
+                \item observers on the ground
+                \begin{itemize}
+                    \item each represents an AMOS camera
+                \end{itemize}
+                \item sequence of frames
+            \end{itemize}           
+        }
+            
+        \fspicture{angularSpeed-teplicne-streaks.png}[H][black]
+        
+        \frejm{Virtual observations}{
+            Next, we create observations
+            \begin{itemize}
+                \item observers on the ground
+                \begin{itemize}
+                    \item each represents an AMOS camera
+                \end{itemize}
+                \item sequence of frames
+                \item only the \emph{brightest frame} is analyzed
+            \end{itemize}           
+        }
+            
+        \frejm{Selection bias}{
+            \emph{Detection efficiency is not constant!}\\[4mm]
+            \begin{itemize}
+                \item for each meteor:
+                \begin{itemize}
+                    \item \emph{decide} whether it is detected
+                    \item based on its \emph{properties}
+                \end{itemize}
+                \item compare only visible meteors to real data
+            \end{itemize}
+        }
+
+                        
+        \frejm{Tool: ASMODEUS}{
+            \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator\\[5mm]
+            A multi-purpose virtual meteor observatory
+            \begin{itemize}
+                \item suite of seven scripts in \emph{Python}
+                \item implements the described model
+                \item numerous analytic tools and visualisations
+            \end{itemize}
+        }
+        
+        %\fspicture{mjd-entryAngle-appMag.png}
+        %\fspicture{logInitMass-absMag-appMag.png}
+        %\fspicture{absMag-elevation-appMag.png}
+
+    \section{Generators}
+        \frejm{Grid generator}{
+            \begin{itemize}
+                \item fix all properties except one or two
+                \begin{itemize}
+                    \item initial position
+                    \item mass
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \fspicture{grid.png}
+
+    \section{Results}    
+							
+    \section{Conclusion}
+        \frejm{Summary}{
+            \begin{itemize}
+                \item it is a \emph{surprisingly good} method
+                \begin{itemize}
+                    \item versatile, universal tool
+                    \item applicable to \emph{almost any} meteor observing system
+                \end{itemize}
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item the tools will be \emph{shared} and free to use
+                \item any comments or suggestions are welcome
+            \end{itemize}
+        }
+        
+        \frejm{References}{
+            \begin{itemize}
+                \item \textbf{Öpik, E. J.}:
+                    Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.  
+                \item \textbf{Jenniskens, P.}:
+                    Meteor Showers and Their Parent Comets. Cambridge University Press, Cambridge, 2006.
+                \item \textbf{Blaauw, R. C. et al.}:
+                    Optical meteor fluxes and application to the 2015 Perseids. MNRAS vol. 463, 2016, pp441--448.
+                \item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
+                    High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005) 
+                \item \textbf{Jones, W. -- Halliday, I.}:
+                    Effects of Excitation and Ionization in Meteor Trains. MNRAS vol. 321, 2001, pp417--423.
+            \end{itemize}
+        }
+            
+\end{document}

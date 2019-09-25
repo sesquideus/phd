@@ -59,7 +59,7 @@
 
 \setbeamertemplate{navigation symbols}{}
 \newfontfamily{\semibold}{Segoe UI Semibold}
-\RenewDocumentCommand{\emph}{m}{{\semibold#1}}
+\RenewDocumentCommand{\emph}{m}{\textbf{#1}}
 \NewDocumentCommand{\code}{m}{\textcolor{desc}{\texttt{#1}}}
 \NewDocumentCommand{\model}{m}{\colorbox{coded}{\textcolor{model}{\texttt{#1}}}}
 \NewDocumentCommand{\todo}{m}{\colorbox{todo}{#1}}

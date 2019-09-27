@@ -22,9 +22,9 @@
                 \pause
                 \item we can
                 \begin{itemize}
-                    \item estimate \emph{meteor flux}
-                    \item validate \emph{physical models}
-                    \item fit \emph{observations}
+                    \item estimate meteor flux
+                    \item validate physical models
+                    \item fit observations
                     \item ...
                 \end{itemize}
                 \pause
@@ -36,9 +36,6 @@
 
         }
 
-        \frejm{Solution}{
-        }
-        
         \frejm{Algorithm}{
             \begin{enumerate}
                 \item generate the meteoroid population
@@ -52,14 +49,11 @@
                 \pause
                 \item (optionally) apply observational bias 
                     \begin{itemize}
-                        \item any parameter
+                        \item by any parameter
                         \item limiting magnitude, altitude, angular speed, ...
                     \end{itemize}
                 \pause
-                \item calculate the statistic and compare it to AMOS data 
-                \item adjust bias parameters 
-                \pause
-                \item repeat
+                \item look at the resulting dataset
             \end{enumerate}
         }
 						
@@ -114,9 +108,9 @@
         
         \fspicture{angularSpeed-teplicne-streaks.png}[H][black]
                  
-        %\fspicture{mjd-entryAngle-appMag.png}
-        %\fspicture{logInitMass-absMag-appMag.png}
-        %\fspicture{absMag-elevation-appMag.png}
+        \fspicture{mjd-entryAngle-appMag.png}
+        \fspicture{logInitMass-absMag-appMag.png}
+        \fspicture{absMag-elevation-appMag.png}
 
     \section{Population generators}
         \frejm{Random generator}{
@@ -127,13 +121,14 @@
                     \item \emph{very difficult} for sporadic background
                 \end{itemize}
                 \pause
-                \item constant $\vec{v}$
+                \item $\pm$ constant $\vec{v}$
                 \item slowly varying activity
             \end{itemize}
         }
 
         \frejm{Grid generator}{
-            Good old method
+            Plain old scientific method...
+            \pause
             \begin{itemize}
                 \item fix all parameters of meteoroids
                 \pause
@@ -142,24 +137,34 @@
                 \item simulate, observe, analyze...
                 \item look at the changes in the output
             \end{itemize}
+            
+            \pause
+            We may analyze either \emph{max-light frame} or \emph{entire trail}
         }
 
         \fspicture{grid-sky.png}[H]
 
-    \section{Entry angle}
-
-    \section{Density}
-    
-    \section{}
-        \frejm{Deficiencies of the model}{
-            \begin{itemize}
-                \item not dependent on $\Gamma$
+    \section{Analyses}
+        \frejm{Constraints}{
+            We simplify things (unless stated otherwise)
+            \begin{itemize}                
+                \item observer at North pole
+                \item constant atmosphere
+                \item meteors start in zenith
             \end{itemize}
         }
 
-        \frejm{Variations in entry angle}{
+        \frejm{Entry angle}{
+            varying \emph{declination} = \emph{entry angle}
             \begin{itemize}
-                \item North pole, varying declination
+                \item mass \SI{1}{\gram}
+            \end{itemize}
+        }
+
+        \frejm{Mass}{
+            \begin{itemize}
+                \item Perseids
+                \item mass from \SI{1e-6}{\kilo\gram} to \SI{1}{\kilo\gram}
             \end{itemize}
         }
 
@@ -167,11 +172,38 @@
         \fspicture{ea-the.png}
         \fspicture{ea-Mae.png}
         \fspicture{ea-tLe.png}
-							
+
+        \frejm{Heat of ablation}{
+            \begin{itemize}
+                \item Perseids
+
+                \item wildly non-linear behaviour
+            \end{itemize}
+        }
+        %\fspicture{hoa-.png}
+
+        \frejm{Density}{
+        }
+
+        \frejm{Speed}{
+            We are able to revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
+        }
+
     \section{Conclusion}
         \frejm{Validation}{
-            Revise High velocity meteor ablation Hill et al.
             Revise other simulations (Gural)
+        }
+
+        \frejm{}{
+            \begin{itemize}
+                \item maximal brightness always near 1/3 initial mass
+            \end{itemize}
+        }
+        
+        \frejm{Deficiencies of the model}{
+            \begin{itemize}
+                \item not dependent on $\Gamma$
+            \end{itemize}
         }
 
         \frejm{Ultimate goal}{
@@ -197,10 +229,6 @@
             \begin{itemize}
                 \item \textbf{Öpik, E. J.}:
                     Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.  
-                \item \textbf{Jenniskens, P.}:
-                    Meteor Showers and Their Parent Comets. Cambridge University Press, Cambridge, 2006.
-                \item \textbf{Blaauw, R. C. et al.}:
-                    Optical meteor fluxes and application to the 2015 Perseids. MNRAS vol. 463, 2016, pp441--448.
                 \item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
                     High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005) 
                 \item \textbf{Jones, W. -- Halliday, I.}:

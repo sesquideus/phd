@@ -40,20 +40,17 @@
             \begin{enumerate}
                 \item generate the meteoroid population
                 \pause
-                \item simulate atmospheric entry and create meteor objects
+                \item simulate atmospheric entry
                 \pause
-                \item compute meteor sightings as seen by predefined observers
+                \item compute meteor sightings
                     \begin{itemize}
-                        \item position in the sky, magnitude, entry angle, ...
+                        \item position in the sky
+                        \item magnitude
+                        \item entry angle
+                        \item ...
                     \end{itemize}
                 \pause
-                \item (optionally) apply observational bias 
-                    \begin{itemize}
-                        \item by any parameter
-                        \item limiting magnitude, altitude, angular speed, ...
-                    \end{itemize}
-                \pause
-                \item look at the resulting dataset
+                \item look at the dataset
             \end{enumerate}
         }
 						
@@ -98,11 +95,13 @@
         %}
         
         \frejm{Simulation of flight}{
-            Customized \emph{Runge--Kutta} integrator (RK4)
+            \emph{Runge--Kutta} integrator (RK4)
             \begin{itemize}
-                \item run until complete ablation of the particle
+                \item complete ablation of the particle
+                \pause
                 \item \emph{snapshots} taken $N$ times per second
-                \item multiple integration steps between snapshots
+                \pause
+                \item multiple integration steps
             \end{itemize}
         }
         
@@ -112,10 +111,10 @@
         \fspicture{logInitMass-absMag-appMag.png}
         \fspicture{absMag-elevation-appMag.png}
 
-    \section{Population generators}
+    \section{Prerequisites}
         \frejm{Random generator}{
             \begin{itemize}
-                \item try to approximate the real population
+                \item  approximate the real population
                 \begin{itemize}
                     \item easy for \emph{showers}
                     \item \emph{very difficult} for sporadic background
@@ -130,41 +129,45 @@
             Plain old scientific method...
             \pause
             \begin{itemize}
-                \item fix all parameters of meteoroids
+                \item fix all parameters of meteoroids...
                 \pause
-                \item slowly vary one parameter
+                \item ...except one...
                 \pause
+                \item ...vary it slowly
+            \end{itemize}
+            \pause
+            \begin{itemize}
                 \item simulate, observe, analyze...
-                \item look at the changes in the output
+                \item look for changes in the output
             \end{itemize}
             
             \pause
             We may analyze either \emph{max-light frame} or \emph{entire trail}
         }
+        %picture maxlight vs trail
 
         \fspicture{grid-sky.png}[H]
 
-    \section{Analyses}
         \frejm{Constraints}{
             We simplify things (unless stated otherwise)
             \begin{itemize}                
                 \item observer at North pole
-                \item constant atmosphere
-                \item meteors start in zenith
+                \item constant atmospheric model
+                \item start in zenith
+            \end{itemize}
+            \pause
+            \begin{itemize}                
+                \item scatter plot
+                \item colour by varied property
+                \item emphasize max-light frame
             \end{itemize}
         }
 
-        \frejm{Entry angle}{
+    \section{Entry angle}
+        \frejm{Parameters}{
             varying \emph{declination} = \emph{entry angle}
             \begin{itemize}
                 \item mass \SI{1}{\gram}
-            \end{itemize}
-        }
-
-        \frejm{Mass}{
-            \begin{itemize}
-                \item Perseids
-                \item mass from \SI{1e-6}{\kilo\gram} to \SI{1}{\kilo\gram}
             \end{itemize}
         }
 
@@ -173,20 +176,45 @@
         \fspicture{ea-Mae.png}
         \fspicture{ea-tLe.png}
 
-        \frejm{Heat of ablation}{
+    \section{Mass}
+        \frejm{Parameters}{
             \begin{itemize}
                 \item Perseids
+                \begin{itemize}
+                    \item material, radiant, velocity, ...
+                \end{itemize}
+                \pause
+                \item mass from \SI{1e-6}{\kilo\gram} to \SI{1}{\kilo\gram}
+                \item logarithmic spacing
+            \end{itemize}
+        }
+        %pictures
 
+        \frejm{Results}{
+            \begin{itemize}
+                \item maximum brightness at ~1/3 initial mass
+                \item VERIFY THIS FOR MULTIPLE VARIATIONS
+            \end{itemize}
+        }
+        
+    \section{Heat of ablation}
+        \frejm{Parameters}{
+            \begin{itemize}
+                \item $Q$ \SIrange{1e3}{1e9}{\joule\per\kilo\gram}
+                \item 
                 \item wildly non-linear behaviour
             \end{itemize}
         }
         %\fspicture{hoa-.png}
 
         \frejm{Density}{
+            \begin{itemize}
+
+            \end{itemize}
         }
 
         \frejm{Speed}{
-            We are able to revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
+            revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
         }
 
     \section{Conclusion}
@@ -194,12 +222,6 @@
             Revise other simulations (Gural)
         }
 
-        \frejm{}{
-            \begin{itemize}
-                \item maximal brightness always near 1/3 initial mass
-            \end{itemize}
-        }
-        
         \frejm{Deficiencies of the model}{
             \begin{itemize}
                 \item not dependent on $\Gamma$
@@ -207,7 +229,14 @@
         }
 
         \frejm{Ultimate goal}{
-            Revise the models and design a better one
+            \begin{itemize}
+                \item revise the physics 
+                \item hopefully design a better one
+                \begin{itemize}
+                    \item compare with real meteors
+                    \item use in flux estimations
+                \end{itemize}
+            \end{itemize}
         }
 
         \frejm{Summary}{

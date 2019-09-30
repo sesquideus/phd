@@ -114,13 +114,13 @@
     \section{Prerequisites}
         \frejm{Random generator}{
             \begin{itemize}
-                \item  approximate the real population
+                \item approximate the real population
                 \begin{itemize}
                     \item easy for \emph{showers}
                     \item \emph{very difficult} for sporadic background
                 \end{itemize}
                 \pause
-                \item $\pm$ constant $\vec{v}$
+                \item $\pm$ constant $\vec{v_{\inf}}$
                 \item slowly varying activity
             \end{itemize}
         }
@@ -184,7 +184,7 @@
                     \item material, radiant, velocity, ...
                 \end{itemize}
                 \pause
-                \item mass from \SI{1e-6}{\kilo\gram} to \SI{1}{\kilo\gram}
+                \item mass from \SI{1}{\micro\gram} to \SI{1}{\kilo\gram}
                 \item logarithmic spacing
             \end{itemize}
         }
@@ -197,24 +197,48 @@
             \end{itemize}
         }
         
-    \section{Heat of ablation}
-        \frejm{Parameters}{
+    \section{Ablation}
+        \frejm{Heat of ablation}{
             \begin{itemize}
-                \item $Q$ \SIrange{1e3}{1e9}{\joule\per\kilo\gram}
-                \item 
+                \item $Q$ varied between \SIrange[per-mode = symbol]{1e3}{1e9}{\joule\per\kilo\gram}
+                \pause
                 \item wildly non-linear behaviour
             \end{itemize}
         }
         %\fspicture{hoa-.png}
 
-        \frejm{Density}{
+    \section{Density}
+        \frejm{Parameters}{
             \begin{itemize}
-
+                \item vertical entry
+                \item varying \emph{density} between \SIrange{200}{8000}{\kilo\gram\per\metre\cubed}
             \end{itemize}
         }
+        %\fspicture{densities...}
 
-        \frejm{Speed}{
+    \section{Hypervelocity}
+        \frejm{Hypervelocity}{
+            \begin{itemize}
+                \item fluffy cometary material
+                \item \emph{speed} between \SIrange{70}{500}{\kilo\metre\per\second}
+                \item \emph{masss} between \SIrange{1e-12}{1e-6}{\kilo\gram}
+            \end{itemize}
+        }
+        \fspicture{hv-grid.png}
+        \fspicture{hv-Mhv.png}
+        \fspicture{hv-thv.png}
+        \fspicture{hv-mMv.png}
+
+        \frejm{Results}{
             revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
+            \begin{itemize}
+                \item there are no observations
+                \pause
+                \item upper limit on flux
+                \begin{itemize}
+                    \item needs precise evaluation
+                \end{itemize}
+            \end{itemize}
         }
 
     \section{Conclusion}
@@ -227,13 +251,13 @@
                 \item not dependent on $\Gamma$
             \end{itemize}
         }
-
         \frejm{Ultimate goal}{
             \begin{itemize}
-                \item revise the physics 
+                \item revise the physics in the model
                 \item hopefully design a better one
+                \pause
                 \begin{itemize}
-                    \item compare with real meteors
+                    \item compare with real meteors                        
                     \item use in flux estimations
                 \end{itemize}
             \end{itemize}
@@ -246,11 +270,12 @@
             \end{itemize}
             \pause
             \begin{itemize}
-                \item the tools are \emph{open-source}
+                \item everything is \emph{open-source}
                 \begin{itemize}
                     \item \url{https://github.com/sesquideus/asmodeus}
                 \end{itemize}
-                \item suggestions or comments welcome
+                \pause
+                \item suggestions or comments always welcome
             \end{itemize}
         }
         

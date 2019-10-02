@@ -16,6 +16,11 @@
     }
                 
     \section{Overview}
+        \frejm{Motivation}{
+            {\large All work and no play makes Jack a dull boy...}\\[10mm]
+            \hfill \textit{English proverb}
+        }
+
         \frejm{What do we have?}{
             \begin{itemize}
                 \item a (more-or-less) universal meteor simulator
@@ -30,14 +35,17 @@
             \end{itemize}
             \pause
             \begin{itemize}
-                \item let's take it beyond pure statistics
+                \item let us take it beyond statistics
+                \item look at variations in meteors' properties
             \end{itemize}
-
         }
 
         \frejm{Algorithm}{
             \begin{enumerate}
                 \item generate the meteoroid population
+                \begin{itemize}
+                    \item how?
+                \end{itemize}
                 \pause
                 \item simulate atmospheric entry
                 \pause
@@ -103,15 +111,15 @@
                 \item no ionization or trail emission
             \end{itemize} 
 
-            \emph{Runge--Kutta} integrator (RK4)
+            \emph{3D simulation} on spherical Earth
             \begin{itemize}
-                \item full 3D simulation on spherical Earth
+                \item Runge--Kutta integrator
                 \item \emph{snapshots} taken $N$ times per second
                 \item until complete ablation (or...)
             \end{itemize}
         }
         
-        \fspicture{mjd-entryAngle-appMag.png}
+        \fspicture{loginitMass-elevation-appMag.png}[H]
 
     \section{Prerequisites}
         %\frejm{Random generator}{
@@ -148,10 +156,12 @@
             We may look at the \emph{brightest frame} or \emph{entire trail}
         }
         
+        \fspicture{real-sky.png}[H]
         \fspicture{grid-sky.png}[H]
 
         \frejm{Constraints}{
             We simplify things (unless stated otherwise)
+            \pause
             \begin{itemize}                
                 \item observer at North Pole
                 \item constant atmospheric model
@@ -167,15 +177,15 @@
 
         \frejm{What is it good for?}{
             \begin{itemize}
-                \item predict parameters of \emph{any} incoming particle
+                \item predict properties of \emph{any} incoming particle
                 \item improve ablation and flight models
-                \item try to find anything interesting in the data
+                \item try to find something interesting in the data
             \end{itemize}
         }
 
     \section{Entry angle}
         \frejm{Entry angle}{
-            varying \emph{declination} = \emph{entry angle}
+            varying \emph{entry angle}
             \begin{itemize}
                 \item Perseids
                 \begin{itemize}
@@ -214,16 +224,17 @@
 
         \fspicture{mass/tWu.png}
         \fspicture{mass/twu.png}
+        \fspicture{mass/twu2.png}
         
-    \section{Ablation}
-        \frejm{Heat of ablation}{
-            varying \emph{enthalpy of vaporization} $Q$
-            \begin{itemize}
-                \item Perseids
-                \item \SIrange[per-mode = symbol]{1e3}{1e8}{\joule\per\kilo\gram}
-            \end{itemize}
-        }
-        \fspicture{ablationHeat/MhQ.png}
+    %\section{Ablation}
+    %    \frejm{Heat of ablation}{
+    %        varying \emph{enthalpy of vaporization} $Q$
+    %        \begin{itemize}
+    %            \item Perseids
+    %            \item \SIrange[per-mode = symbol]{1e3}{1e8}{\joule\per\kilo\gram}
+    %        \end{itemize}
+    %    }
+    %    \fspicture{ablationHeat/MhQ.png}
 
     %\section{Density}
     %    \frejm{Parameters}{
@@ -285,6 +296,12 @@
                     \item use in flux estimations
                 \end{itemize}
             \end{itemize}
+        }
+
+        \frejm{Find motivation}{
+            {\large ...all play and no work makes Jack a mere toy.}\\[10mm]
+            \hfill \textit{Harry and Lucy Concluded} \\
+            \hfill \textit{Maria Edgeworth (1825)}%
         }
 
         \frejm{Summary}{

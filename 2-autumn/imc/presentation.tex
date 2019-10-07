@@ -3,7 +3,9 @@
 
 \title{Investigation of meteor models with numerical simulation}
 \subtitle{Toying with models of meteor flight for a deeper understanding}
-\author{\small \emph{Martin Baláž} \\ Juraj Tóth, PhD. \\ Peter Vereš, PhD.}
+\author{\small \emph{Martin Baláž}\textsuperscript{1} \and Juraj Tóth, PhD.\textsuperscript{1} \and Peter Vereš, PhD.\textsuperscript{2} \\[4mm] \scriptsize
+    \textsuperscript{1}Comenius University \\
+    \textsuperscript{2}MPC, Harvard-Smithsonian Center for Astrophysics}
 \institute{IMC 2019, Bollmannsruh}
 \date{2019--10--05}
 
@@ -29,13 +31,13 @@
                 \begin{itemize}
                     \item estimate meteor flux
                     \item validate physical models
-                    \item fit observations
+                    \item investigate $r$ and $s$ indices
                     \item ...
                 \end{itemize}
             \end{itemize}
             \pause
             \begin{itemize}
-                \item let us take it beyond statistics
+                \item let's go beyond statistics
                 \item look at variations in meteors' properties
             \end{itemize}
         }
@@ -177,8 +179,8 @@
 
         \frejm{What is it good for?}{
             \begin{itemize}
-                \item predict properties of \emph{any} incoming particle
                 \item improve ablation and flight models
+                \item atmospheric tides
                 \item try to find something interesting in the data
             \end{itemize}
         }
@@ -245,35 +247,35 @@
     %    }
     %    %\fspicture{densities...}
 
-    %\section{Hypervelocity}
-    %    \frejm{Hypervelocity}{
-    %    Revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
-    %        \begin{itemize}
-    %            \item fluffy cometary material
-    %            \item \emph{speed} between \SIrange{70}{500}{\kilo\metre\per\second}
-    %            \item \emph{mass} between \SIrange{1e-12}{1e-6}{\kilo\gram}
-    %        \end{itemize}
-    %    }
-    %    \fspicture{hv/grid.png}
-    %    \fspicture{hv/Mhv.png}
-    %    \fspicture{hv/thv.png}
+    \section{Hypervelocity}
+        \frejm{Hypervelocity}{
+        Revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
+            \begin{itemize}
+                \item fluffy cometary material
+                \item \emph{speed} between \SIrange{70}{500}{\kilo\metre\per\second}
+                \item \emph{mass} between \SIrange{1e-12}{1e-6}{\kilo\gram}
+            \end{itemize}
+        }
+        \fspicture{hv/grid.png}
+        \fspicture{hv/Mhv.png}
+        \fspicture{hv/thv.png}
 
-    %    \frejm{Observations}{
-    %        \begin{itemize}
-    %            \item there are still no observations of such meteors
-    %            \pause
-    %            \item upper limit on flux
-    %            \begin{itemize}
-    %                \item needs precise understanding of selection bias
-    %            \end{itemize}
-    %            \pause
-    %            \item observation difficult
-    %            \begin{itemize}
-    %                \item all-sky cameras
-    %                \item telescopes
-    %            \end{itemize}
-    %        \end{itemize}
-    %    }
+        \frejm{Observations}{
+            \begin{itemize}
+                \item there are still no observations of such meteors
+                \pause
+                \item upper limit on flux
+                \begin{itemize}
+                    \item needs precise understanding of selection bias
+                \end{itemize}
+                \pause
+                \item observation difficult
+                \begin{itemize}
+                    \item all-sky cameras
+                    \item telescopes
+                \end{itemize}
+            \end{itemize}
+        }
 
     \section{Conclusion}
         \frejm{Validation}{

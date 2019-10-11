@@ -5,9 +5,9 @@
 \subtitle{Toying with models of meteor flight for a deeper understanding}
 \author{\small \emph{Martin Baláž}\textsuperscript{1} \and Juraj Tóth, PhD.\textsuperscript{1} \and Peter Vereš, PhD.\textsuperscript{2} \\[4mm] \scriptsize
     \textsuperscript{1}Comenius University \\
-    \textsuperscript{2}MPC, Harvard-Smithsonian Center for Astrophysics}
-\institute{IMC 2019, Bollmannsruh}
-\date{2019--10--05}
+    \textsuperscript{2}Minor Planet Center, Harvard-Smithsonian Center for Astrophysics}
+\institute{IMC 2019, Bollmannsruh \& DAA colloquium}
+\date{2019--10--09}
 
 \begin{document}
     {
@@ -67,53 +67,48 @@
 						
     \setbeamersize{description width = 5mm}
     \section{Simulation}
-        % This time we are investigating the models
-        %\frejm{Model}{            
-        %    \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
-        %    
-        %    We assume
-        %    \begin{itemize}
-        %        \item spherical, continuously ablating particles
-        %    \end{itemize}
-        %    
-        %    We need
-        %    \begin{itemize}
-        %        \item equations of motion
-        %        \item equation of luminance
-        %        \item atmospheric and instrumental effects
-        %        \item to compute the statistic
-        %    \end{itemize}            
-        %}
-    
-        %\frejm{Equations of motion}{
-        %    \begin{itemize}
-        %        \item braking equation
-        %        $$
-        %            \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
-        %        $$
-        %        \item equation of ablation
-        %        $$
-        %            \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
-        %        $$
-        %        \item equation of luminance
-        %        $$
-        %            L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
-        %        $$
-        %        \begin{itemize}
-        %            \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
-        %        \end{itemize}
-        %    \end{itemize}
-        %}
-        
-        \frejm{Simulation of flight}{
-            Standard model -- \emph{Öpik} (1955)
+         This time we are investigating the models
+        \frejm{Model}{            
+            \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
+            
+            We assume
             \begin{itemize}
-                \item single spherical body
+                \item spherical, continuously ablating particles
                 \item continuous thermal ablation
                 \item no ionization or trail emission
-            \end{itemize} 
-
-            \emph{3D simulation} on spherical Earth
+            \end{itemize}
+            
+            We need
+            \begin{itemize}
+                \item equations of motion
+                \item equation of luminance
+                \item atmospheric and instrumental effects
+                \item to compute the statistic
+            \end{itemize}            
+        }
+    
+        \frejm{Equations of motion}{
+            \begin{itemize}
+                \item braking equation
+                $$
+                    \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+                $$
+                \item equation of ablation
+                $$
+                    \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                $$
+                \item equation of luminance
+                $$
+                    L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+                $$
+                \begin{itemize}
+                    \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
+                \end{itemize}
+            \end{itemize}
+        }
+        
+        \frejm{Simulation of flight}{
+            Full \emph{3D simulation} on spherical Earth
             \begin{itemize}
                 \item Runge--Kutta integrator
                 \item \emph{snapshots} taken $N$ times per second
@@ -124,18 +119,18 @@
         \fspicture{loginitMass-elevation-appMag.png}[H]
 
     \section{Prerequisites}
-        %\frejm{Random generator}{
-        %    \begin{itemize}
-        %        \item approximate the real population
-        %        \begin{itemize}
-        %            \item easy for \emph{showers}
-        %            \item \emph{very difficult} for sporadic background
-        %        \end{itemize}
-        %        \pause
-        %        \item $\pm$ constant $\vec{v_{\infty}}$
-        %        \item slowly varying activity
-        %    \end{itemize}
-        %}
+        \frejm{Monte-Carlo generator}{
+            \begin{itemize}
+                \item approximate the real population
+                \begin{itemize}
+                    \item easy for \emph{showers}
+                    \item \emph{very difficult} for sporadic background
+                \end{itemize}
+                \pause
+                \item $\pm$ constant $\vec{v_{\infty}}$
+                \item slowly varying activity
+            \end{itemize}
+        }
 
         \frejm{Grid generator}{
             Plain old scientific method:
@@ -219,7 +214,7 @@
         \fspicture{mass/uQu.png}
         \frejm{Mass fraction at maxlight}{
             \begin{itemize}
-                \item maximum brightness at ~1/3 initial mass
+                \item maximum brightness at $\approx$1/3 initial mass
                 \item non-linear behaviour
             \end{itemize}
         }
@@ -247,8 +242,8 @@
     %    }
     %    %\fspicture{densities...}
 
-    \section{Hypervelocity}
-        \frejm{Hypervelocity}{
+    \section{Ultra-high entry velocity}
+        \frejm{Ultra-high entry velocity}{
         Revise \emph{High geocentric velocity meteor ablation} (Hill et al., 2005)
             \begin{itemize}
                 \item fluffy cometary material

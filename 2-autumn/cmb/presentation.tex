@@ -1,7 +1,9 @@
 \documentclass[12pt,aspectratio=1610]{beamer}
 \input{../../kvik-beamer.tex}
 
-\usepackage{transparent}
+\sisetup{
+    output-decimal-marker = {,},
+}
 
 \title{Nobelova cena za fyziku 2019}
 \subtitle{James "Jim" Peebles}
@@ -16,58 +18,152 @@
         \end{frame}
     }
                 
-    \section{Overview}
-        \frejm{}{
+    \section{Nobelova cena}
+        \frejm{James Peebles}{
+            {\large ,,For contributions to our understanding of the evolution of the universe and Earth's place in the cosmos``}
+            \begin{columns}
+                \begin{column}{0.5\textwidth}
+                    \begin{itemize}
+                        \item 1935, Kanada
+                        \item Princeton University
+                        \item Einstein Professor of Science
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.5\textwidth}
+                    \includegraphics[width = \textwidth]{Peebles.jpg}
+                \end{column}
+            \end{columns}
         }
         
+        \frejm{Dielo}{
+            \begin{itemize}
+                \item jeden zo zakladateľov modernej kozmológie
+                \item Princeton, \emph{Robert Dicke}
+                \pause
+                \item teoretický pohľad na mladý vesmír
+                \pause
+                \item celoživotné dielo...
+            \end{itemize}
+        }
 
+
+    \section{História}
+        \frejm{Expanzia vesmíru}{
+            \begin{itemize}
+                \item \emph{Edwin Hubble} (1929): červený posun
+                \item $\Implies$ čím je galaxia ďalej, tým rýchlejšie sa od nás vzďaľuje
+                \pause
+                \item vesmír sa rozpína
+                \pause
+                \item asi \SI{70}{\kilo\metre\per\second\per\mega pc} $\approx$ \num{2.2e-18}
+            \end{itemize}
+        }
+
+        \frejm{Veľký tresk}{
+            \begin{itemize}
+                \item \emph{George Gamow} a \emph{Georges Lemaître}
+                \pause
+                \item poďme späť v čase
+                \item ak sa vesmír rozpína, kedysi musel byť menší a horúcejší
+                \pause
+                \item asi pred \SI{1.38e-10}{rokov} musel byť takmer bodový
+            \end{itemize}
+        }
+        
         \fspicture{inflation.jpg}
 
         \frejm{Expanzia vesmíru}{
-            \begin{itemize}
-                \item asi 380000 rokov po Veľkom tresku
-                \item teplota klesá pod \SI{3000}{\kelvin}
-                \pause
-                \item formujú sa neutrálne atómy
-                \item vesmír je priehľadný
-            \end{itemize}
-            \pause
-            \begin{itemize}
-                \item svetlo sa môže voľne šíriť
-                \item expanzia...
-                \pause
-                \item dnes
-            \end{itemize}
+            \begin{columns}
+                \begin{column}{0.5 \textwidth}
+                    \begin{itemize}
+                        \item asi 380000 rokov po Veľkom tresku
+                        \item teplota klesá pod \SI{3000}{\kelvin}
+                        \pause
+                        \item formujú sa neutrálne atómy
+                        \item vesmír je priehľadný
+                    \end{itemize}
+                    \pause
+                    \begin{itemize}
+                        \item svetlo sa môže voľne šíriť
+                        \item expanzia, červený posun...
+                        \pause
+                        \item dnes asi 1100-krát menej, \SI{2.725}{\kelvin}
+                        \item žiarenie čierneho telesa
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.5 \textwidth}
+                    \includegraphics[width = \textwidth]{spectrum.png}
+                \end{column}
+            \end{columns}
         }
 
-        \fspicture{WMAP_2010.png}
-        \fspicture{cosmic-web.jpg}
+        \frejm{Objav}{
+            \begin{itemize}
+                \item \emph{Arno Penzias} a \emph{Robert Wilson}, 1964
+                \item Holmdel Horn Antenna
+                \pause
+                \item holuby v anténe...
+                \pause
+                \item prvé priame pozorovanie CMB (Dicke)
+                \item Nobelova cena za fyziku 1978
+            \end{itemize}
+        }
         
+        \fspicture{Holmdel.jpeg}
+        \fspicture{WMAP_2010.png}
 
-        \frejm{Tmavá hmota / energia}{
+        \frejm{Tmavá hmota + energia}{
+            \begin{columns}
+                \begin{column}{0.5 \textwidth}
+                    \begin{itemize}
+                        \item expanzia vesmíru sa \emph{zrýchľuje}
+                        \pause
+                        \item \emph{ΛCDM model}
+                        \item vesmír je homogénny a izotropný
+                        \item odchýlky sú viditeľné vo WMAP
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.5 \textwidth}
+                    \includegraphics[width = \textwidth]{pie.jpg}
+                \end{column}
+            \end{columns}
         }
 
-        \fspicture{pie.jpg}
+        \fspicture{cosmic-web.jpg}
 
     \section{Alternatívne teórie}
+        \frejm{Bez tmavej hmoty}{
+            Veľa pozorovaní sa dá vysvetliť aj inak...
+            \begin{itemize}
+                \item rotačné krivky galaxií (\emph{Zwicky} 1930)
+                \item gravitačné šošovkovanie
+            \end{itemize}
+        }
+
+        \fspicture{rotation-curve.png}
+
         \frejm{MOND}{
             \begin{itemize}
-                \item
-                    $$
-                        \cancel{\vec{F} = Gm_1m_2 \frac{\vec{r}}{r^3}}
-                    $$
-                \pause
-                \item
-                    $$
-                        \vec{F} = \frac{G m_1 m_2}{1 - \exp\left(-\sqrt{\frac{g}{g+}}\right)} \frac{\vec{r}}{r^3}
-                    $$
+                \item Čo ak je gravitácia iná?
+                \item \emph{Milgrom} 1983
+            \end{itemize}
+            $$
+                \cancel{\vec{F} = Gm_1m_2 \frac{\vec{r}}{r^3}}
+            $$
+            \pause
+            $$
+                \vec{F} = \frac{G m_1 m_2}{1 - \exp\left(-\sqrt{\frac{g}{g+}}\right)} \frac{\vec{r}}{r^3}
+            $$
+            \begin{itemize}
+                \item $g+ \approx \SI{1.2e-10}{\metre\per\second\squared}$
             \end{itemize}
         }
         
-
-        \frejm{References}{
+        \frejm{Referencie}{
             \begin{itemize}
-                \item 
+                \item NASA (WMP 2010, Holmdel Horn Antenna)
+                \item Princeton University/EPA (James Peebles)
+                \item Mario de Leo (Rotation curves)
             \end{itemize}
         }
             

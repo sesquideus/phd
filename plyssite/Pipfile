@@ -9,5 +9,5 @@ python_version = "3.7"
 [dev-packages]
 
 [packages]
-django = "*"
+django = ">2.2"
 django-simple-cms = "*"

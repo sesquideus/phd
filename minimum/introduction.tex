@@ -3,55 +3,68 @@
     You know what came of him,
 }{\vspace{2mm}Edsger Dijkstra}
 
-The final product would thus be a five-dimensional map, or distribution, of meteor activity, with independent variables being
-\begin{itemize}
-    \item the \emph{temporal coordinate}, representing the variation of meteor activity in time    \item the \emph{mass spectrum}, describing the distribution of meteoroid masses, typically in terms of \textit{mass index} $s$;
-    \item and the \emph{velocity spectrum}, describing the velocities of objects passing through this point, which can be in turn described by
-        \begin{itemize}
-            \item two spatial coordinates, the \emph{right ascension and declination} of the radiant, or $\alpha$ and $\delta$;
-            \item and \emph{speed} $v$.
-        \end{itemize}
-\end{itemize}
 
-described by the \emph{meteor activity function}
-\eqn{eq:i-map}{
-    \rho(t, \vec{v}, m) \equiv \rho(\lambda_\odot, \delta, \alpha, v, m).
-}
+\section{Reduction to Earth's sky} \label{ir}
+    While the introduced model describes the actual 
 
-\citep{balaz+2020}
+    models developed from data obtained from Earth-based observations are different.
 
-Within this map we are able to distinguish two main features:
-\begin{itemize}
-    \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-    \item and the well-defined peaks, representing the \emph{meteor showers}. All such peaks are invariably
-        very narrow in the speed domain, 
-    
-\end{itemize}
-    Due to influences of various acting forces, such as differences
-    in initial velocities with respect to the parent body, tidal disruptions, 
-    perturbations arising from close encounters with large bodies of the Solar System,
-    Poynting-Robertson effect, etc., the stream
-    gradually widens and disperses in all components until it is no longer recognizable from the background.
+    Typically we do not consider individual particles, but the entire stream and its elliptical orbit around the Sun.
 
-    density, 
+    the ascending or the descending node of the orbit must lie very close to the orbit of the Earth.
 
 
-    \subsection{Time} \label{i}
-        In examining the evolution we may recognize two distinct components:
-        \begin{itemize}
-            \item the \emph{periodic component}, emerging as the result of the Earth orbiting the Sun.
-                This coordinate can be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\odot$.
 
-            \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid streams and gradual decay of older
-                streams which are not replenished.
 
-                The peaks produced by meteor showers appear relatively abruptly after the parent body passes through the vicinty of the Earth,
-                producing small bodies due to heating or outgassing.
-                Even so, returns of parents bodies on periodic orbits, such as comets 1P/Halley or 109P/Swift-Tuttle, do result
-                in resupply of meteoroid material, and thus form an extra periodic component, included in the secular evolution of the stream.
+    The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
+    \begin{itemize}
+        \item the \emph{temporal coordinate}, representing the variation of meteor activity in time    \item the \emph{mass spectrum}, describing the distribution of meteoroid masses, typically in terms of \textit{mass index} $s$;
+        \item and the \emph{velocity spectrum}, describing the velocities of objects passing through this point, which can be in turn described by
+            \begin{itemize}
+                \item two spatial coordinates, the \emph{right ascension and declination} of the radiant, or $\alpha$ and $\delta$;
+                \item and \emph{speed} $v$.
+            \end{itemize}
+    \end{itemize}
 
-            
-        which can be expressed as and a secular component, which is the result
-        of the evolution of the associated stream;
+    described by the \emph{meteor activity function}
+    \eqn{eq:i-map}{
+        \rho(t, \vec{v}, m) \equiv \rho(\lambda_\odot, \delta, \alpha, v, m).
+    }
 
-        \end{itemize}
+    \citep{balaz+2020}
+
+    Within this map we are able to distinguish two main features:
+    \begin{itemize}
+        \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
+        \item and the well-defined peaks, representing the \emph{meteor showers}. All such peaks are invariably
+            very narrow in the speed domain, 
+        
+    \end{itemize}
+        Due to influences of various acting forces, such as differences
+        in initial velocities with respect to the parent body, tidal disruptions, 
+        perturbations arising from close encounters with large bodies of the Solar System,
+        Poynting-Robertson effect, etc., the stream
+        gradually widens and disperses in all components until it is no longer recognizable from the background.
+
+        density, 
+
+
+        \subsection{Time} \label{i}
+            In examining the evolution we may recognize two distinct components:
+            \begin{itemize}
+                \item the \emph{periodic component}, emerging as the result of the Earth orbiting the Sun.
+                    This coordinate can be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\odot$.
+
+                \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid streams and gradual decay of older
+                    streams which are not replenished.
+
+                    The peaks produced by meteor showers appear abruptly after the parent body passes through the vicinity of the Earth,
+                    producing small meteoroid due to heating or outgassing.
+                    Returns of parents bodies on periodic orbits, such as comets 1P/Halley or 109P/Swift-Tuttle, result
+                    in resupply of meteoroid material, and thus form an extra periodic component, included in the secular evolution of the stream.
+
+                
+            which can be expressed as and a secular component, which is the result
+            of the evolution of the associated stream;
+
+            \end{itemize}

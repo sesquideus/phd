@@ -1,10 +1,7 @@
-MAKEFLAGS += --no-builtin-rules
-MAKEFLAGS += --no-builtin-variables
-
 .SECONDEXPANSION:
 
 %.tex: $$*.md
-	pandoc $< --to latex+smart --filter pandoc-citeproc --bibliography ../../kvik.bib --csl style.csl -M lang=sk-SK --output $@
+	pandoc $< --to latex --smart --filter ~/.cabal/bin/pandoc-citeproc --bibliography ../../kvik.bib --csl style.csl -M lang=sk-SK --output $@
 
 %.pdf: out-$$*.tex $$*.tex
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode $<

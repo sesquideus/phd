@@ -1,30 +1,33 @@
-## Záverečná správa projektu
+# Záverečná správa projektu
+Prostriedky pridelené na schválený projekt _Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave_
+boli použité v súlade s deklarovanými cieľmi a finančnými nárokmi projektu.
 
-Prostriedky určené na materiál a dodávky boli využité na nákup LCD monitora s vysokým rozlíšením
-`Philips Brilliance 272B`
+### Materiál a dodávky
+Prostriedky určené na materiál a dodávky boli využité na nákup LCD monitora
+`Philips Brilliance 272B`, ktorý sa používa ako primárny monitor pracovnej stanice.
 
-
+### Cestovné výdavky
 Financie určené na pokrytie cestovných nákladov boli použité na zaplatenie účastníckeho poplatku na
-konferencie Meteoroids 2019, ktorá sa uskutočnila v dňoch 2019-06-16 -- 2019-06-21 v Bratislave.
-Konferencie Meteoroids sa konajú každé tri roky 
-
+konferencie Meteoroids 2019, ktorá sa uskutočnila v dňoch 2019-06-16 až 2019-06-21 v Bratislave.
+Konferencie Meteoroids sa konajú každé tri roky a zaoberajú sa výlučne malými telesami Slnečnej sústavy.
 Na konferencii sme prezentovali ústny príspevok _Numerical Simulation of Meteors as a Means of Debiasing AMOS Data_,
-v ktorom sme zhrnuli súčasný stav riešenia projektu. Výskum sme konzultovali s (...)
+v ktorom sme zhrnuli súčasný stav riešenia projektu. Tému projektu sme konzultovali s viacerými poprednými výskumníkmi v oblasti.
 
-špeciálnom vydaní časopisu _Planetary and Space Science_ v spoluautorstve so školiteľom doc. Tóthom a konzultantmi
-P. Verešom (Harvard-Smithsonian Institute for Astrophysics) a R. Jedickem (University of Hawaii).
+V náväznosti na konferenciu bude publikované špeciálne vydanie časopisu _Planetary and Space Science_.
+V spoluautorstve so školiteľom doc. Tóthom a konzultantmi P. Verešom (Harvard-Smithsonian Institute for Astrophysics) a R. Jedickem (University of Hawaii)
+sme zaslali na publikáciu článok ___ASMODEUS Meteor Simulation Tool___, ktorý je v súčasnosti v recenznom konaní.
 
 Zvyšné prostriedky určené na cestovné výdavky sme použili na pokrytie nákladov na účasť
 na konferencii IMC 2019, ktorá sa uskutočnila v KiEZ Bollmannsruh v Nemeckej spolkovej republike
-v dňoch 2019-10-03 až 2019-10-06. Konferencia IMC je organizovaná každoročne a je špecializovaná výlučne na meteorickú astronómiu.
-Na konferencii sme odprezentovali ústny príspevok _Investigation of meteor models with numerical simulation_,
+v dňoch 2019-10-03 až 2019-10-06. Konferencia IMC je organizovaná každoročne a je špecializovaná na meteorickú astronómiu.
+Na konferencii sme odprezentovali ústny príspevok _Investigation of meteor models with numerical simulation_ (Baláž et al., 2020),
 v ktorom sme analyzovali nami navrhnutý a implementovaný model letu meteoroidu atmosférou Zeme
 a skúmali závislosť vlastností výsledného svetelného úkazu od parametrov telesa a nastavení modelu.
 Prezentácia získala pozitívne ohlasy a bola spomenutá aj v záverečnom zhrnutí konferencie.
-Zároveň sme publikovali sprievodný článok v zborníku
-_Proceedings of the International Meteor Conference, Bollmannsruh 2019_.
+Zároveň sme v zborníku _Proceedings of the International Meteor Conference, Bollmannsruh 2019_
+publikovali sprievodný článok _Investigation of meteor properties using a numerical simulation_ (Baláž et al., 2019).
 
-### Rozpis využitia finančných prostriedkov
+## Rozpis využitia finančných prostriedkov
 
 1. **Bežné výdavky (\SI{1700}{\eur})**
     a. **cestovné výdavky (\SI{450}{\eur})**
@@ -36,13 +39,14 @@ _Proceedings of the International Meteor Conference, Bollmannsruh 2019_.
             - ubytovanie Hotel Bollmannsruh **\SI{220}{\eur}**
     a. **materiál a dodávky (\SI{246}{\eur})**
         - monitor Philips Brilliance 272B (**\SI{246}{\eur}**)
-    a. **ostatné tovary a služby (\SI{100}{\eur})**
-        - nákup odborných knižných publikácií
+    a. **ostatné tovary a služby (\SI{0}{\eur})**
+
 1. **Kapitálové výdavky (\SI{0}{\eur})**
 
+## Referencie
 -   **Baláž, Martin**; Tóth, Juraj; Vereš, Peter; Jedicke, Robert:  
     ___ASMODEUS Meteor Simulation Tool___.  
-    Planetary and Space Science (2020, v recenznom konaní
+    Planetary and Space Science (v recenznom konaní)
 -   **Baláž, Martin**; Tóth, Juraj; Vereš, Peter:  
     ___Investigation of meteor properties using a numerical simulation___.  
-    Proceedings of the International Meteor Conference, Bollmannsruh 2019 (prijaté)
+    Proceedings of the International Meteor Conference, Bollmannsruh 2019 (prijaté na publikáciu)

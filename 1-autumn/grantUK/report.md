@@ -1,10 +1,27 @@
 # Záverečná správa projektu
+
+\vspace*{80mm}
+
+|                       |                |
+|--------:|:---------------------------------|
+| **meno**:             | Martin Baláž   |
+| **fakulta**:          | Fakulta matematiky, fyziky a informatiky |
+| **katedra**:          | Katedra astronómie, fyziky Zeme a meteorológie |
+| **oddelenie**:        | Oddelenie astronómie a astrofyziky |
+| **pracovno-právne zaradenie**: | študent doktorandského štúdia |
+| **ŠPP**:              | UK/268/2019    |
+| **Číslo Grantu UK** : | G-19-056-00    |
+
+\newpage
+
 Prostriedky pridelené na schválený projekt _Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave_
 boli použité v súlade s deklarovanými cieľmi a finančnými nárokmi projektu.
 
 ### Materiál a dodávky
 Prostriedky určené na materiál a dodávky boli využité na nákup LCD monitora
 `Philips Brilliance 272B`, ktorý sa používa ako primárny monitor pracovnej stanice.
+Výška pridelených prostriedkov neumožnila zakúpenie všetkých komponentov pracovnej stanice,
+viaceré komponenty sme preto zabezpečili z iných zdrojov.
 
 ### Cestovné výdavky
 Financie určené na pokrytie cestovných nákladov boli použité na zaplatenie účastníckeho poplatku na
@@ -23,25 +40,26 @@ v dňoch 2019-10-03 až 2019-10-06. Konferencia IMC je organizovaná každoročn
 Na konferencii sme odprezentovali ústny príspevok _Investigation of meteor models with numerical simulation_ (Baláž et al., 2020),
 v ktorom sme analyzovali nami navrhnutý a implementovaný model letu meteoroidu atmosférou Zeme
 a skúmali závislosť vlastností výsledného svetelného úkazu od parametrov telesa a nastavení modelu.
+
 Prezentácia získala pozitívne ohlasy a bola spomenutá aj v záverečnom zhrnutí konferencie.
 Zároveň sme v zborníku _Proceedings of the International Meteor Conference, Bollmannsruh 2019_
 publikovali sprievodný článok _Investigation of meteor properties using a numerical simulation_ (Baláž et al., 2019).
 
 ## Rozpis využitia finančných prostriedkov
 
-1. **Bežné výdavky (\SI{1700}{\eur})**
-    a. **cestovné výdavky (\SI{450}{\eur})**
+1. **Bežné výdavky (\SI{1000.00}{\eur})**
+    a. **cestovné výdavky (\SI{754.00}{\eur})**
         - konferencia **Meteoroids 2019** (Bratislava, 2019-06-16 -- 2019-06-21)
-            - účastnícky poplatok **\SI{320}{\eur}**
+            - účastnícky poplatok **\SI{320.00}{\eur}**
         - konferencia **IMC 2019** (Bollmannsruh, 2019-10-03 -- 2019-10-06)
-            - účastnícky poplatok **\SI{100}{\eur}**
-            - spiatočná letenka `VIE`--`TXL`, `TXL`--`VIE` **\SI{145}{\eur}**
-            - ubytovanie Hotel Bollmannsruh **\SI{220}{\eur}**
-    a. **materiál a dodávky (\SI{246}{\eur})**
-        - monitor Philips Brilliance 272B (**\SI{246}{\eur}**)
-    a. **ostatné tovary a služby (\SI{0}{\eur})**
+            - účastnícky poplatok **\SI{100.00}{\eur}**
+            - spiatočná letenka `VIE`--`TXL`, `TXL`--`VIE` **\SI{148.51}{\eur}**
+            - ubytovanie Hotel Bollmannsruh **\SI{220.00}{\eur}**
+    a. **materiál a dodávky (\SI{246.00}{\eur})**
+        - monitor Philips Brilliance 272B (**\SI{246.00}{\eur}**)
+    a. **ostatné tovary a služby (\SI{0.00}{\eur})**
 
-1. **Kapitálové výdavky (\SI{0}{\eur})**
+1. **Kapitálové výdavky (\SI{0.00}{\eur})**
 
 ## Referencie
 -   **Baláž, Martin**; Tóth, Juraj; Vereš, Peter; Jedicke, Robert:  

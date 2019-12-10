@@ -5,7 +5,7 @@
     top                     = 25mm,
     bottom                  = 25mm,
     headheight              = 16pt,
-    footskip                = 36pt, 
+    footskip                = 36pt,
 ]{geometry}
 
 \usepackage{
@@ -61,20 +61,20 @@
     xunicode,
 }
 \sisetup{
-    separate-uncertainty,                                   
+    separate-uncertainty,
     detect-all              = true,
-    multi-part-units        = single,                       
-    per-mode                = reciprocal,                   
+    multi-part-units        = single,
+    per-mode                = reciprocal,
     group-separator         = {\,},
     group-minimum-digits    = 5,
-    inter-unit-product      = {\kern 0.05em},               
-    exponent-product        = \cdot,                        
-    number-unit-product     = {\ },                         
-    output-decimal-marker   = {\text{.}},                   
+    inter-unit-product      = {\kern 0.05em},
+    exponent-product        = \cdot,
+    number-unit-product     = {\ },
+    output-decimal-marker   = {\text{.}},
     range-units             = single,
-    range-phrase            = {\text{--}},					
-    list-units              = single,                       
-    list-final-separator    = {\ a\ },                      
+    range-phrase            = {\text{--}},
+    list-units              = single,
+    list-final-separator    = {\ a\ },
 }
 
 \setdefaultlanguage{english}
@@ -101,17 +101,17 @@
     Ligatures       = TeX
 }
 \setallmainfonts[
-	Path			= fonts/ ,
-	Extension		= .otf ,
-	UprightFont     = *-r ,
+    Path            = fonts/ ,
+    Extension       = .otf ,
+    UprightFont     = *-r ,
     BoldFont        = *-b ,
     ItalicFont      = *-i ,
     BoldItalicFont  = *-bi    
 ]{adobegaramondpro}
 \setmonofont[
-	Path			= fonts/ ,
-	Extension		= .ttf ,
-	UprightFont     = *-r ,
+    Path            = fonts/ ,
+    Extension       = .ttf ,
+    UprightFont     = *-r ,
     BoldFont        = *-b ,
     ItalicFont      = *-i ,
     BoldItalicFont  = *-bi    
@@ -122,7 +122,7 @@
     UprightFont     = *-r ,
     BoldFont        = *-b ,
     ItalicFont      = *-i ,
-    BoldItalicFont  = *-bi    
+    BoldItalicFont  = *-bi
 ]{verdana}
 \setmathsfont(Digits,Latin,Greek){Minion Pro}
 \setmathrm{Minion Pro}
@@ -213,7 +213,7 @@
 \NewDocumentCommand{\insertChapter}{m +m m}{
     \chapter{#1}
     \label{#3}
-    \input{#2.tex}
+    \input{input/#2.tex}
 }
 
 \NewDocumentCommand{\err}{+m}{

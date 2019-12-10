@@ -1,34 +1,34 @@
 \documentclass[12pt, a4paper, twoside]{report}
 
-\input{settings.tex}
+\input{input/settings.tex}
 
 \begin{document}
     \pagestyle{empty}
-    \pagenumbering{gobble}  
-    %\input{title-inside}
-    %\includepdf[pages = -]{zadanie.pdf}       
-    \input{acknowledgement}
+    \pagenumbering{gobble}
+    \input{input/title-inside}
+    %\includepdf[pages = -]{zadanie.pdf}
+    \input{input/acknowledgement}
     \clearpage
-    \input{abstract-sk}
+    \input{input/abstract-sk}
     \clearpage
-    \input{abstract-en}
+    \input{input/abstract-en}
     \tableofcontents
     \clearpage
-      
-    \pagenumbering{arabic}  
-    \pagestyle{main}  
+
+    \pagenumbering{arabic}
+    \pagestyle{main}
     \insertChapter{Introduction}{introduction}{i}
-    %\insertChapter{Bias sources and correction procedures}{forward}{d}
+    \insertChapter{Proposed algorithm}{algorithm}{d}
     %\insertChapter{Reverse approach}{simulation}{s}
     %\insertChapter{Discussion and future development}{future}{f}
- 
+
     \appendix
     %\insertChapter{\textsc{Asmodeus} operation}{appendix-asmodeus}{A}
     %\insertChapter{Glossary and abbreviations}{appendix-glossary}{g}
-    
-    \pagestyle{bibliography}    
+
+    \pagestyle{bibliography}
     \bibliographystyle{unsrtnat}
     \fancyhead[L]{}
     \fancyhead[R]{\slshape Bibliography}
-    \bibliography{thesis}
+    \bibliography{source/thesis}
 \end{document}

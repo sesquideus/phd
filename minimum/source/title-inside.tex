@@ -1,0 +1,26 @@
+(@ extends 'source/title.tex' @)
+
+(@ block top @)
+    \includegraphics[keepaspectratio = true, width = 36mm]{source/pictures/fmfi.jpg}
+    \vspace{10mm}
+(@ endblock top @)
+
+(@ block bottom @)
+    \vspace{40mm}
+    {
+        \footnotesize
+        \setlist[description]{
+            style               = multiline,
+            labelindent         = 5mm,
+            leftmargin          = 40mm,
+            itemsep             = 1mm,
+            font                = \normalfont,
+        }
+        \begin{description}
+            \item[Study programme:] Physics
+            \item[Field of study:]  1140 Astronomy
+            \item[Department:]      Department of Astronomy and Astrophysics
+            \item[Supervisor:]      doc. RNDr. Juraj Tóth, PhD.
+        \end{description}
+    }
+(@ endblock bottom @)

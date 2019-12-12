@@ -60,6 +60,7 @@
     doi                     = true,
     style                   = numeric,
 ]{biblatex}
+
 \sisetup{
     separate-uncertainty,
     detect-all              = true,
@@ -120,10 +121,11 @@
 \fancypagestyle{main}{
     \fancyhf{}
     \fancyhead[C]{\textit{Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave}}
+    \titleformat{\subsection}[hang]{\Large\bf}{}{0pt}{}
 }
 
 \fancypagestyle{plain}{
-    \pagestyle{title}
+    \fancyhf{}
 }
 
 \fancypagestyle{bibliography}{
@@ -131,6 +133,8 @@
     \fancyhead[R]{}
 }
 
+\titleformat{\section}[block]{\centering\LARGE}{}{0pt}{}
+\titleformat{\subsection}[block]{\centering\large}{}{0pt}{}
 % Set list environments
 
 \setlist[enumerate]{

@@ -1,6 +1,7 @@
-# Záverečná správa projektu
+# Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave
+## Záverečná správa
 
-\vspace*{80mm}
+\vspace*{130mm}
 
 |                       |                |
 |--------:|:---------------------------------|
@@ -10,10 +11,12 @@
 | **oddelenie**:        | Oddelenie astronómie a astrofyziky |
 | **pracovno-právne zaradenie**: | študent doktorandského štúdia |
 | **ŠPP**:              | UK/268/2019    |
-| **Číslo Grantu UK** : | G-19-056-00    |
+| **číslo Grantu UK**: | G-19-056-00    |
 
 \newpage
+\pagestyle{main}
 
+## Záverečná správa
 Prostriedky pridelené na schválený projekt _Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave_
 boli použité v súlade s deklarovanými cieľmi a finančnými nárokmi projektu.
 
@@ -27,7 +30,7 @@ viaceré komponenty sme preto zabezpečili z iných zdrojov.
 Financie určené na pokrytie cestovných nákladov boli použité na zaplatenie účastníckeho poplatku na
 konferencie Meteoroids 2019, ktorá sa uskutočnila v dňoch 2019-06-16 až 2019-06-21 v Bratislave.
 Konferencie Meteoroids sa konajú každé tri roky a zaoberajú sa výlučne malými telesami Slnečnej sústavy.
-Na konferencii sme prezentovali ústny príspevok _Numerical Simulation of Meteors as a Means of Debiasing AMOS Data_,
+Na konferencii sme prezentovali ústny príspevok ___Numerical Simulation of Meteors as a Means of Debiasing AMOS Data___,
 v ktorom sme zhrnuli súčasný stav riešenia projektu. Tému projektu sme konzultovali s viacerými poprednými výskumníkmi v oblasti.
 
 V náväznosti na konferenciu bude publikované špeciálne vydanie časopisu _Planetary and Space Science_.
@@ -53,15 +56,16 @@ publikovali sprievodný článok _Investigation of meteor properties using a num
             - účastnícky poplatok **\SI{320.00}{\eur}**
         - konferencia **IMC 2019** (Bollmannsruh, 2019-10-03 -- 2019-10-06)
             - účastnícky poplatok **\SI{100.00}{\eur}**
-            - spiatočná letenka `VIE`--`TXL`, `TXL`--`VIE` **\SI{148.51}{\eur}**
-            - ubytovanie Hotel Bollmannsruh **\SI{220.00}{\eur}**
+            - spiatočná letenka `VIE` -- `TXL`, `TXL` -- `VIE` **\SI{148.51}{\eur}**
+            - ubytovanie hotel Bollmannsruh **\SI{185.49}{\eur}**
+            - rozdiel **\SI{216.34}{\eur}** uhradený z APVV 06K11518 (doc. Tóth)
     a. **materiál a dodávky (\SI{246.00}{\eur})**
         - monitor Philips Brilliance 272B (**\SI{246.00}{\eur}**)
     a. **ostatné tovary a služby (\SI{0.00}{\eur})**
 
 1. **Kapitálové výdavky (\SI{0.00}{\eur})**
 
-## Referencie
+## Publikácie
 -   **Baláž, Martin**; Tóth, Juraj; Vereš, Peter; Jedicke, Robert:  
     ___ASMODEUS Meteor Simulation Tool___.  
     Planetary and Space Science (v recenznom konaní)

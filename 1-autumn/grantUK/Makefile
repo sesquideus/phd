@@ -12,8 +12,8 @@ MAKEFLAGS += --no-builtin-variables
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode $<
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode $<
 
-grant.pdf: aim.pdf status.pdf method.pdf money.pdf annotation.pdf 
-	pdfunite $^ grant.pdf
+grant.pdf: aim.pdf status.pdf method.pdf money.pdf annotation.pdf
+	pdftk $^ cat output grant.pdf
 
 clean:
 	rm *.aux *.out *.log *.bbl *.blg *.pdf

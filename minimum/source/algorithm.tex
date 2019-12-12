@@ -1,1 +1,56 @@
-Blah blah
+\section{Simulation in the Solar System} \label{as}
+    The simulation 
+
+    including the gravitational influence of the parent body and then
+
+    on the order of 100 radii.
+
+    With ephemerides taken from the JPL Horizons system \citep{...}.
+    The simulation computes the positions of the large bodies of the Solar System, most importantly the Sun,
+    the eight planets and the Moon. Then the test particles
+
+    Optinally, positions of massless bodies can be offloaded to a Graphics Processing Unit (GPU).
+    Using a GPU is particularly well suited to massively parallel problems, such as simulation of non-interacting test particles.
+
+    Any particle intersecting the cross-section of the Earth is marked as detected and will be examined further.
+    Alternatively, in order to reduce the number of trials, we may employ a larger artificial detector.
+
+
+    as long as the spatial density is only varying on scales much larger than the radius of the Earth,
+    temporal variations in activity will be small.
+    This assumption is not universally valid, as some younger meteor showers often produce dense, narrow filaments,
+    which can be observed as short but intensive outbursts of heightened meteor activity.
+    A suitable example are the November alpha-Monocerotids, with a period of significantly
+    heightened activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
+
+    By comparing the orbital speed and the diameter of the Earth we can see that the Earth moves
+    to a completely different position with respect to the stream within several minutes.
+    This means that variations in activity are not going to be significant when crossing an old stream,
+    whose radius may be on the order of millions of kilometres, but will be of extreme importance with young, narrow filaments.
+
+    The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
+    The worst case is encountered with streams with high inclinations, where meteors seem to arrive from a direction perpendicular
+    to the direction of movement. The 
+    
+     and thus is almost perpendicular to the Earth's instantaneous velocity vector.
+
+
+
+    termined sphere centered on the Earth but with
+    radius increased by about  order of magnitude --
+
+\section{Simulation in the atmosphere}
+    To simulate the atmospheric entry we used Asmodeus \citep{balaz-thesis}, \citep{balaz+2020}.
+    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
+    and 
+
+    the simulation considers four forces acting on the particle:
+    \begin{itemize}
+        \item the drag force, acting against the instantaneous velocity vector of the particle;
+        \item the gravitational force, pulling the meteoroid towards the centre of the Earth;
+        \item the fictitious \emph{centrifugal} force, which pushes the particle away from the axis of rotation of the Earth;
+        \item and the fictitious \emph{Coriolis force}.
+    \end{itemize}
+
+    On the length and speed scales encountered in the simulation the fictitious forces can be safely neglected,
+    their influence is significant only during the dark phase of flight, should the meteoroid survive the entry as a meteorite.

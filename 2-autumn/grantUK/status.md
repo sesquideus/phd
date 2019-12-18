@@ -1,4 +1,42 @@
 ## Rozbor aktuálneho stavu riešenia témy projektu
+
+Celkovú aktivitu meteorických rojov môžeme popísať pomocou dvoch priestorových a jednej časovej súradnice,
+
+
+Priestorovými súradnicami sú sférická výška a dĺžka na oblohe, teda v ekvatoriálnej súradnicovej sústave
+_deklinácia_ a _rektascenzia_ radiantu. Roj telies so spoločným pôvodom vykazuje iba veľmi pomalú zmenu
+polohy radiantu v čase. Tento údaj je možné spolu s rýchlosťou častíc použiť na identifikáciu meteorického roja.
+
+Variácie aktivity na časovej osi majú trojaký pôvod. Dominantným efektom je _periodická variácia_,
+spôsobenú zmenou geometrie Zeme voči prúdu meteoroidov, s periódou s dĺžkou jedného roka.
+Meteorické roje sú v zemskej atmosfére pozorovateľné iba vtedy, keď sa Zem nachádza v okolí výstupného
+alebo zostupného uzla jeho dráhy. Typická šírka prúdu je o niekoľko rádov menšia, ako polomer zemskej dráhy,
+takže vhodné podmienky nastávajú pre každý roj iba raz ročne.
+
+Druhým opakujúcim sa vplyvom sú zmeny obežnej dráhy prúdu v dôsledku gravitačného pôsobenia
+planét alebo negravitačných vplyvov, napríklad Jarkovského efektu [@yarkovsky] alebo Poynting-Robertsonovho efektu [@pr].
+Tie sú zodpovedné za výrazné medziročné kolísanie aktivity meteorických rojov.
+Výsledná perióda závisí od obežnej periódy materského telesa roja, prípadne rušiaceho telesa.
+Typickým príkladom je výrazné dvanásťročné maximum aktivity Perzeíd alebo opakujúce sa
+výrazné maximá Leoníd s periódou 33 rokov.
+
+Na dlhých časových škálach môžeme pozorovať _sekulárne zmeny_ aktivity. Prúdy meteoroidov
+spravidla vznikajú pomerne náhle po priblíženiach materského telesa k Slnku
+a následne sa v dôsledku nerovnomerného pôsobenia rušiacich síl rozširujú.
+Ak materiál nie je dopĺňaný počas ďalších priblížení materského telesa k Slnku,
+meteorický roj v priebehu niekoľko tisíc rokov zanikne.
+Celková zmena aktivity v čase je určená sumou všetkých vplývajúcich efektov.
+
+Okrem polohových a časových súradníc môžeme mapu meteorickej aktivity doplniť ďalšími
+informáciami, najmä o geocentrických rýchlostiach častíc alebo o distribúciách hmotností
+meteoroidov v konkrétnych rojoch. S touto znalosťou budeme schopní určiť celkový tok
+častíc a zmenu hmotnosti Zeme v dôsledku zrážok s medziplanetárnou hmotou.
+
+REBOUND
+
+(Kováčová)
+
+
 Moderné siete fotografických staníc a videostaníc poskytujú dostatočne presné dáta na
 určenie dráhových charakteristík pozorovaných telies [@borovicka1990].
 Nemožnosť reprodukovania meteorov v laboratórnych podmienkach

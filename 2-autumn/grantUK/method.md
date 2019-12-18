@@ -1,4 +1,16 @@
 ## Návrh metódy riešenia projektu
+Navrhovaný projekt nadväzuje na predchádzajúce výsledky v oblasti meteorickej astronómie.
+
+
+
+[@ceplecha]
+
+
+integrátor REBOUND [@rebound] a 
+
+
+
+
 Projektom nadväzujeme na diplomovú prácu [@balaz2018], v ktorej sme sa zaoberali tokom meteoroidných
 častíc v hornej atmosfére. Prirodzeným ďalším krokom je rozšírenie zamerania práce na pôvod a vývoj týchto telies,
 teda na obdobie od ich uvoľnenia z materského telesa až po zánik v zemskej atmosfére.
@@ -10,12 +22,6 @@ Celkové silové pôsobenie je dané najmä gravitačným pôsobením Slnka ako 
 rušiacimi gravitačnými vplyvmi planét a krátkodobo aj pôsobením materského objektu.
 Pre častice s veľmi malými rozmermi sú dôležité aj negravitačné vplyvy, najmä
 tlak slnečného žiarenia a Poyntingov-Robertsonov efekt.
-
-Jednotlivé častice sú nezávislé a ich vzájomné silové pôsobenie môžeme úplne zanedbať.
-Pri využití masívnej paralelizácie pomocou GPU očakávame podstatné zvýšenie výpočtového výkonu
-na úroveň miliárd integračných krokov za sekundu, čo umožní simulovať milióny častíc [@nyland2007].
-Vysoký počet simulovaných častíc je dôležitý, keďže k zrážkam so Zemou dochádza pomerne zriedkavo,
-kým pre účely štatistického vyhodnotenia súboru potrebujeme získať dostatočne početnú populáciu.
 
 Ak počas integrácie dôjde ku kolízii niektorej z častíc so Zemou, daná častica je označená ako
 spozorovaná. Sumárny štatistický súbor všetkých takýchto častíc je po aplikácii výberových efektov

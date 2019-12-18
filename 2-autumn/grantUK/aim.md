@@ -1,4 +1,10 @@
 ## Charakteristika vedeckých cieľov projektu
+Primárnym cieľom projektu je vytvorenie detailnej mapy meteorickej aktivity
+pre celú hviezdnu oblohu.
+
+
+
+
 Meteoroidy, čiže malé kamenné alebo železné telieska obiehajúce okolo Slnka,
 sú jedným z najcennejších zdrojov informácií o pôvode a vývoji Slnečnej sústavy.
 Za meteoroidy považujeme telesá s rozmermi v rozpätí \SI{30}{\micro\metre} až
@@ -46,8 +52,7 @@ Počas riešenia projektu očakávame splnenie nasledujúcich úloh:
 - vývoj porovnávacích algoritmov a optimalizačných procedúr,
 - porovnanie výsledkov s inými modelmi, napríklad [@ryabova2013].
 
-V rámci projektu sa taktiež plánujeme zúčastniť na konferencii **Meteoroids 2019**, ktorú
-v tomto roku organizuje Univerzita Komenského v Bratislave, a prezentovať dovtedy získané výsledky
-vo forme príspevku alebo postera; prípadne tiež na konferencii **IMC 2019** v Bollmannsruh v Nemecku.
+V rámci projektu sa taktiež plánujeme zúčastniť na konferencii **IMC 2020**, ktorá sa uskutoční
+v septembri 2020 v Hortobágy v Maďarsku.
 
 ### Referencie

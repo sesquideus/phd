@@ -1,7 +1,7 @@
 ## Anotácia
-Primárnym cieľom vedeckej práce je vytvoriť priestorový model rozloženia a dynamiky
-malých meteoroidných častíc vo vnútornej Slnečnej sústave.
-Ťažiskovou časťou práce je numerická simulácia, pomocou ktorej budeme schopní vytvárať virtuálne meteoroidy,
+Primárnym cieľom projektu je vytvorenie priestorového modelu rozloženia a dynamiky
+meteoroidov vo vnútornej Slnečnej sústave. Ťažiskovou časťou práce je numerická simulácia,
+pomocou ktorej budeme schopní vytvárať virtuálne meteoroidy,
 sledovať ich dynamiku vo vnútornej Slnečnej sústave a interakciu so zemskou atmosférou.
 Výsledky simulácie porovnáme s observačnými dátami získanými pomocou systému celooblohových kamier AMOS.
 

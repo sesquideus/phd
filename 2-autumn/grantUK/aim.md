@@ -38,15 +38,15 @@ a majú potenciál spôsobiť značné škody, od lokálnych materiálnych škô
 
 Primárnym cieľom projektu je vytvorenie detailného modelu priestorového rozloženia malých častíc vo vnútornej Slnečnej sústave.
 Model popisuje hustotu častíc v závislosti od šiestich orbitálnych elementov v heliocentrickej sústave,
-doplnenú o informácie o populačnom indexe $s$ v konkrétnom mieste fázového priestoru
-a spektrálnom type, resp. chemickom zložení meteoroidov v tomto priestore.
+doplnenú o informácie o populačnom indexe $s$ a spektrálnom type,
+resp. chemickom zložení meteoroidov v konkrétnom mieste fázového priestoru.
 
 Pre porovnanie modelu s observačnými dátami je nutné model zredukovať na zemský povrch,
 čiže určiť množstvo častíc, ktoré vstúpia do atmosféry v konkrétnom čase a mieste a teda je možné ich detegovať.
 Po redukcii získame vedľajší produkt projektu, ktorým je časovo-priestorová mapa meteorickej aktivity na oblohe
-pre ľubovoľné miesto na zemskom povrchu. Následne bude porovnávaním simulácie s reálnymi observačnými dátami
-a dolaďovaním jej parametrov až do dosiahnutia optimálnej zhody možné modelovať
-skutočnú populáciu meteoroidov v okolí Zeme.
+pre ľubovoľné miesto na zemskom povrchu. Porovnávaním simulácie s reálnymi observačnými dátami
+a dolaďovaním jej parametrov až do dosiahnutia optimálnej zhody bude
+následne možné modelovať skutočnú populáciu meteoroidov v okolí Zeme.
 Primárnym zdrojom observačných dát na našom pracovisku sú kamery systému AMOS (All-sky Meteor Orbit System),
 ktorý bol vyvinutý a je prevádzkovaný Oddelením astronómie a astrofyziky KAFZM FMFI UK [@zigo2013; @toth2015].
 

@@ -6,7 +6,7 @@ ako Verletov, SABA, WM a pod.; prípadne integrátory vysokých rádov s adaptí
 veľkosťou kroku (IAS15) [@rein+ias15].
 
 Vhodným frameworkom na výpočty je softvérový balík REBOUND [@rein+rebound],
-ktorý v súčasností tvorí de facto štandard v oblasti simulácií gravitačných interakcií viacerých telies.
+ktorý v súčasnosti predstavuje de facto štandard v oblasti simulácií gravitačných interakcií viacerých telies.
 Aktuálne však nepodporuje akceleráciu pomocou grafickej výpočtovej jednotky (GPU),
 ktorá by umožnila masívne paralelné výpočty polôh vzájomne neinteragujúcich testovacích telies.
 

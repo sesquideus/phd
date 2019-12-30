@@ -26,24 +26,14 @@ _deklinácia_ a _rektascenzia_ radiantu. Roj telies so spoločným pôvodom vyka
 polohy radiantu v čase. Tento údaj je možné spolu s rýchlosťou častíc použiť na identifikáciu meteorického roja.
 
 Z vedeckého aj pozorovateľského hľadiska sú dôležitejšie zmeny aktivity roja v čase.
-Variácie aktivity na majú trojaký pôvod. Dominantným efektom je _periodická variácia_,
-spôsobená zmenou geometrie Zeme voči prúdu meteoroidov, s periódou s dĺžkou jedného roka.
-Meteorické roje sú v zemskej atmosfére pozorovateľné iba vtedy, keď sa Zem nachádza v okolí výstupného
-alebo zostupného uzla jeho dráhy. Typická šírka prúdu je o niekoľko rádov menšia, ako polomer zemskej dráhy,
-takže vhodné podmienky nastávajú pre každý roj iba raz ročne.
+Majú trojaký pôvod:
 
-Druhým opakujúcim sa vplyvom sú zmeny obežnej dráhy prúdu v dôsledku gravitačného pôsobenia
-planét alebo negravitačných vplyvov, napríklad Jarkovského alebo Poynting-Robertsonovho efektu.
-Tie sú zodpovedné za výrazné medziročné kolísanie aktivity meteorických rojov.
-Výsledná perióda závisí od obežnej periódy materského telesa roja, prípadne rušiaceho telesa.
-Typickým príkladom je výrazné dvanásťročné maximum aktivity Perzeíd alebo opakujúce sa
-výrazné maximá Leoníd s periódou 33 rokov.
+- _zmenu geometrie_, teda vplyv vzájomnej polohy Zeme a prúdu častíc,
+    s charakteristickou ročnou periódou;
+- _zmeny dráhy prúdu_, ktoré zodpovedajú perióde obehu materského telesa alebo rezonanciám s veľkými planétami;
+- a _sekulárne zmeny_, čiže náhly vznik nových prúdov pri priblíženiach materských telies k Slnku
+    alebo postupné rozptyľovanie až zánik roja.
 
-Na dlhých časových škálach môžeme pozorovať _sekulárne zmeny_ aktivity. Prúdy meteoroidov
-spravidla vznikajú pomerne náhle po priblíženiach materského telesa k Slnku
-a následne sa v dôsledku nerovnomerného pôsobenia rušiacich síl rozširujú.
-Ak materiál nie je dopĺňaný počas ďalších priblížení materského telesa k Slnku,
-meteorický roj v priebehu niekoľko tisíc rokov zanikne.
 Celková zmena aktivity v čase je určená sumou všetkých vplývajúcich efektov.
 
 Okrem polohových a časových súradníc môžeme mapu meteorickej aktivity doplniť ďalšími
@@ -52,14 +42,12 @@ meteoroidov v konkrétnych rojoch. S touto znalosťou budeme schopní určiť ce
 častíc a celkovú zmenu hmotnosti Zeme v dôsledku zrážok s medziplanetárnou hmotou.
 
 Vhodným rozšírením by bola implementácia paralelného integrátora
-pre súčasný výpočet dráh množstva vzájomne neinteragujúcich častíc.
+pre súčasný výpočet dráh veľkého množstva vzájomne neinteragujúcich častíc.
 Hmotné objekty (čiže Slnko a planéty, prípadne materské teleso roja) na seba vzájomne pôsobia
 nezanedbateľnými silami, ktoré je nutné integrovať klasickým sekvenčným spôsobom pomocou CPU.
-Gravitačný vplyv nami skúmaných drobných telies na veľké planéty však môžeme úplne zanedbať.
+Gravitačný vplyv nami skúmaných drobných telies na ostatné telesá je však o mnoho rádov slabší a môžeme ho úplne zanedbať.
 Preto je možné ich dráhy počítať s využitím masívnej paralelizácie pomocou GPU.
 
 Spojením efektívnych numerických metód na výpočet pohybov telies v medziplanetárnom priestore
-a simulácie vstupu častíc do atmosféry vrátane ablačných a dynamických efektov [@balaz+2020]
+a simulácie vstupu častíc do atmosféry vrátane ablačných a dynamických efektov
 budeme schopní vytvoriť kompletný model životného cyklu malých častíc v Slnečnej sústave.
-
-### Referencie

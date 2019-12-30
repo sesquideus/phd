@@ -1,16 +1,15 @@
 ## Anotácia
 Primárnym cieľom projektu je vytvorenie priestorového modelu rozloženia a dynamiky
-meteoroidov vo vnútornej Slnečnej sústave. Ťažiskovou časťou práce je numerická simulácia,
-pomocou ktorej budeme schopní vytvárať virtuálne meteoroidy,
-sledovať ich dynamiku vo vnútornej Slnečnej sústave a interakciu so zemskou atmosférou.
-Výsledky simulácie porovnáme s observačnými dátami získanými pomocou systému celooblohových kamier AMOS.
+meteoroidov vo vnútornej Slnečnej sústave. Ťažiskovou časťou práce je implementácia
+numerickej $N$-body simulácie, pomocou ktorej budeme schopní vytvárať virtuálne meteoroidy,
+sledovať ich dynamiku vo vnútornej Slnečnej sústave a následne modelovať interakciu so zemskou atmosférou.
+Po redukcii modelu na konkrétne miesto na zemskom povrchu bude výsledky možné porovnať s observačnými dátami,
+prípadne vytvoriť predpoveď meteorickej aktivity v určitom čase
+a s jej pomocou optimalizovať pozorovacie programy pozemských staníc.
+Primárnym zdrojom dát bude databáza systému celooblohových kamier AMOS, prevádzkovaného KAFZM FMFI UK.
 
-Opakovanou variáciou parametrov simulácie až do dosiahnutia optimálnej zhody
-s experimentálnymi dátami budeme schopní určiť skutočnú priestorovú distribúciu
-a početnosť meteoroidov v oblasti orbity Zeme, ako aj vyhodnotiť celkový
-početný a hmotnostný tok častíc dopadajúcich na Zem.
-Porovnaním výsledkov s inými publikáciami dokážeme zistiť, do akej miery sú
-staršie dáta získané priamou redukciou observačných dát zaťažené výberovými
-efektami a prispejeme k tvorbe predstavy o populácii meteoroidov vo vnútornej Slnečnej sústave.
-V rámci riešenia projektu sa plánujeme zúčastniť na konferencii Meteoroids 2019
-a prezentovať doterajšie výsledky vo forme príspevku alebo postera.
+Postupnou variáciou parametrov simulácie až do dosiahnutia najlepšej možnej zhody
+s experimentálnymi dátami sme schopní určiť skutočnú priestorovú distribúciu
+a početnosť meteoroidov v oblasti orbity Zeme.
+V rámci riešenia projektu sa plánujeme zúčastniť na konferencii IMC 2020
+a prezentovať priebežné výsledky formou ústneho príspevku alebo postera.

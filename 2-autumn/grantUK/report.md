@@ -1,4 +1,7 @@
 # Numerická $N$-body simulácia malých častíc vo vnútornej Slnečnej sústave
+
+INVALID, rewrite everything in december 2020
+
 ## Záverečná správa
 
 \vspace*{130mm}

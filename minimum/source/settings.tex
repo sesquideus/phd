@@ -220,6 +220,12 @@
     \colorbox{red}{#1}
 }
 
+\NewDocumentCommand{\Epigraph}{+m +m}{%
+    \epigraph{\it#1
+    }{\vspace{2mm}#2}
+}
+
+
 \DeclareSIUnit\byte{B}
 \DeclareSIUnit\year{yr}
 
@@ -237,7 +243,7 @@
 \setlength{\belowdisplayskip}{0mm}
 \setlength{\abovedisplayshortskip}{0mm}
 \setlength{\belowdisplayshortskip}{5mm}
-\setlength{\epigraphwidth}{0.333\textwidth}
+\setlength{\epigraphwidth}{0.400\textwidth}
 \setlength{\afterepigraphskip}{6mm}
 \setlength{\textfloatsep}{10mm}
 \setlength{\intextsep}{10mm}

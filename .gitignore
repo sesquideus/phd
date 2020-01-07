@@ -12,3 +12,5 @@
 *.snm
 *.vrb
 */grant*/*.pdf
+minimum/input/*
+minimum/output/*

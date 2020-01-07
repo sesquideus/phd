@@ -50,19 +50,27 @@
             All gravitational interaction between pairs of test particles may be completely ignored,
             which drastically reduces the number of evaluations.
 
-            If we only need to work with $k$ massive objects.
-            In the Solar System we need to consider the Sun, eight planets (and possibly their major moons)
-            and in the initial phase of flight also the parent body of the stream.
-            Hence $k \sim 10$, leaving us with roughly 50--100 evaluations per integration step,
-            which is perfectly tractable on a CPU.
+            Suppose we only need to work with $k$ massive objects:
+            in the Solar System we need to consider the Sun, eight planets, their major moons
+            and -- at least immediately after the ejection -- also the parent body of the stream.
+            This leaves us with $k \sim 10$, which translates to roughly 50--100 evaluations per integration step.
+            This is perfectly tractable on a CPU.
+
+            Once the positions of physical bodies are known, we may proceed to computing the forces acting
+            on test bodies. Since forces can be added in linear manner as vectors, we need $k$ evaluations
+            for each of $n$ test particles, for a total of $nk$ evaluations. As these forces 
+            
+            for a total of $k^2 + nk$. Since $n \gg k$, this results if
 
         \subsubsection{Using explicit ephemerides} \label{asie}
-            To further simplify matters, we may leave determination of positions and velocities to others
+            To further simplify matters, we may leave determination of positions and velocities to other software
             and free resources for our business.
             We may directly use ephemerides provided by some external source, such as JPL Horizons \cite{...}.
 
             This leaves us with only $kn$ interactions that are completely mutually independent.
-            Problems of this sort are perfectly suited for parallel computation, such as a GPU.
+            Problems of this sort are perfectly suited for parallel computation.
+
+            We hope to achieve sufficient performance to allow simulating about $10^7$ test particles.
 
 \section{Simulation in the atmosphere} \label{aa}
     To simulate the atmospheric entry we used Asmodeus \citep{balaz-thesis}, \citep{balaz+2020}.

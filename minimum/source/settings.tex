@@ -60,6 +60,7 @@
     polyglossia,
     xunicode,
 }
+\usepackage[nottoc]{tocbibind}
 \sisetup{
     separate-uncertainty,
     detect-all              = true,
@@ -220,9 +221,10 @@
     \colorbox{red}{#1}
 }
 
-\NewDocumentCommand{\Epigraph}{+m +m}{%
-    \epigraph{\it#1
-    }{\vspace{2mm}#2}
+\NewDocumentCommand{\Epigraph}{O{0.333} +m +m}{%
+    \setlength{\epigraphwidth}{#1\textwidth}
+    \epigraph{\it#2
+    }{\vspace{2mm}#3}
 }
 
 

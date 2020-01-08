@@ -1,8 +1,38 @@
+\Epigraph[0.4]{
+    All work and no play makes Jack a dull boy,\\
+    All play and no work makes Jack a mere toy.
+}{
+    \textit{English proverb} \\
+    \textit{enhanced by} \textsc{Maria Edgeworth} \\
+    \textit{in} Harry and Lucy Concluded (1825)
+}
+
+
+
+\section{The $N$-body problem} \label{mN}
+    At the core of our task is little more than a fairly complex $N$-body problem: we are given
+    the initial positions and velocities of a set of objects, mutually interacting by gravitational attraction.
+    However, rather than finding their positions and velocities at all future times, we are mostly concerned
+    with the question whether some of these particles will ever collide with the Earth.
+
+    Finding a closed-form solution is either not possible at all \cite{...}, or is only expressible
+    as a convergent series with way too many terms to be of any practical use \cite{beloriszky-1930}
+
+    Fortunately, an exact closed-form solution is not needed. First of all, the precision of our results
+    is always practically limited by the precision with which the initial conditions are known.
+    While for many known parent bodies the observation arcs are very long and 
+
+    Furthermore, small particles are often also influenced by non-gravitational forces,
+    which are themselves difficult to describe analytically.
+
+    which make the finding of the solution 
+
+    Numerical solutions remain the astronomer's best friends.
+
+    With available computational power this is no longer a problem, as a relatively cheap modern computer
+    running state-of-the-art software is able to predict
+
 \section{Simulation in the Solar System} \label{as}
-    The simulation 
-
-    including the gravitational influence of the parent body and then
-
     on the order of 100 radii.
 
     With ephemerides taken from the JPL Horizons system \citep{...}.
@@ -19,7 +49,7 @@
     as long as the spatial density is only varying on scales much larger than the radius of the Earth,
     temporal variations in activity will be small.
     This assumption is not universally valid, as some younger meteor showers often produce dense, narrow filaments,
-    which can be observed as short but intensive outbursts of heightened meteor activity.
+    which can be observed as short but intensive outbursts of extraordinary meteor activity.
     A~good example are the November alpha-Monocerotids, with a period of significantly
     heightened activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
 
@@ -44,6 +74,8 @@
         Due to Newton's third law, opposing pairs of forces are equal in magnitude and opposite in their direction,
         which brings the number of required evaluations to half that value, without changing the order.
 
+
+
         \subsubsection{Massively parallel integration} \label{asip}
             The main difference in simulating small particles, such as meteoroids,
             is that their masses are for all practical purposes completely negligible.
@@ -61,7 +93,12 @@
             for each of $n$ test particles, for a total of $nk$ evaluations.
             Generally, there is no further exploitable symmetry.
 
-            for a total of $k^2 + nk$ evaluations. Since in our case $n \gg k$, we may approximate $k^2 + nk \approx nk$.
+            for a total of evaluations is
+            \eqn{asip-}{
+                E(k, n) = k^2 + nk.
+            }
+
+            Since in our case $n \gg k$, this approximately equals $nk$.
 
         \subsubsection{Using explicit ephemerides} \label{asie}
             To further simplify matters, we may leave determination of positions and velocities to other software
@@ -79,46 +116,48 @@
     Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
     and 
 
-    In the simulation we consider only two real forces:
-    \begin{itemize}
-        \item the \emph{drag force} $\vec{F}_{d}$, always acting against the instantaneous velocity vector of the particle;
-        \item the \emph{gravitational force} $\vec{F}_{g}$, pulling the meteoroid towards the centre of the Earth;
-    \end{itemize}
-    and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
-    \begin{itemize}
-        \item the fictitious \emph{centrifugal} force, pushing the particle away from the axis of rotation of the Earth;
-        \item and the fictitious \emph{Coriolis force}, which curves the trajectory to
-    \end{itemize}
+    \subsection{Numerical simulation of the equations of motion}
 
-    Except for the drag force, all forces can be readily expressed in terms of instantaneous position and velocity of the meteoroid,
-    along with several constants.
-    Calculating the drag force requires a choice of a suitable model.
+        In the simulation we consider only two real forces:
+        \begin{itemize}
+            \item the \emph{drag force} $\vec{F}_{d}$, always acting against the instantaneous velocity vector of the particle;
+            \item the \emph{gravitational force} $\vec{F}_{g}$, pulling the meteoroid towards the centre of the Earth;
+        \end{itemize}
+        and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
+        \begin{itemize}
+            \item the fictitious \emph{centrifugal} force, pushing the particle away from the axis of rotation of the Earth;
+            \item and the fictitious \emph{Coriolis force}, which curves the trajectory to
+        \end{itemize}
 
-    In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
-    the particle's motion is dominated by gravitational effects. This is no longer true during the atmospheric entry,
-    where the magnitude of the atmospheric drag force exceeds all other effects by several orders of magnitude.
-    As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
-    to produce a significant deviation in trajectory. For statistical evaluation of populations it is sufficient
-    to consider only the drag force.
+        Except for the drag force, all forces can be readily expressed in terms of instantaneous position and velocity of the meteoroid,
+        along with several constants.
+        Calculating the drag force requires a choice of a suitable model.
 
-    However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
+        In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
+        the particle's motion is dominated by gravitational effects. This is no longer true during the atmospheric entry,
+        where the magnitude of the atmospheric drag force exceeds all other effects by several orders of magnitude.
+        As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
+        to produce a significant deviation in trajectory. For statistical evaluation of populations it is sufficient
+        to consider only the drag force.
 
-        \subsubsection{Coriolis force} \label{aafC}
-            The fictitious Coriolis force arises in a rotating reference frame.
-            \eqn{eq:aafC-coriolis}{
-                \vec{F_{\mathrm{C}}} = -2 m \vec{\omega} \times \vec{v}.
-            }
+        However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
 
-            For a meteoroid its magnitude is on the order of
-            \eqn{eq:aafC-order}{
-                2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-            }
-            roughly the same as gravitational acceleration.
+            \subsubsection{Coriolis force} \label{aafC}
+                The fictitious Coriolis force arises in a rotating reference frame.
+                \eqn{eq:aafC-coriolis}{
+                    \vec{F_{\mathrm{C}}} = -2 m \vec{\omega} \times \vec{v}.
+                }
 
-        \subsubsection{Centrifugal force} \label{aafc}
-            The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-            \eqn{eq:aafc-centrifugal}{
-                \vec{F_{\mathrm{c}}} = - m \vec{\omega} \times \left(\vec{\omega} \times \vec{r}\right),
+                For a meteoroid its magnitude is on the order of
+                \eqn{eq:aafC-order}{
+                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
+                }
+                roughly the same as gravitational acceleration.
+
+            \subsubsection{Centrifugal force} \label{aafc}
+                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
+                \eqn{eq:aafc-centrifugal}{
+                    \vec{F_{\mathrm{c}}} = - m \vec{\omega} \times \left(\vec{\omega} \times \vec{r}\right),
             }
             Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
             gravitational force. Its magnitude is on the order of \SI{0.03}{\metre\per\second\squared}, which

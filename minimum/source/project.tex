@@ -1,31 +1,86 @@
+The primary objective of the thesis is the development of a full-scale orbital model of meteoroid populations
+in the inner Solar System.
 
-\section{Full model} \label{pf}
+The fundamental difficulty here is that particle streams whose orbit does not intersect the orbit of the Earth
+cannot be observed at all.
+
+Hence the natural reference system to work with when investigating meteor streams in interplanetary space
+is the \emph{ecliptic coordinate system}.
+
+
+It is necessary that at least one of the orbital nodes must lie very close to the orbit of the Earth.
+This can be expressed in terms of orbital elements as
+\eqn{eq:p-anode}{
+    \frac{p}{1 + e \cos \omega} \approx \SI{1}{\au}
+}
+for the ascending node, or, for the descending node,
+\eqn{eq:p-dnode}{
+    \frac{p}{1 - e \cos \omega} \approx \SI{1}{\au}.
+}
+
+Typically we do not consider individual particles, but the entire stream and its elliptical orbit around the Sun.
+
+It is not entirely clear what constitutes a meteoroid stream.
+
+
+The final product thus consists of two parts: the actual \emph{orbital model},
+describing the density of meteoroid particles in interplanetary space;
+and a reduced \emph{observational model}, which predicts the number of meteoroid
+entering the Earth's atmosphere as a function of time and celestial coordinates.
+
+\section{Orbital model} \label{po}
 
     Even though meteoroids are always discrete particles, it is useful to model their density as a smooth
     function in multi-dimensional phase space.
     Actual particles are then treated as samples obtained from the underlying distribution.
 
-    In the opposite direction, the underlying distribution may be estimated using a KDE method
+    In the opposite direction, the underlying distribution may be approximated using a \emph{kernel density estimation} method.
+    Each actual meteoroid, obtained by backwards integration of motion of an observed meteor,
+    is substituted by a multidimensional kernel in the phase space. The precise shape of the kernel
+    is not overly important; for most purposes a simple multidimensional gaussian is sufficient \cite{...}
 
-    This distribution is not well-defined
 
 
     The density function is 
-    \eqn{eq:pf-rv}{
+    \eqn{eq:po-rv}{
         \varrho(\vec{r}, \vec{v}, t) \in \left[0, \infty\right).
     }
 
     or alternatively expressed in terms of orbital elements
-    \eqn{eq:pf-elem}{
+    \eqn{eq:po-elem}{
         \varrho(a, e, i, \omega, \Omega, T).
     }
 
     In meteor science it is customary to assume a specific distribution of masses in a population,
     described by a function that follows a power-law
-    \eqn{eq:pf-map}{
+    \eqn{eq:po-map}{
         \varrho(m) \propto m^{-s}
     }
     for some constant $s$ named the \emph{mass index}.
+
+    To obtain a distribution, this expression needs to be normalised first,
+    effectively yielding a well-known Pareto distribution \citep{arnold1983}.
+    In mathematical texts it is usually quoted as $\Distrib{\mathrm{Pareto}}{x}{\alpha, x_0}$,
+    where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
+
+    To conform to terms commonly used with meteors we substitute these for mass index
+    $s = \alpha - 1$, while $x_0 \equiv m_\mathrm{min}$ denotes the \emph{minimum mass} of particles in the stream.
+    The probability density function is then 
+    \eqn{eq:po-pareto}{
+        \varrho(m) = \mathrm{Pareto}\left(m;\ s-1, {m_\mathrm{min}}\right) \equiv
+        \begin{cases}
+            0 &
+                \text{for }m < m_{\mathrm{min}}\text{,} \\
+            \dfrac{\left(s-1\right) m_{\mathrm{min}}^{s-1}}{m^s} &
+                \text{for }m \geq m_{\mathrm{min}}\text{.}
+        \end{cases}
+    }
+
+    Naturally, the extent to which the model can approximate physical reality is limited.
+    In order to avoid artifacts, it is preferable to set an artificial limit on what should be considered
+    a meteor shower.
+
+
 
 
 \section{Reduction to Earth's sky} \label{ir}
@@ -36,9 +91,8 @@
 
     models developed from data obtained from Earth-based observations are different.
 
-    Typically we do not consider individual particles, but the entire stream and its elliptical orbit around the Sun.
 
-    the ascending or the descending node of the orbit must lie very close to the orbit of the Earth.
+
 
 
 
@@ -63,7 +117,8 @@
 
     Necessarily, the model is not able to capture or describe any stream that does not intersect the orbit of the
     Earth,\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
-    with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth.}
+    with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
+    if their orbit intersects with the Earth's.}
 
     In visualisations it is natural to keep the spatial and temporal dimensions, that is, right ascension and declination are
     displayed as spatial coordinates using one of suitable projections, while time evolution of streams is best displayed

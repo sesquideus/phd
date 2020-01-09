@@ -9,7 +9,7 @@
 
 
 
-\section{The $N$-body problem} \label{mN}
+\section{The N-body problem} \label{mN}
     At the core of our task is little more than a fairly complex $N$-body problem: we are given
     the initial positions and velocities of a set of objects, mutually interacting by gravitational attraction.
     However, rather than finding their positions and velocities at all future times, we are mostly concerned
@@ -20,17 +20,16 @@
 
     Fortunately, an exact closed-form solution is not needed. First of all, the precision of our results
     is always practically limited by the precision with which the initial conditions are known.
-    While for many known parent bodies the observation arcs are very long and 
+    While for many known parent bodies the observation arcs are very long and allow for very precise
+    calculation of Keplerian orbits,
 
     Furthermore, small particles are often also influenced by non-gravitational forces,
     which are themselves difficult to describe analytically.
+    Numerical solutions thus remain the astronomer's best friends.
 
-    which make the finding of the solution 
-
-    Numerical solutions remain the astronomer's best friends.
-
-    With available computational power this is no longer a problem, as a relatively cheap modern computer
-    running state-of-the-art software is able to predict
+    With modern integrators and available computational power this is no longer a problem.
+    Even a cheap modern computer equipped with suitable software is able to calculate trajectories
+    with precision only limited by our knowledge of initial positions and velocities of the bodies.
 
 \section{Simulation in the Solar System} \label{as}
     on the order of 100 radii.
@@ -70,10 +69,10 @@
     radius increased by about  order of magnitude --
 
     \subsection{Numerical integration of equations of motion} \label{asi}
-        requires computation of $\frac{n\left(n - 1\right)}{2} \sim \mathcal{O}(n^2)$ pairs of forces \cite{...}.
+        requires computation of $\frac{n\left(n - 1\right)}{2} = \BigO{n^2}$ pairs of forces \cite{...}.
         Due to Newton's third law, opposing pairs of forces are equal in magnitude and opposite in their direction,
-        which brings the number of required evaluations to half that value, without changing the order.
-
+        and thus one evaluation suffices. This brings the number of required evaluations to half that value,
+        without changing the order.
 
 
         \subsubsection{Massively parallel integration} \label{asip}
@@ -112,17 +111,36 @@
             a reasonable time frame.
 
 \section{Simulation in the atmosphere} \label{aa}
+    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
+    the physical processes manifested during their atmospheric entry and obtain the values of physical quantities
+    that are observed by ground-based observers.
+
+    The coordinate frame of choice here is the Earth-Centered, Earth-Fixed frame (origin in the centre of mass of the Earth,
+    reference plane is the equator and the reference direction is the international prime meridian).
+    This reference frame is right-handed
+
+    First of all, the position and velocity of the particle are transformed to the ECEF coordinate frame.
+
     To simulate the atmospheric entry we used Asmodeus \citep{balaz-thesis}, \citep{balaz+2020}.
     Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
-    and 
+    and a numerical integration of the equations of motion is executed.
 
-    \subsection{Numerical simulation of the equations of motion}
+    \subsection{Numerical simulation of the equations of motion} \label{aai}
+        Unlike in interplanetary space, where forces are completely dominated by the gravitational force
+        exerted by the Sun
+
+        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
+        The precise order is subject to variations due to particle's size, entry speed and angle
+        and material composition.
+
 
         In the simulation we consider only two real forces:
         \begin{itemize}
-            \item the \emph{drag force} $\vec{F}_{d}$, always acting against the instantaneous velocity vector of the particle;
-            \item the \emph{gravitational force} $\vec{F}_{g}$, pulling the meteoroid towards the centre of the Earth;
+            \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
+            \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
         \end{itemize}
+
+        Since it is 
         and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
         \begin{itemize}
             \item the fictitious \emph{centrifugal} force, pushing the particle away from the axis of rotation of the Earth;
@@ -142,23 +160,26 @@
 
         However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
 
-            \subsubsection{Coriolis force} \label{aafC}
-                The fictitious Coriolis force arises in a rotating reference frame.
-                \eqn{eq:aafC-coriolis}{
-                    \vec{F_{\mathrm{C}}} = -2 m \vec{\omega} \times \vec{v}.
-                }
+        \subsubsection{Coriolis force} \label{aafC}
+            The fictitious Coriolis force arises in a rotating reference frame.
+            \eqn{eq:aafC-coriolis}{
+                \vec{F_{\mathrm{C}}} = -2 m \vec{\omega} \times \vec{v}.
+            }
 
-                For a meteoroid its magnitude is on the order of
-                \eqn{eq:aafC-order}{
-                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-                }
-                roughly the same as gravitational acceleration.
+            For a meteoroid its magnitude is at most on the order of
+            \eqn{eq:aafC-order}{
+                2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
+            }
+            roughly the same as gravitational acceleration.
 
-            \subsubsection{Centrifugal force} \label{aafc}
-                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-                \eqn{eq:aafc-centrifugal}{
-                    \vec{F_{\mathrm{c}}} = - m \vec{\omega} \times \left(\vec{\omega} \times \vec{r}\right),
+        \subsubsection{Centrifugal force} \label{aafc}
+            The centrifugal force pushes the particles away from the axis of rotation of the Earth.
+            \eqn{eq:aafc-centrifugal}{
+                \vec{F_{\mathrm{c}}} = - m \vec{\omega} \times \left(\vec{\omega} \times \vec{r}\right),
             }
             Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
-            gravitational force. Its magnitude is on the order of \SI{0.03}{\metre\per\second\squared}, which
-            means that for most purposes it is completely negligible.
+            gravitational force. A simple calculation shows that ts magnitude is on the order
+            of \SI{0.03}{\metre\per\second\squared}. For most purposes it can be safely neglected.
+
+        \subsubsection{Gravitational force} \label{aafg}
+            

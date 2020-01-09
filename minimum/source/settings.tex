@@ -25,7 +25,7 @@
     longtable,
     subcaption,
 }
-    
+
 \usepackage[many]{tcolorbox}
 \usepackage[square, numbers]{natbib}
 \usepackage[all]{nowidow}
@@ -107,7 +107,7 @@
     UprightFont     = *-r ,
     BoldFont        = *-b ,
     ItalicFont      = *-i ,
-    BoldItalicFont  = *-bi    
+    BoldItalicFont  = *-bi
 ]{adobegaramondpro}
 \setmonofont[
     Path            = fonts/ ,
@@ -115,7 +115,7 @@
     UprightFont     = *-r ,
     BoldFont        = *-b ,
     ItalicFont      = *-i ,
-    BoldItalicFont  = *-bi    
+    BoldItalicFont  = *-bi
 ]{ubuntumono}
 \setsansfont[
     Path            = fonts/ ,
@@ -131,15 +131,8 @@
 
 \titleformat{\paragraph}[hang]{\semibold}{}{0pt}{}
 
-\DeclareMathOperator{\diff}{d\!}
-\DeclareMathOperator{\pdiff}{\partial\!}
-
-\NewDocumentCommand{\derive}{O{} m m}{\frac{\diff^{#1}#2}{\diff#3^{#1}}}
-\NewDocumentCommand{\pderive}{O{} m m}{\frac{\partial^{#1}#2}{\partial #3^{#1}}}
-
-\NewDocumentCommand{\integrate}{O{} O{} m m}{\kern -0.2em \int\limits_{#1}^{#2} #3 \, \diff#4}
-\NewDocumentCommand{\iintegrate}{O{} O{} m m m}{\iint\limits_{#1}^{\quad#2} #3 \diff#4\diff#5}
-\NewDocumentCommand{\iiintegrate}{O{} O{} m m m m}{\iiint\limits_{#1}^{#2} #3 \diff#4\diff#5\diff#6}
+\input{siunitx.tex}
+\input{math.tex}
 
 \makeatletter
     \newsavebox\myboxA
@@ -163,42 +156,39 @@
     }
 \makeatother
 
-\NewDocumentCommand{\magnitude}{m}{{#1}^{\mathrm{m}}}
-
-\NewDocumentCommand{\distrib}{m m m}{#1(#2;\,#3)}
 \RenewDocumentCommand{\emph}{m}{{\semibold #1}}
 
 \NewDocumentCommand{\eqn}{m +m}{%
-    \begin{equation}
-        #2
-        \label{#1}
-    \end{equation}
+    \begin{equation}%
+        #2%
+        \label{#1}%
+    \end{equation}%
 }
 
 \NewDocumentCommand{\eqnx}{m +m}{%
-    \begin{equation*}
-        #2
-        \label{#1}
-    \end{equation*}
+    \begin{equation*}%
+        #2%
+        \label{#1}%
+    \end{equation*}%
 }
 
 \NewDocumentCommand{\aln}{m +m}{%
-    \begin{equation}
-    \begin{aligned}%
-        #2%
-        \ifstrequal{#1}{}{}{\label{#1}}%
-    \end{aligned}%
-    \end{equation}
+    \begin{equation}%
+        \begin{aligned}%
+            #2%
+            \ifstrempty{#1}{}{\label{#1}}%
+        \end{aligned}%
+    \end{equation}%
     \ignorespacesafterend
 }
 
 \NewDocumentCommand{\alnx}{m +m}{%
-    \begin{equation*}
-    \begin{aligned}%
-        #2%
-        \ifstrequal{#1}{}{}{\label{#1}}%
-    \end{aligned}%
-    \end{equation*}
+    \begin{equation*}%
+        \begin{aligned}%
+            #2%
+            \ifstrempty{#1}{}{\label{#1}}%
+        \end{aligned}%
+    \end{equation*}%
     \ignorespacesafterend
 }
  
@@ -237,7 +227,9 @@
 
 \numberwithin{equation}{section}
 
+\setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{2}
+
 \setstretch{1.5}
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{3mm}
@@ -301,8 +293,6 @@
     topsep              = 0mm,
     itemsep             = 0mm,
 }
-
-\setcounter{tocdepth}{1}
 
 \newcounter{example}
 \NewDocumentEnvironment{example}{O{}}{

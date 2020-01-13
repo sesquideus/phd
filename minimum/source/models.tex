@@ -31,6 +31,80 @@
     Even a cheap modern computer equipped with suitable software is able to calculate trajectories
     with precision only limited by our knowledge of initial positions and velocities of the bodies.
 
+\section{Additional properties} \label{ma}
+    Apart from the dynamical properties, which describe only the density of particles
+    and thus a probability of a collision at a point in space and time,
+    we may (and should!) observe and analyze additional properties of the stream.
+
+    \subsection{Mass distribution} \label{mas}
+        The most important characteristic of a meteoroid population is the distribution of masses
+        among constituent particles. A shower that is primarily composed of massive particles
+        will produce a large number of spectacular fireballs while its ZHR may remain fairly low;
+        while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
+        yet will result in large ZHR.
+
+        In meteor science, it is customary to assume a specific distribution of masses within a population,
+        described by a power law with particle mass as the independent variable:
+        \eqn{eq:mas-map}{
+            \varrho(m) \propto m^{-s}
+        }
+        for some constant $s$ named the \emph{mass index}.
+
+        To obtain a distribution, this expression needs to be normalised first,
+        effectively yielding a well-known Pareto distribution \citep{arnold1983}.
+        In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
+        where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
+
+        To conform to terms commonly used with meteors we substitute these for mass index
+        $s = \alpha - 1$, while $x_0 \equiv m_\mathrm{min}$ denotes the \emph{minimum mass} of particles in the stream.
+        The probability density function is then 
+        \eqn{eq:mas-pareto}{
+            \varrho(m) = \mathrm{Pareto}\left(m;\ s-1, {m_\mathrm{min}}\right) \equiv
+            \begin{cases}
+                0 &
+                    \text{for }m < m_{\mathrm{min}}\text{,} \\
+                \dfrac{\left(s-1\right) m_{\mathrm{min}}^{s-1}}{m^s} &
+                    \text{for }m \geq m_{\mathrm{min}}\text{.}
+            \end{cases}
+        }
+
+        Naturally, the extent to which the model can approximate the physical reality is limited.
+        Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being the most common \cite{...}
+
+        In a very simple approximation, the luminosity of a meteor depends on its mass and entry speed as
+        \eqn{eq:mas-lum}{
+            F_0 \propto mv^5.
+        }
+
+        For any meteor shower the speed is almost constant. The luminosity of meteors
+        within a certain stream is thus solely a function of particle mass.
+
+    \subsection{Chemical composition} \label{mac}
+        Another property to consider is the chemical composition of the meteoroids.
+
+        Properties of the meteors can be vastly variable depending on their origin:
+        \begin{itemize}
+            \item meteoroids ejected from \emph{comets} are highly porous and friable
+                (details)
+            \item meteoroids originating from \emph{asteroids} are typically solid,
+                rocky bodies, composed primarily of silicate minerals, ...
+
+                Are either primordial
+                (details)
+            \item some sporadic meteor may rarely originate from old catastrophic disruptions
+                of \emph{large differentiated bodies}, which exposed their metallic cores
+                and ejected some of the material into interplanetary space.
+                These meteoroids are composed primarily of iron and nickel.
+        \end{itemize}
+        Particlesoriginating
+
+        From extremely fluffy and fragile cometary material, through rocky bodies
+        to solid iron bodies that are able to resist ablation very well.
+
+        toughness of particles, which in turn affects the penetration depth
+        and the absolute brightness of meteors.
+        Differences in spectra are responsible for variability in detection efficiency with different cameras.
+
 \section{Simulation in the Solar System} \label{as}
     on the order of 100 radii.
 
@@ -59,9 +133,7 @@
 
     The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
     The worst case is encountered with streams with high inclinations, where meteors seem to arrive from a direction perpendicular
-    to the direction of movement. The 
-
-     and thus is almost perpendicular to the Earth's instantaneous velocity vector.
+    to the direction of movement.
 
 
 

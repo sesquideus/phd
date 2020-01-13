@@ -53,32 +53,7 @@ entering the Earth's atmosphere as a function of time and celestial coordinates.
 
     In meteor science it is customary to assume a specific distribution of masses in a population,
     described by a function that follows a power-law
-    \eqn{eq:po-map}{
-        \varrho(m) \propto m^{-s}
-    }
-    for some constant $s$ named the \emph{mass index}.
 
-    To obtain a distribution, this expression needs to be normalised first,
-    effectively yielding a well-known Pareto distribution \citep{arnold1983}.
-    In mathematical texts it is usually quoted as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
-    where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
-
-    To conform to terms commonly used with meteors we substitute these for mass index
-    $s = \alpha - 1$, while $x_0 \equiv m_\mathrm{min}$ denotes the \emph{minimum mass} of particles in the stream.
-    The probability density function is then 
-    \eqn{eq:po-pareto}{
-        \varrho(m) = \mathrm{Pareto}\left(m;\ s-1, {m_\mathrm{min}}\right) \equiv
-        \begin{cases}
-            0 &
-                \text{for }m < m_{\mathrm{min}}\text{,} \\
-            \dfrac{\left(s-1\right) m_{\mathrm{min}}^{s-1}}{m^s} &
-                \text{for }m \geq m_{\mathrm{min}}\text{.}
-        \end{cases}
-    }
-
-    Naturally, the extent to which the model can approximate physical reality is limited.
-    In order to avoid artifacts, it is preferable to set an artificial limit on what should be considered
-    a meteor shower.
 
 
 
@@ -86,28 +61,17 @@ entering the Earth's atmosphere as a function of time and celestial coordinates.
 \section{Reduction to Earth's sky} \label{ir}
     While the primary model describes the actual distribution of meteoroid particles in space around the Earth,
     it is not possible to relate it directly to observations. To do this, we need to \emph{reduce} the model,
-    that is, find out which particles will intersect the Earth and produce a meteor, and estimate the geometry of this collision.
+    that is, find out which particles will intersect the Earth and produce a meteor, and compute the geometry of this collision.
 
-
+    Since this is the only observational data are available,
     models developed from data obtained from Earth-based observations are different.
-
-
-
-
-
-
 
     The final product would thus be a four-dimensional map of distribution of meteor activity, with independent variables being
     \begin{itemize}
-        \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
         \item one \emph{temporal coordinate}, representing the meteor activity in time;
-        \item the \emph{particles' speed}, corresponding to different orbits
-        \item the \emph{mass spectrum}, describing the distribution of meteoroid masses, typically in terms of \textit{mass index} $s$;
-        \item and the \emph{velocity spectrum}, describing the velocities of objects passing through this point, which can be in turn described by
-            \begin{itemize}
-                \item two spatial coordinates, the \emph{right ascension and declination} of the radiant, or $\alpha$ and $\delta$;
-                \item and \emph{speed} $v$.
-            \end{itemize}
+        \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
+        \item the \emph{geocentric speed} of the particles;
+        \item and the \emph{mass spectrum}, describing the distribution of meteoroid masses in terms of \textit{mass index} $s$.
     \end{itemize}
 
     described by the \emph{meteor activity function}
@@ -131,8 +95,8 @@ entering the Earth's atmosphere as a function of time and celestial coordinates.
     Within this map we are able to distinguish two main features:
     \begin{itemize}
         \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-        \item and the well-defined, sharp peaks, representing the \emph{meteor showers}.
-            very narrow in the speed dimensions;
+        \item and the well-defined, sharp peaks, representing the \emph{meteor showers}. Due to common origin and orbit,
+            these peaks should be very narrow in all dimensions.
     \end{itemize}
 
     Due to influences of various acting forces, such as differences

@@ -10,13 +10,13 @@
 
 
 \section{The N-body problem} \label{mN}
-    At the core of our task is little more than a fairly complex $N$-body problem: we are given
-    the initial positions and velocities of a set of objects, mutually interacting by gravitational attraction.
+    At the core of investigation of meteoroid motion there is little more than a fairly complex $N$-body problem:
+    we are given the initial positions and velocities of a set of objects, mutually interacting by gravitational attraction.
     However, rather than finding their positions and velocities at all future times, we are mostly concerned
     with the question whether some of these particles will ever collide with the Earth.
 
     Finding a closed-form solution is either not possible at all \cite{...}, or is only expressible
-    as a convergent series with way too many terms to be of any practical use \cite{beloriszky-1930}
+    as a convergent series with way too many terms to be of any practical use \citep{beloriszky-1930}.
 
     Fortunately, an exact closed-form solution is not needed. First of all, the precision of our results
     is always practically limited by the precision with which the initial conditions are known.
@@ -80,7 +80,8 @@
         within a certain stream is thus solely a function of particle mass.
 
     \subsection{Chemical composition} \label{mac}
-        Another property to consider is the chemical composition of the meteoroids.
+        Another property to consider is the chemical composition and density of the meteoroids.
+
 
         Properties of the meteors can be vastly variable depending on their origin:
         \begin{itemize}
@@ -132,13 +133,20 @@
     whose radius may be on the order of millions of kilometres, but will be of extreme importance with young, narrow filaments.
 
     The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
-    The worst case is encountered with streams with high inclinations, where meteors seem to arrive from a direction perpendicular
+    The worst case are the streams with high inclinations, where meteors seem to arrive from a direction perpendicular
     to the direction of movement.
 
 
 
-    termined sphere centered on the Earth but with
-    radius increased by about  order of magnitude --
+    It is necessary that at least one of the orbital nodes must lie very close to the orbit of the Earth.
+    This can be expressed in terms of orbital elements as
+    \eqn{eq:p-anode}{
+        \frac{p}{1 + e \cos \omega} \approx \SI{1}{\au}
+    }
+    for the ascending node, or, for the descending node,
+    \eqn{eq:p-dnode}{
+        \frac{p}{1 - e \cos \omega} \approx \SI{1}{\au}.
+    }
 
     \subsection{Numerical integration of equations of motion} \label{asi}
         requires computation of $\frac{n\left(n - 1\right)}{2} = \BigO{n^2}$ pairs of forces \cite{...}.
@@ -163,22 +171,26 @@
             on test bodies. Since forces are to be summed as vectors, we need $k$ evaluations
             for each of $n$ test particles, for a total of $nk$ evaluations.
             Generally, there is no further exploitable symmetry.
+            However, problems of this sort are perfectly suited for parallel computation.
 
-            for a total of evaluations is
-            \eqn{asip-}{
+            The total number of evaluations is
+            \eqn{eq:asip-total}{
                 E(k, n) = k^2 + nk.
             }
 
             Since in our case $n \gg k$, this approximately equals $nk$.
 
+            The preferred \textit{modus operandi} at this time seems to be to use off-the-shelf integrators
+            running on a CPU for resolving the positions and velocities of planets, and feed those data
+            to a massively-parallel GPU integrator, simulating a large number of mutually non-interacting particles.
+
         \subsubsection{Using explicit ephemerides} \label{asie}
-            To further simplify matters, we may leave determination of positions and velocities to other software
-            and free resources for our business.
-            We may directly use positions and velocities provided by some external source, such as JPL Horizons \cite{...},
-            or use precomputed values.
+            To further simplify matters, we may leave the determination of positions and velocities
+            to other software completely and free resources for other problems.
+            We may directly use positions and velocities provided by some external source,
+            such as JPL Horizons \cite{...}, or simply use precomputed tabelated values.
 
             This leaves us with only $kn$ interactions that are completely mutually independent.
-            Problems of this sort are perfectly suited for parallel computation.
             We hope to achieve sufficient performance to allow simulating about $10^7$ test particles within
             a reasonable time frame.
 
@@ -215,8 +227,8 @@
         Since it is 
         and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
         \begin{itemize}
-            \item the fictitious \emph{centrifugal} force, pushing the particle away from the axis of rotation of the Earth;
-            \item and the fictitious \emph{Coriolis force}, which curves the trajectory to
+            \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$, pushing the particle away from the axis of rotation of the Earth;
+            \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$, which curves the trajectory to
         \end{itemize}
 
         Except for the drag force, all forces can be readily expressed in terms of instantaneous position and velocity of the meteoroid,
@@ -256,4 +268,13 @@
             of \SI{0.03}{\metre\per\second\squared}. For most purposes it can be safely neglected.
 
         \subsubsection{Gravitational force} \label{aafg}
-            
+            While the real shape of the gravitational potential around the Earth,
+            is fairly difficult to describe accurately, for particles that are generally moving
+            on highly hyperbolic trajectories the simplest approximation by a Newtonian point source
+            with mass $M_\Earth$ is more than sufficient:
+            \eqn{eq:aafg-gravity}{
+                \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
+            }
+
+\section{Backward approach} \label{ab}
+

@@ -27,15 +27,22 @@
 }
 
 \usepackage[many]{tcolorbox}
-\usepackage[square, sort, comma, numbers]{natbib}
-\usepackage[all]{nowidow}
+\usepackage{natbib}                                             % Use fancier bibliography
+\setcitestyle{
+    authoryear,                                                 % Show author and year...
+    round,                                                      % ...in round parentheses...
+    semicolon,                                                  % ...separated by semicolons...
+    aysep={,}                                                   % ...with this character between author and year.
+}                                                               % Like this: ...has already been proven (Gandalf, 3021).
+
+\usepackage[all]{nowidow}                                       % Prevent widows and orphans (single line at the beginning or end of page)
 \usepackage[
     pdfpagelabels,
     hidelinks,
     breaklinks              = true,
 ]{hyperref}
 \usepackage[bottom]{footmisc}
-\usepackage{fancyhdr}
+\usepackage{fancyhdr}                                           % Fancy headers
 \usepackage{titlesec}
 \usepackage[titletoc, title, toc, page]{appendix}
 \usepackage[
@@ -69,14 +76,14 @@
     per-mode                = reciprocal,
     group-separator         = {\,},
     group-minimum-digits    = 5,
-    inter-unit-product      = {\kern 0.05em},
+    inter-unit-product      = {},
     exponent-product        = \cdot,
     number-unit-product     = {\ },
     output-decimal-marker   = {\text{.}},
     range-units             = single,
     range-phrase            = {\text{--}},
     list-units              = single,
-    list-final-separator    = {\ a\ },
+    list-final-separator    = {\ and\ },
 }
 
 \setdefaultlanguage{english}

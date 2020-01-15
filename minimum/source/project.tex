@@ -22,11 +22,13 @@ Typically we do not consider individual particles, but the entire stream and its
     Actual particles are then treated as random samples obtained from the underlying distribution.
 
     However, logic dictates we do this in the opposite direction: we need to approximate
-    the underlying distribution from a finite set of known samples, possibly biased.
+    the underlying distribution from a finite set of known samples.
     This may be done using a \emph{kernel density estimation} method.
     Each actual meteoroid, obtained by backwards integration of motion of an observed meteor,
     is substituted by a multidimensional kernel in the phase space. The precise shape of the kernel
     is not overly important; for most purposes a simple multidimensional gaussian is sufficient \cite{...}.
+    To make matters even worse, our observational datasets are usually incomplete
+    and heavily distorted by observation bias.
 
     The final product thus consists of two parts: the \emph{observational model},
     obtained from observations of meteors from the Earth's surface;
@@ -34,44 +36,37 @@ Typically we do not consider individual particles, but the entire stream and its
     in interplanetary space as a function of position, velocity and time.
 
 \section{Observational model} \label{io}
-    For each meteor, it is in principle possible to trace the trajectory back in time
-    and derive the trajectory of the original meteoroid particle in the vicinity of Earth.
-    After subtracting the velocity of he Earth we can further extend the trajectory
-    into interplanetary space.
+    We need to use a four-dimensional KDE. Ideally, the kernel should be obtained by a product of five
+    independent unidimensional kernels.
 
-    Since this is the only observational data are available,
-    models developed from data obtained from Earth-based observations are different.
-
-    The final product would thus be a four-dimensional map of distribution of meteor activity, with independent variables being
+    The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
     \begin{itemize}
         \item one \emph{temporal coordinate}, representing the meteor activity in time;
         \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
-        \item the \emph{geocentric speed} of the particles;
-        \item and the \emph{mass spectrum}, describing the distribution of meteoroid masses in terms of \textit{mass index} $s$.
+        \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
+        \item and the \emph{mass spectrum}, or the probability density of distribution of meteoroid masses.
     \end{itemize}
 
-    described by the \emph{meteor activity function}
+    The total observable activity is thus described by the \emph{meteor activity function}
     \eqn{eq:i-map}{
-        M(t, \vec{v}, m) \equiv \rho(y + \lambda_\odot, \delta_R, \alpha_R, v, m).
+        \varrho(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m).
     }
 
-    Necessarily, the model is not able to capture or describe any stream that does not intersect the orbit of the
-    Earth,\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
+    Necessarily, no observational model is able to capture or describe any stream that does not intersect the orbit of the
+    Earth.\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
     with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
     if their orbit intersects with the Earth's.}
 
-    In visualisations it is natural to keep the spatial and temporal dimensions, that is, right ascension and declination are
-    displayed as spatial coordinates using one of suitable projections, while time evolution of streams is best displayed
-    in sequence of images.
+    In visualisations it is natural to keep the spatial and temporal dimensions as they are -- that is,
+    right ascension and declination are displayed as spatial coordinates using one of suitable projections,
+    while time evolution of streams is best displayed in a sequence of images.
     Displaying the secular evolution of one stream can be performed by comparing the state of the function $M$ at
     the same $\lambda_\odot$ in successive years.
 
-    \citep{balaz+2020}
-
-    Within this map we are able to distinguish two main features:
+    Within such maps we should be able to distinguish two main features:
     \begin{itemize}
         \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-        \item and the well-defined, sharp peaks, representing the \emph{meteor showers}. Due to common origin and orbit,
+        \item and several well-defined, sharp peaks, representing the \emph{meteor showers}. Due to common origin and orbit,
             these peaks should be very narrow in all dimensions.
     \end{itemize}
 
@@ -81,11 +76,26 @@ Typically we do not consider individual particles, but the entire stream and its
     Poynting-Robertson effect, etc., the stream
     gradually widens and disperses in all components until it can no longer be distinguished from the background.
 
-    \subsection{Time} \label{i}
-        In examining the evolution we may recognize two distinct components:
+    \subsection{Time} \label{iot}
+        The first coordinate is the time of the atmospheric entry of the meteoroid.
+        First of all, it should be noted that while a meteor is not an completely instantaneous event,
+        its duration is on the order of \SI{1}{\second}, which is very short compared to the
+        period of rotation of the Earth of the scales on which meteor activity varies.
+        Precise timekeeping is thus not very important.
+        For our purposes we will be using the time of maximum brightness
+        of the meteor for both actual data and in simulations.
+
+        Second, it should be emphasized again that each meteor is treated
+        as a random sample from some hidden underlying distribution.
+        In the context of this thesis it is immaterial whether any particular meteor
+        appeared a minute earlier or later. Since we are only interested in slow variations,
+        any such time shift will be invariably smeared during density estimation.
+        Differences on the order of tens of minutes could be visible with very narrow filaments.
+
+        In examining the evolution of streams we should recognize two distinct components:
         \begin{itemize}
             \item the \emph{periodic component}, emerging as the result of the Earth orbiting the Sun.
-                This coordinate can be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\odot$.
+                This should be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\Sun$.
 
             \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid streams and gradual decay of older
                 streams which are not replenished.
@@ -94,11 +104,46 @@ Typically we do not consider individual particles, but the entire stream and its
                 producing small meteoroid due to heating or outgassing.
                 Returns of parents bodies on periodic orbits, such as comets 1P/Halley or 109P/Swift-Tuttle, result
                 in resupply of meteoroid material, and thus form an extra periodic component, included in the secular evolution of the stream.
-
         \end{itemize}
+
+        The time coordinate $t$ can be thus decomposed to two components,
+        \eqn{eq:iot-tyl}{
+            t = y + \lambda_\Sun,
+        }
+        where
+        \begin{itemize}
+            \item $y$ is the number of whole orbits since some specified time, or in layman's terms, the current \emph{astronomical year} in which
+                the last vernal equinox occurred;
+            \item $\lambda_\Sun$ is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
+        \end{itemize}
+
+        As we do not expect to cover more than several tens or hundreds of years, effects of precession can be safely ignored.
+        Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun = \ang{139.4}$,
+        while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun = \ang{353.6}$.
+
+    \subsection{Declination and right ascensions} \label{ios}
+        The two spatial coordinates mark the position of the radiant of the particles.
+
+        As we are only concerned with the density of the stream as a whole,
+        the exact position in the sky is again not important.
+        Even a minuscule change in velocity or ejection time could have had a drastic effect
+        on the precise timing and geometry of the meteor without affecting the meteoroid's
+        adherence to the stream.
+
+        f the meteoroid which produced the meteor
+        had entered the atmosphere several hundred kilometres further,
+        which would have drastically changed the position in the sky, while the
+        Again, any difference will be lost in kernel smearing.
 
 
 \section{Orbital model} \label{po}
+    For each meteor, it is in principle possible to trace the trajectory back in time
+    and derive the trajectory of the original meteoroid particle in the vicinity of Earth.
+    After subtracting the velocity of the Earth we can further extend the trajectory
+    into interplanetary space.
+
+    Since this is the only observational data are available,
+    models developed from data obtained from Earth-based observations are different.
 
   
 

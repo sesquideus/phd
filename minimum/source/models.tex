@@ -7,6 +7,8 @@
     \textit{in} Harry and Lucy Concluded (1825)
 }
 
+Once we have ascertained what phbysical objects and phenomena we are going to be working with and what we want to achieve,
+we need to understand \emph{how} this can be done and how these phenomena can be captured in a simplified \emph{model}.
 
 
 \section{The N-body problem} \label{mN}
@@ -76,8 +78,9 @@
             F_0 \propto mv^5.
         }
 
-        For any meteor shower the speed is almost constant. The luminosity of meteors
-        within a certain stream is thus solely a function of particle mass.
+        For any meteor shower the speed is almost constant. Hence we know that the luminosity of meteors
+        within a certain stream is thus solely a function of particle mass, and that this dependence should
+        be approximately linear.
 
     \subsection{Chemical composition} \label{mac}
         Another property to consider is the chemical composition and density of the meteoroids.
@@ -106,175 +109,6 @@
         and the absolute brightness of meteors.
         Differences in spectra are responsible for variability in detection efficiency with different cameras.
 
-\section{Simulation in the Solar System} \label{as}
-    on the order of 100 radii.
-
-    With ephemerides taken from the JPL Horizons system \citep{...}.
-    The simulation computes the positions of the large bodies of the Solar System, most importantly the Sun,
-    the eight planets and the Moon. Then the test particles
-
-    Optinally, positions of massless bodies can be offloaded to a Graphics Processing Unit (GPU).
-    Using a GPU is particularly well suited to massively parallel problems, such as simulation of non-interacting test particles.
-
-    Any particle intersecting the cross-section of the Earth is marked as detected and will be examined further.
-    Alternatively, in order to reduce the number of trials, we may employ a larger artificial detector.
-
-
-    as long as the spatial density is only varying on scales much larger than the radius of the Earth,
-    temporal variations in activity will be small.
-    This assumption is not universally valid, as some younger meteor showers often produce dense, narrow filaments,
-    which can be observed as short but intensive outbursts of extraordinary meteor activity.
-    A~good example are the November alpha-Monocerotids, with a period of significantly
-    heightened activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
-
-    By comparing the orbital speed and the diameter of the Earth we can see that the Earth moves
-    to a completely different position with respect to the stream within several minutes.
-    This means that variations in activity are not going to be significant when crossing an old stream,
-    whose radius may be on the order of millions of kilometres, but will be of extreme importance with young, narrow filaments.
-
-    The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
-    The worst case are the streams with high inclinations, where meteors seem to arrive from a direction perpendicular
-    to the direction of movement.
-
-
-
-    It is necessary that at least one of the orbital nodes must lie very close to the orbit of the Earth.
-    This can be expressed in terms of orbital elements as
-    \eqn{eq:p-anode}{
-        \frac{p}{1 + e \cos \omega} \approx \SI{1}{\au}
-    }
-    for the ascending node, or, for the descending node,
-    \eqn{eq:p-dnode}{
-        \frac{p}{1 - e \cos \omega} \approx \SI{1}{\au}.
-    }
-
-    \subsection{Numerical integration of equations of motion} \label{asi}
-        requires computation of $\frac{n\left(n - 1\right)}{2} = \BigO{n^2}$ pairs of forces \cite{...}.
-        Due to Newton's third law, opposing pairs of forces are equal in magnitude and opposite in their direction,
-        and thus one evaluation suffices. This brings the number of required evaluations to half that value,
-        without changing the order.
-
-
-        \subsubsection{Massively parallel integration} \label{asip}
-            The main difference in simulating small particles, such as meteoroids,
-            is that their masses are for all practical purposes completely negligible.
-            All gravitational interaction between pairs of test particles may be completely ignored,
-            which drastically reduces the number of evaluations.
-
-            Suppose we only need to work with $k$ massive objects:
-            in the Solar System we need to consider the Sun, eight planets, their major moons
-            and -- at least immediately after the ejection -- also the parent body of the stream.
-            This leaves us with $k \sim 10$, which translates to roughly 50--100 evaluations per integration step.
-            This is perfectly tractable on a CPU.
-
-            Once the positions of physical bodies are known, we may proceed to computing the forces acting
-            on test bodies. Since forces are to be summed as vectors, we need $k$ evaluations
-            for each of $n$ test particles, for a total of $nk$ evaluations.
-            Generally, there is no further exploitable symmetry.
-            However, problems of this sort are perfectly suited for parallel computation.
-
-            The total number of evaluations is
-            \eqn{eq:asip-total}{
-                E(k, n) = k^2 + nk.
-            }
-
-            Since in our case $n \gg k$, this approximately equals $nk$.
-
-            The preferred \textit{modus operandi} at this time seems to be to use off-the-shelf integrators
-            running on a CPU for resolving the positions and velocities of planets, and feed those data
-            to a massively-parallel GPU integrator, simulating a large number of mutually non-interacting particles.
-
-        \subsubsection{Using explicit ephemerides} \label{asie}
-            To further simplify matters, we may leave the determination of positions and velocities
-            to other software completely and free resources for other problems.
-            We may directly use positions and velocities provided by some external source,
-            such as JPL Horizons \cite{...}, or simply use precomputed tabelated values.
-
-            This leaves us with only $kn$ interactions that are completely mutually independent.
-            We hope to achieve sufficient performance to allow simulating about $10^7$ test particles within
-            a reasonable time frame.
-
-\section{Simulation in the atmosphere} \label{aa}
-    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
-    the physical processes manifested during their atmospheric entry and obtain the values of physical quantities
-    that are observed by ground-based observers.
-
-    The coordinate frame of choice here is the Earth-Centered, Earth-Fixed frame (origin in the centre of mass of the Earth,
-    reference plane is the equator and the reference direction is the international prime meridian).
-    This reference frame is right-handed
-
-    First of all, the position and velocity of the particle are transformed to the ECEF coordinate frame.
-
-    To simulate the atmospheric entry we used Asmodeus \citep{balaz-thesis}, \citep{balaz+2020}.
-    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
-    and a numerical integration of the equations of motion is executed.
-
-    \subsection{Numerical integration of the equations of motion} \label{aai}
-        Unlike in interplanetary space, where forces are completely dominated by the gravitational force
-        exerted by the Sun
-
-        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
-        The precise order is subject to variations due to particle's size, entry speed and angle
-        and material composition.
-
-
-        In the simulation we consider only two real forces:
-        \begin{itemize}
-            \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
-            \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
-        \end{itemize}
-
-        Since it is 
-        and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
-        \begin{itemize}
-            \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$, pushing the particle away from the axis of rotation of the Earth;
-            \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$, which curves the trajectory to
-        \end{itemize}
-
-        Except for the drag force, all forces can be readily expressed in terms of instantaneous position and velocity of the meteoroid,
-        along with several constants.
-        Calculating the drag force requires a choice of a suitable model.
-
-        In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
-        the particle's motion is dominated by gravitational effects. This is no longer true during the atmospheric entry,
-        where the magnitude of the atmospheric drag force exceeds all other effects by several orders of magnitude.
-        As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
-        to produce a significant deviation in trajectory. For statistical evaluation of populations it is sufficient
-        to consider only the drag force.
-
-        However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
-
-        \subsubsection{Coriolis force} \label{aafC}
-            The fictitious Coriolis force arises in a rotating reference frame.
-            \eqn{eq:aafC-coriolis}{
-                \vec{F_{\mathrm{C}}} = -2 m \vec{\omega_\Earth} \times \vec{v}.
-            }
-
-            For a meteoroid, its magnitude is at most on the order of
-            \eqn{eq:aafC-order}{
-                2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-            }
-            roughly the same as gravitational acceleration.
-
-        \subsubsection{Centrifugal force} \label{aafc}
-            The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-            \eqn{eq:aafc-centrifugal}{
-                \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
-            }
-            where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth, $\SI[parse-numbers = false]{\frac{2\pi}{86164}}{\per\second}$.
-
-            Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
-            gravitational force. A simple calculation shows that its magnitude is on the order
-            of \SI{0.03}{\metre\per\second\squared}. For most purposes it can be safely neglected.
-
-        \subsubsection{Gravitational force} \label{aafg}
-            While the real shape of the gravitational potential around the Earth,
-            is fairly difficult to describe accurately, for particles that are generally moving
-            on highly hyperbolic trajectories the simplest approximation by a Newtonian point source
-            with mass $M_\Earth$ is more than sufficient:
-            \eqn{eq:aafg-gravity}{
-                \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
-            }
 
 \section{Backward approach} \label{ab}
 

@@ -14,34 +14,55 @@ The discovery of meteors..
 \section{The need to know}
     In a vast majority
 
-    with the advent of space exploration this has changed. In the open space, the spacecraft and their crews are no longer shielded
-    by the protective shell of the atmisphere, and any hypervelocity impact may be easily fatal.
+    with the advent of space exploration this has changed. In open space, the spacecraft and their crews are no longer shielded
+    by the protective shell of the atmosphere. A hypervelocity collision with a small meteoroid may easily become fatal.
     Even a grain of sand, travelling at typical speed on the order of \SI{50}{\kilo\metre\per\second} can permanently disable
     an expensive space mission, while an impact with a meteoroid the size of a marble is able to release
     destructive energy comparable to being hit by an anti-tank round.
 
     Technology is not yet advanced enough to offer any form of active protection.
     Passive protection against impacts with small energy has already been developed and tested,
-    such as spacers \cite{...} or ...
+    such as spaced shielding \cite{...} or ...
 
     While it is theoretically possible to build passive shields that would be able to absorb impacts
     by meteoroids several orders of magnitude heavier, at the current state of technology these would
-    be too heavy and thus prohibitively costly to launch.
+    be very heavy and therefore prohibitively costly to launch.
 
     This might easily change once we are able to mine asteroids for water or minerals.
-    Material that is not commercially valuable by itself, or space-gangue, may be put into use
-    for shielding spacecraft or orbital stations.
+    Most of the material extracted from small asteroids will be of very limited commercial usefulness.
+    This ``asteroid gangue'' may however be put into good use: for shielding spacecraft or orbital stations.
 
-    The best protection now is relying on luck: the spatial density of meteoroids is fortunately low enough
-    to allow space stations to remain in orbit for a very long time. The main threat nowadays comes
-    from man-made debris orbiting the Earth. While these objects are numerous, they are on stable orbits around
+    Currently, the best available protection is relying on pure luck. The spatial density of meteoroids is
+    fortunately low enough to allow space stations to avoid damaging hits for a very long time,
+    with more massive -- and thus more dangerous -- bodies being encountered increasingly less often.
+
+    Another very similar threat comes man-made debris orbiting the Earth.
+    While these objects are relatively numerous, they are on stable orbits around
     the Earth, and it is possible to track them and record their orbits with high precision.
-    This is not possible with meteoroids coming from beyond the sphere of influence of the Earth,
-    which are usually too small and faint to be detected before their approach.
+    This is impossible to do for meteoroids coming from beyond the sphere of influence of the Earth,
+    as they are usually too small and faint to be detected before their approach.
+
+    The useful product of the thesis should thus be a multi-dimensional map of density
+    of meteoroids in the space around the Earth, which can be used to assess the risk
+    of collision with a small piece of interplanetary matter at any space and time.
+
+    On the other hand, sky maps are useful in predicting the activity levels of
+    meteor showers and sporadic background and determination of ideal observing
+    directions for narrow-field systems.
+
 
 \section{Aim}
     In this thesis we aim to design a suitable representation of spatial density of meteoroids
     in interplanetary space and subsequently construct a model of their distribution,
     possibly including information about distribution of mass among the bodies and their chemical composition.
 
-    There are two distinct approaches
+    There are two notably distinct approaches to the problem.
+
+    First, we are able to analyze the databse of observed meteors
+
+    The second approach works in quite the opposite direction. We start with the 
+
+    On the far horizon of our efforts is the synthesis of both methods into one whole:
+    we may use the observational data to put rough constrains on the meteoroid flux,
+    and then construct an $N$-body numerical simulation which will try to replicate the data,
+    accounting for observational bias as well.

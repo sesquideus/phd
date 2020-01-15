@@ -1,6 +1,7 @@
 \begin{description}
     \item[CPU]
-        \emph{central processing unit}, the general purpose electronic circuit of a computer \cite{...} (rewrite)
+        \emph{central processing unit}, the general purpose electronic circuit of a computer \cite{...} (rewrite).
+        The CPU is universal and can run practically any code, but only with low level of parallelism.
     \item[ECEF]
         \emph{earth-centered, earth-fixed} coordinate frame, a rotating reference frame with origin
         in the centre of mass of the Earth, rotating with the solid surface of the Earth \cite{ecef}
@@ -8,12 +9,17 @@
         \emph{general-purpose computation on graphics processing units},
         the use of a GPU to handle general computing operations rather than strictly rendering graphical output \cite{techterms}
     \item[GPU]
-        \emph{graphics processing unit}, a computer chip specifically designed to handle graphics operations \cite{techterms}
+        \emph{graphics processing unit}, a computer chip specifically designed to handle graphics operations \cite{techterms}.
+        GPU cores are less versatile then CPU cores and typically much slower, but since there are thousands of them on a single
+        chip, they can execute thousands of identical threads in parallel.
     \item[KDE]
         \emph{kernel density estimation}, a non-parametric method of estimating the probability density function
         of random variables from a number of discrete samples \cite{kde}
     \item[Null Island]
         a nickname for the fictional place at WGS84 coordinates \ang{0}~N, \ang{0}~E, \SI{0}{\metre} \cite{null-island}.
+    \item[SIMD]
+        \emph{single instruction, multiple data}, the practice of concurrently executing the same operation on
+        different data on a multi-processor system or a GPU.
     \item[WGS84]
         \emph{World Geodetic System 1984}, the latest revision of the ellipsoidal Earth model \cite{wgs84}
     \item[zenith attraction]

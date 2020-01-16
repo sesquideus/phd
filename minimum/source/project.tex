@@ -130,11 +130,18 @@ Typically we do not consider individual particles, but the entire stream and its
         on the precise timing and geometry of the meteor without affecting the meteoroid's
         adherence to the stream.
 
-        f the meteoroid which produced the meteor
+        If the meteoroid which produced the meteor
         had entered the atmosphere several hundred kilometres further,
         which would have drastically changed the position in the sky, while the
         Again, any difference will be lost in kernel smearing.
 
+        A significant difficulty is encountered with daytime meteor showers, whose radiants
+        lie close to the current position of the Sun.
+        Most particles will then enter the atmosphere on the day side
+        of the Earth, where a huge majority of particles burns up unnoticed.
+        With radar observations it is possible to track the activity as well,
+        however this observation technique calls for different methods of processing and debiasing the data.
+        Using purely visual data it is not possible to work with meteor shower whose radiants
 
 \section{Orbital model} \label{po}
     For each meteor, it is in principle possible to trace the trajectory back in time
@@ -158,7 +165,6 @@ Typically we do not consider individual particles, but the entire stream and its
         \varrho(a, e, i, \omega, \Omega, T).
     }
 
-
     While practically all particles that collide with the Earth are removed from the stream,
     the total volume swept by the Earth through the stream is negligible for all but the narrowest streams.
     We do not expect any observable reduction in the number of meteoroids during subsequent approaches,
@@ -169,7 +175,8 @@ Typically we do not consider individual particles, but the entire stream and its
     by several most prominent meteor showers.
 
     \begin{itemize}
-        \item develop a full-scale, reliable model of meteoroid distribution in the inner Solar System,
-            which could be used to predict meteor activity 
+        \item develop a model of meteoroid distribution in the inner Solar System;
+        \item reduce the model to the Earth's atmosphere and obtain a sky map
+            of observable meteor activity at any place;
     \end{itemize}
 

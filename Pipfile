@@ -13,7 +13,8 @@ matplotlib = "*"
 jinja2 = "*"
 pyyaml = "*"
 ipython = "*"
-django = ">=2.2.8"
+django = ">=3.0"
+sklearn = "*"
 
 [requires]
 python_version = "3.7"

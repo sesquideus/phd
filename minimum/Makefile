@@ -25,6 +25,9 @@ pictures/%.pdf: pictures/%.gp
 	gnuplot $<
 
 clean:
-	rm -f thesis.pdf thesis.toc thesis.aux thesis.blg thesis.bbl thesis.toc thesis.out
+	rm -rf output/
+
+distclean: clean
+	rm -rf input/
 
 all: thesis.pdf

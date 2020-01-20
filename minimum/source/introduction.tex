@@ -8,8 +8,6 @@
     \textit{translation John Willett}
 }
 
-The discovery of meteors..
-
 
 \section{The need to know}
     In a vast majority
@@ -60,11 +58,27 @@ The discovery of meteors..
 
     There are two notably distinct approaches to the problem.
 
-    First, we are able to analyze the database of observed meteors
+    First, we are able to analyze the database of observed meteors and establish
+    the flux in each direction and in any time with recorded observations.
+    After correction for observational bias and accounting for data missing due
+    to bad weather or station downtime we should be able to establish the particle
+    number density and mass influx.
 
-    The second approach works in quite the opposite direction. We start with the 
+    The second possible approach works in quite the opposite direction. We start with a simulation
+    of the interplanetary matter in the vicinity of the Earth and an initial guess of its distribution.
+    The number density and mass flux of meteoroids into the atmosphere of the Earth is determined.
+    The atmospheric entry of the particles whose trajectory intersects the surface of the Earth
+    is then simulated and recorded.
+    Finally we vary the initial particle distribution and the model of interaction with the atmosphere
+    until the best possible agreement with observational data is found, which is then
+    declared to be the model of the true distribution.
 
     On the far horizon of our efforts is the synthesis of both methods into one whole:
     we may use the observational data to put rough constrains on the meteoroid flux,
     and then construct an $N$-body numerical simulation which will try to replicate the data,
-    accounting for observational bias as well.
+    accounting for observational bias effects as well.
+
+\section{AMOS} \label{iA}
+    Our primary source of observational data is the network of autonomous all-sky cameras
+    AMOS\footnote{All-sky Meteor Orbit System} \citep{zigo+2013}.
+

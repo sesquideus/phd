@@ -14,6 +14,7 @@
     xparse,
     enumitem,
     graphicx,
+    rotating,
     booktabs,
     siunitx,
     cancel,
@@ -199,14 +200,23 @@
     \end{equation*}%
     \ignorespacesafterend
 }
- 
+
 \NewDocumentCommand{\fig}{O{} m m m +m}{
     \begin{figure}[H]
         \centering
-        \includegraphics[keepaspectratio = true, width = #3]{pictures/#2}
+        \includegraphics[keepaspectratio = true, width = #3]{source/pictures/#2}
         \caption[#1]{#5}
         \label{#4}
     \end{figure}
+}
+
+\NewDocumentCommand{\sfig}{O{} m m m +m}{
+    \begin{sidewaysfigure}
+        \centering
+        \includegraphics[keepaspectratio = true, width = #3]{source/pictures/#2}
+        \caption[#1]{#5}
+        \label{#4}
+    \end{sidewaysfigure}
 }
 
 \NewDocumentCommand{\insertChapter}{m +m m}{

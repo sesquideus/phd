@@ -8,23 +8,39 @@
     \textit{translation John Willett}
 }
 
-
 \section{The need to know}
-    In a vast majority
+    In a vast majority of cases meteoroids do not pose immediate danger to human activities.
+    On the surface we are shielded by the Earth's atmosphere, a layer of gases several tens of kilometres
+    thick, which offer massive resistance to any object trying to enter it at high speeds.
+    Only a minor fraction of the bodies is resilient and massive enough to survive the violent atmospheric entry,
+    and even then most of them are slowed down to terminal speed, which greatly limits the potential destructive effects.
+    It is estimated that a body of size sufficient to reach the surface with speed much higher than its terminal speed
+    only arrives about once per ???.
 
-    with the advent of space exploration this has changed. In open space, the spacecraft and their crews are no longer shielded
-    by the protective shell of the atmosphere. A hypervelocity collision with a small meteoroid may easily become fatal.
+    A commonly used bound for a body that has a potential for causing mass destruction is on the order of tens of metres,
+    depending on the exact geometry of the collision and velocity of the body.
+
+    disastrous but localized effects, while for a global catastrophe the body would need to have size on the order
+    of \SI{1}{\kilo\metre}. An impact of this size is thought to occur about once per a million (???) years.
+    So while the consequences of an impact of this class would be very dire for the civilisation,
+    it is very unlikely to experience one within any reasonable time frame.
+    On the level of individuals or organizations it is completely negligible.
+
+    Outside the atmosphere the situation is vastly different.
+    The spacecraft operating in the open space and their crews are no longer shielded
+    and any hypervelocity collision with a small meteoroid may easily become fatal.
     Even a grain of sand, travelling at typical speed on the order of \SI{50}{\kilo\metre\per\second} can permanently disable
-    an expensive space mission, while an impact with a meteoroid the size of a marble is able to release
+    an expensive space mission or kill a person in a spacesuit,
+    while an impact with a meteoroid the size of a marble could release
     destructive energy comparable to being hit by an anti-tank round.
 
-    Technology is not yet advanced enough to offer any form of active protection.
-    Passive protection against impacts with small energy has already been developed and tested,
+    Our technology is not yet advanced enough to offer any form of active protection.
+    Passive protection against impacts with lower energy, such as shields shields has already been developed and tested,
     such as spaced shielding \cite{...} or ...
 
-    While it is theoretically possible to build passive shields that would be able to absorb impacts
-    by meteoroids several orders of magnitude heavier, at the current state of technology these would
-    be very heavy and therefore prohibitively costly to launch.
+    It is theoretically possible to build passive protection that would be able to absorb impacts
+    by meteoroids several orders of magnitude heavier, at least in laboratory conditions.
+    However, at the current state of technology these would be very heavy and therefore prohibitively costly to launch.
     This might change once we are able to mine asteroids for water or minerals.
     Most of the material extracted from small asteroids will be of very limited commercial usefulness.
     This ``asteroid gangue'' may however be put into good use: for shielding spacecraft or orbital stations.
@@ -80,5 +96,81 @@
 
 \section{AMOS} \label{iA}
     Our primary source of observational data is the network of autonomous all-sky cameras
-    AMOS\footnote{All-sky Meteor Orbit System} \citep{zigo+2013}.
+    AMOS (All-sky Meteor Orbit System).
+    developed and operated by the Division of Astronomy and Astrophysics, DAPEM FMPI, Comenius University.
 
+    \subsection{Technical specifications} \label{iAt}
+        Each station consists of a digital video camera, an image intensifier, a wide angle fish-eye lens
+        and various auxiliary mechanical and electronic components effecting
+        the reliable operation of the device. The sky is monitored constantly every night
+        as long as meteorological conditions are favourable. For a detailed technical report refer to \citet{zigo2013}.
+
+        The field of view of the cameras is centered on zenith and measures approximately \ang{180} by \ang{140}.
+        As the atmosphere at low altitudes is thick, light travelling to the camera from
+        meteors near the horizon is significantly attenuated.
+        Only very few meteors are outside the covered area and the resulting loss of overall detection ability is minimal.
+
+    \subsection{Operation} \label{iAo}
+        The captured video sequences are processed by the \textsc{UFOAnalyzerV2} software package,
+        conversion to custom-made software package is underway.
+        Objects that are not meteors, such as aeroplanes, satellite flares, flying insects, etc.
+        are identified and discarded from the final dataset. Naturally, the processing software is not
+        infallible and occasionally reports these objects as meteors, or conversely fails to identify a visible meteor.
+        After a meteor is identified, the video sequence is stored and analyzed.
+        Properties of the meteor are computed for every frame of the video sequence,
+        such as its position on the sky, apparent velocity vector, brightness and angular speed.
+        Various auxiliary data are stored as well.
+
+        Under ideal conditions each station is able to detect approximately 20000 meteors per year.
+        Multi-station observations are somewhat less frequent, with each pair of stations being able
+        to correctly match about 8000 meteors every year.
+        With two or more simultaneous observations from different locations it is possible to determine
+        the geocentric and heliocentric velocity vectors and derive the original heliocentric orbit of the meteoroid particle.
+        For a more detailed description see \citet{fero?}.
+
+    \subsection{Stations} \label{iAs}
+        As of 2020, the network comprises eleven stations at three independent locations.
+        \sisetup{group-minimum-digits = 8}
+        The network in Slovakia consists of five nearly-identical stations:
+        \begin{description}[leftmargin = 25mm]
+            \item[AGO]      Astronomical and Geophysical Observatory in Modra-Piesok\\
+                            since April 2007, coordinates \ang{48.3729}~N, \ang{17.2738}~E, \SI{531}{\metre}
+            \item[ARBO]     Arboretum Mlyňany of the Slovak Academy of Sciences\\
+                            since September 2009, coordinates \ang{48.3235}~N, \ang{18.3685}~E, \SI{201}{\metre}
+            \item[KNM]      observatory in Kysucké Nové Mesto\\
+                            since August 2012, coordinates \ang{49.3073}~N, \ang{18.7655}~E, \SI{414}{\metre}
+            \item[VAZEC]    village of Važec\\
+                            since October 2013, coordinates \ang{49.0543}~N, \ang{19.9899}~E, \SI{812}{\metre}
+            \item[SENEC]    Senec Observatory\\
+                            since ???, coordinates \ang{49.0543}~N, \ang{19.9899}~E, \SI{812}{\metre} (correct)
+        \end{description}
+
+        A pair of stations has been installed on the Canary Islands, with cameras at
+        \begin{description}[leftmargin = 25mm]
+            \item[LP]       Observatorio del Roque de los Muchachos, La Palma, Canary Islands\\
+                            since March 2015, coordinates \ang{28.7600}~N, \ang{17.8823}~W, \SI{2339}{\metre}
+            \item[TE]       Observatorio del Teide, Tenerife, Canary Islands\\
+                            since March 2015, coordinates \ang{28.3004}~N, \ang{16.5122}~W, \SI{2416}{\metre}
+        \end{description}
+
+        The third installation consists of two stations in northern Chile, located at
+        \begin{description}[leftmargin = 25mm]
+            \item[SP]       San Pedro de Atacama, El Loa, Antofagasta, Chile\\
+                            since March 2016, coordinates \ang{22.9534}~S, \ang{68.1793}~W, \SI{2403}{\metre}
+            \item[PC]       Paniri Caur Observatory, Chiu Chiu, El Loa, Antofagasta, Chile\\
+                            since March 2016, coordinates \ang{22.3360}~S, \ang{68.6442}~W, \SI{2535}{\metre}
+        \end{description}
+
+        The last subnetwork is located on Hawai`i, with stations at
+        \begin{description}[leftmargin = 25mm]
+            \item[HK]       Haleakalā High Altitude Observatory Site, Kula, Maui, Hawaii, USA\\
+                            since March 2016, coordinates \ang{22.9534}~S, \ang{68.1793}~W, \SI{2403}{\metre} (fix)
+            \item[MK]       Mauna Kea Observatories, Hawaiʻi County, Hawaii, USA\\
+                            since March 2016, coordinates \ang{22.3360}~S, \ang{68.6442}~W, \SI{2535}{\metre} (fix)
+        \end{description}
+
+        \sisetup{group-minimum-digits = 5}
+
+        Expansion of the network to more locations, namely South Africa and Australia, is planned.
+        With a total of six subnetworks, it will be possible to cover both the Northern and
+        the Southern hemispheres continuously, weather permitting.

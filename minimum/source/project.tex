@@ -142,6 +142,22 @@ Typically we do not consider individual particles, but the entire stream and its
         however this observation technique calls for different methods of processing and debiasing the data.
         Using purely visual data it is not possible to work with meteor shower whose radiants
 
+
+
+    \subsection{Visualisation}
+        Put all together, this specifies a visualisation model.
+
+        \sfig{example.png}{\textwidth}{fig:ios-mockup}{
+            An example of the sky map for one night of observations.
+            Individual meteoroid radiants are pictured as dots,
+            with larger dots corresponding to more massive particles.
+            In the background the underlying distribution of radiants is estimated
+            using a spherical KDE method.
+
+            In this picture there are 10000 sporadic meteors with uniform distribution of radiants
+            and three fictional meteor showers with different dispersion profiles.
+        }
+
 \section{Orbital model} \label{po}
     For each meteor, it is in principle possible to trace the trajectory back in time
     and derive the trajectory of the original meteoroid particle in the vicinity of Earth.

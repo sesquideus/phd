@@ -159,11 +159,15 @@
             \eqn{eq:aafc-centrifugal}{
                 \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
             }
-            where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth, $\SI[parse-numbers = false]{\frac{2\pi}{86164}}{\per\second}$.
+            where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
+            $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$.
 
             Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
             gravitational force. A simple calculation shows that its magnitude is on the order
-            of \SI{0.03}{\metre\per\second\squared}. For most purposes it can be safely neglected.
+            of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
+            If the simulation is used to investigate the motion of a meteoroid further from the Earth or
+            on longer time scales, it becomes important.
+            In this case an inertial reference frame should be used instead, though.
 
         \subsubsection{Gravitational force} \label{aafg}
             The real shape of the gravitational potential around the Earth is fairly difficult to describe accurately

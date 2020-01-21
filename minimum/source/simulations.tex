@@ -4,7 +4,7 @@
 \section{Simulation in the Solar System} \label{as}
     on the order of 100 radii.
 
-    With ephemerides taken from the JPL Horizons system \citep{...}.
+    With ephemerides taken from the JPL Horizons system \citep{???}.
     The simulation computes the positions of the large bodies of the Solar System, most importantly the Sun,
     the eight planets and the Moon. Then the test particles
 
@@ -44,7 +44,7 @@
     }
 
     \subsection{Numerical integration of equations of motion} \label{asi}
-        requires computation of $\frac{n\left(n - 1\right)}{2} = \BigO{n^2}$ pairs of forces \cite{...}.
+        requires computation of $\frac{n\left(n - 1\right)}{2} = \BigO{n^2}$ pairs of forces \cite{???}.
         Due to Newton's third law, opposing pairs of forces are equal in magnitude and opposite in their direction,
         and thus one evaluation suffices. This brings the number of required evaluations to half that value,
         without changing the order.
@@ -83,13 +83,13 @@
             To further simplify matters, we may leave the determination of positions and velocities
             to other software completely and free resources for other problems.
             We may directly use positions and velocities provided by some external source,
-            such as JPL Horizons \cite{...}, or simply use precomputed tabelated values.
+            such as JPL Horizons \cite{???}, or simply use precomputed tabelated values.
 
             This leaves us with only $kn$ interactions that are completely mutually independent.
             We hope to achieve sufficient performance to allow simulating about $10^7$ test particles within
             a reasonable time frame.
 
-\section{Simulation in the atmosphere} \label{aa}
+\section{Simulation in the atmosphere} \label{sa}
     Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
     the physical processes manifested during their atmospheric entry and obtain the values of physical quantities
     that are observed by ground-based observers.
@@ -107,14 +107,11 @@
     Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
     and a numerical integration of the equations of motion is executed.
 
-    \subsection{Numerical integration of the equations of motion} \label{aai}
-        Unlike in interplanetary space, where forces are completely dominated by the gravitational force
-        exerted by the Sun
-
+    \subsection{Numerical integration of the equations of motion} \label{sai}
+        Unlike in interplanetary space, where forces are completely dominated by the gravitational force exerted by the Sun,
         a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
         The precise order is subject to variations due to particle's size, entry speed and angle
         and material composition.
-
 
         In the simulation we consider only two real forces:
         \begin{itemize}
@@ -122,41 +119,46 @@
             \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
         \end{itemize}
 
-        Since it is 
-        and two fictitious forces, arising from the fact the simulation is performed in a rotating reference frame:
+        Precision of calculations may be improved if we also account for two fictitious forces,
+        arising from the fact the simulation is performed in a rotating reference frame:
         \begin{itemize}
-            \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$, pushing the particle away from the axis of rotation of the Earth;
-            \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$, which curves the trajectory to
+            \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$,
+                pushing the particle away from the axis of rotation of the Earth;
+            \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$,
+                which pushes the moving body in a direction perpendicular to its velocity vector.
         \end{itemize}
 
-        Except for the drag force, all forces can be readily expressed in terms of instantaneous position and velocity of the meteoroid,
-        along with several constants.
-        Calculating the drag force requires a choice of a suitable model.
+        Except for the drag force, all forces can be readily expressed in terms of instantaneous
+        position and velocity of the meteoroid and several constants.
+        Calculating the drag force precisely is computationally very expensive and cannot be done
+        without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
 
         In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
-        the particle's motion is dominated by gravitational effects. This is no longer true during the atmospheric entry,
-        where the magnitude of the atmospheric drag force exceeds all other effects by several orders of magnitude.
+        the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
+        deeper into the atmosphere, the density of the surrounding gas increases roughly exponentially.
+        At its peak, the atmospheric drag force exceeds all other effects by several orders of magnitude,
+        decelerating the meteoroid very rapidly.
         As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
-        to produce a significant deviation in trajectory. For statistical evaluation of populations it is sufficient
-        to consider only the drag force.
+        to produce a significant deviation in trajectory. For statistical evaluation of artificial meteors
+        it is sufficient to consider only the drag force.
 
         However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
 
-        \subsubsection{Coriolis force} \label{aafC}
+        \subsubsection{Coriolis force} \label{saiC}
             The fictitious Coriolis force arises in a rotating reference frame.
-            \eqn{eq:aafC-coriolis}{
+            \eqn{eq:saiC-coriolis}{
                 \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
             }
 
             For a meteoroid, its magnitude is at most on the order of
-            \eqn{eq:aafC-order}{
+            \eqn{eq:saiC-order}{
                 2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
             }
             roughly the same as gravitational acceleration.
 
-        \subsubsection{Centrifugal force} \label{aafc}
+        \subsubsection{Centrifugal force} \label{saic}
             The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-            \eqn{eq:aafc-centrifugal}{
+            \eqn{eq:saic-centrifugal}{
                 \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
             }
             where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
@@ -169,16 +171,16 @@
             on longer time scales, it becomes important.
             In this case an inertial reference frame should be used instead, though.
 
-        \subsubsection{Gravitational force} \label{aafg}
+        \subsubsection{Gravitational force} \label{saig}
             The real shape of the gravitational potential around the Earth is fairly difficult to describe accurately
             However, for particles that are generally moving on highly hyperbolic trajectories the
             simple approximation by a Newtonian point source with mass $M_\Earth$ is more than sufficient.
             The formula used in computation is then simply
-            \eqn{eq:aafg-gravity}{
+            \eqn{eq:saig-gravity}{
                 \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
             }
 
-        \subsubsection{Drag force} \label{aafd}
+        \subsubsection{Drag force} \label{said}
             The precise description of the drag force is crucial to understand the motion
             of the particles in the atmosphere. The drag force is dominant between approximately
             the point where meteoroids begin to emit visible light (about \SI{100}{\kilo\metre})
@@ -192,8 +194,9 @@
             higher than the sum of all other forces and is thus completely dominant.
             A very simple model of atmospheric flight can perform relatively well even when all other forces are neglected.
 
-    \subsection{Determination of other properties} \label{aap}
 
-        \subsubsection{Absolute and visual magnitudes} \label{aapm}
+        Runge Kutta, DP, split-frame
 
+    \subsection{Determination of other properties} \label{sap}
 
+        \subsubsection{Absolute and visual magnitudes} \label{sapm}

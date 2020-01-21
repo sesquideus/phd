@@ -1,6 +1,7 @@
 \documentclass[12pt, a4paper, twoside]{report}
 
 \input{input/settings.tex}
+\input{input/commands.tex}
 
 \begin{document}
     \pagestyle{empty}
@@ -9,8 +10,8 @@
     %\includepdf[pages = -]{zadanie.pdf}
     %\input{input/acknowledgement}
     %\clearpage
-    \input{input/abstract-sk}
-    \clearpage
+    %\input{input/abstract-sk}
+    %\clearpage
     \input{input/abstract-en}
     \tableofcontents
     \clearpage
@@ -19,7 +20,7 @@
     \pagestyle{main}
     \insertChapter{Introduction}{introduction}{i}
     \insertChapter{Asteroids, comets and meteoroids}{acm}{d}
-    \insertChapter{Numerical simulations}{simulations}{m}
+    \insertChapter{Numerical simulations}{simulations}{s}
     \insertChapter{Models}{models}{m}
     \insertChapter{Dissertation thesis project}{project}{p}
     %\insertChapter{Discussion and future development}{future}{f}
@@ -31,6 +32,5 @@
     \pagestyle{bibliography}
     \fancyhead[L]{}
     \fancyhead[R]{\slshape Bibliography}
-    \bibliographystyle{plainnat}
-    \bibliography{source/thesis}
+    \printbibliography
 \end{document}

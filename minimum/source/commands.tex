@@ -1,0 +1,100 @@
+\makeatletter
+    \newsavebox\myboxA
+    \newsavebox\myboxB
+    \newlength\mylenA
+
+    \newcommand*\overbar[2][0.75]{%
+        \sbox{\myboxA}{$\m@th#2$}%
+        \setbox\myboxB\null% Phantom box
+        \ht\myboxB=\ht\myboxA%
+        \dp\myboxB=\dp\myboxA%
+        \wd\myboxB=#1\wd\myboxA% Scale phantom
+        \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+        \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+        \addtolength\mylenA{-\the\wd\myboxB}%
+        \ifdim\wd\myboxB<\wd\myboxA%
+           \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+        \else
+            \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+        \fi%
+    }
+\makeatother
+
+\RenewDocumentCommand{\emph}{m}{{\semibold #1}}
+
+\NewDocumentCommand{\eqn}{m +m}{%
+    \begin{equation}%
+        #2%
+        \label{#1}%
+    \end{equation}%
+}
+
+\NewDocumentCommand{\eqnx}{m +m}{%
+    \begin{equation*}%
+        #2%
+        \label{#1}%
+    \end{equation*}%
+}
+
+\NewDocumentCommand{\aln}{m +m}{%
+    \begin{equation}%
+        \begin{aligned}%
+            #2%
+            \ifstrempty{#1}{}{\label{#1}}%
+        \end{aligned}%
+    \end{equation}%
+    \ignorespacesafterend
+}
+
+\NewDocumentCommand{\alnx}{m +m}{%
+    \begin{equation*}%
+        \begin{aligned}%
+            #2%
+            \ifstrempty{#1}{}{\label{#1}}%
+        \end{aligned}%
+    \end{equation*}%
+    \ignorespacesafterend
+}
+
+\NewDocumentCommand{\fig}{O{} m m m +m}{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[keepaspectratio = true, width = #3]{source/pictures/#2}
+        \caption[#1]{#5}
+        \label{#4}
+    \end{figure}
+}
+
+\NewDocumentCommand{\sfig}{O{} m m m +m}{
+    \begin{sidewaysfigure}
+        \centering
+        \includegraphics[keepaspectratio = true, width = #3]{source/pictures/#2}
+        \caption[#1]{#5}
+        \label{#4}
+    \end{sidewaysfigure}
+}
+
+\NewDocumentCommand{\insertChapter}{m +m m}{
+    \chapter{#1}
+    \label{#3}
+    \input{input/#2.tex}
+}
+
+\NewDocumentCommand{\err}{+m}{
+    \colorbox{red}{#1}
+}
+
+\NewDocumentCommand{\Epigraph}{O{0.333} +m +m}{%
+    \setlength{\epigraphwidth}{#1\textwidth}
+    \epigraph{\it#2
+    }{\vspace{2mm}#3}
+}
+
+
+\DeclareSIUnit\byte{B}
+\DeclareSIUnit\year{yr}
+
+\NewDocumentCommand{\URL}{v}{\href{#1}{\texttt{\nolinkurl{#1}}}}
+
+\NewDocumentCommand{\asmodeus}{}{\textsc{Asmodeus}}
+

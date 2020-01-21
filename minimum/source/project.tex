@@ -25,7 +25,7 @@ Typically we do not consider individual particles, but the entire stream and its
     This may be done using a \emph{kernel density estimation} method.
     Each actual meteoroid, obtained by backwards integration of motion of an observed meteor,
     is substituted by a multidimensional kernel in the phase space. The precise shape of the kernel
-    is not overly important; for most purposes a simple multidimensional gaussian is sufficient \cite{...}.
+    is not overly important; for most purposes a simple multidimensional gaussian is sufficient \cite{???}.
     To make matters even worse, our observational datasets are usually incomplete
     and heavily distorted by observation bias.
 
@@ -35,8 +35,10 @@ Typically we do not consider individual particles, but the entire stream and its
     in interplanetary space as a function of position, velocity and time.
 
 \section{Observational model} \label{io}
+    (...)
+
     We need to use a four-dimensional KDE. Ideally, the kernel should be obtained by a product of five
-    independent unidimensional kernels.
+    independent one-dimensional kernels.
 
     The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
     \begin{itemize}
@@ -124,7 +126,7 @@ Typically we do not consider individual particles, but the entire stream and its
         The two spatial coordinates mark the position of the radiant of the particles.
 
         As we are only concerned with the density of the stream as a whole,
-        the exact position in the sky is again not important.
+        the exact position of the observed meteor in the sky is immaterial.
         Even a minuscule change in velocity or ejection time could have had a drastic effect
         on the precise timing and geometry of the meteor without affecting the meteoroid's
         adherence to the stream.
@@ -140,23 +142,57 @@ Typically we do not consider individual particles, but the entire stream and its
         of the Earth, where a huge majority of particles burns up unnoticed.
         With radar observations it is possible to track the activity as well,
         however this observation technique calls for different methods of processing and debiasing the data.
-        Using purely visual data it is not possible to work with meteor shower whose radiants
+        We estimate that using purely visual data it is impossible (or at least very difficult) to establish fluxes
+        for meteor showers whose radiants are within \ang{15} from the Sun.
 
 
+    \subsection{Visualisation} \label{iov}
+        High-dimensional data are relatively hard to comprehend. Substantial care should be taken when designing
+        a human-oriented visualisation
 
-    \subsection{Visualisation}
-        Put all together, this specifies a visualisation model.
 
-        \sfig{example.png}{\textwidth}{fig:ios-mockup}{
-            An example of the sky map for one night of observations.
-            Individual meteoroid radiants are pictured as dots,
-            with larger dots corresponding to more massive particles.
-            In the background the underlying distribution of radiants is estimated
-            using a spherical KDE method.
+        The natural solution is to keep spatial coordinates as spatial and the time as time,
+        though due to limitations of some media alternative solutions have to be considered.
+        The major difficulty lies in displaying the remaining two quantities simultaneously.
+        for instance in terms of colour and saturation.
 
-            In this picture there are 10000 sporadic meteors with uniform distribution of radiants
-            and three fictional meteor showers with different dispersion profiles.
-        }
+        \subsubsection{Spatial coordinates} \label{iovs}
+            The two spatial coordinates 
+            The only thing to consider is to how to present spherical data in a flat display,
+            which is a standard task in wide-field observational astronomy.
+            While not strictly necessary, it makes sense to choose a projection
+            that preserves the area, so as not to confuse the viewer.
+            One suitable example is the \emph{Mollweide} projection.
+
+        \subsubsection{Time} \label{iovt}
+            If possible, the best option is to preserve the time coordinate as time
+            and display the development of meteor activity in a video, at some appropriate scale.
+            Otherwise a sequence of discrete images is suitable as well.
+
+        \subsubsection{Mass} \label{iovm}
+            The mass distribution of meteoroids is universally heavily shifted
+            towards smaller particles (see \cref{mpam}), at least within the mass
+            range that can be covered by visual observations.
+
+            Several problems will have to be addressed as well. For instance, in the case
+            of two separate populations with different mass indices mixing the resulting
+            mass index 
+
+        \subsubsection{}
+
+        \subsubsection{Example} \label{iove}
+            Put all together
+
+            \sfig{example.png}{\textwidth}{fig:iov-mockup}{
+                An example of the sky map for one night of observations.
+                Individual meteoroid radiants are pictured as dots,
+                with larger dots corresponding to more massive particles.
+                In the background the underlying distribution of radiants is obtained
+                using a spherical KDE method with a Gaussian kernel.
+
+                In this picture there are 10000 sporadic meteors with uniform distribution of radiants
+                and three fictional meteor showers with different dispersion profiles.
+            }
 
 \section{Orbital model} \label{po}
     For each meteor, it is in principle possible to trace the trajectory back in time
@@ -167,15 +203,11 @@ Typically we do not consider individual particles, but the entire stream and its
     Since this is the only observational data are available,
     models developed from data obtained from Earth-based observations are different.
 
-  
-
-
-    The density function is 
+    The density function here is
     \eqn{eq:po-rv}{
-        \varrho(\vec{r}, \vec{v}, t) \in \left[0, \infty\right).
+        \varrho(\vec{r}, \vec{v}, t).
     }
-
-    or alternatively expressed in terms of orbital elements
+    or alternatively expressed in terms of orbital elements as
     \eqn{eq:po-elem}{
         \varrho(a, e, i, \omega, \Omega, T).
     }
@@ -185,6 +217,12 @@ Typically we do not consider individual particles, but the entire stream and its
     We do not expect any observable reduction in the number of meteoroids during subsequent approaches,
     however, this will have to be confirmed by simulations.
 
+    \subsection{Estimating the distribution} \label{pod}
+        -- while the geometric difference between $a = \SI{1}{\au}$ and $a = \SI{10}{\au}$,
+        while the region of our interest is located close to \SI{1}{\au}.
+        Therefore we propose to use $\log a$ as the measure of orbit size instead, and use a Gaussian
+        kernel in estimation there (which is equivalent to using a log-normal kernel in linear space).
+
 \section{Objectives of the thesis} \label{iO}
     In the thesis we are planning to simulate the orbital evolution and production of meteors
     by several most prominent meteor showers.
@@ -192,6 +230,8 @@ Typically we do not consider individual particles, but the entire stream and its
     \begin{itemize}
         \item develop a model of meteoroid distribution in the inner Solar System;
         \item reduce the model to the Earth's atmosphere and obtain a sky map
-            of observable meteor activity at any place;
+            of observable meteor activity at any place and time,
+            such as the one depicted in \cref{fig:iov-mockup};
+
     \end{itemize}
 

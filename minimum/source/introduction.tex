@@ -35,8 +35,12 @@
     destructive energy comparable to being hit by an anti-tank round.
 
     Our technology is not yet advanced enough to offer any form of active protection.
-    Passive protection against impacts with lower energy, such as shields shields has already been developed and tested,
-    such as spaced shielding \cite{...} or ...
+    Against impacts with lower energy, passive protection is sufficient.
+    A cost- and mass-effective solution are Whipple shields, consisting of a sacrificial thin outer layer,
+    offset from the main hull of the spacecraft \citep{nasa-shield}.
+    The outer layer does not aspire to stop the incoming particle,
+    but rather to disrupt the projectile and reduce it to a debris cloud.
+    The force of the impact is thus diluted over a much larger area of the spacecraft wall.
 
     It is theoretically possible to build passive protection that would be able to absorb impacts
     by meteoroids several orders of magnitude heavier, at least in laboratory conditions.
@@ -67,32 +71,49 @@
     directions for narrow-field systems.
 
 
-\section{Aim}
-    In this thesis we aim to design a suitable representation of spatial density of meteoroids
-    in interplanetary space and subsequently construct a model of their distribution,
-    possibly including information about distribution of mass among the bodies and their chemical composition.
-
+\section{Aim} \label{ia}
+    In this thesis we aim to design a suitable representation of spatial density
+    and flux of meteoroids in interplanetary space. Subsequently we aspire to
+    construct a model of their distribution in the inner Solar System,
+    and of distribution of mass among the bodies in every population.
+    If possible, we would also like to include information
+    about their chemical composition or other supplementary properties.
     There are two notably distinct approaches to the problem.
 
-    First, we are able to analyze the database of observed meteors and establish
+    In the first method, we analyze the database of observed meteors and establish
     the flux in each direction and in any time with recorded observations.
-    After correction for observational bias and accounting for data missing due
-    to bad weather or station downtime we should be able to establish the particle
-    number density and mass influx.
+    After correcting for observational bias and accounting for data missing due
+    to incomplete or missing data we should be able to establish the particle
+    number density and derive the total mass influx.
 
     The second possible approach works in quite the opposite direction. We start with a simulation
     of the interplanetary matter in the vicinity of the Earth and an initial guess of its distribution.
-    The number density and mass flux of meteoroids into the atmosphere of the Earth is determined.
-    The atmospheric entry of the particles whose trajectory intersects the surface of the Earth
-    is then simulated and recorded.
+    The number density and mass flux of meteoroids in the vicinity of the Earth is determined.
+    We determine which meteoroids are on trajectories that intersect the atmosphere of the Earth
+    and for those we simulate and record their atmospheric entry. The resulting dataset is statistically compared
+    to the actual instrumental observations, accounting for detector deficiencies and selection bias.
     Finally we vary the initial particle distribution and the model of interaction with the atmosphere
     until the best possible agreement with observational data is found, which is then
     declared to be the model of the true distribution.
 
     On the far horizon of our efforts is the synthesis of both methods into one whole:
-    we may use the observational data to put rough constrains on the meteoroid flux,
+    we could use the observational data to put rough constrains on the meteoroid flux,
     and then construct an $N$-body numerical simulation which will try to replicate the data,
     accounting for observational bias effects as well.
+
+    \subsection{Validity of the model} \label{iav}
+        Since the model is to be constructed solely with data from visual observations,
+        its range of validity will admittedly rather limited.
+        Meteoroids smaller than about \SI{1}{\milli\metre} or \SI{1e-7}{\kilo\gram} are typically too faint
+        to be detected by automated observations in visible light and should be investigated
+        by radar methods instead, as pointed out by \citep{???}.
+        On the other side of the spectrum, particles larger than about \SI{0.05}{\metre} ($\approx$ \SI{0.1}{\kilo\gram})
+        are comparatively rare even in most active showers.
+        The error bars on flux derived from only a handful of observations are inevitably going to be very large.
+
+        However, the later stages of the processing pipeline should not be affected by these limitations
+        and hence it should be possible to extend the model easily with other data later if needed.
+
 
 \section{AMOS} \label{iA}
     Our primary source of observational data is the network of autonomous all-sky cameras
@@ -165,7 +186,7 @@
         \begin{description}[leftmargin = 25mm]
             \item[HK]       Haleakalā High Altitude Observatory Site, Kula, Maui, Hawaii, USA\\
                             since March 2016, coordinates \ang{22.9534}~S, \ang{68.1793}~W, \SI{2403}{\metre} (fix)
-            \item[MK]       Mauna Kea Observatories, Hawaiʻi County, Hawaii, USA\\
+            \item[MK]       Mauna Kea Observatories, Hawai`i County, Hawaii, USA\\
                             since March 2016, coordinates \ang{22.3360}~S, \ang{68.6442}~W, \SI{2535}{\metre} (fix)
         \end{description}
 

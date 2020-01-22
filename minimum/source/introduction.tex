@@ -8,27 +8,28 @@
     \textit{translation John Willett}
 }
 
-\section{The need to know}
+\section{The need to know} \label{in}
     In a vast majority of cases meteoroids do not pose immediate danger to human activities.
     On the surface we are shielded by the Earth's atmosphere, a layer of gases several tens of kilometres
     thick, which offer massive resistance to any object trying to enter it at high speeds.
-    Only a minor fraction of the bodies is resilient and massive enough to survive the violent atmospheric entry,
-    and even then most of them are slowed down to terminal speed, which greatly limits the potential destructive effects.
+    Only a minuscule fraction of bodies are tough and massive enough to survive the violent atmospheric entry.
+    Even then, atmospheric drag slows most of them down to their terminal speed, which greatly limits the potential destructive effects.
     It is estimated that a body of size sufficient to reach the surface with speed much higher than its terminal speed
-    only arrives about once per ???.
+    only arrives about once per \todo{research this}.
 
     A commonly used bound for a body that has a potential for causing mass destruction is on the order of tens of metres,
     depending on the exact geometry of the collision and velocity of the body.
 
-    disastrous but localized effects, while for a global catastrophe the body would need to have size on the order
-    of \SI{1}{\kilo\metre}. An impact of this size is thought to occur about once per a million (???) years.
-    So while the consequences of an impact of this class would be very dire for the civilisation,
+    An impact of a such a body at speeds of several kilometres per second would have disastrous but localized effects.
+    For a global catastrophe the body would need to have size on the order
+    of \SI{1}{\kilo\metre}. An impact of this size is thought to occur about once per a million (???) years. \todo{really?}
+    While the consequences of an impact of this class would be very dire for the civilisation,
     it is very unlikely to experience one within any reasonable time frame.
     On the level of individuals or organizations it is completely negligible.
 
-    Outside the atmosphere the situation is vastly different.
+    But outside the atmosphere the situation is vastly different.
     The spacecraft operating in the open space and their crews are no longer shielded
-    and any hypervelocity collision with a small meteoroid may easily become fatal.
+    and any hypervelocity collision with a small fragment of interplanetary matter may easily be fatal.
     Even a grain of sand, travelling at typical speed on the order of \SI{50}{\kilo\metre\per\second} can permanently disable
     an expensive space mission or kill a person in a spacesuit,
     while an impact with a meteoroid the size of a marble could release
@@ -36,7 +37,7 @@
 
     Our technology is not yet advanced enough to offer any form of active protection.
     Against impacts with lower energy, passive protection is sufficient.
-    A cost- and mass-effective solution are Whipple shields, consisting of a sacrificial thin outer layer,
+    A rather simple, cost-effective solution are Whipple shields, consisting of a sacrificial thin outer layer,
     offset from the main hull of the spacecraft \citep{nasa-shield}.
     The outer layer does not aspire to stop the incoming particle,
     but rather to disrupt the projectile and reduce it to a debris cloud.
@@ -47,7 +48,7 @@
     However, at the current state of technology these would be very heavy and therefore prohibitively costly to launch.
     This might change once we are able to mine asteroids for water or minerals.
     Most of the material extracted from small asteroids will be of very limited commercial usefulness.
-    This ``asteroid gangue'' may however be put into good use: for shielding spacecraft or orbital stations.
+    This ``asteroid gangue'' may however be put into good use: for shielding mining spacecraft or orbital stations.
 
     Currently, the best available protection is relying on pure luck. The spatial density of meteoroids is
     fortunately low enough to allow space stations to avoid damaging hits for a very long time,
@@ -69,7 +70,6 @@
     On the other hand, sky maps are useful in predicting the activity levels of
     meteor showers and sporadic background and determination of ideal observing
     directions for narrow-field systems.
-
 
 \section{Aim} \label{ia}
     In this thesis we aim to design a suitable representation of spatial density
@@ -101,24 +101,11 @@
     and then construct an $N$-body numerical simulation which will try to replicate the data,
     accounting for observational bias effects as well.
 
-    \subsection{Validity of the model} \label{iav}
-        Since the model is to be constructed solely with data from visual observations,
-        its range of validity will admittedly rather limited.
-        Meteoroids smaller than about \SI{1}{\milli\metre} or \SI{1e-7}{\kilo\gram} are typically too faint
-        to be detected by automated observations in visible light and should be investigated
-        by radar methods instead, as pointed out by \citep{???}.
-        On the other side of the spectrum, particles larger than about \SI{0.05}{\metre} ($\approx$ \SI{0.1}{\kilo\gram})
-        are comparatively rare even in most active showers.
-        The error bars on flux derived from only a handful of observations are inevitably going to be very large.
-
-        However, the later stages of the processing pipeline should not be affected by these limitations
-        and hence it should be possible to extend the model easily with other data later if needed.
-
-
 \section{AMOS} \label{iA}
-    Our primary source of observational data is the network of autonomous all-sky cameras
-    AMOS (All-sky Meteor Orbit System).
-    developed and operated by the Division of Astronomy and Astrophysics, DAPEM FMPI, Comenius University.
+    Our primary source of observational data is the network of autonomous all-sky cameras AMOS (All-sky Meteor Orbit System),
+    developed and operated by the Division of Astronomy and Astrophysics,
+    DAPEM\footnote{Department of Astronomy, Physics of the Earth and Meteorology}
+    FMPI\footnote{Faculty of Mathematics, Physics and Informatics} of Comenius University.
 
     \subsection{Technical specifications} \label{iAt}
         Each station consists of a digital video camera, an image intensifier, a wide angle fish-eye lens
@@ -147,7 +134,7 @@
         to correctly match about 8000 meteors every year.
         With two or more simultaneous observations from different locations it is possible to determine
         the geocentric and heliocentric velocity vectors and derive the original heliocentric orbit of the meteoroid particle.
-        For a more detailed description see \citet{fero?}.
+        For a more detailed description of the methods and algorithm used refer to \citet{fero?}.
 
     \subsection{Stations} \label{iAs}
         As of 2020, the network comprises eleven stations at three independent locations.
@@ -163,7 +150,7 @@
             \item[VAZEC]    village of Važec\\
                             since October 2013, coordinates \ang{49.0543}~N, \ang{19.9899}~E, \SI{812}{\metre}
             \item[SENEC]    Senec Observatory\\
-                            since ???, coordinates \ang{49.0543}~N, \ang{19.9899}~E, \SI{812}{\metre} (correct)
+                            since ???, coordinates \ang{48.2203}~N, \ang{17.3950}~E, \SI{137}{\metre} \todo{correct}
         \end{description}
 
         A pair of stations has been installed on the Canary Islands, with cameras at
@@ -185,9 +172,9 @@
         The last subnetwork is located on Hawai`i, with stations at
         \begin{description}[leftmargin = 25mm]
             \item[HK]       Haleakalā High Altitude Observatory Site, Kula, Maui, Hawaii, USA\\
-                            since March 2016, coordinates \ang{22.9534}~S, \ang{68.1793}~W, \SI{2403}{\metre} (fix)
+                            since March 2016, coordinates \ang{20.7075}~N, \ang{156.2560}~W, \SI{3041}{\metre} \todo{fix}
             \item[MK]       Mauna Kea Observatories, Hawai`i County, Hawaii, USA\\
-                            since March 2016, coordinates \ang{22.3360}~S, \ang{68.6442}~W, \SI{2535}{\metre} (fix)
+                            since March 2016, coordinates \ang{19.8228}~N, \ang{155.4697}~W, \SI{4203}{\metre} \todo{fix}
         \end{description}
 
         \sisetup{group-minimum-digits = 5}

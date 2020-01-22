@@ -74,8 +74,15 @@
     \end{sidewaysfigure}
 }
 
-\NewDocumentCommand{\insertChapter}{m +m m}{
+\NewDocumentCommand{\insertChapter}{m m m}{
     \chapter{#1}
+    \label{#3}
+    \input{input/#2.tex}
+}
+
+\NewDocumentCommand{\insertChapterx}{m m m}{
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
     \label{#3}
     \input{input/#2.tex}
 }

@@ -1,0 +1,28 @@
+In this thesis we aim to design a suitable representation of spatial density
+and flux of meteoroids in interplanetary space. Subsequently we aspire to
+construct a model of their distribution in the inner Solar System,
+and of distribution of mass among the bodies in every population.
+If possible, we would also like to include information
+about their chemical composition or other supplementary properties.
+There are two notably distinct approaches to the problem.
+
+In the first method, we analyze the database of observed meteors and establish
+the flux in each direction and in any time with recorded observations.
+After correcting for observational bias and accounting for data missing due
+to incomplete or missing data we should be able to establish the particle
+number density and derive the total mass influx.
+
+The second possible approach works in quite the opposite direction. We start with a simulation
+of the interplanetary matter in the vicinity of the Earth and an initial guess of its distribution.
+The number density and mass flux of meteoroids in the vicinity of the Earth is determined.
+We determine which meteoroids are on trajectories that intersect the atmosphere of the Earth
+and for those we simulate and record their atmospheric entry. The resulting dataset is statistically compared
+to the actual instrumental observations, accounting for detector deficiencies and selection bias.
+Finally we vary the initial particle distribution and the model of interaction with the atmosphere
+until the best possible agreement with observational data is found.
+This is then declared to be the model of the true distribution.
+
+On the far horizon of our efforts is the synthesis of both methods into one whole:
+we could use the observational data to put rough constrains on the meteoroid flux,
+and then construct an $N$-body numerical simulation which will try to replicate the data,
+accounting for observational bias effects as well.

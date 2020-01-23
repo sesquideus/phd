@@ -8,205 +8,160 @@
 }
 
 Once we have ascertained what physical objects and phenomena we are going to be working with and what we want to achieve,
-we need to understand \emph{how} this can be done and how these phenomena can be captured in a simplified \emph{model}.
+we need to understand \emph{how} this can be done and how these phenomena can be described by a simplified \emph{model}.
 
-\section{Models}
-    
+\section{Mathematical foundation} \label{mm}
 
-    \section{Properties} \label{mp}
-        \section{Radiants} \label{mpr}
+    \subsection{Kernel density estimation}
+        Kernel density estimation (KDE) is a non-parametric method of estimating the
+
+        is particularly useful when the undeerlying distribution is not known or very complicated.
+
+    \subsection{}
+
+\section{Observational model} \label{ms}
+    The \emph{observational model} is concerned primarily with the properties of meteors,
+    as opposed to the \emph{orbital model}, which focuses on the properties of meteoroids in heliocentric orbits.
+
+    Such a model 
+
+    the task is thus reduced to finding the distribution function for meteors
+    \eqn{eq:ms-dist}{
+    }
+
+    and analyze them in greater detail:
+
+
+        \subsection{Radiants} \label{msr}
+            We describe the positions of the meteors
+
+            
             \todo{solar longitude}
             \todo{motion of radiant}
             \todo{explain}
 
-        \section{Additional properties} \label{mpa}
-            Apart from the dynamical properties, which describe only the density of particles
-            and thus a probability of a collision at a point in space and time,
-            we may (and should!) observe and analyze additional properties of the stream.
+    \subsection{Time} \label{mst}
+        The first coordinate is the time of the atmospheric entry of the meteoroid.
+        First of all, it should be noted that while a meteor is not an completely instantaneous event,
+        its duration is on the order of \SI{1}{\second}, which is very short compared to the
+        period of rotation of the Earth of the scales on which meteor activity varies.
+        Precise timekeeping is thus not very important.
+        For our purposes we will be using the time of maximum brightness
+        of the meteor for both actual data and in simulations.
 
-            \subsection{Mass distribution} \label{mpam}
-                The most important characteristic of a meteoroid population is the distribution of masses
-                among constituent particles. A shower that is primarily composed of massive particles
-                will produce a large number of spectacular fireballs while its ZHR may remain fairly low;
-                while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
-                yet will result in large ZHR.
+        Second, it should be emphasized again that each meteor is treated
+        as a random sample from some hidden underlying distribution.
+        In the context of this thesis it is immaterial whether any particular meteor
+        appeared a minute earlier or later. Since we are only interested in slow variations,
+        any such time shift will be invariably smeared during density estimation.
+        Differences on the order of tens of minutes could be visible with very narrow filaments.
 
-                In meteor science, it is customary to assume a specific distribution of masses within a population,
-                described by a power law with particle mass as the independent variable:
-                \eqn{eq:mas-map}{
-                    \varrho(m) \propto m^{-s}
-                }
-                for some constant $s$ named the \emph{mass index}.
+        In examining the evolution of streams we should recognize two distinct components:
+        \begin{itemize}
+            \item the \emph{periodic component}, emerging as the result of the Earth orbiting the Sun.
+                This should be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\Sun$.
 
-                To obtain a distribution, this expression needs to be normalised first,
-                effectively yielding a well-known Pareto distribution \citep{arnold1983}.
-                In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
-                where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
+            \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid
+                streams and gradual decay of older streams which are not replenished.
 
-                To conform to terms commonly used with meteors we substitute these for mass index
-                $s = \alpha - 1$, while $x_0 \equiv m_\mathrm{min}$ denotes the \emph{minimum mass}
-                of particles considered. The probability density function is then
-                \eqn{eq:mas-pareto}{
-                    \varrho(m) = \mathrm{Pareto}\left(m;\ s-1, {m_\mathrm{min}}\right) \equiv
-                    \begin{cases}
-                        0 &
-                            \text{for }m < m_{\mathrm{min}}\text{,} \\
-                        \dfrac{\left(s-1\right) m_{\mathrm{min}}^{s-1}}{m^s} &
-                            \text{for }m \geq m_{\mathrm{min}}\text{.}
-                    \end{cases}
-                }
+                The peaks produced by meteor showers appear abruptly after the parent body passes through the vicinity of the Earth,
+                producing small meteoroid due to heating or outgassing.
+                Returns of parents bodies on periodic orbits, result in resupply of meteoroid material,
+                and thus form an extra periodic component, included in the secular evolution of the stream.
+        \end{itemize}
 
-                Naturally, the extent to which the model can approximate the physical reality is limited.
-                Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being the most common \cite{...}
+        The time coordinate $t$ can be thus decomposed into two components,
+        \eqn{eq:iot-tyl}{
+            t = y + \lambda_\Sun,
+        }
+        where
+        \begin{itemize}
+            \item $y$ is the number of whole orbits since year 0, or in layman's terms,
+                the current \emph{astronomical year} in which the last vernal equinox occurred;
+            \item $\lambda_\Sun$ is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
+        \end{itemize}
 
-                In a very simple approximation, the luminosity of a meteor depends on its mass and entry speed as
-                \eqn{eq:mas-lum}{
-                    F_0 \propto mv^5.
-                }
-
-                For any meteor shower the speed is almost constant. Hence we know that the luminosity of meteors
-                within a certain stream is thus solely a function of particle mass, and that this dependence should
-                be approximately linear.
-
-                (mention photometric mass)
-
-            \subsection{Petrological and chemical classification} \label{mpac}
-                While we are not explicitly interested in chemical properties
-                or dynamical evolution of meteor streams, these properties
-                are correlated with the density and toughness of the material,
-                which in turn affect the process of ablation
-                and thus also the final luminosity of the meteor.
-                All of this contributes to the unwanted selection bias.
-
-                So, in addition to previously mentioned \textit{numerical} data, we might want to
-                provide extraneous information about the meteoroids, such as their origin,
-                mineralogical or chemical properties.
-                For many meteoroids these data are not be available,
-                though as they provide a wealth of information on origin
-                it is definitely useful to include it when available.
+        As we do not expect to cover more than several tens or hundreds of years, effects of precession can be safely ignored.
+        Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun \approx \ang{139.4}$,
+        while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
 
 
-                toughness of particles, which in turn affects the penetration depth
-                and the absolute brightness of meteors.
-                Differences in spectra are responsible for variability in detection efficiency with different cameras.
+        \subsection{Mass distribution} \label{}
 
+            \todo{photometric mass}
 
-\section{Simulation in the Solar System} \label{ms}
-    on the order of 100 radii.
+    \subsection{Processing the observations} \label{msp}
 
-    With ephemerides taken from the JPL Horizons system \citep{???}.
-    The simulation computes the positions of the large bodies of the Solar System, most importantly the Sun,
-    the eight planets and the Moon. Then the test particles
+        \todo{corrections for observers, limiting magnitude}
 
-    Optinally, positions of massless bodies can be offloaded to a Graphics Processing Unit (GPU).
-    Using a GPU is particularly well suited to massively parallel problems, such as simulation of non-interacting test particles.
+        \subsubsection{Zenithal hourly rate} \label{ipqz}
+            The \emph{zenithal hourly rate} (ZHR) is defined as ``[t]he number of shower meteors per hour
+            one observer would see if his limiting magnitude is \Mag{+6.5} and the radiant is in his zenith''.
 
-    Any particle intersecting the cross-section of the Earth is marked as detected and will be examined further.
-    Alternatively, in order to reduce the number of trials, we may employ a larger artificial detector.
+            is somewhat applicable to automatic devices as well.
 
-
-    as long as the spatial density is only varying on scales much larger than the radius of the Earth,
-    temporal variations in activity will be small.
-    This assumption is not universally valid, as some younger meteor showers often produce dense, narrow filaments,
-    which can be observed as short but intensive outbursts of extraordinary meteor activity.
-    A~good example are the November alpha-Monocerotids, with a period of significantly
-    heightened activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
-
-    By comparing the orbital speed and the diameter of the Earth we can see that the Earth moves
-    to a completely different position with respect to the stream within several minutes.
-    This means that variations in activity are not going to be significant when crossing an old stream,
-    whose radius may be on the order of millions of kilometres, but will be of extreme importance with young, narrow filaments.
-
-    The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
-    The worst case are the streams with high inclinations, where meteors seem to arrive from a direction perpendicular
-    to the direction of movement.
-
-
-
-    It is necessary that at least one of the orbital nodes must lie very close to the orbit of the Earth.
-    This can be expressed in terms of orbital elements as
-    \eqn{eq:p-anode}{
-        \frac{p}{1 + e \cos \omega} \approx \SI{1}{\au}
-    }
-    for the ascending node, or, for the descending node,
-    \eqn{eq:p-dnode}{
-        \frac{p}{1 - e \cos \omega} \approx \SI{1}{\au}.
-    }
-
-    \subsection{The N-body problem} \label{msN}
-        At the core of investigation of meteoroid motion in interplanetary space
-        there is little more than a fairly complex $N$-body problem:
-        we are given the initial positions and velocities of a set of objects,
-        mutually interacting by gravitational attraction.
-        However, rather than finding their positions and velocities at all future times, we are mostly concerned
-        with the question whether some of these particles will ever collide with the Earth.
-
-        Finding a closed-form solution is either not possible at all \cite{...}, or is only expressible
-        as a convergent series with way too many terms to be of any practical use \citep{beloriszky-1930}.
-
-        Fortunately, an exact closed-form solution is not needed. First of all, the precision of our results
-        is always practically limited by the precision with which the initial conditions are known,
-        which is always finite.
-
-        Furthermore, small particles are often also influenced by non-gravitational forces,
-        which are themselves difficult to describe analytically.
-        Numerical solutions thus remain the astronomer's best friends.
-
-        With modern integrators and available computational power this is no longer a problem.
-        Even a cheap modern computer equipped with suitable software is able to calculate trajectories
-        with precision only limited by our knowledge of initial positions and velocities of the bodies.
-
-
-    \subsection{Numerical integration of equations of motion} \label{msi}
-        The problem of obtaining a numerical solution to the equations of motion is omnipresent
-        in astronomy and as such has been solved many times with increasingly better precision.
-
-        Since every two bodies attract each other, finding all forces acting on the bodies generally
-        requires computation of $n\left(n - 1\right) = \BigO{n^2}$ pairs of forces \cite{???}.
-        According to Newton's third law opposing forces are equal in magnitude and opposite in their direction,
-        and thus one evaluation in every pair is enough. This brings the number of required evaluations to half the stated value,
-        without changing the order.
-
-        \subsubsection{Massively parallel integration} \label{msip}
-            The main difference in simulating small particles, such as meteoroids,
-            is that their masses are for all practical purposes completely negligible.
-            All gravitational interaction between pairs of test particles may be completely ignored,
-            which drastically reduces the number of evaluations.
-
-            Suppose we only need to work with $k$ massive objects:
-            in the Solar System we need to consider the Sun, eight planets, their major moons
-            and -- at least immediately after the ejection -- also the parent body of the stream.
-            This leaves us with $k \sim 10$, which translates to roughly 50--100 evaluations per integration step.
-            This is perfectly tractable on a CPU.
-
-            Once the positions of physical bodies are known, we may proceed to computing the forces acting
-            on test bodies. Since forces are to be summed as vectors, we need $k$ evaluations
-            for each of $n$ test particles, for a total of $nk$ evaluations.
-            Generally, there is no further exploitable symmetry.
-            However, problems of this sort are perfectly suited for parallel computation.
-
-            The total number of evaluations is
-            \eqn{eq:asip-total}{
-                E(k, n) = k^2 + nk.
+            ZHR is defined as
+            \eqn{eq:ipqz-zhr}{
+                \mathrm{ZHR} = \dfrac{\dfrac{N}{T} \cdot \dfrac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
             }
+            where
+            \begin{description}
+                \item[$N$]      is the number of meteors recorded by the observer;
+                \item[$T$]      is total effective observation time;
+                \item[$k$]      is the fraction of the sky that is visible to the observer;
+                \item[$r$]      is the \emph{population index} of the meteor shower;
+                \item[$m_0$]    is the \emph{limiting magnitude} of the observer.
+            \end{description}
 
-            Since in our case $n \gg k$, this approximately equals $nk$.
+            In our model the ZHR is not an input, but rather a computed quantity, completely determined by the model.
 
-            The preferred \textit{modus operandi} at this time seems to be to use off-the-shelf integrators
-            running on a CPU for resolving the positions and velocities of planets, and feed those data
-            to a massively-parallel GPU integrator, simulating a large number of mutually non-interacting particles.
+        \subsubsection{Limiting magnitude} \label{ipqm}
+            The atmosphere is constantly changing due to weather, contamination
+            by natural or man-made aerosols or light pollution. The detection efficiency
+            of ground-based observers is thus variable and must be included in any analysis.
 
-        \subsubsection{Using explicit ephemerides} \label{asie}
-            To further simplify matters, we may leave the determination of positions and velocities
-            to other software completely and free resources for other problems.
-            We may directly use positions and velocities provided by some external source,
-            such as JPL Horizons \cite{???}, or simply use precomputed tabelated values.
+            In meteor astronomy, the quality of the conditions is usually summarized
+            using a single number called the \emph{limiting magnitude}, denoted $m_0$.
+            It is defined as ``the apparent magnitude of the faintest stars visible during the observation'' \citep{imo-glossary}.
 
-            This leaves us with only $kn$ interactions that are completely mutually independent.
-            We hope to achieve sufficient performance to allow simulating about $10^7$ test particles within
-            a reasonable time frame.
+            In visual observations it is usually assumed that a meteor can be detected if and only if
+            its apparent magnitude is at most $m_0$. Mathematically, this is described by a Heaviside step function.
+            For photographic and video observations a slightly lower value is typically used.
 
-\section{Simulation in the atmosphere} \label{sa}
+            Rather than using a sharp limit, a slightly better approach is to assume a sigmoid profile,
+            with a smooth transition between very faint meteors (none of which can be recorded)
+            and very bright meteors (where it is reasonable to assume they cannot be missed).
+            While there is no universally agreed-upon function, a simple yet reasonable function is
+            \eqn{eq:ipqm-sigmoid}{
+                D(m; m_0, \omega) = \frac{1}{1 + \exp\left(\frac{m-m_0}{\omega}\right)},
+            }
+            where
+            \begin{description}
+                \item[$m_0$]    is the \textit{limiting magnitude} where detection probability is 50\%;
+                \item[$\omega$] is the width of the function, with higher values representing
+                    faster rate of loss of detection efficiency with decreasing brightness.
+                    The limit $\omega \to \infty$ corresponds to a sharp cut-off at $m_0$,
+                    or the Heaviside step function.
+            \end{description}
+
+            Ideally, a functional dependence on the distance from the centre of the field
+            of view should be taken into account for human observers, as the eye is much more
+            sensitive to light near the yellow spot \todo{who?}.
+            Similarly, digital sensors are subject to vignetting and other detrimental effects.
+            Further research into the angular response of the human eye would be beneficial.
+
+    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
+    and used to determine the total flux of the Perseids in 2016. Instead of trying to
+    estimate the biases we generated the meteoroids above the atmosphere and simulated
+    their entry using a simplified set of equations for motion, ablation and luminosity.
+    A collection of stochastic bias functions was then applied to the dataset and
+    each meteor was marked as detected or missed. We varied the parameters of the bias functions
+    and the mass index until agreement with observational data was achieved.
+    The initial population was then declared as the model of the actual population
+    and the bias functions were taken as descriptive of the observing system.
+
+
+\section{Simulation in the atmosphere} \label{ma}
     Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
     the physical processes manifested during their atmospheric entry and obtain the values of physical quantities
     that are observed by ground-based observers.
@@ -309,11 +264,227 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
             At peak deceleration the magnitude of the drag force can reach values several orders of magnitude
             higher than the sum of all other forces and is thus completely dominant.
-            A very simple model of atmospheric flight can perform relatively well even when all other forces are neglected.
+            A very simple model of atmospheric flight can thus perform relatively
+            well even when all other forces are neglected.
+
+    \subsection{}
+
+\section{Orbital model} \label{mo}
+    While the observational model may capture the observed distribution of meteors quite precisely,
+    it does not provide any deeper understanding about \textit{why} meteors appear
+    at some specified time and from a particular region in the sky.
+    To address that, we need to analyze the observed meteoroids and reconstruct their original trajectories.
+
+    For each meteor, it is in principle possible to trace its visible motion back in time
+    and derive the trajectory of the original meteoroid in the vicinity of the Earth.
+    After correcting for gravitational attraction and subtracting the velocity of the Earth
+    we can further extend the trajectory into interplanetary space.
+
+    A fundamental difficulty here is that particle streams whose orbit does not intersect
+    the orbit of the Earth cannot be observed at all and thus have to be excluded from the model.
+    Determination of flux in these areas is only possible with in situ observations.
+    In the thesis we will not analyze them any further.
+
+    A less fundamental difficulty lies in the low precision of these measurements and the large errors it introduces.
+    The distance between the observer and the meteor is on the order of \SI{100}{\kilo\metres}
+    and with frame rates
+
+    Furthermore, while the trajectory can be computed with very high precision in vacuum,
+    meteoroids lose a fraction of their original preatmospheric speed before they become visible \citep{vida+2018}.
+    This further adds to the uncertainty of the original orbit.
+
+    The number density distribution function in interplanetary space is
+    \eqn{eq:po-rv}{
+        \varrho(\vec{r}, \vec{v}, t).
+    }
+    where
+    \begin{description}
+        \item[$\vec{r}$]    is the instantaneous position in a heliocentric inertial reference frame;
+        \item[$\vec{v}$]    is the velocity in the same frame;
+        \item[$t$]          is the time;
+        \item[$\varrho$]    is the number density of particles.
+    \end{description}
+
+    Alternatively this may be expressed in terms of orbital elements as
+    \eqn{eq:po-elem}{
+        \varrho(a, e, i, \omega, \Omega, T).
+    }
+
+    While particles that collide with the Earth are removed from the stream,
+    the total volume swept by the Earth through the stream is negligible for all but the narrowest streams.
+    We do not expect any observable reduction in the number of meteoroids during subsequent approaches.
+
+    \subsection{Estimating the distribution} \label{mod}
+
+    
+        \subsubsection{Choice of phase space coordinates} \label{modc}
+            The distribution of meteoroid masses of our interest spans six or seven decimal orders of magnitude,
+            with most of the samples concentrated close to the lower bound of the interval.
+            The upper portion of the domain will likely be covered by very 
+            
+            KDE methods 
+            it might prove beneficial to 
 
 
-        Runge Kutta, DP, split-frame
+            -- while the geometric difference between $a = \SI{1}{\au}$ and $a = \SI{10}{\au}$,
+            while the region of our interest is located close to \SI{1}{\au}.
+            Therefore we propose to use either $1/a$ or $\log a$ as the measure of orbit size instead,
+            and use a Gaussian kernel in estimation in these coordinates.
 
-    \subsection{Determination of other properties} \label{sap}
 
-        \subsubsection{Absolute and visual magnitudes} \label{sapm}
+    \subsection{Physical quantities and properties} \label{mp}
+        
+        \subsubsection{Mass distribution} \label{mpam}
+            The most important characteristic of a meteoroid population is the distribution of masses
+            among constituent particles. A shower that is primarily composed of massive particles
+            will produce a large number of spectacular fireballs while its ZHR may remain fairly low;
+            while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
+            yet will result in large ZHR.
+
+            In meteor science, it is customary to assume a specific distribution of masses within a population,
+            described by a power law with particle mass as the independent variable:
+            \eqn{eq:mas-map}{
+                \varrho(m) \propto m^{-s}
+            }
+            for some constant $s$ named the \emph{mass index}.
+
+            To obtain a distribution, this expression needs to be normalised first,
+            effectively yielding a well-known Pareto distribution \citep{arnold1983}.
+            In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
+            where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
+
+            To conform to terms commonly used with meteors we substitute these for mass index
+            $s = \alpha - 1$, while $x_0 \equiv m_\mathrm{min}$ denotes the \emph{minimum mass}
+            of particles considered. The probability density function is then
+            \eqn{eq:mas-pareto}{
+                \varrho(m) = \mathrm{Pareto}\left(m;\ s-1, {m_\mathrm{min}}\right) \equiv
+                \begin{cases}
+                    0 &
+                        \text{for }m < m_{\mathrm{min}}\text{,} \\
+                    \dfrac{\left(s-1\right) m_{\mathrm{min}}^{s-1}}{m^s} &
+                        \text{for }m \geq m_{\mathrm{min}}\text{.}
+                \end{cases}
+            }
+
+            Naturally, the extent to which the model can approximate the physical reality is limited.
+            Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being the most common \cite{...}
+
+            In a very simple approximation, the luminosity of a meteor depends on its mass and entry speed as
+            \eqn{eq:mas-lum}{
+                F_0 \propto mv^5.
+            }
+
+            For any meteor shower the speed is almost constant. Hence we know that the luminosity of meteors
+            within a certain stream is thus solely a function of particle mass, and that this dependence should
+            be approximately linear.
+
+        \subsubsection{Additional properties} \label{mpa}
+            Apart from the dynamical properties, which describe only the density of particles
+            and thus a probability of a collision at a point in space and time,
+            we may (and should!) observe and analyze additional properties of the stream.
+
+            \subsection{Petrological and chemical classification} \label{mpac}
+                While we are not explicitly interested in chemical properties
+                or dynamical evolution of meteor streams, these properties
+                are correlated with the density and toughness of the material,
+                which in turn affect the process of ablation
+                and thus also the final luminosity of the meteor.
+                All of this contributes to the unwanted selection bias.
+
+                So, in addition to previously mentioned \textit{numerical} data, we might want to
+                provide extraneous information about the meteoroids, such as their origin,
+                mineralogical or chemical properties.
+                For many meteoroids these data are not be available,
+                though as they provide a wealth of information on origin
+                it is definitely useful to include it when available.
+
+
+                toughness of particles, which in turn affects the penetration depth
+                and the absolute brightness of meteors.
+                Differences in spectra are responsible for variability in detection efficiency with different cameras.
+
+
+\section{Simulation in the Solar System} \label{ms}
+    Lots of work has already been done in this area, such as
+    \begin{itemize}
+        \item studies of dynamic paths of asteroids and meteoroids
+        \item studies of evolution of meteoroids streams from the parent body until collision with the Earth
+        \item predictions of activity of meteor showers
+        \item and many more.
+    \end{itemize}
+
+    The simulation computes the positions of the large bodies of the Solar System, most importantly the Sun,
+    the eight planets and the Moon. Then the test particles
+
+    Optionally, calculating the positions of massless bodies can be offloaded to a Graphics Processing Unit (GPU).
+    A GPU is particularly well suited to solving massively parallel problems,
+    such as simulation of a large number non-interacting test particles.
+
+    \subsection{The N-body problem} \label{msN}
+        At the core of investigation of meteoroid motion in interplanetary space
+        there is little more than a fairly complex $N$-body problem:
+        we are given the initial positions and velocities of a set of objects,
+        mutually interacting by gravitational attraction.
+        However, rather than finding their positions and velocities at all future times, we are mostly concerned
+        with the question whether some of these particles will ever collide with the Earth.
+
+        Finding a closed-form solution is either not possible at all \cite{...}, or is only expressible
+        as a convergent series with way too many terms to be of any practical use \citep{beloriszky-1930}.
+
+        Fortunately, an exact closed-form solution is not needed. First of all, the precision of our results
+        is always practically limited by the precision with which the initial conditions are known,
+        which is always finite.
+
+        Furthermore, small particles are often also influenced by non-gravitational forces,
+        which are themselves difficult to describe analytically.
+        Numerical solutions thus remain the astronomer's best friends.
+
+        With modern integrators and available computational power this is no longer a problem.
+        Even a cheap modern computer equipped with suitable software is able to calculate trajectories
+        with precision only limited by our knowledge of initial positions and velocities of the bodies.
+
+
+    Any particle intersecting the cross-section of the Earth is marked as detected and will be examined further.
+    Alternatively, in order to reduce the number of trials, we may employ a larger artificial detector.
+
+
+    As long as the spatial density is only varying on scales much larger than the radius of the Earth,
+    temporal variations in activity will be slow.
+    This assumption is not universally valid, as some younger meteor showers often produce dense, narrow filaments,
+    which can be observed as short but intensive outbursts of extraordinary meteor activity.
+    A~good example are the November alpha-Monocerotids, with a period of significantly
+    heightened activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
+
+    By comparing the orbital speed and the diameter of the Earth we can see that the Earth moves
+    to a completely different position with respect to the stream within several minutes.
+    This means that variations in activity are not going to be significant when crossing an old stream,
+    whose radius may be on the order of millions of kilometres, but will be of extreme importance with young, narrow filaments.
+
+    The duration of visible activity also depends on the exact shape of the stream and its orientation with respect to the orbit of the Earth.
+    The worst case are the streams with high inclinations, where meteors seem to arrive from a direction perpendicular
+    to the direction of movement.
+
+
+
+    It is necessary that at least one of the orbital nodes must lie very close to the orbit of the Earth.
+    This can be expressed in terms of orbital elements as
+    \eqn{eq:p-anode}{
+        \frac{p}{1 + e \cos \omega} \approx \SI{1}{\au}
+    }
+    for the ascending node, or, for the descending node,
+    \eqn{eq:p-dnode}{
+        \frac{p}{1 - e \cos \omega} \approx \SI{1}{\au}.
+    }
+
+
+    \subsection{Numerical integration of equations of motion} \label{msi}
+        The problem of obtaining a numerical solution to the equations of motion is omnipresent
+        in astronomy and as such has been solved many times with increasingly better precision.
+
+        Since every two bodies attract each other, finding all forces acting on the bodies generally
+        requires computation of $n\left(n - 1\right) = \BigO{n^2}$ pairs of forces \cite{???}.
+        According to Newton's third law opposing forces are equal in magnitude and opposite in their direction,
+        and thus one evaluation in every pair is enough. This brings the number of required evaluations to half the stated value,
+        without changing the order.
+
+% ------------------------------------------------------------------------

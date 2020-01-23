@@ -1,3 +1,13 @@
+\Epigraph[0.4]{
+    You saw sagacious Solomon \\
+    You know what came of him \\
+    To him, complexities seemed plain
+}{
+    How Fortunate the Man With None \\
+    \textsc{Bertolt Brecht} \\
+    \textit{translation John Willett}
+}
+
 The primary objective of the thesis is the development of a model of meteoroid populations
 intersecting the orbit of the Earth -- or more precisely, populations observable from the surface as meteors.
 The model must be in agreement with data obtained by visual observers and automated devices watching the sky.
@@ -33,79 +43,10 @@ Typically we do not consider individual particles, but the entire stream and its
     and an extended \emph{orbital model}, which describes the density of matter
     in interplanetary space as a function of position, velocity and time.
 
-\section{Processing the observations} \label{ip}
-    \todo{corrections for observers, limiting magnitude}
 
-    \subsection{Quantities} \label{ipq}
-        \subsubsection{Zenithal hourly rate} \label{ipqz}
-            The \emph{zenithal hourly rate} (ZHR) is defined as ``[t]he number of shower meteors per hour
-            one observer would see if his limiting magnitude is \Mag{+6.5} and the radiant is in his zenith''.
+\section{Orbital model} \label{po}
 
-            is somewhat applicable to automatic devices as well.
-
-            ZHR is defined as
-            \eqn{eq:ipqz-zhr}{
-                \mathrm{ZHR} = \dfrac{\dfrac{N}{T} \cdot \dfrac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
-            }
-            where
-            \begin{description}
-                \item[$N$]      is the number of meteors recorded by the observer;
-                \item[$T$]      is total effective observation time;
-                \item[$k$]      is the fraction of the sky that is visible to the observer;
-                \item[$r$]      is the \emph{population index} of the meteor shower;
-                \item[$m_0$]    is the \emph{limiting magnitude} of the observer.
-            \end{description}
-
-            In our  the ZHR is a computed quantity, completely determined by the model.
-
-        \subsubsection{Limiting magnitude} \label{ipqm}
-            The atmosphere is constantly changing due to weather, contamination
-            by natural or man-made aerosols or light pollution. The detection efficiency
-            of ground-based observers is thus variable and must be included in any analysis.
-
-            In meteor astronomy, the quality of the conditions is usually summarized
-            using a single number called the \emph{limiting magnitude}, denoted $m_0$.
-            It is defined as ``the apparent magnitude of the faintest stars visible during the observation'' \citep{imo-glossary}.
-
-            In visual observations it is usually assumed that a meteor can be detected if and only if
-            its apparent magnitude is at most $m_0$. Mathematically, this is described by a Heaviside step function.
-            For photographic and video observations a slightly lower value is typically used.
-
-            Rather than using a sharp limit, a slightly better approach is to assume a sigmoid profile,
-            with a smooth transition between very faint meteors (none of which can be recorded)
-            and very bright meteors (where it is reasonable to assume they cannot be missed).
-            While there is no universally agreed-upon function, a simple yet reasonable function is
-            \eqn{eq:ipqm-sigmoid}{
-                D(m; m_0, \omega) = \frac{1}{1 + \exp\left(\frac{m-m_0}{\omega}\right)},
-            }
-            where
-            \begin{description}
-                \item[$m_0$]    is the \textit{limiting magnitude} where detection probability is 50\%;
-                \item[$\omega$] is the width of the function, with higher values representing
-                    faster rate of loss of detection efficiency with decreasing brightness.
-                    The limit $\omega \to \infty$ corresponds to a sharp cut-off at $m_0$,
-                    or the Heaviside step function.
-            \end{description}
-
-            Ideally, a functional dependence on the distance from the centre of the field
-            of view should be taken into account for human observers, as the eye is much more
-            sensitive to light near the yellow spot \todo{who?}.
-            Similarly, digital sensors are subject to vignetting and other detrimental effects.
-            Further research into the angular response of the human eye would be beneficial.
-
-    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
-    and used to determine the total flux of the Perseids in 2016. Instead of trying to
-    estimate the biases we generated the meteoroids above the atmosphere and simulated
-    their entry using a simplified set of equations for motion, ablation and luminosity.
-    A collection of stochastic bias functions was then applied to the dataset and
-    each meteor was marked as detected or missed. We varied the parameters of the bias functions
-    and the mass index until agreement with observational data was achieved.
-    The initial population was then declared as the model of the actual population
-    and the bias functions were taken as descriptive of the observing system.
-
-\section{Observational model} \label{io}
-    (...)
-
+\section{Observational model} \label{ps}
     We need to use a four-dimensional KDE. Ideally, the kernel should be obtained by a product of five
     independent one-dimensional kernels.
 
@@ -146,59 +87,14 @@ Typically we do not consider individual particles, but the entire stream and its
     Poynting-Robertson effect, etc., the stream
     gradually widens and disperses in all components until it can no longer be distinguished from the background.
 
-    \subsection{Time} \label{iot}
-        The first coordinate is the time of the atmospheric entry of the meteoroid.
-        First of all, it should be noted that while a meteor is not an completely instantaneous event,
-        its duration is on the order of \SI{1}{\second}, which is very short compared to the
-        period of rotation of the Earth of the scales on which meteor activity varies.
-        Precise timekeeping is thus not very important.
-        For our purposes we will be using the time of maximum brightness
-        of the meteor for both actual data and in simulations.
-
-        Second, it should be emphasized again that each meteor is treated
-        as a random sample from some hidden underlying distribution.
-        In the context of this thesis it is immaterial whether any particular meteor
-        appeared a minute earlier or later. Since we are only interested in slow variations,
-        any such time shift will be invariably smeared during density estimation.
-        Differences on the order of tens of minutes could be visible with very narrow filaments.
-
-        In examining the evolution of streams we should recognize two distinct components:
-        \begin{itemize}
-            \item the \emph{periodic component}, emerging as the result of the Earth orbiting the Sun.
-                This should be thus expressed in terms of the \emph{longitude of the sun} $\lambda_\Sun$.
-
-            \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid
-                streams and gradual decay of older streams which are not replenished.
-
-                The peaks produced by meteor showers appear abruptly after the parent body passes through the vicinity of the Earth,
-                producing small meteoroid due to heating or outgassing.
-                Returns of parents bodies on periodic orbits, result in resupply of meteoroid material,
-                and thus form an extra periodic component, included in the secular evolution of the stream.
-        \end{itemize}
-
-        The time coordinate $t$ can be thus decomposed into two components,
-        \eqn{eq:iot-tyl}{
-            t = y + \lambda_\Sun,
-        }
-        where
-        \begin{itemize}
-            \item $y$ is the number of whole orbits since year 0, or in layman's terms,
-                the current \emph{astronomical year} in which the last vernal equinox occurred;
-            \item $\lambda_\Sun$ is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
-        \end{itemize}
-
-        As we do not expect to cover more than several tens or hundreds of years, effects of precession can be safely ignored.
-        Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun \approx \ang{139.4}$,
-        while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
-
-    \subsection{Declination and right ascensions} \label{ios}
-        The two spatial coordinates mark the position of the radiant of the particles.
+       \subsection{Declination and right ascension} \label{ios}
+        The two spatial coordinates mark the position of the \emph{true radiant} of the particles.
 
         As we are only concerned with the density of the stream as a whole,
         the exact position of the observed meteor in the sky is immaterial.
         Even a minuscule change in velocity or ejection time could have had a drastic effect
-        on the precise timing and geometry of the meteor without affecting the meteoroid's
-        adherence to the stream.
+        on the precise timing and geometry of the meteor without affecting
+        the position of the radiant or the meteoroid's adherence to the stream.
 
         If the meteoroid which produced the meteor
         had entered the atmosphere several hundred kilometres further,
@@ -225,8 +121,6 @@ Typically we do not consider individual particles, but the entire stream and its
         On the other side of the spectrum, particles larger than about \SI{0.05}{\metre} ($\approx$ \SI{0.1}{\kilo\gram})
         are comparatively rare even in the most active showers.
         The error bars on flux derived from only a handful of observations are inevitably going to be very large.
-
-        The 
         However, the later stages of the processing pipeline should not be affected by these limitations
         and hence it should be possible to extend the model easily with other data once they are available.
 
@@ -278,51 +172,11 @@ Typically we do not consider individual particles, but the entire stream and its
                 In the background the underlying distribution of radiants is obtained
                 using a spherical KDE method with a Gaussian kernel.
 
-                In this picture there are 10000 sporadic meteors with uniform distribution of radiants
+                In the picture are displayed 10000 sporadic meteors with uniform distribution of radiants
                 and three fictional meteor showers with different dispersion profiles.
             }
 
-\section{Orbital model} \label{po}
-    For each meteor, it is in principle possible to trace the trajectory back in time
-    and derive the trajectory of the original meteoroid in the vicinity of the Earth.
-    After correcting for gravitational attraction and subtracting the velocity of the Earth
-    we can further extend the trajectory into interplanetary space.
 
-    The fundamental difficulty here is that particle streams whose orbit does not intersect
-    the orbit of the Earth cannot be observed at all and thus have to be excluded from the model.
-    Determination of flux in these areas is only possible with in situ observations.
-
-    The number density distribution function here is
-    \eqn{eq:po-rv}{
-        \varrho(\vec{r}, \vec{v}, t).
-    }
-    where
-    \begin{description}
-        \item[$\vec{r}$]    is the instantaneous position in a heliocentric inertial reference frame;
-        \item[$\vec{v}$]    is the velocity in the same frame;
-        \item[$t$]          is the time;
-        \item[$\varrho$]    is the number density of particles.
-    \end{description}
-
-    Alternatively this may be expressed in terms of orbital elements as
-    \eqn{eq:po-elem}{
-        \varrho(a, e, i, \omega, \Omega, T).
-    }
-
-    While particles that collide with the Earth are removed from the stream,
-    the total volume swept by the Earth through the stream is negligible for all but the narrowest streams.
-    We do not expect any observable reduction in the number of meteoroids during subsequent approaches.
-
-    \subsection{Estimating the distribution} \label{pod}
-        Since the distribution of meteoroid masses of our interest spans about seven decimal orders of magnitude,
-
-
-        -- while the geometric difference between $a = \SI{1}{\au}$ and $a = \SI{10}{\au}$,
-        while the region of our interest is located close to \SI{1}{\au}.
-        Therefore we propose to use $\log a$ as the measure of orbit size instead, and use a Gaussian
-        kernel in estimation there (which is equivalent to using a log-normal kernel in linear space).
-
-        The same is tr
 
 \section{Objectives of the thesis} \label{iO}
     In the thesis we are planning to simulate the orbital evolution and production of meteors

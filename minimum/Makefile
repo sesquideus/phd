@@ -4,6 +4,11 @@ input/%.tex: \
 	source/%.tex
 	./jinja.py $< -c source/context.yaml -o $@
 
+input/%.pdf: source/%.gp
+	@echo -e '$(c_action)[gnuplot] Rendering file $(c_filename)$<$(c_action) to PDF file $(c_filename)$@$(c_action):$(c_default)'
+	@mkdir -p $(dir $@)
+	gnuplot -e "set output '$@'; set fit quiet;" $<
+
 output/thesis.pdf: \
 	input/thesis.tex \
 	$$(subst source/,input/,$$(wildcard source/*.tex)) \
@@ -21,8 +26,6 @@ output/cover.pdf: *.tex
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode ./cover.tex
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode ./cover.tex
 
-pictures/%.pdf: pictures/%.gp
-	gnuplot $<
 
 clean:
 	rm -rf output/

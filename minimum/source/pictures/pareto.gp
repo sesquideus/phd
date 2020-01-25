@@ -12,8 +12,8 @@ set yrange [0:1200]
 set samples 100000
 
 f(x, xm, s) = (x < xm ? 0 : (s-1) * xm**(s-1) / (x ** s))
-g(x, xm, s) = (x < xm ? 0 : (0.01/x)** s)
-h(x, xm, s) = (s == 2 ? 0.01**s * (log(x) - log(xm)) : x < xm ? 0 : 0.01**s * 1/(2-s) * (x ** (2-s) - xm**(2-s)))
+g(x, xm, s) = (x < xm ? 0 : (0.01/x)**s)
+h(x, xm, s) = (x < xm ? 0 : 0.01**s * 1/(1-s) * (x ** (1-s) - xm**(1-s)))
 
 plot \
     f(x, 1e-3, 1.6) title "s = 1.6" with lines lw 2, \
@@ -28,7 +28,7 @@ plot \
     g(x, 1e-3, 2.0) title "s = 2.0" with lines lw 2, \
     g(x, 1e-3, 2.2) title "s = 2.2" with lines lw 2
 
-set yrange [0:0.002]
+set yrange [0:0.2]
 plot \
     h(x, 1e-3, 1.6) title "s = 1.6" with lines lw 2, \
     h(x, 1e-3, 1.8) title "s = 1.8" with lines lw 2, \

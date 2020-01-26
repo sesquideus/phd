@@ -8,18 +8,12 @@
     \textit{translation John Willett}
 }
 
-The primary objective of the thesis is the development of a model of meteoroid populations
-intersecting the orbit of the Earth -- or more precisely, populations observable from the surface as meteors.
+The primary objective of the thesis is to develop a model of meteoroid populations intersecting
+the orbit of the Earth -- or more precisely, populations observable from the surface as meteors.
 The model must be in agreement with data obtained by visual observers and automated devices watching the sky.
 
-Raw data are invariably skewed by observational bias. Even elaborate methods for correction of various
+Raw data are invariably skewed by observational bias. Even though elaborate methods for correction of various
 effects have been developed,
-
-
-
-Hence the natural reference system to work with when investigating meteor streams in interplanetary space
-is the \emph{ecliptic coordinate system}.
-
 
 
 Typically we do not consider individual particles, but the entire stream and its elliptical orbit around the Sun.
@@ -43,8 +37,7 @@ Typically we do not consider individual particles, but the entire stream and its
     and an extended \emph{orbital model}, which describes the density of matter
     in interplanetary space as a function of position, velocity and time.
 
-
-\section{Orbital model} \label{po}
+\section{Current state of the project} \label{pc}
 
 \section{Observational model} \label{ps}
     We need to use a four-dimensional KDE. Ideally, the kernel should be obtained by a product of five
@@ -87,29 +80,23 @@ Typically we do not consider individual particles, but the entire stream and its
     Poynting-Robertson effect, etc., the stream
     gradually widens and disperses in all components until it can no longer be distinguished from the background.
 
-       \subsection{Declination and right ascension} \label{ios}
+    \subsection{Declination and right ascension} \label{ios}
         The two spatial coordinates mark the position of the \emph{true radiant} of the particles.
-
         As we are only concerned with the density of the stream as a whole,
         the exact position of the observed meteor in the sky is immaterial.
         Even a minuscule change in velocity or ejection time could have had a drastic effect
         on the precise timing and geometry of the meteor without affecting
         the position of the radiant or the meteoroid's adherence to the stream.
 
-        If the meteoroid which produced the meteor
-        had entered the atmosphere several hundred kilometres further,
-        which would have drastically changed the position in the sky, while the
-        Again, any difference will be lost in kernel smearing.
-
         A significant difficulty is encountered with daytime meteor showers, whose radiants
-        lie close to the current position of the Sun.
+        lie very close to the current position of the Sun.
         Most particles will then enter the atmosphere on the day side
         of the Earth, where a huge majority of particles burns up unnoticed.
         With radar observations it is possible to track the activity as well,
         however this observation technique calls for different methods of processing and debiasing the data.
         We estimate that using purely visual data it is impossible (or at least very difficult) to establish fluxes
-        for meteor showers whose radiants are within \ang{15} from the Sun.
-
+        for meteor showers whose radiants are within \ang{15} from the Sun, and significant bias
+        is introduced for angles up to \ang{60}.
 
     \subsection{Validity of the model} \label{iav}
         Since the model is to be constructed solely with data from visual observations,

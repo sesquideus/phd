@@ -2,6 +2,7 @@
 
 input/%.tex: \
 	source/%.tex
+	@mkdir -p $(dir $@)
 	./jinja.py $< -c source/context.yaml -o $@
 
 input/%.pdf: source/%.gp

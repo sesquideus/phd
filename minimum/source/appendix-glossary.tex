@@ -1,6 +1,16 @@
 \begin{description}[labelindent=0mm, leftmargin=40mm]
+    \item[CDF]
+        \emph{cumulative density function} of a random variable describes the probability that the
+        variable takes a value less than or equal to $x$.
+        \[
+            F_X(x) = \mathrm{Pr}[X \leq x].
+        \]
+        It is related to the probability density function $f_X$ of the same variable as
+        \[
+            F_X(x) = \Int[-\infty][x]{f_X(u)}{u}.
+        \]
     \item[convergence angle]
-        the angle between two observers as viewed from the observed object (camera 1 -- meteor -- camera 2)
+        the angle between two observers as viewed from the observed object (here typically \emph{camera 1} -- meteor -- \emph{camera 2})
     \item[CPU]
         \emph{central processing unit}, the general purpose electronic circuit of a computer \cite{...} (rewrite).
         The CPU is universal and can run practically any code, but only with low level of parallelism.
@@ -17,8 +27,12 @@
     \item[KDE]
         \emph{kernel density estimation}, a non-parametric method of estimating the probability density function
         of random variables from a number of discrete samples \citep{kde}
+    \item[kernel]
+        a form of the \emph{PDF} where the normalisation factor has been omitted
     \item[Null Island]
         a nickname for the fictional place at WGS84 coordinates \ang{0}~N, \ang{0}~E, \SI{0}{\metre} \citep{null-island}.
+    \item[PDF]
+        \emph{probability density function} \todo{...}
     \item[SIMD]
         \emph{single instruction, multiple data}, the practice of concurrently executing the same operation on
         different data on a multi-processor system or a GPU.

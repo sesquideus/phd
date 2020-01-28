@@ -212,17 +212,59 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             models of the meteoroid population, atmosphere and of the observer's detection efficiency.
 
         \subsubsection{Population index} \label{mspr}
-            Another useful measure of meteor activity if the \emph{population index}.
-            It is similar to the mass index (see \cref{msm}) in the sense that it describes
-            the increase of the number of particles with increasing limiting magnitude.
-            The definition by \citet{molau2015} is "[the population index] represents the increase
+            Another useful measure of meteor activity is the \emph{population index}.
+            It is similar to the mass index (see \cref{msm}) in the sense.
+            The definition by \citet{molau2015} is "[the population index] represents the [relative] increase
             in total meteor count when the limiting magnitude $\mathrm{lm}$ improves by one mag[nitude]."
+
+            So if we denote the total number of observed meteors with magnitude at most $\mu$ as $N(\mu)$
+            and compare the counts for different values of $\mu$ and $\mu + 1$, we need $N$ to satisfy the requirement
+            \eqn{eq:mspr-cdf}{
+                r \cdot N(\mu) = N(\mu + 1).
+            }
+
+            Solving this for function $N(\mu)$ yields a single family of solutions
+            in the form
+            \eqn{eq:mspr-cdfsolved}{
+                N(\mu) = k \cdot r^\mu
+            }
+            for some real constant $k$.
+
+            As $N(\mu)$ is -- by definition -- the kernel of the
+            cumulative distribution function (CDF) for apparent magnitudes, we can differentiate it
+            to obtain the kernel of the probability density function. The kernel of the PDF is then
+            \eqn{eq:mspr-pdfk}{
+                n(\mu) \propto k \cdot r^\mu \ln r.
+            }
+
+            The value or $r$ is assumed to be constant throughout the entire observable magnitude range.%
+            \footnote{Without this assumption the population index loses its main purpose.
+            Technically, \emph{any} smooth distribution of magnitudes can be described in terms of varying $r$.}
 
             Note that this function is not a power law, but an exponential (the variable $r$
             is in the base, not the exponent, unlike with mass index $s$).
 
-            It should be kept in mind that neither the mass index nor the population index are fundamental quantities,
+            To obtain a probability density function, we must find a norming constant
+            and set an upper limit on magnitudes. The upper limit is conveniently set as the limiting
+            magnitude $m_0$. If we require the integral over the entire visible range to evaluate to one,
+            the value of $k$ is unambiguously determined as $k = r^{-m_0}$.
+            The PDF is then
+            \eqn{eq:mspr-pdf}{
+                F_m(m) =
+                \begin{cases}
+                    r^{\,\mu - m_0} \ln r &
+                        \text{for }m \leq m_0\text{,} \\
+                    0 &
+                        \text{for }m > m_0\text{.}
+                \end{cases}
+            }
+
+            It should be kept in mind that the mass and population indices are not fundamental physical quantities,
             but only parameters of simple model distribution functions for masses and apparent magnitudes respectively.
+            Also, value of $r$ can be measured correctly only when assuming there is a sharp limit of the observer's detection efficiency.
+            For sigmoid detection efficiency profiles (such as the one defined in \cref{eq:mspm-sigmoid}) it
+            is is not correct.
+
 
 
     Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
@@ -234,6 +276,9 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     and the mass index until agreement with observational data was achieved.
     The initial population was then declared as the model of the actual population
     and the bias functions were taken as descriptive of the observing system.
+
+    The values of mass index $s$ is an input to the model while the value of $r$
+    can be determined from the output.
 
 
 \section{Simulation in the atmosphere} \label{ma}
@@ -379,7 +424,7 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     meteoroids lose a fraction of their original preatmospheric speed before they become visible \citep{vida+2018}.
     This further adds to the uncertainty of the original orbit.
     One very pronounced misleading effect is the vastly overestimated number of objects
-    on interstellar heliocentric orbits in meteor databases \cite{hajdukovajr1994}.
+    on interstellar heliocentric orbits in meteor databases \citep{hajdukovajr1994}.
 
     The natural reference system to work with when investigating meteoroid streams in interplanetary space
     is the \emph{ecliptic coordinate system}.

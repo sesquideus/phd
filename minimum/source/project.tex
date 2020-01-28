@@ -124,10 +124,17 @@ Typically we do not consider individual particles, but the entire stream and its
         \subsubsection{Spatial coordinates} \label{iovs}
             The two spatial coordinates 
             The only thing to consider is to how to present spherical data in a flat display,
-            which is a standard task in wide-field observational astronomy.
-            While not strictly necessary, it makes sense to choose a projection
-            that preserves the area, so as not to confuse the viewer.
+            which is a fairly standard task in wide-field observational astronomy.
+            The projection used should be an equal-area one, so as to preserve the spatial density of radiants.
             One suitable example is the \emph{Mollweide} projection.
+
+            \fig{mollweide.jpg}{\textwidth}{fig:iovs-mollweide}{
+                The Mollweide projection used to display the surface of the Earth.
+                The projection preserves the area and thus, in our case,
+                the density of meteoroid radiants.
+
+                \hfill\textit{Image by Daniel R. Strebe, 2011, CC BY-SA 3.0}
+            }
 
         \subsubsection{Time} \label{iovt}
             If possible, the best option is to preserve the time coordinate as time
@@ -164,7 +171,6 @@ Typically we do not consider individual particles, but the entire stream and its
             }
 
 
-
 \section{Objectives of the thesis} \label{iO}
     In the thesis we are planning to simulate the orbital evolution and production of meteors
     by several most prominent meteor showers.
@@ -174,6 +180,9 @@ Typically we do not consider individual particles, but the entire stream and its
         \item reduce the model to the Earth's atmosphere and obtain a sky map
             of observable meteor activity at any place and time,
             such as the one depicted in \cref{fig:iov-mockup};
-
     \end{itemize}
+
+    \subsection{Prerequisites} \label{iOp}
+        We need to understand and develop a suitable KDE model, presumably AKDE,
+        which will be able to work with sparse data.
 

@@ -11,12 +11,12 @@
 \usepackage{
     amsmath,
     amssymb,
+    siunitx,
     xparse,
     enumitem,
     graphicx,
     rotating,
     booktabs,
-    siunitx,
     cancel,
     tabularx,
     epigraph,
@@ -25,6 +25,7 @@
     setspace,
     longtable,
     subcaption,
+    csquotes,
 }
 
 \usepackage[many]{tcolorbox}
@@ -46,7 +47,7 @@
 ]{caption}
 \usepackage[super]{nth}
 
-\usepackage[f]{esvect}
+%\usepackage[f]{esvect}
 \usepackage[
     final
 ]{pdfpages}
@@ -56,12 +57,23 @@
     prependcaption,
     textsize                = scriptsize,
 ]{todonotes}\reversemarginpar
+\usepackage[MnSymbol]{mathspec}                                 % includes fontspec
 \usepackage{
-    mathspec,
     polyglossia,
     xunicode,
 }
+\setdefaultlanguage{english}
 \usepackage[nottoc]{tocbibind}
+
+\usepackage[
+    backend     = biber,
+    style       = authoryear-icomp,
+    natbib      = true,
+]{biblatex}
+
+
+
+
 \sisetup{
     separate-uncertainty,
     detect-all              = true,
@@ -78,13 +90,6 @@
     list-units              = single,
     list-final-separator    = {\ and\ },
 }
-
-\setdefaultlanguage{english}
-\usepackage[
-    backend     = biber,
-    style       = authoryear-icomp,
-    natbib      = true,
-]{biblatex}
 
 \addbibresource{../kvik.bib}
 
@@ -104,11 +109,6 @@
 
 \newfontfamily{\semibold}{Adobe Garamond Pro Semibold}
 \newfontfamily{\greek}{Minion Pro Italic}
-\defaultfontfeatures{
-    Mapping         = tex-text,
-    Scale           = MatchLowercase,
-    Ligatures       = TeX
-}
 \setallmainfonts[
     Path            = fonts/ ,
     Extension       = .otf ,
@@ -136,6 +136,7 @@
 \setmathsfont(Digits,Latin,Greek){Minion Pro}
 \setmathrm{Minion Pro}
 \setmonofont{Consolas}
+
 
 \titleformat{\paragraph}[hang]{\semibold}{}{0pt}{}
 

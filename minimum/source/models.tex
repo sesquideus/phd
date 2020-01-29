@@ -76,14 +76,30 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     and analyze them in greater detail:
 
 
-    \subsection{Radiants} \label{msr}
+    \subsection{Radiants} \label{msr}        
         We describe the positions of the meteors
 
-        \todo{solar longitude}
-        \todo{motion of the radiant}
-        \todo{explain}
+        The meteor's trajectory is approximated by a straight line and extended to infinity.
+        The point where this projection intersects the celestial sphere is called the \emph{radiant} of the meteor.
+        Unlike the observed position of the meteor, the position of the radiant is not dependent on
+        the position of the observer.
 
-    
+        Clustering of meteors based on their radiants and is the basis of determination of
+        adherence of meteors to meteor showers:
+
+        the same trajectory intersecting the Earth at the same time will always result
+        in the same radiant. Together with speed 
+
+        such as the $D$-criterion defined by \citep{southworth+1964}
+
+        However, the radiants slowly move across the sky over time as the geometry of the collisions
+        with the particles changes.
+
+    \subsection{Speed} \label{mss}
+        While the 
+
+        The position of the radiant, speed and time together define the position and velocity vector of the meteoroid,
+        which in turn uniquely define the original geocentric and heliocentric trajectory.
 
     \subsection{Magnitude distribution} \label{msm}
         The most important characteristic of a meteoroid population is the distribution of masses
@@ -262,8 +278,8 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             It should be kept in mind that the mass and population indices are not fundamental physical quantities,
             but only parameters of simple model distribution functions for masses and apparent magnitudes respectively.
             Also, value of $r$ can be measured correctly only when assuming there is a sharp limit of the observer's detection efficiency.
-            For sigmoid detection efficiency profiles (such as the one defined in \cref{eq:mspm-sigmoid}) it
-            is is not correct.
+            For more complex detection efficiency profiles (such as the one defined in \cref{eq:mspm-sigmoid}) it
+            is not correct.
 
 
 
@@ -451,12 +467,12 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         the total volume swept by the Earth through the stream is negligible for all but the narrowest streams.
         We do not expect any observable reduction in the number of meteoroids during subsequent approaches.
 
-        \subsection{Phase space coordinates} \label{modc}
+        \subsubsection{Phase space coordinates} \label{modc}
             The distribution of meteoroid masses of our interest spans six or seven decimal orders of magnitude,
-            with most of the samples concentrated clositemsepitemsepe to the lower bound of the interval.
+            with most of the samples concentrated near the lower bound of the interval.
             The upper portion of the mass interval is populated only very sparsely.
-            To address this, we may work in logarithmic space instead, using $\log_{10} m$ as the measure of mass.
-            The distribution of masses will still be shifted towards lower values, but not so much.
+            To address this, we may work in logarithmic space instead, using $\log m$ as the measure of mass.
+            The distribution of masses will still be shifted towards lower values, but not so heavily.
 
             The same approach is applicable to other quantities, most importantly the semi-major axis $a$.
             Although the region of our interest is located very close to \SI{1}{\au},
@@ -464,16 +480,22 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             The gravitational influence of the Sun is weaker at these distances and
             even a small change in velocity near the perihelion may alter $a$ significantly.
 
-            Therefore we can use either $1/a$ as the measure of orbit size instead,
+            Therefore we can use $1/a$ as the measure of orbit size instead,
             and use a Gaussian kernel in estimation of this new coordinate.
 
             The entire phase space is then
-            \eqn{eq:modc-phasespace}{
-                M(x, y, z, v_x, v_y, v_z, t, m) \qquad\text{or}\qquad M(1/a, e, i, \omega, \Omega, T, t, \log m).
+            \eqn{eq:modc-psxyz}{
+                \mathcal{M}_c(x, y, z, v_x, v_y, v_z, t, \log m),
+            }
+            or in terms of orbital elements,
+            \eqn{eq:modc-psorb}{
+                \mathcal{M}_o(1/a, e, i, \omega, \Omega, T, t, \log m).
             }
 
     \subsection{Physical quantities and properties} \label{mp}
         \subsubsection{Fluxes and densities} \label{msmf}
+            While the distribution function in the space
+
             The primary measure of activity of a meteor shower (or the sporadic background) is the number
             of meteors encountered per unit area of the surface of the Earth (which is more suitable
             in observational models), or per unit volume in interplanetary space (for orbital models).
@@ -504,6 +526,7 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             }
 
         \subsubsection{Mass index and the Pareto distribution} \label{msms}
+            The s
             While theoretically any distribution of particle masses is possible,
 
             In meteor science, it is customary to assume a specific distribution of masses within a population,
@@ -535,6 +558,11 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
             Naturally, the extent to which the model can approximate the physical reality is limited.
             Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being most common \cite{...}
+
+            The mass index $s$ can be related to the population index $r$ by an empirical relationship
+            \eqn{eq:msms-rs}{
+                r = 1 + \num{2.5} \log s.
+            }
 
         \subsubsection{Additional properties} \label{mpa}
             Apart from the dynamical properties, which describe only the density of particles
@@ -649,14 +677,37 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
     \subsection{Kernel density estimation} \label{mmk}
         Kernel density estimation (KDE) is a non-parametric method of estimating the probability density function
-        of a distribution.
-        is particularly useful when the underlying distribution is not known or very complicated.
+        of a distribution. It is particularly useful when the underlying distribution is not known and thus impossible
+        to fit with a parametric function; or very complicated, in which case there would be too many parameters
+        and possibly many local minima of the fit.
 
-        A comprehensive mathematical description can be found in \citep{hwang+1994}.
+        A comprehensive, mathematically rigorous description can be found in \citep{hwang+1994}.
+        In simple terms, we can imagine computing the KDE as in this simple algorithm:
+        \begin{enumerate}
+            \item 
+            \item for every data point $i$
+                \begin{enumerate}[label=\arabic*.]
+                \item find the coordinates $\vec{x_i} = (x_{i1}, x_{i2}, ..., x_{id})^T$ of the data point $i$
+                \item replace each data point with the kernel, shifted to $\vec{x_i}$
+            \end{enumerate}
+            \item sum all shifted kernels
+            \item return the function as the result
+        \end{enumerate}
+
+        Put mathematically,
+        \eqn{mmk-kde}{
+            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left[\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right]}
+        }
+        Alternatively we may define KDE in terms of $d$-dimensional convolution of the kernel with the sum of all data points,
+        where each data point is represented by a $\delta$-function:
+        \eqn{mmk-kdecont}{
+            \Hat{F}(\vec{x}) = K \ast \left(\Sum[i = 1][n]{\delta\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}\right).
+        }
 
         \subsubsection{Kernel} \label{mmkk}
-            Surprisingly, the choice of the kernel is not particularly important.
-            however, it should be chosen to satisfy two constraints: it must be
+            Surprisingly, the choice of the kernel is not particularly important
+            a class of ``sensible'' functions (centered on 
+            However, it should be chosen to satisfy two constraints: it must be
             \emph{non-negative} over the entire domain
             \eqn{eq:mmkk-nonneg}{
                 \forall \vec{y} \in \Real^d : K(\vec{y}) \geq 0,
@@ -665,32 +716,36 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             \eqn{eq:mmkk-norm}{
                 \Int[\Real^d]{K(\vec{y})}{\vec{y}} = 1.
             }
-            An optional third constraint is that the kernel should be a \emph{symmetric function},
+            An optional third constraint is that the kernel should be a \emph{symmetric function} on its domain,
             \eqn{eq:mmkk-sym}{
-                \forall \vec{y} \in \Real^d : K(\vec{y}) = K(-\vec{y}).
+                \forall \vec{y} \in \Real^d : K(\vec{y}) = K(-\vec{y}),
             }
-
-            One important consideration is that the explored domain need not be
-            a $d$-dimensional Euclidean space. With meteors, two of the coordinates -- declination
-            and right ascension of the radiant -- are in fact spherical coordinates.
-            In these cases, a different distance metric should be used to determine the true shape of the kernel.
+            though this is affected by the choice of coordinates (see \cref{modc}).
 
         \subsubsection{Bandwidth} \label{mmkw}
             The most important consideration in KDE is the determination of correct bandwidth.
-            When the selected bandwidth is too high, the resulting estimate of the distribution
-            becomes very wide and in the limit $h \to \inf$ becomes identical to the original kernel.
-            If it is too low, individual kernels do not overlap and in the limit $\left|\vec{H}\right| \to 0$
-            a sum of $n$ $\delta$-functions is obtained. Both extremes thus do not provide any useful information.
+            If the selected bandwidth is too high, the resulting estimate of the distribution
+            becomes very smeared and does not capture the distribution very well.
+            In the limit $\Abs{\vec{H}} \to \infty$ the estimate becomes identical to the original kernel.
+
+            If the bandwidth is too low, individual kernels do not overlap anymore and produce a series
+            of kernels at the positions of the original data points. In the limit $\Abs{\vec{H}} \to 0$
+            a sum of $n$ $\delta$-functions is obtained.
+            Neither of the extremes provides any useful information.
 
             Several algorithms for determining the optimal bandwidth exist \citep{bowman1985,jones+1996},
             with larger datasets universally requiring narrower bandwidths.
-            A more advanced method is to try to optimize the bandwidth by minimizing the
-            \emph{asymptotic mean integral square error} using a synthetic dataset and
-            then applying the determined kernel bandwidth to the real dataset.
+            One possible approach is to try to optimize the bandwidth by minimizing the
+            \emph{mean integral square error} on some synthetic dataset.
+            The KDE is then calculated on the real dataset with the determined optimal bandwidth.
+
+            To simpl of the covariance matrix $\vec{H}$ we may opt to use a diagonal matrix,
+            but with a different metric. With meteors, two of the coordinates -- declination
+            and right ascension of the radiant -- are in fact spherical coordinates,
+            which cannot be correctly described in Euclidean space anyway.
 
         \subsubsection{Adaptive kernel density estimation} \label{mmka}
-            One possible improvement to the fixed-width KDE is to allow some variation in the bandwidth
-            of the kernel in different regions of the domain in some relation to the data.
+            Another improvement to the fixed-width KDE method is to allow some variation in the bandwidth
+            of the kernels in different regions of the domain in some relation to the data.
             Typically we would require a narrower bandwidth where data are abundant,
             such as in meteor showers, and allow a wider bandwidth in areas where data points are sparse.
-

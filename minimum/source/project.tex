@@ -38,11 +38,18 @@ Typically we do not consider individual particles, but the entire stream and its
     in interplanetary space as a function of position, velocity and time.
 
 \section{Current state of the project} \label{pc}
+    In our master's thesis \citep{balaz-thesis} we used a parametric Monte-Carlo simulation
+    to determine the total flux 
+
+    We assumed a constant radiant and a very brief time interval,
+    which essentially represented only a single point in the $M$ phase space
+    except for the mass, which was sampled from a Pareto distribution for multiple values of $s$,
+    specifically
+    \eqn{eq:pc-thesis}{
+        \mathcal{A}(t = 2016 + \ang{140}, \delta_R = \ang{56}, \alpha_R = \ang{43}, v_\infty = \SI{59}{\kilo\metre\per\second}, s).
+    }
 
 \section{Observational model} \label{ps}
-    We need to use a four-dimensional KDE. Ideally, the kernel should be obtained by a product of five
-    independent one-dimensional kernels.
-
     The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
     \begin{itemize}
         \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
@@ -53,7 +60,7 @@ Typically we do not consider individual particles, but the entire stream and its
 
     The total observable activity is thus described by the \emph{meteor activity function}
     \eqn{eq:i-map}{
-        \varrho(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m).
+        \mathcal{A}(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m).
     }
 
     Necessarily, no observational model is able to capture or describe any stream that does not intersect the orbit of the
@@ -149,9 +156,10 @@ Typically we do not consider individual particles, but the entire stream and its
 
             it is easier and more meaningful to show the logarithm of mass $\log m$ instead.
 
-            Several problems will have to be addressed as well. For instance, in the case
-            of two separate populations with different mass indices mixing the resulting
-            mass index 
+            Several problems will have to be addressed as well.
+            For instance, in the case of two separate populations with different mass indices
+            coming from the same radiant, it is not possible to describe the resulting
+            population with a single value of $r$ or $s$. In the orbital model
 
         \subsubsection{Other properties} \label{iovo}
            The rest of 
@@ -184,5 +192,5 @@ Typically we do not consider individual particles, but the entire stream and its
 
     \subsection{Prerequisites} \label{iOp}
         We need to understand and develop a suitable KDE model, presumably AKDE,
-        which will be able to work with sparse data.
+        which will be able to work with sparse data and in non-Euclidean spaces.
 

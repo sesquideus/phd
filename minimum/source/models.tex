@@ -75,6 +75,8 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
     and analyze them in greater detail:
 
+    The observational model can be \emph{complete}, in the sense that -- at least in principle -- it
+    is possible to record all meteors in the Earth's atmosphere and include them in the model.
 
     \subsection{Radiants} \label{msr}        
         We describe the positions of the meteors
@@ -372,7 +374,8 @@ we need to understand \emph{how} this can be done and how these phenomena can be
                     \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
                 }
                 where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
-                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$.
+                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$ in the direction
+                towards the north celestial pole.
 
                 Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
                 gravitational force. A simple calculation shows that its magnitude is on the order
@@ -413,10 +416,11 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
 
 \section{Orbital model} \label{mo}
-    While the observational model may capture the observed distribution of meteors quite precisely,
-    it does not provide any deeper understanding about \textit{why} meteors appear
-    at some specified time and from a particular region in the sky.
-    To address that, we need to analyze the observed meteoroids and reconstruct their original trajectories.
+    While the observational model may describe the observed distribution of meteors quite precisely,
+    it does not provide any deeper understanding of \textit{why} meteors appear
+    at the specified time and from a particular region in the sky.
+    To address that, we need to analyze the observed meteors and reconstruct
+    the trajectories of the meteoroids which created them.
 
     For each meteor, it is in principle possible to trace its visible motion back in time
     and derive the trajectory of the original meteoroid in the vicinity of the Earth.
@@ -428,14 +432,19 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     Determination of flux in these areas is not possible with Earth-based observations at all
     and can only be investigated with in-situ observations. In this thesis we will not analyze them any further.
 
-    A less fundamental difficulty lies in the low precision of these measurements, particularly of meteor speeds.
+    A less fundamental, but still important difficulty lies in the low precision of these measurements.
     The position of the projection of the meteor in the sky can be determined with high precision:
-    the resolution of a photograph or a video sequence is typically on the order of \ang{;1;}
+    the resolution of a photograph or a video sequence is typically on the order of \SI{1}{\milli\radian}
     while the distance between the observer and the meteor is typically several hundred kilometres.
     This results in an absolute precision on the order of tens of metres.
 
-    This is particularly important when the convergence angle is small \citep{ceplecha1987} or when the angle between
-    the line of sight and the velocity vector of the meteor is small.
+    With meteor speeds the situation is somewhat more complicated.
+    For meteors that are moving in a direction perpendicular to the line of sight, speed can be determined
+    with high precision, but the radiant is typically further away.
+    Meteors that appear close to the radiant will move slowly in the sky, which introduces large errors,
+    however their angular distance from the radiant is small. The effects of geometry thus mostly cancel out.
+    Precision of measurement suffers when the convergence angle is small \citep{ceplecha1987}.
+
     Furthermore, while the trajectory can be computed with very high precision in vacuum,
     meteoroids lose a fraction of their original preatmospheric speed before they become visible \citep{vida+2018}.
     This further adds to the uncertainty of the original orbit.
@@ -443,12 +452,19 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     on interstellar heliocentric orbits in meteor databases \citep{hajdukovajr1994}.
 
     The natural reference system to work with when investigating meteoroid streams in interplanetary space
-    is the \emph{ecliptic coordinate system}.
+    is the \emph{heliocentric ecliptic coordinate system}.
 
-    \subsection{Distribution of physical quantities} \label{mod}
-        The number density distribution function in interplanetary space is simply
+    The orbital model is necessarily incomplete -- we cannot see meteoroids that are not intercepted by the atmosphere
+    and thus do not know virtually anything about them: it is possible there is a dense stream of
+    particles in orbit close to, but do not quite intersect the orbit of the Earth.
+    On the other hand, this is not too problematic, as we are much more interested in those which do.
+
+    \subsection{Choice of coordinate space} \label{moc}
+        As with the observational model, we should begin by determining the coordinate space
+        in which the distribution function should be defined. For positions of meteoroids we need at least
+        three spatial coordinates, three coordinates describing the velocity vector, and the time:
         \eqn{eq:po-rv}{
-            M(\vec{r}, \vec{v}, t).
+            \mathcal{M}_\mathrm{rv}(\vec{r}, \vec{v}, t).
         }
         where
         \begin{description}
@@ -460,14 +476,14 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
         Alternatively this may be expressed in terms of orbital elements as
         \eqn{eq:po-elem}{
-            M_\mathrm{oe}(a, e, i, \omega, \Omega, T).
+            M_\mathrm{oe}(a, e, i, \omega, \Omega, T, t).
         }
 
-        While particles that collide with the Earth are removed from the stream,
-        the total volume swept by the Earth through the stream is negligible for all but the narrowest streams.
-        We do not expect any observable reduction in the number of meteoroids during subsequent approaches.
+        In the observational model we were mostly interested in the distribution of apparent and absolute
+        magnitudes of the meteors. Here the measure of meteoroid size is its true mass $m$.
+        We need to add one more coordinate to describe the distribution of particle masses
 
-        \subsubsection{Phase space coordinates} \label{modc}
+        \subsubsection{Optimizations} \label{moco}
             The distribution of meteoroid masses of our interest spans six or seven decimal orders of magnitude,
             with most of the samples concentrated near the lower bound of the interval.
             The upper portion of the mass interval is populated only very sparsely.
@@ -483,18 +499,23 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             Therefore we can use $1/a$ as the measure of orbit size instead,
             and use a Gaussian kernel in estimation of this new coordinate.
 
-            The entire phase space is then
-            \eqn{eq:modc-psxyz}{
+            The entire coordinate space is then
+            \eqn{eq:moco-psxyz}{
                 \mathcal{M}_c(x, y, z, v_x, v_y, v_z, t, \log m),
             }
             or in terms of orbital elements,
-            \eqn{eq:modc-psorb}{
+            \eqn{eq:moco-psorb}{
                 \mathcal{M}_o(1/a, e, i, \omega, \Omega, T, t, \log m).
             }
 
+            Currently we are not able to state which coordinate space should be used.
+
     \subsection{Physical quantities and properties} \label{mp}
         \subsubsection{Fluxes and densities} \label{msmf}
-            While the distribution function in the space
+            While the distribution function in the space should provide complete information
+            about the density of particles and its change over time,
+            the high number of dimensions it has makes it difficult to comprehend.
+            A method of reduction to a lower number of dimensions is necessary.
 
             The primary measure of activity of a meteor shower (or the sporadic background) is the number
             of meteors encountered per unit area of the surface of the Earth (which is more suitable
@@ -517,8 +538,9 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             \eqn{eq:msmf-flux}{
             }
 
-            Similarly, to determine the total mass influx from a particular population, a simple weighed sum is calculated.
-            The weights used are meteoroid masses and \cref{eq:msmf-flux} becomes
+            Similarly, to determine the total mass influx from a particular population, the first moment
+            of the distribution over particle masses is calculated.
+            \Cref{eq:msmf-flux} becomes
             \eqn{eq:msmf-wflux}{
                 F(\vec{r}, t) = \Int[m_0][\infty]{
                     \Int[\Real^3][]{M(\vec{r}, \vec{v}, t, m)}{\vec{v}}
@@ -526,8 +548,9 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             }
 
         \subsubsection{Mass index and the Pareto distribution} \label{msms}
-            The s
             While theoretically any distribution of particle masses is possible,
+            in real meteoroid populations there is always a large excess of small particles,
+            at least within the meteoroid mass range which can be covered by visual observations.
 
             In meteor science, it is customary to assume a specific distribution of masses within a population,
             described by a power law with particle mass as the independent variable:
@@ -556,12 +579,13 @@ we need to understand \emph{how} this can be done and how these phenomena can be
                 \end{cases}
             }
 
-            Naturally, the extent to which the model can approximate the physical reality is limited.
-            Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being most common \cite{...}
+            Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being most common
+            for meteor showers \cite{} and values around \num{2.2} for sporadic background \cite{blaauw+2011}.
+            The collisional equilibrium for particles of equal strength is reached at $s = 11/6$ \citep{dohnanyi1969}.
 
-            The mass index $s$ can be related to the population index $r$ by an empirical relationship
+            The mass index $s$ can be related to the population index $r$ by an empirical relationship \citep{koschack+1990}
             \eqn{eq:msms-rs}{
-                r = 1 + \num{2.5} \log s.
+                r = 1 + \num{2.3} \log_{10} s.
             }
 
         \subsubsection{Additional properties} \label{mpa}

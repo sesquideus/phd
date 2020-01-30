@@ -20,15 +20,15 @@ Typically we do not consider individual particles, but the entire stream and its
 
 \section{Models}
     Even though meteoroids are discrete particles, it is useful to model their density
-    as a smooth function in multi-dimensional phase space.
+    as a smooth function in multi-dimensional coordinate space.
     Actual particles are then treated as random samples obtained from the underlying distribution.
 
     However, logic dictates we do this in the opposite direction: we need to approximate
     the underlying distribution from a finite set of known samples.
     This may be done using a \emph{kernel density estimation} method.
     Each actual meteoroid, obtained by backwards integration of motion of an observed meteor,
-    is substituted by a multidimensional kernel in the phase space. The precise shape of the kernel
-    is not overly important; for most purposes a simple multidimensional gaussian is sufficient \cite{???}.
+    is substituted by a multidimensional kernel in the coordinate space. The precise shape of the kernel
+    is not overly important; for most purposes a simple multidimensional gaussian is sufficient.
     To make matters even worse, our observational datasets are usually incomplete
     and heavily distorted by observation bias.
 
@@ -42,7 +42,7 @@ Typically we do not consider individual particles, but the entire stream and its
     to determine the total flux 
 
     We assumed a constant radiant and a very brief time interval,
-    which essentially represented only a single point in the $M$ phase space
+    which essentially represented only a single point in the $M$ coordinate space
     except for the mass, which was sampled from a Pareto distribution for multiple values of $s$,
     specifically
     \eqn{eq:pc-thesis}{
@@ -77,8 +77,8 @@ Typically we do not consider individual particles, but the entire stream and its
     Within such maps we should be able to distinguish two main features:
     \begin{itemize}
         \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-        \item and several well-defined, sharp peaks, representing the \emph{meteor showers}. Due to common origin and orbit,
-            these peaks should be very narrow in all dimensions.
+        \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
+            Due to common origin and orbit, these peaks should be very narrow in all dimensions.
     \end{itemize}
 
     Due to influences of various acting forces, such as differences
@@ -128,6 +128,8 @@ Typically we do not consider individual particles, but the entire stream and its
         The major difficulty lies in displaying the remaining two quantities simultaneously.
         for instance in terms of colour and saturation.
 
+        For examples with simple artificial data see \cref{e}.
+
         \subsubsection{Spatial coordinates} \label{iovs}
             The two spatial coordinates 
             The only thing to consider is to how to present spherical data in a flat display,
@@ -140,7 +142,7 @@ Typically we do not consider individual particles, but the entire stream and its
                 The projection preserves the area and thus, in our case,
                 the density of meteoroid radiants.
 
-                \hfill\textit{Image by Daniel R. Strebe, 2011, CC BY-SA 3.0}
+                \hfill\textit{Picture by Daniel R. Strebe, 2011, CC BY-SA 3.0}
             }
 
         \subsubsection{Time} \label{iovt}
@@ -148,35 +150,18 @@ Typically we do not consider individual particles, but the entire stream and its
             and display the development of meteor activity in a video, at some appropriate scale.
             Otherwise a sequence of discrete images is suitable as well.
 
-        \subsubsection{Mass} \label{iovm}
-            The mass distribution of meteoroids is universally heavily shifted
-            towards smaller particles (see \cref{mpam}), at least within the mass
-            range that can be covered by visual observations.
-            The KDE method
+        \subsubsection{Masses and magnitudes} \label{iovm}
+            Both the distribution of masses (in the orbital model) and of brightnesses (in the observational model)
+            are universally heavily shifted towards lower values (see \cref{mpam}),
+            
 
-            it is easier and more meaningful to show the logarithm of mass $\log m$ instead.
+            Even so it is difficult to display the entire information about the spectrum at every point
+            in other coordinates. Therefore only the reduced quantities will be displayed,
+            namely the values of indices $r$ and $s$.
 
-            Several problems will have to be addressed as well.
-            For instance, in the case of two separate populations with different mass indices
-            coming from the same radiant, it is not possible to describe the resulting
-            population with a single value of $r$ or $s$. In the orbital model
-
-        \subsubsection{Other properties} \label{iovo}
-           The rest of 
-
-        \subsubsection{Example} \label{iove}
-            Put all together
-
-            \sfig{example.png}{\textwidth}{fig:iov-mockup}{
-                An example of the sky map for one night of observations.
-                Individual meteoroid radiants are pictured as dots,
-                with larger dots corresponding to more massive particles.
-                In the background the underlying distribution of radiants is obtained
-                using a spherical KDE method with a Gaussian kernel.
-
-                In the picture are displayed 10000 sporadic meteors with uniform distribution of radiants
-                and three fictional meteor showers with different dispersion profiles.
-            }
+            Several problems will have to be addressed -- for instance, in the case of
+            two separate populations with different mass indices coming from the same radiant,
+            it is not possible to describe the resulting population with a single value of $r$ or $s$.
 
 
 \section{Objectives of the thesis} \label{iO}

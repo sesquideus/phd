@@ -11,8 +11,8 @@ Once we have ascertained what physical objects and phenomena we are going to be 
 we need to understand \emph{how} this can be done and how these phenomena can be described by a simplified \emph{model}.
 
 
-\section{Generic properties of models} \label{g}
-    Some of the quantities are fundamental 
+\section{Generic properties of models} \label{mg}
+    Some of the quantities are fundamental and applicable to both models.
 
     We can analyze 
 
@@ -62,15 +62,67 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
 
 
-\section{Observational model} \label{m}
+\section{Observational model} \label{ms}
     The \emph{observational model} is concerned primarily with the properties of meteors,
-    as opposed to the \emph{orbital model}, which focuses on the properties of meteoroids in heliocentric orbits.
+    as opposed to the \emph{orbital model}, which focuses on the properties of meteoroids
+    which are still in heliocentric orbits.
+
+    No observational model is able to capture or describe any stream that does not intersect the orbit of the
+    Earth.\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
+    with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
+    if their orbit intersects with the Earth's.}
+
+
+    The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
+    \begin{itemize}
+        \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
+        \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
+        \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
+        \item and the \emph{mass spectrum}, or the probability density of distribution of meteoroid masses.
+    \end{itemize}
+
+    The total observable activity is thus described by the \emph{meteor activity function}
+    \eqn{eq:i-map}{
+        \mathcal{A}(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m).
+    }
+
+  
+    Within such maps we should be able to distinguish two main features:
+    \begin{itemize}
+        \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
+        \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
+            Due to common origin and orbit, these peaks should be very narrow in all dimensions.
+    \end{itemize}
+
+    Due to influences of various acting forces, such as differences
+    in initial velocities with respect to the parent body, tidal disruptions,
+    perturbations arising from close encounters with large bodies of the Solar System,
+    Poynting-Robertson effect, etc., the stream
+    gradually widens and disperses in all components until it can no longer be distinguished from the background.
+
+    \subsection{Declination and right ascension} \label{ios}
+        The two spatial coordinates mark the position of the \emph{true radiant} of the particles.
+        As we are only concerned with the density of the stream as a whole,
+        the exact position of the observed meteor in the sky is immaterial.
+        Even a minuscule change in velocity or ejection time could have had a drastic effect
+        on the precise timing and geometry of the meteor without affecting
+        the position of the radiant or the meteoroid's adherence to the stream.
+
+        A significant difficulty is encountered with daytime meteor showers, whose radiants
+        lie very close to the current position of the Sun.
+        Most particles will then enter the atmosphere on the day side
+        of the Earth, where a huge majority of particles burns up unnoticed.
+        With radar observations it is possible to track the activity as well,
+        however this observation technique calls for different methods of processing and debiasing the data.
+        We estimate that using purely visual data it is impossible (or at least very difficult) to establish fluxes
+        for meteor showers whose radiants are within \ang{15} from the Sun, and significant bias
+        is introduced for angles up to \ang{60}.
 
     Such a model 
 
-    the task is thus reduced to finding the distribution function for meteors
+    the task is thus reduced to finding the distribution function for meteor radiants
     \eqn{eq:ms-dist}{
-        \varrho(\delta_\mathrm{R}, \alpha_\mathrm{R}, t, v_\infty, m)
+        (\delta_\mathrm{R}, \alpha_\mathrm{R}, t, v_\infty, m)
     }
 
     and analyze them in greater detail:
@@ -78,30 +130,41 @@ we need to understand \emph{how} this can be done and how these phenomena can be
     The observational model can be \emph{complete}, in the sense that -- at least in principle -- it
     is possible to record all meteors in the Earth's atmosphere and include them in the model.
 
-    \subsection{Radiants} \label{msr}        
-        We describe the positions of the meteors
+    \subsection{Position} \label{msp}
+        While position in space it is a fundamental physical quantity,
+        it is not a very useful in the observational model.
+        On a large scale it is determined by the position of the Earth at the particular time,
+        as only particles that enter the atmosphere can be included in the model.
+        On the local scale it does not provide much information: most meteoroid streams
+        are much wider than the diameter of the Earth and within them,
+        we may treat exact position of meteoroids entry as essentially random.
+        Even a very small change in the orbital elements of one meteoroid
+        would cause it to enter the atmosphere at a different place,
+        and the same observer would see it at a vastly difference place in the sky or not at all.
+
+    \subsection{Velocity} \label{msv}
+        Another important measurable quantity is the velocity of the meteor.
+        Unlike with positions, a very wide range of geocentric velocities is available.
+        Combined with the position, which is known, 
+
 
         The meteor's trajectory is approximated by a straight line and extended to infinity.
         The point where this projection intersects the celestial sphere is called the \emph{radiant} of the meteor.
         Unlike the observed position of the meteor, the position of the radiant is not dependent on
-        the position of the observer.
+        the position of the observer. but the radiant changes only negligibly.
 
         Clustering of meteors based on their radiants and is the basis of determination of
-        adherence of meteors to meteor showers:
+        adherence of meteors to meteor showers: particles on nearly the same trajectory intersecting
+        the Earth at the same time will always have the (approximately) same radiant.
+        However, the radiants slowly move across the sky as the geometry of the collisions
+        with the particles changes over time.
 
-        the same trajectory intersecting the Earth at the same time will always result
-        in the same radiant. Together with speed 
-
-        such as the $D$-criterion defined by \citep{southworth+1964}
-
-        However, the radiants slowly move across the sky over time as the geometry of the collisions
-        with the particles changes.
-
-    \subsection{Speed} \label{mss}
-        While the 
-
-        The position of the radiant, speed and time together define the position and velocity vector of the meteoroid,
         which in turn uniquely define the original geocentric and heliocentric trajectory.
+        This is also the basis for criteria for determination of adherence to streams,
+        such as the $D$-criterion defined by \citet{southworth+1964}.
+
+        Hence we obtain our first three coordinates: the components of the velocity vector $v_x$, $v_y$ and $v_z$,
+        or more conveniently the declination and right ascension of the radiant
 
     \subsection{Magnitude distribution} \label{msm}
         The most important characteristic of a meteoroid population is the distribution of masses
@@ -110,7 +173,6 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
         yet will result in large ZHR.
 
-       
         \subsubsection{Photometric mass} \label{msmp}
             From ground observations it is not possible to measure the true mass of the meteoroid directly.
             We may only estimate the mass using a chosen model, using some other quantities we know.
@@ -224,7 +286,8 @@ we need to understand \emph{how} this can be done and how these phenomena can be
                 \item[$\theta_\mathrm{R}$]
                     is the altitude of the radiant above the horizon.
             \end{description}
-            In this definition the limiting magnitude is considered to be a sharp boundary, e. g. all meteors
+            In this definition the limiting magnitude is considered to be a sharp boundary -- all
+            meteors below the limiting magnitude are detected.
 
             In our model the ZHR is not an input, but rather a computed quantity, completely determined by the
             models of the meteoroid population, atmosphere and of the observer's detection efficiency.
@@ -283,137 +346,130 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             For more complex detection efficiency profiles (such as the one defined in \cref{eq:mspm-sigmoid}) it
             is not correct.
 
-
-
-    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
-    and used to determine the total flux of the Perseids in 2016. Instead of trying to
-    estimate the biases we generated the meteoroids above the atmosphere and simulated
-    their entry using a simplified set of equations for motion, ablation and luminosity.
-    A collection of stochastic bias functions was then applied to the dataset and
-    each meteor was marked as detected or missed. We varied the parameters of the bias functions
-    and the mass index until agreement with observational data was achieved.
-    The initial population was then declared as the model of the actual population
-    and the bias functions were taken as descriptive of the observing system.
-
-    The values of mass index $s$ is an input to the model while the value of $r$
-    can be determined from the output.
-
-
-\section{Simulation in the atmosphere} \label{ma}
-    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
-    the physical processes manifested during their atmospheric entry and obtain the values of physical quantities
-    that are observed by ground-based observers.
-
-    The coordinate frame of choice here is the Earth-Centered, Earth-Fixed frame (origin in the centre of mass of the Earth,
-    reference plane is the equator and the reference direction is the international prime meridian).
-    This reference frame is right-handed
-
-    First of all, the position and velocity of the particle are transformed to the ECEF coordinate frame.
-
-    To simulate the atmospheric entry we used \textsc{Asmodeus},
-    a multi-purpose virtual meteor simulator developed as a part of our master's thesis and extended for numerous
-    other purposes related to meteor astronomy \citep{balaz-thesis,balaz+2020}.
-
-    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
-    and a numerical integration of the equations of motion is executed.
-
-    \subsection{Numerical integration of the equations of motion} \label{sai}
-        Unlike in interplanetary space, where forces are completely dominated by the gravitational force exerted by the Sun,
-        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
-        The precise order is subject to variations due to particle's size, entry speed and angle
-        and material composition.
+            In our model, the value of mass index $s$ is an input while the value of $r$
+            can be determined from the output.
 
 
 
-        \subsubsection{Acting forces} \label{saia}
-            In the simulation we consider only two real forces:
-            \begin{itemize}
-                \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
-                \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
-            \end{itemize}
 
-            The precision of the calculations may be improved if we also account for two fictitious forces,
-            arising from the fact the simulation is performed in a rotating reference frame:
-            \begin{itemize}
-                \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$,
-                    pushing the particle away from the axis of rotation of the Earth;
-                \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$,
-                    which pushes the moving body in a direction perpendicular to its velocity vector.
-            \end{itemize}
+%    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
+%    and used to determine the total flux of the Perseids in 2016. Instead of trying to
+%    estimate the biases we generated the meteoroids above the atmosphere and simulated
+%    their entry using a simplified set of equations for motion, ablation and luminosity.
+%    A collection of stochastic bias functions was then applied to the dataset and
+%    each meteor was marked as detected or missed. We varied the parameters of the bias functions
+%    and the mass index until agreement with observational data was achieved.
+%    The initial population was then declared as the model of the actual population
+%    and the bias functions were taken as descriptive of the observing system.
 
-            Except for the drag force, all forces can be readily expressed in terms of instantaneous
-            position and velocity of the meteoroid and several constants.
-            Calculating the drag force precisely is computationally very expensive and cannot be done
-            without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
-
-            In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
-            the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
-            deeper into the atmosphere, the density of the surrounding gas increases roughly exponentially.
-            At its peak, the atmospheric drag force exceeds all other effects by several orders of magnitude,
-            decelerating the meteoroid very rapidly.
-            As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
-            to produce a significant deviation in trajectory. For statistical evaluation of artificial meteors
-            it is sufficient to consider only the drag force.
-            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
-
-            \paragraph{Coriolis force} \label{saiC}
-                The fictitious Coriolis force arises in a rotating reference frame.
-                \eqn{eq:saiC-coriolis}{
-                    \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
-                }
-
-                For a meteoroid, its magnitude is at most on the order of
-                \eqn{eq:saiC-order}{
-                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-                }
-                roughly the same as gravitational acceleration.
-
-            \paragraph{Centrifugal force} \label{saic}
-                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-                \eqn{eq:saic-centrifugal}{
-                    \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
-                }
-                where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
-                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$ in the direction
-                towards the north celestial pole.
-
-                Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
-                gravitational force. A simple calculation shows that its magnitude is on the order
-                of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
-                It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
-                is used to investigate the motion of a meteoroid further from the Earth.
-                However, in this case an inertial reference frame should be used instead.
-
-            \paragraph{Gravitational force} \label{saig}
-                The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
-                For particles that are generally moving on highly hyperbolic trajectories the
-                simple approximation by a Newtonian point source with mass $M_\Earth$ is more than sufficient.
-                The formula used in computation is then simply
-                \eqn{eq:saig-gravity}{
-                    \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
-                }
-
-            \paragraph{Drag force} \label{said}
-                The precise description of the drag force is crucial to understand the motion
-                of meteoroids in the atmosphere. The drag force is dominant between approximately
-                the point where meteoroids begin to emit visible light (about \SI{100}{\kilo\metre})
-                until the very end of the visible trail. For all but the most massive meteoroids,
-                which are able to survive the atmospheric entry, this can be approximated
-                by the point where all of the matter has been ablated away; while for the bodies
-                surviving as meteorites, during the terminal phase of the flight the drag and
-                gravitational forces are nearly balanced out.
-
-                At peak deceleration the magnitude of the drag force can reach values several orders of magnitude
-                higher than the sum of all other forces and is thus completely dominant.
-                A very simple model of atmospheric flight can thus perform relatively
-                well even when all other forces are neglected.
-
-    \subsection{Determination of luminosity} \label{sail}
-        Currently we use... \citep{hill+2005} \todo{rmeasureeally?}
-
-        \citep{bronshten1983}
-        but more precise models should be developed
-
+%\section{Simulation in the atmosphere} \label{ma}
+%    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
+%    the physical processes manifested during their atmospheric entry and obtain the values of quantities
+%    that can be observed by ground-based observers.
+%
+%    To simulate the atmospheric entry we used \textsc{Asmodeus},
+%    a multi-purpose virtual meteor simulator developed as a part of our master's thesis and extended for numerous
+%    other purposes related to meteor astronomy \citep{balaz-thesis,balaz+2020}.
+%
+%    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
+%    and a numerical integration of the equations of motion is executed.
+%
+%    \subsection{Numerical integration of the equations of motion} \label{sai}
+%        Unlike in interplanetary space, where forces are completely dominated by the gravitational force exerted by the Sun
+%        and only slightly perturbed by other effects,
+%        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
+%        The precise order is subject to variations due to particle's size, entry speed and angle
+%        and material composition.
+%
+%        \subsubsection{Acting forces} \label{saia}
+%            In the simulation we consider only two real forces:
+%            \begin{itemize}
+%                \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
+%                \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
+%            \end{itemize}
+%
+%            The precision of the calculations may be improved if we also account for two fictitious forces,
+%            arising from the fact the simulation is performed in a rotating reference frame:
+%            \begin{itemize}
+%                \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$,
+%                    pushing the particle away from the axis of rotation of the Earth;
+%                \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$,
+%                    which pushes the moving body in a direction perpendicular to its velocity vector.
+%            \end{itemize}
+%
+%            Except for the drag force, all forces can be readily expressed in terms of instantaneous
+%            position and velocity of the meteoroid and several constants.
+%            Calculating the drag force precisely is computationally very expensive and cannot be done
+%            without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
+%
+%            In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
+%            the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
+%            deeper into the atmosphere, the density of the surrounding gas increases roughly exponentially.
+%            At its peak, the atmospheric drag force exceeds all other effects by several orders of magnitude,
+%            decelerating the meteoroid very rapidly.
+%            As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
+%            to produce a significant deviation in trajectory. For statistical evaluation of artificial meteors
+%            it is sufficient to consider only the drag force.
+%            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
+%
+%            \paragraph{Coriolis force} \label{saiC}
+%                The fictitious Coriolis force arises in a rotating reference frame.
+%                \eqn{eq:saiC-coriolis}{
+%                    \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
+%                }
+%
+%                For a meteoroid, its magnitude is at most on the order of
+%                \eqn{eq:saiC-order}{
+%                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
+%                }
+%                roughly the same as gravitational acceleration.
+%
+%            \paragraph{Centrifugal force} \label{saic}
+%                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
+%                \eqn{eq:saic-centrifugal}{
+%                    \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
+%                }
+%                where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
+%                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$ in the direction
+%                towards the north celestial pole.
+%
+%                Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
+%                gravitational force. A simple calculation shows that its magnitude is on the order
+%                of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
+%                It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
+%                is used to investigate the motion of a meteoroid further from the Earth.
+%                However, in this case an inertial reference frame should be used instead.
+%
+%            \paragraph{Gravitational force} \label{saig}
+%                The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
+%                For particles that are generally moving on highly hyperbolic trajectories the
+%                simple approximation by a Newtonian point source with mass $M_\Earth$ is more than sufficient.
+%                The formula used in computation is then simply
+%                \eqn{eq:saig-gravity}{
+%                    \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
+%                }
+%
+%            \paragraph{Drag force} \label{said}
+%                The precise description of the drag force is crucial to understand the motion
+%                of meteoroids in the atmosphere. The drag force is dominant between approximately
+%                the point where meteoroids begin to emit visible light (about \SI{100}{\kilo\metre})
+%                until the very end of the visible trail. For all but the most massive meteoroids,
+%                which are able to survive the atmospheric entry, this can be approximated
+%                by the point where all of the matter has been ablated away; while for the bodies
+%                surviving as meteorites, during the terminal phase of the flight the drag and
+%                gravitational forces are nearly balanced out.
+%
+%                At peak deceleration the magnitude of the drag force can reach values several orders of magnitude
+%                higher than the sum of all other forces and is thus completely dominant.
+%                A very simple model of atmospheric flight can thus perform relatively
+%                well even when all other forces are neglected.
+%
+%    \subsection{Determination of luminosity} \label{sail}
+%        Currently we use... \citep{hill+2005} \todo{rmeasureeally?}
+%
+%        \citep{bronshten1983}
+%        but more precise models should be developed
+%
 
 \section{Orbital model} \label{mo}
     While the observational model may describe the observed distribution of meteors quite precisely,
@@ -468,10 +524,14 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         }
         where
         \begin{description}
-            \item[$\vec{r}$]    is the instantaneous position in a heliocentric inertial reference frame;
-            \item[$\vec{v}$]    is the velocity in the same frame;
-            \item[$t$]          is the time;
-            \item[$\varrho$]    is the number density of particles.
+            \item[$\vec{r}$]
+                is the instantaneous position in a heliocentric inertial reference frame;
+            \item[$\vec{v}$]
+                is the velocity in the same frame;
+            \item[$t$]
+                is the time;
+            \item[$\mathcal{M}_\mathrm{rv}$]
+                is the number density of particles in the position-velocity coordinate space.
         \end{description}
 
         Alternatively this may be expressed in terms of orbital elements as
@@ -479,9 +539,9 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             M_\mathrm{oe}(a, e, i, \omega, \Omega, T, t).
         }
 
-        In the observational model we were mostly interested in the distribution of apparent and absolute
-        magnitudes of the meteors. Here the measure of meteoroid size is its true mass $m$.
-        We need to add one more coordinate to describe the distribution of particle masses
+        While in the observational model we were mostly interested in the distribution of apparent and absolute
+        magnitudes of the meteors, here the measure of meteoroid size is its true mass.
+        We need to add one more coordinate $m$ to describe the distribution of particle masses.
 
         \subsubsection{Optimizations} \label{moco}
             The distribution of meteoroid masses of our interest spans six or seven decimal orders of magnitude,
@@ -495,7 +555,6 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             orbits of meteoroids originating from long-period comets have very large $a$.
             The gravitational influence of the Sun is weaker at these distances and
             even a small change in velocity near the perihelion may alter $a$ significantly.
-
             Therefore we can use $1/a$ as the measure of orbit size instead,
             and use a Gaussian kernel in estimation of this new coordinate.
 
@@ -507,8 +566,6 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             \eqn{eq:moco-psorb}{
                 \mathcal{M}_o(1/a, e, i, \omega, \Omega, T, t, \log m).
             }
-
-            Currently we are not able to state which coordinate space should be used.
 
     \subsection{Physical quantities and properties} \label{mp}
         \subsubsection{Fluxes and densities} \label{msmf}
@@ -696,7 +753,7 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         Further optimizations are not possible in general.
 
 \section{Mathematical foundations} \label{mm}
-
+    Knowing 
     The number of parameters encountered and the complexity of the model essentially preclude the use of any parametric models.
 
     \subsection{Kernel density estimation} \label{mmk}
@@ -729,8 +786,7 @@ we need to understand \emph{how} this can be done and how these phenomena can be
         }
 
         \subsubsection{Kernel} \label{mmkk}
-            Surprisingly, the choice of the kernel is not particularly important
-            a class of ``sensible'' functions (centered on 
+            Surprisingly, the choice of the kernel is not particularly important.
             However, it should be chosen to satisfy two constraints: it must be
             \emph{non-negative} over the entire domain
             \eqn{eq:mmkk-nonneg}{
@@ -740,11 +796,13 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             \eqn{eq:mmkk-norm}{
                 \Int[\Real^d]{K(\vec{y})}{\vec{y}} = 1.
             }
-            An optional third constraint is that the kernel should be a \emph{symmetric function} on its domain,
+
+            An optional, but sensible third constraint is that the kernel should be a \emph{symmetric function},
             \eqn{eq:mmkk-sym}{
                 \forall \vec{y} \in \Real^d : K(\vec{y}) = K(-\vec{y}),
             }
             though this is affected by the choice of coordinates (see \cref{modc}).
+            Some commonly used kernels are box functions, triangles and gaussians.
 
         \subsubsection{Bandwidth} \label{mmkw}
             The most important consideration in KDE is the determination of correct bandwidth.
@@ -763,7 +821,7 @@ we need to understand \emph{how} this can be done and how these phenomena can be
             \emph{mean integral square error} on some synthetic dataset.
             The KDE is then calculated on the real dataset with the determined optimal bandwidth.
 
-            To simpl of the covariance matrix $\vec{H}$ we may opt to use a diagonal matrix,
+            To simplify the fit, instead of the covariance matrix $\vec{H}$ we may opt to use a diagonal matrix,
             but with a different metric. With meteors, two of the coordinates -- declination
             and right ascension of the radiant -- are in fact spherical coordinates,
             which cannot be correctly described in Euclidean space anyway.

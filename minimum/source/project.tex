@@ -49,61 +49,6 @@ Typically we do not consider individual particles, but the entire stream and its
         \mathcal{A}(t = 2016 + \ang{140}, \delta_R = \ang{56}, \alpha_R = \ang{43}, v_\infty = \SI{59}{\kilo\metre\per\second}, s).
     }
 
-\section{Observational model} \label{ps}
-    The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
-    \begin{itemize}
-        \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
-        \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
-        \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
-        \item and the \emph{mass spectrum}, or the probability density of distribution of meteoroid masses.
-    \end{itemize}
-
-    The total observable activity is thus described by the \emph{meteor activity function}
-    \eqn{eq:i-map}{
-        \mathcal{A}(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m).
-    }
-
-    Necessarily, no observational model is able to capture or describe any stream that does not intersect the orbit of the
-    Earth.\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
-    with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
-    if their orbit intersects with the Earth's.}
-
-    In visualisations it is natural to keep the spatial and temporal dimensions as they are -- that is,
-    right ascension and declination are displayed as spatial coordinates using one of suitable projections,
-    while time evolution of streams is best displayed in a sequence of images.
-    Displaying the secular evolution of one stream can be performed by comparing the state of the function $M$ at
-    the same $\lambda_\odot$ in successive years.
-
-    Within such maps we should be able to distinguish two main features:
-    \begin{itemize}
-        \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-        \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
-            Due to common origin and orbit, these peaks should be very narrow in all dimensions.
-    \end{itemize}
-
-    Due to influences of various acting forces, such as differences
-    in initial velocities with respect to the parent body, tidal disruptions,
-    perturbations arising from close encounters with large bodies of the Solar System,
-    Poynting-Robertson effect, etc., the stream
-    gradually widens and disperses in all components until it can no longer be distinguished from the background.
-
-    \subsection{Declination and right ascension} \label{ios}
-        The two spatial coordinates mark the position of the \emph{true radiant} of the particles.
-        As we are only concerned with the density of the stream as a whole,
-        the exact position of the observed meteor in the sky is immaterial.
-        Even a minuscule change in velocity or ejection time could have had a drastic effect
-        on the precise timing and geometry of the meteor without affecting
-        the position of the radiant or the meteoroid's adherence to the stream.
-
-        A significant difficulty is encountered with daytime meteor showers, whose radiants
-        lie very close to the current position of the Sun.
-        Most particles will then enter the atmosphere on the day side
-        of the Earth, where a huge majority of particles burns up unnoticed.
-        With radar observations it is possible to track the activity as well,
-        however this observation technique calls for different methods of processing and debiasing the data.
-        We estimate that using purely visual data it is impossible (or at least very difficult) to establish fluxes
-        for meteor showers whose radiants are within \ang{15} from the Sun, and significant bias
-        is introduced for angles up to \ang{60}.
 
     \subsection{Validity of the model} \label{iav}
         Since the model is to be constructed solely with data from visual observations,
@@ -122,19 +67,21 @@ Typically we do not consider individual particles, but the entire stream and its
         High-dimensional data are relatively hard to comprehend. Substantial care should be taken when designing
         a human-oriented visualisation
 
+        The natural solution is to keep spatial and temporal dimensions as they are -- that is,
+        right ascension and declination are displayed as spatial coordinates using one of suitable projections,
+        while time evolution of streams is best displayed as a video or in a sequence of images.
+        Displaying the secular evolution of one stream can be performed by comparing the function $\mathcal{A}$ at
+        the same $\lambda_\odot$ in successive years.
 
-        The natural solution is to keep spatial coordinates as spatial and the time as time,
-        though due to limitations of some media alternative solutions have to be considered.
-        The major difficulty lies in displaying the remaining two quantities simultaneously.
-        for instance in terms of colour and saturation.
-
-        For examples with simple artificial data see \cref{e}.
+        A major difficulty lies in displaying the remaining two quantities -- speed and mass distribution -- simultaneously.
+        Colour mappings to saturation an hue may be added, or both quantities may be considered only separately.
+        For an example with simple artificial data see \cref{e}.
 
         \subsubsection{Spatial coordinates} \label{iovs}
-            The two spatial coordinates 
+            The two spatial coordinates, declination $\delta_R$ and right ascension $\alpha_R$ are preserved.
             The only thing to consider is to how to present spherical data in a flat display,
             which is a fairly standard task in wide-field observational astronomy.
-            The projection used should be an equal-area one, so as to preserve the spatial density of radiants.
+            The projection used should be an equal-area one, so as to preserve the spatial density of radiants as well.
             One suitable example is the \emph{Mollweide} projection.
 
             \fig{mollweide.jpg}{\textwidth}{fig:iovs-mollweide}{
@@ -153,7 +100,6 @@ Typically we do not consider individual particles, but the entire stream and its
         \subsubsection{Masses and magnitudes} \label{iovm}
             Both the distribution of masses (in the orbital model) and of brightnesses (in the observational model)
             are universally heavily shifted towards lower values (see \cref{mpam}),
-            
 
             Even so it is difficult to display the entire information about the spectrum at every point
             in other coordinates. Therefore only the reduced quantities will be displayed,
@@ -163,16 +109,14 @@ Typically we do not consider individual particles, but the entire stream and its
             two separate populations with different mass indices coming from the same radiant,
             it is not possible to describe the resulting population with a single value of $r$ or $s$.
 
-
 \section{Objectives of the thesis} \label{iO}
-    In the thesis we are planning to simulate the orbital evolution and production of meteors
-    by several most prominent meteor showers.
+    We may summarize the objectives in following points.
 
     \begin{itemize}
         \item develop a model of meteoroid distribution in the inner Solar System;
         \item reduce the model to the Earth's atmosphere and obtain a sky map
             of observable meteor activity at any place and time,
-            such as the one depicted in \cref{fig:iov-mockup};
+            such as the one depicted in \cref{fig:e-mockup};
     \end{itemize}
 
     \subsection{Prerequisites} \label{iOp}

@@ -174,12 +174,19 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             Two commonly used measures are the \emph{photometric mass} and \emph{dynamic mass} \citep{ceplecha1966}.
 
             When simulating meteors, we know the original mass of the meteoroid particle.
-            With the knowledge of the equations of motion, ablation and luminosity (see \cref{mpam})
+            With the knowledge of the equations of motion, ablation and luminosity
             we are able to determine the luminosity of the meteor at any time.
+            One of the simplest models \citep{hill+2005} assumes that the energy emitted as visible light
+            is proportional to change in particle's kinetic energy,
+            \eqn{eq:mspf-tau}{
+                F_0 = -\tau \frac{\dot{m} v^2}{2}
+            }
+            for some constant $\tau$ named \emph{luminous efficiency factor}.
+
             Photometric mass is obtained by working in the reverse direction: we can estimate the
             ablated mass from the amount of light emitted by the meteoroid during its passage through the atmosphere.
 
-            The standard approach is to invert the equation \cref{???} and integrate it \todo{fix this}
+            The standard approach is to invert the equation \cref{eq:mspf-tau} and integrate it
             through the entire light phase,
             \eqn{eq:mspf-photo}{
                 \fdiff m = \Int[t_\mathrm{begin}][t_\mathrm{end}]{\frac{F(t)}{\tau v(t)^2}}{t},
@@ -336,24 +343,22 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             It should be kept in mind that the mass and population indices are not fundamental physical quantities,
             but only parameters of simple model distribution functions for masses and apparent magnitudes respectively.
             Also, value of $r$ can be measured correctly only when assuming there is a sharp limit of the observer's detection efficiency.
-            For more complex detection efficiency profiles (such as the one defined in \cref{eq:mspm-sigmoid})
+            For more complex detection efficiency profiles (such as the one defined in \cref{eq:msam-sigmoid})
             it cannot be defined.
 
             In our model, the value of mass index is always $s$ is treated as an input,
             while the value of $r$ can be computed from the orbital model and simulating the meteoroids entering the atmosphere.
 
         \subsubsection{Selection bias} \label{msab}
-            \todo{here and there}
+            In many analyses of observational dataset authors tend to overlook the effect of selection bias --  the
+            propensity of the selected method of gathering the data to include certain data points with higher probability than other ones.
+            This may negatively influence the conclusions that are drawn from the data, if these effects are not understood and corrected for.
+            In our specific case it is chiefly the tendency of the cameras to detect brighter meteors more reliably than fainter ones,
+            which leads to underestimating the number of faint meteors observable in the sky.
+            For a detailed list of possible sources of bias and methods refer to \citep{balaz-thesis}.
 
-    \subsection{The final model} \label{msm}
-        
-
-        the task is thus reduced to finding the distribution function for meteor radiants
-        \eqn{eq:msm-dist}{
-            \mathcal{A}(\delta_\mathrm{R}, \alpha_\mathrm{R}, t, v_\infty, \mu)
-        }
-
-        The final product would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
+    \subsection{Summary} \label{msm}
+        The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
         \begin{itemize}
             \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
             \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
@@ -361,9 +366,15 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
         \end{itemize}
 
+        the task is thus reduced to finding the distribution function for meteor radiants
+        \eqn{eq:msm-dist}{
+            \mathcal{A}(\delta_\mathrm{R}, \alpha_\mathrm{R}, t, v_\infty, m)
+        }
+
+
         The total observable activity is thus described by the \emph{meteor activity function}
         \eqn{eq:msm-map}{
-            \mathcal{A}(t, \vec{v}, m) \equiv \varrho(t, \delta_R, \alpha_R, v_\infty, m),
+            \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_R, \alpha_R, v_\infty, m),
         }
 
         Within such maps we should be able to distinguish two main features:
@@ -373,13 +384,11 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
                 Due to common origin and orbit, these peaks should be very narrow in all dimensions.
         \end{itemize}
 
-        Due to influences of various acting forces, such as differences
-        in initial velocities with respect to the parent body, tidal disruptions,
-        perturbations arising from close encounters with large bodies of the Solar System,
-        Poynting-Robertson effect, etc., the stream
-        gradually widens and disperses in all components until it can no longer be distinguished from the background.
-
-
+            Due to influences of various acting forces, such as differences
+            in initial velocities with respect to the parent body, tidal disruptions,
+            perturbations arising from close encounters with large bodies of the Solar System,
+            Poynting-Robertson effect, etc., the stream
+            gradually widens and disperses in all components until it can no longer be distinguished from the background.
 
 %    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
 %    and used to determine the total flux of the Perseids in 2016. Instead of trying to
@@ -602,6 +611,10 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             }
 
     \subsection{Physical quantities and properties} \label{mp}
+        Apart from the position and velocities, which we have already described
+
+        \subsubsection{Time} \label{msmt}
+
         \subsubsection{Fluxes and densities} \label{msmf}
             While the distribution function in the space should provide complete information
             about the density of particles and its change over time,
@@ -618,7 +631,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             Spatial number density is obtained from the model by integrating over all parameters
             in the space except the spatial ones:
             \eqn{eq:msmf-spatial}{
-                \varrho(\vec{r}, t) = \Int[m_0][\infty]{
+                \varrho(\vec{r}, t) = \Int[\mu_0][\infty]{
                     \Int[\Real^3][]{M(\vec{r}, \vec{v}, t, \mu)}{\vec{v}}
                 }{\mu}
             }
@@ -633,7 +646,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             of the distribution over particle masses is calculated.
             \Cref{eq:msmf-flux} becomes
             \eqn{eq:msmf-wflux}{
-                F(\vec{r}, t) = \Int[m_0][\infty]{
+                F(\vec{r}, t) = \Int[\mu_0][\infty]{
                     \Int[\Real^3][]{M(\vec{r}, \vec{v}, t, \mu)}{\vec{v}}
                 }{\mu}
             }
@@ -679,6 +692,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
                 r = 1 + \num{2.3} \log_{10} s.
             }
 
+
     \subsection{Additional properties} \label{mpa}
         Apart from the dynamical properties, which describe only the density of particles
         and thus a probability of a collision at a point in space and time,
@@ -702,11 +716,11 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             it is definitely useful to include it when available.
 
 
-\section{Simulations} \label{ms}
+\section{Simulations} \label{mi}
     At the core of both the orbital and the observational models are numerical simulations.
     The simulation starts with some assumed distribution of meteoroid particles
 
-    \subsection{Simulation in the Solar System} \label{mso}
+    \subsection{Simulation in the Solar System} \label{mio}
         Simulating the motion of meteoroids in interplanetary space is comparatively easy.
         First of all, it is governed by differential equations describing that are known and theoretically well founded.
         Second, as it is one of the fundamental problems in observational astronomy,
@@ -830,7 +844,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
         The worst case are fast streams on orbits with high inclinations, where meteors seem to arrive
         from a direction perpendicular to the direction of movement of the Earth, about \ang{90} from the apex and antapex sources.
 
-    \subsection{Simulation in the atmosphere} \label{msa}
+    \subsection{Simulation in the atmosphere} \label{mia}
         Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
         the physical processes manifested during their atmospheric entry and obtain the values of quantities
         that can be observed by ground-based observers.
@@ -902,7 +916,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             \eqn{eq:mmkk-sym}{
                 \forall \vec{y} \in \Real^d : K(\vec{y}) = K(-\vec{y}),
             }
-            though this is affected by the choice of coordinates (see \cref{modc}).
+            though this is affected by the choice of coordinates (see \cref{moc}).
             Some commonly used kernels are box functions, triangles and gaussians.
 
         \subsubsection{Bandwidth} \label{mmkw}

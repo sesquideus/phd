@@ -1,50 +1,40 @@
 The thesis is a natural extension of the author's master's thesis \citep{balaz-thesis}.
-In it, we designed and implemented a parametric Monte-Carlo simulation of meteoroids
-and used it to de-bias observational datasets and determine the total flux
-of particles into the atmosphere.
-The simulation generates virtual meteoroid particles above the atmosphere and
-according to pre-defined equations of motion and ablation and determines their luminosity as a function of time.
-The resulting meteors are then transformed and after application of various natural and
-instrumental effects a synthetic record of an observation is created,
-which then can be statistically compared to actual observational data.
-The input parameters of the simulation are varied until its output matches to the observational dataset.
+In it we designed and implemented a parametric Monte-Carlo simulation of meteoroids entering the Earth's atmosphere.
+Effect of atmospheric extinctions and limitations of the detecting device, including selection bias, were built into the model.
+From the processed data we were able to determine the total flux of meteoroids into the atmosphere.
 
-The next step, presented in this thesis, is to build upon this system and extend its scope to interplanetary space.
+The simulation generates virtual meteoroid particles above the atmosphere and determines their
+luminosity as a function of time, according to pre-defined equations of motion and ablation.
+The resulting meteors are then transformed to horizontal reference frame centered on a virtual camera.
+After application of various natural and instrumental effects a synthetic record of an observation is created.
+The record then can be statistically compared to actual observational data.
+The input parameters of the simulation are varied until its output matches the actual observational dataset.
+
+The next step, presented in this thesis, is to build upon this simulation and extend its scope to interplanetary space.
 The observational meteor data collected by ground-based automatic stations may be used
 to determine the original orbits of meteoroids and to construct a model
 of their distribution in the interplanetary space, including information
-about distributions of particle mass or composition as well.
-
-Since currently it is not possible to observe meteoroids directly in interplanetary space,
-all models obtained from ground-based observations can only describe the close
-vicinity of the Earth and the meteor showers which happen to cross its orbit.
-Therefore it might be a good idea to produce two kinds of models: an \emph{observational model},
-describing meteor activity as observed from the Earth, and an \emph{orbital model},
-that represents the density of particles in interplanetary space.
-The observational model can be directly related to reality, while the orbital
-model provides deeper understand of why there are meteoroids encountered at
-certain point of space and time.
-We can think of at least two notably distinct methods of building these models.
+about distributions of particle mass or their mineralogical composition as well.
+We can think of at least two notably distinct approaches to building such a model.
 
 In the first method, we analyze the database of observed meteors and establish
-the flux in each direction and in any time with recorded observations.
+the flux in each direction and in any particular time interval with recorded observations.
 After correcting for observational bias and accounting for incomplete or missing
-data we should be able to establish the particle
-number density and derive the total mass influx.
+data we should be able to establish the particle number density and derive the total mass influx.
 If possible, we would also like to include information
 about chemical composition of the particles or other supplementary properties.
 
 The second approach works in quite the opposite direction. We start with a simulation
-of the interplanetary matter in the vicinity of the Earth and an initial guess of its distribution.
-The number density and mass flux of meteoroids in the vicinity of the Earth is estimated.
-We determine which meteoroids are on trajectories that intersect the atmosphere of the Earth
-and for those we simulate and record their atmospheric entry. The resulting dataset is statistically compared
-to the actual instrumental observations, accounting for detector deficiencies and selection bias.
+of the interplanetary matter in the vicinity of the Earth and some initial guess of its distribution.
+The number density and mass flux of meteoroids in the vicinity of the Earth is computed.
+We determine which meteoroids are on trajectories that intersect the atmosphere of the Earth.
+For those particles we simulate and record the atmospheric entry. The resulting dataset is statistically compared
+to the actual observations, accounting for detector deficiencies and selection bias.
 Finally we vary the initial particle distribution and the model of interaction with the atmosphere
 until the best possible agreement with observational data is found.
 This is then declared to be the model of the true distribution.
 
 On the far horizon of our efforts is the synthesis of both methods into one whole:
 we could use the observational data to put rough constrains on the meteoroid flux,
-and then construct an $N$-body numerical simulation which will try to replicate the data,
-accounting for observational bias effects as well.
+and then construct a massively parallel $N$-body numerical simulation,
+which will try to replicate the data, automatically accounting for observational bias effects as well.

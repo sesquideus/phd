@@ -12,10 +12,14 @@ we need to understand \emph{how} this can be done and how these phenomena can be
 
 Since it is not possible to observe meteoroids directly in interplanetary space,
 all models obtained from ground-based observations can only describe the close
-vicinity of the Earth and the meteor showers which happen to cross its orbit.
+vicinity of the Earth and the meteoroid streams which happen to cross its orbit.
+This is a prime example of unavoidable selection bias, an effect skewing the observed distribution
+by only recording some of the samples depending on their properties.
+
+
 Therefore it might be a good idea to produce two kinds of models, each valid within its own domain:
 \begin{itemize}
-    \item an \emph{observational model}, which describes meteor activity as observed from the Earth,
+    \item an \emph{observational model}, which describes meteor activity as observed from the Earth;
     \item and an \emph{orbital model}, which represents the density of meteoroids in the interplanetary space.
         These particles can, under right conditions, produce meteors that are described by the observational model.
 \end{itemize}
@@ -51,8 +55,8 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
     with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
     if their orbit intersects with the Earth's.}
 
-    The observational model can be \emph{complete}, in the sense that -- at least in principle -- it
-    is possible to record all meteors in the Earth's atmosphere and include them in the model.
+    The observational model can be \emph{complete}, in the sense that it is possible -- at least
+    in principle -- to record all meteors in the Earth's atmosphere and include them in the model.
     As long as there is sufficient coverage of the sky by networks of ground-based stations,
     no statistically significant grouping of meteors should remain unaccounted for.
 
@@ -62,7 +66,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
         to be included in the model and which are not.
 
         \subsubsection{Time} \label{mspt}
-            The first coordinate is the time of the atmospheric entry of the meteoroid.
+            The first quantity is the time of the atmospheric entry of the meteoroid.
             First of all, it should be noted that while a meteor is not an completely instantaneous event,
             its duration is on the order of \SI{1}{\second}, which is very short compared to the
             period of rotation of the Earth of the scales on which meteor activity varies.
@@ -217,6 +221,28 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             The concept of dynamic mass is similar in nature, except that instead of the luminosity,
             the recorded deceleration of the particle is analyzed and fitted.
 
+        \subsubsection{Distribution function} \label{mspd}
+            The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
+            \begin{itemize}
+                \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
+                \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
+                \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
+                \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
+            \end{itemize}
+
+            Our task is reduced to finding the distribution function for meteor radiants, or the \emph{meteor activity function}
+            \eqn{eq:msm-dist}{
+                \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
+            }
+
+            Within this function we should be able to distinguish two main features:
+            \begin{itemize}
+                \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
+                \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
+                    Due to their common origin and orbit, these peaks should be very narrow in all dimensions
+                    except for the distribution of magnitudes.
+            \end{itemize}
+
     \subsection{Additional concepts} \label{msa}
         In addition to quantities that are directly described in the model, several other concepts are useful
         in its construction and verification. Many derived quantities are used in meteor astronomy,
@@ -349,6 +375,9 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             In our model, the value of mass index is always $s$ is treated as an input,
             while the value of $r$ can be computed from the orbital model and simulating the meteoroids entering the atmosphere.
 
+        \subsubsection{Flux} \label{msaf}
+            While the distribution function 
+
         \subsubsection{Selection bias} \label{msab}
             In many analyses of observational dataset authors tend to overlook the effect of selection bias --  the
             propensity of the selected method of gathering the data to include certain data points with higher probability than other ones.
@@ -358,38 +387,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             For a detailed list of possible sources of bias and methods refer to \citep{balaz-thesis}.
 
     \subsection{Summary} \label{msm}
-        The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
-        \begin{itemize}
-            \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
-            \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
-            \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
-            \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
-        \end{itemize}
-
-        the task is thus reduced to finding the distribution function for meteor radiants
-        \eqn{eq:msm-dist}{
-            \mathcal{A}(\delta_\mathrm{R}, \alpha_\mathrm{R}, t, v_\infty, m)
-        }
-
-
-        The total observable activity is thus described by the \emph{meteor activity function}
-        \eqn{eq:msm-map}{
-            \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_R, \alpha_R, v_\infty, m),
-        }
-
-        Within such maps we should be able to distinguish two main features:
-        \begin{itemize}
-            \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-            \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
-                Due to common origin and orbit, these peaks should be very narrow in all dimensions.
-        \end{itemize}
-
-            Due to influences of various acting forces, such as differences
-            in initial velocities with respect to the parent body, tidal disruptions,
-            perturbations arising from close encounters with large bodies of the Solar System,
-            Poynting-Robertson effect, etc., the stream
-            gradually widens and disperses in all components until it can no longer be distinguished from the background.
-
+        
 %    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
 %    and used to determine the total flux of the Perseids in 2016. Instead of trying to
 %    estimate the biases we generated the meteoroids above the atmosphere and simulated
@@ -562,7 +560,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
         in which the distribution function should be defined. For positions of meteoroids we need at least
         three spatial coordinates, three coordinates describing the velocity vector, and the time:
         \eqn{eq:po-rv}{
-            \mathcal{M}_\mathrm{rv}(\vec{r}, \vec{v}, t).
+            \mathcal{M}_\mathrm{rv}(t, \vec{r}, \vec{v}).
         }
         where
         \begin{description}
@@ -576,9 +574,9 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
                 is the number density of particles in the position-velocity coordinate space.
         \end{description}
 
-        Alternatively this may be expressed in terms of orbital elements as
+        Alternatively this may be expressed in terms of standard orbital elements as
         \eqn{eq:po-elem}{
-            \mathcal{M}_\mathrm{oe}(a, e, i, \omega, \Omega, T, t).
+            \mathcal{M}_\mathrm{oe}(t, a, e, i, \omega, \Omega, \phi).
         }
 
         While in the observational model we were mostly interested in the distribution of apparent and absolute
@@ -603,52 +601,57 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 
             The entire coordinate space is then
             \eqn{eq:moco-psxyz}{
-                \mathcal{M}_c(x, y, z, v_x, v_y, v_z, t, \log \mu),
+                \mathcal{M}_c(t, \vec{r}, \vec{v}, \log \mu) \equiv \mathcal{M}_c(t, x, y, z, v_x, v_y, v_z, \log \mu),
             }
             or in terms of orbital elements,
             \eqn{eq:moco-psorb}{
-                \mathcal{M}_o(1/a, e, i, \omega, \Omega, T, t, \log \mu).
+                \mathcal{M}_o(t, 1/a, e, i, \omega, \Omega, T, \log \mu).
             }
 
-    \subsection{Physical quantities and properties} \label{mp}
-        Apart from the position and velocities, which we have already described
+    \subsection{Physical quantities and properties} \label{mop}
+        Apart from the position and velocities, which we have already described, we can express
+        several derived quantities which are standard in meteor astronomy. This makes comparison
+        with other models easier.
 
-        \subsubsection{Time} \label{msmt}
-
-        \subsubsection{Fluxes and densities} \label{msmf}
-            While the distribution function in the space should provide complete information
-            about the density of particles and its change over time,
+        \subsubsection{Fluxes and densities} \label{mopf}
+            While the distribution function $\mathcal{M}$ provides a complete information
+            about the density of particles and its change in time,
             the high number of dimensions it has makes it difficult to comprehend.
-            A method of reduction to a lower number of dimensions is necessary.
+            Designing methods of reduction to a lower number of dimensions is necessary.
 
             The primary measure of activity of a meteor shower (or the sporadic background) is the number
             of meteors encountered per unit area of the surface of the Earth (which is more suitable
             in observational models), or per unit volume in interplanetary space (for orbital models).
 
-            As meteoroids are discrete particles of finite size, it is easier to work with the
-            assumed underlying distribution function, so as to avoid artifacts.
-
             Spatial number density is obtained from the model by integrating over all parameters
-            in the space except the spatial ones:
-            \eqn{eq:msmf-spatial}{
-                \varrho(\vec{r}, t) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3][]{M(\vec{r}, \vec{v}, t, \mu)}{\vec{v}}
-                }{\mu}
+            in the space except the spatial ones,
+            \eqn{eq:mopf-spatial}{
+                \varrho(t, \vec{r}) = \Int[\mu_0][\infty]{
+                    \Int[\Real^3][]{\mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
+                }{\mu}.
             }
 
             On the surface of the Earth, or in its close vicinity, we are more concerned with
-            the number particles passing through an unit area of the surface.
-            To obtain the flux
-            \eqn{eq:msmf-flux}{
+            the number particles passing through an unit area of the surface. This depends not only
+            on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as $\uvec{n}$.
+            To obtain the flux in the open space we integrate over all possible directions.
+            The absolute value of the dot product of the velocity and the normal vector is taken,
+            since we are ignoring the direction in which the meteoroid intersects the surface.
+            \eqn{eq:mopf-flux}{
+                \Phi(t, \vec{r}, \uvec{n}) = \Int[\mu_0][\infty]{
+                    \Int[\Real^3]{
+                        \mathcal{M}(t, \vec{r}, \vec{v}, \mu) \Abs{\vec{v} \cdot \uvec{n}}
+                    }{\vec{v}}
+                }{\mu}.
             }
 
             Similarly, to determine the total mass influx from a particular population, the first moment
             of the distribution over particle masses is calculated.
-            \Cref{eq:msmf-flux} becomes
-            \eqn{eq:msmf-wflux}{
-                F(\vec{r}, t) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3][]{M(\vec{r}, \vec{v}, t, \mu)}{\vec{v}}
-                }{\mu}
+            \Cref{eq:mopf-flux} becomes
+            \eqn{eq:mopf-mflux}{
+                F(t, \vec{r}) = \Int[\mu_0][\infty]{
+                    \mu \Int[\Real^3][]{\mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
+                }{\mu}.
             }
 
         \subsubsection{Mass index and the Pareto distribution} \label{msms}
@@ -892,13 +895,14 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 
         Put mathematically,
         \eqn{mmk-kde}{
-            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left[\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right]}
+            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
         }
         Alternatively we may define KDE in terms of $d$-dimensional convolution of the kernel with the sum of all data points,
         where each data point is represented by a $\delta$-function:
         \eqn{mmk-kdecont}{
             \Hat{F}(\vec{x}) = K \ast \left(\Sum[i = 1][n]{\delta\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}\right).
         }
+        \todo{fix this}
 
         \subsubsection{Kernel} \label{mmkk}
             Surprisingly, the choice of the kernel is not particularly important.

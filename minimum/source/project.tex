@@ -46,7 +46,7 @@ Typically we do not consider individual particles, but the entire stream and its
     except for the mass, which was sampled from a Pareto distribution for multiple values of $s$,
     specifically
     \eqn{eq:pc-thesis}{
-        \mathcal{A}(t = 2016 + \ang{140}, \delta_R = \ang{56}, \alpha_R = \ang{43}, v_\infty = \SI{59}{\kilo\metre\per\second}, s).
+        \mathcal{A}(t = 2016 + \ang{140}, \delta_R = \ang{56}, \alpha_R = \ang{43}, v_\infty = \SI{59}{\kilo\metre\per\second}, \mu \sim \mathrm{Pareto}(\mu_0, s)).
     }
 
 
@@ -64,14 +64,15 @@ Typically we do not consider individual particles, but the entire stream and its
         and hence it should be possible to extend the model easily with other data once they are available.
 
     \subsection{Visualisation} \label{iov}
-        High-dimensional data are relatively hard to comprehend. Substantial care should be taken when designing
-        a human-oriented visualisation
+        Data spread in more than three dimensions are difficult to comprehend.
+        Substantial care should be taken when designing a human-oriented visualisation.
 
-        The natural solution is to keep spatial and temporal dimensions as they are -- that is,
-        right ascension and declination are displayed as spatial coordinates using one of suitable projections,
-        while time evolution of streams is best displayed as a video or in a sequence of images.
-        Displaying the secular evolution of one stream can be performed by comparing the function $\mathcal{A}$ at
-        the same $\lambda_\odot$ in successive years.
+        The natural solution is to keep spatial and temporal dimensions as they are:
+        time is best displayed in a video or in a sequence of images.
+        In the observational model right ascension and declination are displayed as spatial coordinates after being
+        flattened using one of the suitable projections.
+        In the orbital model there are six separate coordinates, which are difficult to display at the same time.
+        The options are to either design a three-dimensional animation, or to only display data with reduced dimensions.
 
         A major difficulty lies in displaying the remaining two quantities -- speed and mass distribution -- simultaneously.
         Colour mappings to saturation an hue may be added, or both quantities may be considered only separately.
@@ -96,6 +97,8 @@ Typically we do not consider individual particles, but the entire stream and its
             If possible, the best option is to preserve the time coordinate as time
             and display the development of meteor activity in a video, at some appropriate scale.
             Otherwise a sequence of discrete images is suitable as well.
+            Displaying the secular evolution of one particular meteor shower stream can be done
+            by comparing the function $\mathcal{A}$ at the same $\lambda_\odot$ in successive years.
 
         \subsubsection{Masses and magnitudes} \label{iovm}
             Both the distribution of masses (in the orbital model) and of brightnesses (in the observational model)
@@ -110,16 +113,20 @@ Typically we do not consider individual particles, but the entire stream and its
             it is not possible to describe the resulting population with a single value of $r$ or $s$.
 
 \section{Objectives of the thesis} \label{iO}
+
     We may summarize the objectives in following points.
+    
+    \subsection{Prerequisites} \label{iOp}
+        We need to understand and develop a suitable KDE model, presumably AKDE,
+        which will be able to work with sparse data and in non-Euclidean spaces.
+
+    \subsection{}
 
     \begin{itemize}
         \item develop a model of meteoroid distribution in the inner Solar System;
+        \item devise a sufficiently precise KDE method 
         \item reduce the model to the Earth's atmosphere and obtain a sky map
             of observable meteor activity at any place and time,
             such as the one depicted in \cref{fig:e-mockup};
     \end{itemize}
-
-    \subsection{Prerequisites} \label{iOp}
-        We need to understand and develop a suitable KDE model, presumably AKDE,
-        which will be able to work with sparse data and in non-Euclidean spaces.
 

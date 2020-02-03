@@ -8,7 +8,10 @@
     \textsc{Dead Can Dance}
 }
 
-The research of interplanetary matter is ... \todo{finish the sentences}
+
+... \todo{finish the sentences}
+
+
 
 In comparison to other fields astronomy it does not produce spectacular findings too often.
 The recent discoveries of exoplanets, detection of gravity waves or pictures of black holes seem to be much more fascinating.
@@ -234,7 +237,7 @@ the nearest space, we should try hard to deepen and broaden our understanding of
         In colloquial usage in the context of meteor observations, any object producing a visible meteor can be called a meteoroid,
         irrespective of size or origin. This includes small asteroids or comets; pieces of space debris,
         such as fragments of defunct satellites, spent launch vehicles or blobs of products of combustion of solid fuel;
-        or finally artificial meteoroids, launched with the expressed purpose of creating meteors \citep{japončíci?} \todo{fix}.
+        or finally artificial meteoroids, launched with the expressed purpose of creating meteors.
 
         \subsection{Origins} \label{iamo}
             We usually consider three main sources of meteoroids, loosely corresponding to different
@@ -278,6 +281,12 @@ the nearest space, we should try hard to deepen and broaden our understanding of
                     However, they are much rarer than stony meteoroids and their total numbers are low.
             \end{itemize}
 
+            The forces acting on the meteoroids may be different, such as differences
+            in initial velocities with respect to the parent body, tidal disruptions,
+            perturbations arising from close encounters with large bodies of the Solar System,
+            Poynting-Robertson effect, etc., the stream
+            gradually widens and disperses in all components until it can no longer be distinguished from the background.
+
 
     %    As of early \nth{21} century, the most prominent meteor showers are the
     %    \begin{table}[H]
@@ -303,15 +312,51 @@ the nearest space, we should try hard to deepen and broaden our understanding of
     Some considered them to be electric phenomena \citep{???}.
     their astronomical origin was only confirmed on the beginning of the \nth{19} century.
 
+    Meteor speeds with respect to the Earth are on the order of tens of kilometres per second,
+    the lower limit being approximately \SI{11200}{\metre\per\second} for a particle on an Earth-like
+    heliocentric orbit attracted solely by the Earth's gravity, to \SI{72800}{\metre\per\second}
+    for a head-on collision with a particle on a parabolic orbit (disregarding the rotation of the Earth in both cases).
+
+    For a thorough description of meteor-related phenomena refer to \citep{ceplecha+1998}.
+
+    \subsection{Atmospheric entry} \label{ile}
+        During its atmospheric entry the meteoroid experiences several different regimes in rapid succession.
+
+        In the first phase the meteoroid is \emph{pre-heated} -- its surface temperature rises rapidly
+        as a result of collisions with the atoms and molecules of the atmosphere, approximately in proportion to its density.
+        The entire process typically takes several seconds and occurs at typical altitudes
+        between \SIrange{100}{300}{\kilo\metre}. The heating is not sufficient to produce a visible meteor yet,
+        except in case of very massive bodies. At the same time the meteoroid compresses
+        the atmospheric gases, which increases the dynamical pressure. Once the component of the drag force
+        tangential to the meteoroid's surface exceeds the strength of the material,
+        superficial spallation starts.
+
+        The next stage begins at an altitude of about \SI{100}{\kilo\metres}.
+        The density of the atmosphere is sufficient to raise the temperature of the surface
+        to about \SI{2500}{\kelvin}, which is enough to evaporate the material and ionize its constituent atoms.
+        The recombination of ions is the main source of the visible light that can be observed as a meteor.
+        The evaporated material \emph{ablates} as gas, as liquid droplets or as smaller fragments.
+        Fragmentation greatly increases the total cross-section, which in turn
+        further increases the rate at which the material is ablated away.
+        A part of the energy is lost to the surrounding atmosphere as heat.
+
+        The losses of kinetic energy also result in deceleration of the meteoroid.
+        Smaller bodies lose all of their mass to ablation before they are decelerated significantly.
+        More massive meteoroids may survive the ablation stage and enter the third phase, the \emph{dark flight}.
+        This generally occurs at speeds on the order of a few kilometres per second and altitudes of about \SIrange{20}{50}{\kilo\metre}.
+        From this point we usually speak of a \emph{meteorite}.
+        The kinetic energy of the oncoming particles is no longer sufficient to evaporate the material
+        and the surface is rapidly cooled to ambient temperatures, forming a fusion crust.
+
+        The dense atmosphere slows the meteorite to its terminal speed of several hundred metres per second,
+        which further decreases approximately proportionally to the square root of the density.
+        Inevitably, the meteorite impacts the surface of the Earth.
+
+    \subsection{Terminology} \label{ilt}
+
     ionization
     excitation
     heat, continuous spectra
-
-    \todo{finish this}
-    \todo{max 1 page}
-
-    \subsection{Terminology} \label{ilt}
-        
 
     \todo{head, wake, ionization trail}
 
@@ -328,8 +373,7 @@ the nearest space, we should try hard to deepen and broaden our understanding of
         as long as meteorological conditions are favourable. For a detailed technical report refer to \citet{zigo+2013,toth+2015}.
 
         The field of view of the cameras is centered on zenith and measures approximately \ang{180} by \ang{140}.
-        As the atmosphere at low altitudes is thick, light travelling to the camera from
-        meteors near the horizon is significantly attenuated.
+        As the atmosphere near the horizon is thick, light travelling to the camera from meteors there horizon is significantly attenuated.
         Only very few meteors are outside the covered area and the resulting loss of overall detection ability is minimal.
 
     \subsection{Operation} \label{iAo}
@@ -364,7 +408,7 @@ the nearest space, we should try hard to deepen and broaden our understanding of
             \item[VAZEC]    village of Važec\\
                             since October 2013, coordinates \ang{49.0543}~N, \ang{19.9899}~E, \SI{812}{\metre}
             \item[SENEC]    Senec Observatory\\
-                            since ???, coordinates \ang{48.2203}~N, \ang{17.3950}~E, \SI{137}{\metre} \todo{fix date}
+                            since 2019, coordinates \ang{48.2203}~N, \ang{17.3950}~E, \SI{137}{\metre} \todo{fix date}
         \end{description}
 
         A pair of stations has been installed on the Canary Islands, with cameras at
@@ -386,9 +430,9 @@ the nearest space, we should try hard to deepen and broaden our understanding of
         The last subnetwork is located on Hawai`i, with stations at
         \begin{description}[leftmargin = 25mm]
             \item[HK]       Haleakalā High Altitude Observatory Site, Kula, Maui, Hawaii, USA\\
-                            since ???, coordinates \ang{20.7075}~N, \ang{156.2560}~W, \SI{3041}{\metre} \todo{fix date}
+                            since September 2018, coordinates \ang{20.7075}~N, \ang{156.2560}~W, \SI{3041}{\metre}
             \item[MK]       Mauna Kea Observatories, Hawai`i County, Hawaii, USA\\
-                            since ???, coordinates \ang{19.8228}~N, \ang{155.4697}~W, \SI{4203}{\metre} \todo{fix date}
+                            since September 2018, coordinates \ang{19.8228}~N, \ang{155.4697}~W, \SI{4203}{\metre}
         \end{description}
 
         \sisetup{group-minimum-digits = 5}

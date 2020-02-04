@@ -8,37 +8,38 @@
 }
 
 Once we have ascertained what physical objects and phenomena we are going to be working with and what we want to achieve,
-we need to understand \emph{how} this can be done and how these phenomena can be described in a simplified \emph{model}.
+we need to understand \emph{how} this can be done and how meteors and meteoroids can be described in a simplified \emph{model}.
+The entire phenomenon is too complex to be described by a single theory: there are very different physical processes
+at play during the cosmic age of the meteoroids and in the very short-lived phase where it can be detected as a meteor.
+A complete analysis requires knowledge of mechanisms of production of meteoroids and the evolution of their orbits,
+just as much as understanding the processes behind ablation, fragmentation, production of light and techniques used in observations.
 
-Since it is not possible to observe meteoroids directly in interplanetary space,
-all models obtained from ground-based observations can only describe the close
-vicinity of the Earth and the meteoroid streams which happen to cross its orbit.
-This is a prime example of unavoidable selection bias, an effect skewing the observed distribution
-by only recording some of the samples depending on their properties.
-
-
-Therefore it might be a good idea to produce two kinds of models, each valid within its own domain:
+Therefore we propose to separate the concerns and produce two distinct (but related) models:
 \begin{itemize}
-    \item an \emph{observational model}, which describes meteor activity as observed from the Earth;
-    \item and an \emph{orbital model}, which represents the density of meteoroids in the interplanetary space.
+    \item an \emph{observational model}, which describes activity of meteors in space and time,
+        as observed from the Earth;
+    \item and an extended \emph{orbital model}, which represents the density of meteoroids in the interplanetary space.
         These particles can, under right conditions, produce meteors that are described by the observational model.
+        The orbital model can be deduced from the observational model, since the distribution of meteoroids in space
+        must be consistent with the distribution of meteors.
 \end{itemize}
 
-The observational model can be directly related to actual observations, obtained by ground-based
+The observational model can be directly compared to actual observations, obtained by ground-based
 devices placed on various locations around the Earth. The relatively precision of these measurements puts
-tight constraints on total number of meteors recorded. Meteor networks are already numerous
-and cover the sky practically continuously, at least as long as the weather is favourable.
-Such sky maps will be useful in predicting the activity of various meteor showers and of the sporadic background.
+tight constraints on total number and distribution of recorded meteors. There are already numerous
+meteor-observing networks whiciih cover the sky practically continuously, at least as long as the weather is favourable.
+The sky maps obtained from this model are can be used to predict the activity of meteor showers and of the sporadic background.
 
-On the other side, the orbital model provides understanding of \emph{why} there are meteoroids
+On the other side, the orbital model provides understanding of \emph{why} there are meteors
 encountered at certain point of space and time. Detailed maps of meteoroid density in the past,
-and even more so predictions of encounters with meteoroids in the future, are very important
-for space agencies operating satellites.
+and even more so predictions of possible encounters with meteoroid streams in the future,
+are very important for space agencies operating satellites.
 
-Another simple yet deep distinction is in the fact that the observational model is concerned
-primarily with the properties of \emph{meteors} seen from the surface, while the orbital model focuses
-on the properties of \emph{meteoroids}, which are still in heliocentric orbits and need not necessarily produce meteors.
-
+In both models, meteoroids and meteors are not treated as discrete entities,
+but rather as random samples from some hidden underlying distribution.
+The essential steps in building the model are to find a suitable domain of this distribution,
+to design a method of deducing it from available observations, and finally to
+determine its values over the domain.
 
 % For a presentation we should produce a table:
 % model         observational       orbital
@@ -48,38 +49,35 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 % etc
 
 \section{Observational model} \label{ms}
-    \todo{gentle intro}
+    In the observational model we will aim to describe the observed distribution of meteors
+    in terms of their apparent geocentric orbits, time of entry into the atmosphere and other
+    observable properties.
 
-    No observational model is able to capture or describe any stream that does not intersect the orbit of the
-    Earth.\footnote{This condition is by no means sufficient. In certain pathological cases, such as a fresh stream in resonance
-    with the Earth, which has not yet fully spread along its orbit, it is possible no meteors will collide with the Earth even
-    if their orbit intersects with the Earth's.}
-
-    The observational model can be \emph{complete}, in the sense that it is possible -- at least
+    This model can be \emph{complete}, in the sense that it is possible -- at least
     in principle -- to record all meteors in the Earth's atmosphere and include them in the model.
     As long as there is sufficient coverage of the sky by networks of ground-based stations,
     no statistically significant grouping of meteors should remain unaccounted for.
+    In reality there might be discrepancies caused by selection bias, lower coverage of the southern hemisphere
+    or difficulty in detecting daytime meteor showers.
 
     \subsection{Physical quantities in the model} \label{msp}
-        The design process of any model in astronomy -- or physics in general -- should begin with the analysis
-        of physical quantities available for scrutiny. Then we should decide which ones are important enough
+        The design process of any model in astronomy -- or physics in general -- begins with the selection
+        of physical quantities available for analysis. Then we should decide which ones are important enough
         to be included in the model and which are not.
 
         \subsubsection{Time} \label{mspt}
             The first quantity is the time of the atmospheric entry of the meteoroid.
-            First of all, it should be noted that while a meteor is not an completely instantaneous event,
-            its duration is on the order of \SI{1}{\second}, which is very short compared to the
-            period of rotation of the Earth of the scales on which meteor activity varies.
-            Precise timekeeping is thus not very important.
+            First of all, it should be noted that while a meteor is not an instantaneous event,
+            its typical duration is on the order of \SI{1}{\second}, which is very short compared to the
+            period of rotation of the Earth or the scales on which meteor activity varies.
+            Precise timekeeping is thus not very important in the model.
             For our purposes we will be using the time of maximum brightness
             of the meteor for both actual data and in simulations.
 
-            Second, it should be emphasized again that each meteor is treated
-            as a random sample from some hidden underlying distribution.
             In the context of this thesis it is immaterial whether any particular meteor
             appeared a minute earlier or later. Since we are only interested in slow variations,
             any such time shift will be invariably smeared during density estimation.
-            Differences on the order of tens of minutes could be visible with very narrow filaments.
+            Differences on the order of tens of minutes could be visible with very narrow filaments though.
 
             In examining the evolution of streams we should anticipate two distinct components:
             \begin{itemize}
@@ -100,31 +98,33 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
                 t = y + \lambda_\Sun,
             }
             where
-            \begin{itemize}
-                \item $y$ is the number of whole orbits since some reference time, for instance
-                    the current \emph{astronomical year} in which the last vernal equinox occurred;
-                \item $\lambda_\Sun$ is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
-            \end{itemize}
+            \begin{description}
+                \item[$y$]
+                    is the number of whole orbits since some reference time,
+                    for instance the current \emph{astronomical year} in which the last vernal equinox occurred;
+                \item[$\lambda_\Sun$]
+                    is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
+            \end{description}
 
-            As we do not expect to cover more than several tens or hundreds of years, effects of precession can be safely ignored.
             Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun \approx \ang{139.4}$,
             while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
 
         \subsubsection{Position} \label{mspp}
             While position in space it is a fundamental physical quantity,
-            it is not a very useful in the observational model.
-            On a large scale it is determined by the position of the Earth at the particular time,
+            it is not very useful in the observational model.
+            On the large scale it is determined by the position of the Earth at the particular time,
             as only particles that enter the atmosphere can be included in the model.
             On the local scale it does not provide much information: most meteoroid streams
             are much wider than the diameter of the Earth and within them,
             we may treat exact position of meteoroids entry as essentially random.
-            Even a very small change in the orbital elements of one meteoroid
+            Even a minuscule change in the orbital elements of one meteoroid
             would cause it to enter the atmosphere at a different place,
-            and the same observer would see it at a vastly difference place in the sky or not at all.
+            and the same observer would see it at a vastly difference place in the sky or not at all;
+            while its adherence to the stream would not be changed.
 
         \subsubsection{Velocity} \label{mspv}
             Another important measurable quantity is the velocity of the meteor.
-            Unlike with positions, a very wide range of geocentric velocities is available.
+            Unlike with positions, a very wide range of geocentric velocities is possible.
             When combined with the position, which is already known, it completely determines the geocentric
             orbit of the particle, which can in turn be extrapolated into the interplanetary space
             to obtain the original heliocentric orbit.
@@ -136,8 +136,8 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             Unlike the observed position of the meteor, the position of the radiant is not dependent on
             the position of the observer.
 
-            Clustering of meteors based on their radiants and is the basis of determination of
-            adherence of meteors to meteor showers: particles on nearly the same trajectory intersecting
+            Clustering of meteors based on their radiants and is the basis of identification
+            of meteor showers: particles on nearly the same trajectory intersecting
             the Earth at the same time will always have (approximately) the same radiant.
             The equality is not perfect due to slight dispersion of orbits,
             and due to the fact that the radiants slowly move across the sky,
@@ -149,16 +149,16 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 
             An unwelcome difficulty is encountered with daytime meteor showers, whose radiants
             lie very close to the position of the Sun at the time when they are active.
-            Most particles will then enter the atmosphere on the day side
-            of the Earth, where most particles inevitably burn up undetected.
-            With radar observations it is possible to track the activity as well,
+            These meteoroids enter the atmosphere on the day side of the Earth,
+            where most particles inevitably burn up undetected.
+            With radar observations it is possible to track the activity of these showers as well,
             however this observation technique calls for different methods of processing and debiasing the data.
             We estimate that using purely visual data it is impossible (or at least very difficult) to establish fluxes
             for meteor showers whose radiants are within \ang{15} from the Sun, and significant bias
-            is introduced for angles up to \ang{60}.
+            is introduced even for larger angles.
 
-        \subsubsection{Magnitude distribution} \label{mspm}
-            The most important characteristic of a meteoroid population is the distribution of masses
+        \subsubsection{Absolute magnitude} \label{mspm}
+            Another important characteristic of a single meteoroid population is the distribution of masses
             among constituent particles. A shower that is primarily composed of massive particles
             will produce a large number of spectacular fireballs while its ZHR may remain fairly low;
             while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
@@ -170,156 +170,10 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             to absolute magnitude.
 
             The relation is not linear and is heavily affected by the meteor speed; with other properties,
-            such as the entry angle or chemical composition, having some influence as well.
-
-        \subsubsection{Photometric mass} \label{mspf}
-            Although we cannot measure the true mass of the meteoroid directly,
-            we may use some of the known quantities to estimate it.
-            Two commonly used measures are the \emph{photometric mass} and \emph{dynamic mass} \citep{ceplecha1966}.
-
-            When simulating meteors, we know the original mass of the meteoroid particle.
-            With the knowledge of the equations of motion, ablation and luminosity
-            we are able to determine the luminosity of the meteor at any time.
-            One of the simplest models \citep{hill+2005} assumes that the energy emitted as visible light
-            is proportional to change in particle's kinetic energy,
-            \eqn{eq:mspf-tau}{
-                F_0 = -\tau \frac{\dot{m} v^2}{2}
-            }
-            for some constant $\tau$ named \emph{luminous efficiency factor}.
-
-            Photometric mass is obtained by working in the reverse direction: we can estimate the
-            ablated mass from the amount of light emitted by the meteoroid during its passage through the atmosphere.
-
-            The standard approach is to invert the equation \cref{eq:mspf-tau} and integrate it
-            through the entire light phase,
-            \eqn{eq:mspf-photo}{
-                \fdiff m = \Int[t_\mathrm{begin}][t_\mathrm{end}]{\frac{F(t)}{\tau v(t)^2}}{t},
-            }
-            where
-            \begin{description}
-                \item[$\fdiff m$]
-                    is the total mass lost due to ablation;
-                \item[$F(t)$]
-                    is the instantaneous light flux, corrected for the sensitivity of the camera;
-                \item[$\tau$]
-                    is the luminous efficiency coefficient;
-                \item[$v$]
-                    is the measured speed of the meteoroid;
-                \item[$t_\mathrm{begin}$]
-                    is the time in which the meteor first became visible;
-                \item[$t_\mathrm{end}$]
-                    is the time in which the meteor stopped being visible.
-            \end{description}
-
-            Initial mass is then obtained as
-            \eqn{eq:mspf-orig}{
-                m_\mathrm{begin} = m_\mathrm{end} + \fdiff m.
-            }
-
-            Since in most cases the meteoroid is too small and fast to survive the entry, its final mass is zero
-            and photometric mass should be equal to true initial mass, at least in an idealized case where our model is perfect.
-            The concept of dynamic mass is similar in nature, except that instead of the luminosity,
-            the recorded deceleration of the particle is analyzed and fitted.
-
-        \subsubsection{Distribution function} \label{mspd}
-            The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
-            \begin{itemize}
-                \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
-                \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
-                \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
-                \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
-            \end{itemize}
-
-            Our task is reduced to finding the distribution function for meteor radiants, or the \emph{meteor activity function}
-            \eqn{eq:msm-dist}{
-                \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
-            }
-
-            Within this function we should be able to distinguish two main features:
-            \begin{itemize}
-                \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
-                \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
-                    Due to their common origin and orbit, these peaks should be very narrow in all dimensions
-                    except for the distribution of magnitudes.
-            \end{itemize}
-
-    \subsection{Additional concepts} \label{msa}
-        In addition to quantities that are directly described in the model, several other concepts are useful
-        in its construction and verification. Many derived quantities are used in meteor astronomy,
-        especially in relation to more fundamental quantities that are difficult to measure.
-
-        \subsubsection{Limiting magnitude} \label{msam}
-            The atmosphere is constantly changing due to weather, contamination
-            by natural or man-made aerosols or light pollution. The detection efficiency
-            of ground-based observers is thus variable and must be included in any analysis.
-
-            In meteor astronomy, the quality of the conditions is usually summarized
-            using a single number called the \emph{limiting magnitude}, denoted $m_0$.
-            It is defined as ``the apparent magnitude of the faintest stars visible during the observation'' \citep{imo-glossary}.
-
-            In visual observations it is usually assumed that a meteor can be detected if and only if
-            its apparent magnitude is at most $m_0$. Mathematically, this is described by a Heaviside step function.
-            For photographic and video observations a slightly lower value is typically used.
-
-            Rather than using a sharp limit, a slightly better approach is to assume a sigmoid profile,
-            with a smooth transition between very faint meteors (none of which can be recorded)
-            and very bright meteors (where it is reasonable to assume they cannot be missed).
-            While there is no universally agreed-upon form, a simple yet reasonable parameterised function is
-            \eqn{eq:msam-sigmoid}{
-                D(m; m_0, \omega) = \frac{1}{1 + \exp\left(\frac{m-m_0}{\omega}\right)},
-            }
-            where
-            \begin{description}
-                \item[$m_0$]    is the new \emph{limiting magnitude}, where detection probability is \SI{50}{\percent};
-                \item[$\omega$] is the width of the function, with higher values representing
-                    faster rate of loss of detection efficiency with decreasing brightness.
-                    The limit $\omega \to \infty$ corresponds to a sharp cut-off at $m_0$,
-                    or the Heaviside step function.
-            \end{description}
-
-            Ideally, a functional dependence on the distance from the centre of the field
-            of view should be taken into account for human observers, as the eye is much more
-            sensitive to light near the yellow spot.
-            Similarly, digital sensors are subject to vignetting and other detrimental effects.
-            While with cameras the magnitude of these effects is generally well understood,
-            further research into the angular response of the human eye would be beneficial.
-
-        \subsubsection{Zenithal hourly rate} \label{msaz}
-            The \emph{zenithal hourly rate} (ZHR) is defined as ``[t]he number of shower meteors per hour
-            one observer would see if his limiting magnitude is \Mag{+6.5} and the radiant is in his zenith''.
-            While it is not an universally valid figure of merit for comparing meteor activity of various showers,
-            ZHR is fairly simple and widely used as a standard in meteor science.
-            Its primary design consideration is to be able to compare the activity of various showers
-            as viewed by human observers, but it is perfectly applicable to automatic devices as well.
-
-            ZHR is defined as
-            \eqn{eq:ipqz-zhr}{
-                \mathrm{ZHR} = \dfrac{\dfrac{N}{T} \cdot \dfrac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
-            }
-            where
-            \begin{description}
-                \item[$N$]
-                    is the number of meteors recorded by the observer;
-                \item[$T$]
-                    is total effective observation time;
-                \item[$k$]
-                    is the fraction of the sky that is visible to the observer;
-                \item[$r$]
-                    is the \emph{population index} of the observed meteor shower;
-                \item[$m_0$]
-                    is the \emph{limiting magnitude} of the observer;
-                \item[$\theta_\mathrm{R}$]
-                    is the altitude of the radiant above the horizon.
-            \end{description}
-            In this definition the limiting magnitude is considered to be a sharp boundary -- all
-            meteors below the limiting magnitude are detected.
-
-            In our model the ZHR is not an input, but rather a computed quantity, completely determined by the
-            models of the meteoroid population, atmosphere and of the observer's detection efficiency.
+            such as the entry angle or chemical composition, having some effect as well.
 
         \subsubsection{Population index} \label{msar}
-            Another useful measure of meteor activity is the \emph{population index}.
-            It is similar to the mass index (see \cref{msm}) in the sense.
+            A useful derived measure of meteor activity is the \emph{population index}.
             The definition by \citet{molau2015} is "[the population index] represents the [relative] increase
             in total meteor count when the limiting magnitude $\mathrm{lm}$ improves by one mag[nitude]."
 
@@ -372,11 +226,154 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             For more complex detection efficiency profiles (such as the one defined in \cref{eq:msam-sigmoid})
             it cannot be defined.
 
-            In our model, the value of mass index is always $s$ is treated as an input,
-            while the value of $r$ can be computed from the orbital model and simulating the meteoroids entering the atmosphere.
+        \subsubsection{Distribution function} \label{mspd}
+            The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
+            \begin{itemize}
+                \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
+                \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
+                \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
+                \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
+            \end{itemize}
 
-        \subsubsection{Flux} \label{msaf}
-            While the distribution function 
+            Our task is reduced to finding the distribution function for meteor radiants, or the \emph{meteor activity function}
+            \eqn{eq:msm-dist}{
+                \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
+            }
+
+            Within this function we expect to be able to distinguish two main features:
+            \begin{itemize}
+                \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
+                \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
+                    Due to their common origin and orbit, these peaks should be very narrow in all dimensions
+                    except for the distribution of magnitudes.
+            \end{itemize}
+
+    \subsection{Additional concepts} \label{msa}
+        In addition to quantities that are directly described in the model, several other concepts are useful
+        in its construction and verification. Many derived quantities are used in meteor astronomy,
+        especially in relation to more fundamental quantities that are difficult to measure.
+
+        \subsubsection{Limiting magnitude} \label{msam}
+            The atmosphere is constantly changing due to weather, contamination
+            by natural or man-made aerosols or light pollution. The detection efficiency
+            of ground-based observers is thus variable and must be included in any analysis.
+
+            In meteor astronomy, the quality of the conditions is usually summarized
+            using a single number called the \emph{limiting magnitude}, denoted $m_0$.
+            It is defined as ``the apparent magnitude of the faintest stars visible during the observation'' \citep{imo-glossary}.
+
+            In visual observations it is usually assumed that a meteor can be detected if and only if
+            its apparent magnitude is at most $m_0$. Mathematically, this can be described by a
+            detection probability function in the form of a Heaviside step function.
+            In photographic and video observations the limiting magnitude is usually slightly lower than for visual observers.
+
+            A slightly better approach is to assume a gradual decrease of detection efficiency.
+            This can be described by a sigmoid function, where the transition occurs on some interval
+            between very faint meteors (none of which can be recorded, $p \to 0$)
+            and very bright meteors (where it is reasonable to assume they cannot be missed, $p \to 1$).
+            While there is no universally agreed-upon form, a simple yet reasonable parameterised function is
+            \eqn{eq:msam-sigmoid}{
+                D(m; m_0, \omega) = \frac{1}{1 + \exp\left(\frac{m-m_0}{\omega}\right)},
+            }
+            where
+            \begin{description}
+                \item[$m_0$]    is the new \emph{limiting magnitude}, where the detection probability is \SI{50}{\percent};
+                \item[$\omega$] is the width of the function, with higher values representing
+                    faster rate of loss of detection efficiency with decreasing brightness.
+                    The limit $\omega \to \infty$ corresponds to a sharp cut-off at $m_0$,
+                    or the Heaviside step function.
+            \end{description}
+
+            Ideally, a functional dependence on the distance from the centre of the field
+            of view should be taken into account for human observers, as the eye is much more
+            sensitive to light near the yellow spot.
+            Similarly, digital sensors are subject to vignetting and other detrimental effects.
+            While with cameras the magnitude of these effects is generally well understood,
+            further research into the angular response of the human eye would be beneficial.
+
+        \subsubsection{Zenithal hourly rate} \label{msaz}
+            The \emph{zenithal hourly rate} (ZHR) is defined as ``[t]he number of shower meteors per hour
+            one observer would see if his limiting magnitude is \Mag{+6.5} and the radiant is in his zenith''.
+            While it is not an universally valid figure of merit for comparing meteor activity of various showers,
+            ZHR is fairly simple and widely used as a standard in meteor science.
+            Its primary design consideration is to be able to compare the activity of various showers
+            as viewed by human observers, but it is perfectly applicable to automatic devices as well.
+
+            ZHR is defined as
+            \eqn{eq:ipqz-zhr}{
+                \mathrm{ZHR} = \dfrac{\dfrac{N}{T} \cdot \dfrac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
+            }
+            where
+            \begin{description}
+                \item[$N$]
+                    is the number of meteors recorded by the observer;
+                \item[$T$]
+                    is total effective observation time;
+                \item[$k$]
+                    is the fraction of the sky that is visible to the observer;
+                \item[$r$]
+                    is the \emph{population index} of the observed meteor shower;
+                \item[$m_0$]
+                    is the \emph{limiting magnitude} of the observer;
+                \item[$\theta_\mathrm{R}$]
+                    is the altitude of the radiant above the horizon.
+            \end{description}
+            In this definition the limiting magnitude is considered to be a sharp boundary -- all
+            meteors below the limiting magnitude are detected.
+
+            In our model the ZHR is not an input, but rather a computed quantity, completely determined by the
+            models of the meteoroid population, atmosphere and of the observer's detection efficiency.
+
+        \subsubsection{Photometric mass} \label{msaf}
+            Although we cannot measure the true mass of the meteoroid directly,
+            we may use some of the known quantities to estimate it.
+            Two commonly used measures are the \emph{photometric mass} and \emph{dynamic mass} \citep{ceplecha1966}.
+
+            When simulating meteors, we know the original mass of the meteoroid particle.
+            With the knowledge of the equations of motion, ablation and luminosity
+            we are able to determine the luminosity of the meteor at any time.
+            One of the simplest models \citep{hill+2005} assumes that the energy emitted as visible light
+            is proportional to change in particle's kinetic energy,
+            \eqn{eq:msaf-tau}{
+                F_0 = -\tau \frac{\dot{m} v^2}{2}
+            }
+            for some constant $\tau$ named \emph{luminous efficiency factor}.
+
+            Photometric mass is obtained by working in the reverse direction: we can estimate the
+            ablated mass from the amount of light emitted by the meteoroid during its passage through the atmosphere.
+            The standard approach is to invert the equation \cref{eq:msaf-tau} and integrate it
+            throughout the light phase,
+            \eqn{eq:msaf-photo}{
+                \fdiff m = \Int[t_\mathrm{begin}][t_\mathrm{end}]{\frac{F(t)}{\tau v(t)^2}}{t},
+            }
+            where
+            \begin{description}
+                \item[$\fdiff m$]
+                    is the total mass lost due to ablation;
+                \item[$F(t)$]
+                    is the instantaneous light flux, corrected for the sensitivity of the camera;
+                \item[$\tau$]
+                    is the luminous efficiency coefficient;
+                \item[$v$]
+                    is the measured speed of the meteoroid;
+                \item[$t_\mathrm{begin}$]
+                    is the time in which the meteor first became visible;
+                \item[$t_\mathrm{end}$]
+                    is the time in which the meteor stopped being visible.
+            \end{description}
+
+            Initial mass is then obtained as
+            \eqn{eq:msaf-orig}{
+                m_\mathrm{begin} = m_\mathrm{end} + \fdiff m.
+            }
+
+            Since in most cases the meteoroid is too small and fast to survive the entry, its final mass is zero
+            and photometric mass should be equal to true initial mass, at least in an idealized case where our model is perfect.
+            Another similar concept is the \emph{dynamic mass}, in which the recorded deceleration of the particle
+            is analyzed and fitted instead of its luminosity.
+
+%        \subsubsection{Flux} \label{msax}
+%            While the distribution function \todo{...}
 
         \subsubsection{Selection bias} \label{msab}
             In many analyses of observational dataset authors tend to overlook the effect of selection bias --  the
@@ -386,8 +383,6 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             which leads to underestimating the number of faint meteors observable in the sky.
             For a detailed list of possible sources of bias and methods refer to \citep{balaz-thesis}.
 
-    \subsection{Summary} \label{msm}
-        
 %    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
 %    and used to determine the total flux of the Perseids in 2016. Instead of trying to
 %    estimate the biases we generated the meteoroids above the atmosphere and simulated
@@ -517,14 +512,18 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
     For each meteor, it is in principle possible to trace its visible motion back in time
     and derive the trajectory of the original meteoroid in the vicinity of the Earth.
     After correcting for gravitational attraction and subtracting the velocity of the Earth
-    we can further extend the trajectory into interplanetary space.
+    we can further extend the trajectory into the interplanetary space and describe it in the heliocentric reference frame.
 
-    A fundamental difficulty here is that particle streams whose orbit does not intersect
-    the orbit of the Earth cannot be observed at all and thus are not included in the model.
+    With current technology it is not possible to observe meteoroids directly in interplanetary space.
+    All models obtained from ground-based observations can only describe the close
+    vicinity of the Earth and the meteoroid streams which happen to cross its orbit.
+    This is a prime example of unavoidable selection bias, an effect skewing the observed distribution
+    by only recording some of the samples depending on their properties.
     Determination of flux in these areas is not possible with Earth-based observations at all
-    and can only be investigated with in-situ observations. In this thesis we will not analyze them any further.
+    and can only be investigated with in-situ observations.
+    In this thesis we will not analyze them any further.
 
-    A less fundamental, but still important difficulty lies in the low precision of these measurements.
+    A less fundamental, but still important difficulty lies in the precision of these measurements.
     The position of the projection of the meteor in the sky can be determined with high precision:
     the resolution of a photograph or a video sequence is typically on the order of \SI{1}{\milli\radian}
     while the distance between the observer and the meteor is typically several hundred kilometres.
@@ -538,41 +537,39 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
     Precision of measurement suffers when the convergence angle is small \citep{ceplecha1987}.
 
     Furthermore, while the trajectory can be computed with very high precision in vacuum,
-    meteoroids lose a fraction of their original preatmospheric speed before they become visible \citep{vida+2018}.
+    meteoroids lose a fraction of their original pre-atmospheric speed before they become visible \citep{vida+2018}.
     This further adds to the uncertainty of the original orbit.
-    One very pronounced misleading effect is the vastly overestimated number of objects
+    One very pronounced effect of this is the vastly overestimated number of objects
     on interstellar heliocentric orbits in meteor databases \citep{hajdukovajr1994}.
 
     The orbital model is necessarily incomplete: we cannot see meteoroids that are not intercepted by the atmosphere.
     It is possible there is a dense stream of particles on an orbit not too far from the orbit of the Earth,
     but as long as they do not become visible as meteors, virtually nothing is known about them.
-
     Therefore meteoroid streams not crossing the Earth's orbit are out of the scope of this thesis.
     On the other hand, this is not too important, as we are -- and likely always
     will be -- much more interested in those which do.
 
     \subsection{Choice of coordinate space} \label{moc}
+        Similarly to the observational model, we begin with establishing the coordinates in which the model will be constructed.
         The natural reference system to work with when investigating meteoroid streams in interplanetary space
         is the \emph{heliocentric ecliptic coordinate system}. Its fundamental plane is the orbital plane of the Earth
         and its reference direction is the March equinox.
-
-        As with the observational model, we should begin by determining the whole coordinate space
-        in which the distribution function should be defined. For positions of meteoroids we need at least
-        three spatial coordinates, three coordinates describing the velocity vector, and the time:
+        For positions of meteoroids we need at least three spatial coordinates $\vec{r}$,
+        three coordinates describing the velocity vector $\vec{v}$, and the time $t$:
         \eqn{eq:po-rv}{
             \mathcal{M}_\mathrm{rv}(t, \vec{r}, \vec{v}).
         }
-        where
-        \begin{description}
-            \item[$\vec{r}$]
-                is the instantaneous position in a heliocentric inertial reference frame;
-            \item[$\vec{v}$]
-                is the velocity in the same frame;
-            \item[$t$]
-                is the time;
-            \item[$\mathcal{M}_\mathrm{rv}$]
-                is the number density of particles in the position-velocity coordinate space.
-        \end{description}
+%        where
+%        \begin{description}
+%            \item[$\vec{r}$]
+%                is the instantaneous position in a heliocentric inertial reference frame;
+%            \item[$\vec{v}$]
+%                is the velocity in the same frame;
+%            \item[$t$]
+%                is the time;
+%            \item[$\mathcal{M}_\mathrm{rv}$]
+%                is the number density of particles in the position-velocity coordinate space.
+%        \end{description}
 
         Alternatively this may be expressed in terms of standard orbital elements as
         \eqn{eq:po-elem}{
@@ -590,16 +587,17 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             The upper portion of the mass interval is populated only very sparsely.
             To address this, we may work in logarithmic space instead, using $\log \mu$ as the measure of mass.
             The distribution of masses will still be shifted towards lower values, but not so heavily.
+            This is very similar to how magnitudes are reported instead of flux densities, as
+            values commonly encountered in astronomy span many orders of magnitude.
 
-            The same approach is applicable to other quantities, most importantly the semi-major axis $a$.
+            A similar approach is applicable to other quantities, most importantly the semi-major axis $a$.
             Although the region of our interest is located very close to \SI{1}{\au},
             orbits of meteoroids originating from long-period comets have very large $a$.
             The gravitational influence of the Sun is weaker at these distances and
             even a small change in velocity near the perihelion may alter $a$ significantly.
-            Therefore we can use $1/a$ as the measure of orbit size instead,
-            and use a Gaussian kernel in estimation of this new coordinate.
+            Therefore we can use $1/a$ as the measure of orbit size instead.
 
-            The entire coordinate space is then
+            The entire coordinate space is then, for instance,
             \eqn{eq:moco-psxyz}{
                 \mathcal{M}_c(t, \vec{r}, \vec{v}, \log \mu) \equiv \mathcal{M}_c(t, x, y, z, v_x, v_y, v_z, \log \mu),
             }
@@ -608,23 +606,24 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
                 \mathcal{M}_o(t, 1/a, e, i, \omega, \Omega, T, \log \mu).
             }
 
+            Further optimizations in this spirit may be added where deemed beneficial.
+
     \subsection{Physical quantities and properties} \label{mop}
         Apart from the position and velocities, which we have already described, we can express
         several derived quantities which are standard in meteor astronomy. This makes comparison
         with other models easier.
 
         \subsubsection{Fluxes and densities} \label{mopf}
-            While the distribution function $\mathcal{M}$ provides a complete information
+            While the distribution function $\mathcal{M}$ aims to provide complete information
             about the density of particles and its change in time,
             the high number of dimensions it has makes it difficult to comprehend.
-            Designing methods of reduction to a lower number of dimensions is necessary.
+            Methods of reduction to a lower number of dimensions are necessary.
 
             The primary measure of activity of a meteor shower (or the sporadic background) is the number
             of meteors encountered per unit area of the surface of the Earth (which is more suitable
             in observational models), or per unit volume in interplanetary space (for orbital models).
-
             Spatial number density is obtained from the model by integrating over all parameters
-            in the space except the spatial ones,
+            in the coordinate space except the spatial ones,
             \eqn{eq:mopf-spatial}{
                 \varrho(t, \vec{r}) = \Int[\mu_0][\infty]{
                     \Int[\Real^3][]{\mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
@@ -632,7 +631,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             }
 
             On the surface of the Earth, or in its close vicinity, we are more concerned with
-            the number particles passing through an unit area of the surface. This depends not only
+            the number of particles passing through an unit area of the surface. This depends not only
             on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as $\uvec{n}$.
             To obtain the flux in the open space we integrate over all possible directions.
             The absolute value of the dot product of the velocity and the normal vector is taken,
@@ -650,7 +649,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             \Cref{eq:mopf-flux} becomes
             \eqn{eq:mopf-mflux}{
                 F(t, \vec{r}) = \Int[\mu_0][\infty]{
-                    \mu \Int[\Real^3][]{\mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
+                    \Int[\Real^3][]{\mu \mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
                 }{\mu}.
             }
 
@@ -660,7 +659,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             at least within the meteoroid mass range which can be covered by visual observations.
 
             In meteor science, it is customary to assume a specific distribution of masses within a population,
-            described by a power law with particle mass as the independent variable:
+            described by a power law with particle mass as the independent variable,
             \eqn{eq:moms-sindex}{
                 \varrho(\mu) \propto \mu^{-s}
             }
@@ -673,7 +672,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
             where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
 
-            To conform with commonly used terminology in meteor science, we substitute the shape with mass index
+            To conform with terminology commonly used in meteor science, we substitute the shape with mass index
             $s = \alpha - 1$, and rename $x_0$ to \emph{minimum mass} of particles, $\mu_\mathrm{min}$.
             The probability density function is then
             \eqn{eq:moms-pareto}{
@@ -690,7 +689,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             for meteor showers and values around \num{2.2} for sporadic background \citep{blaauw+2011}.
             The collisional equilibrium for particles of equal strength is reached at $s = 11/6$ \citep{dohnanyi1969}.
 
-            The mass index $s$ can be related to the population index $r$ by an empirical relationship by \citet{koschack+1990}
+            The mass index $s$ can be related to the population index $r$ by an empirical relationship by \citet{koschack+1990},
             \eqn{eq:moms-rs}{
                 r = 1 + \num{2.3} \log_{10} s.
             }
@@ -699,7 +698,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
     \subsection{Additional properties} \label{moa}
         Apart from the dynamical properties, which describe only the density of particles
         and thus a probability of a collision at a point in space and time,
-        we may (and should!) observe and analyze additional properties of the stream.
+        we may observe and analyze additional properties of the stream.
 
         \subsubsection{Petrological and chemical classification} \label{moac}
             While we are not explicitly interested in chemical properties
@@ -707,7 +706,7 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             are correlated with the density and toughness of the material,
             which in turn affect the process of ablation
             and thus also the final luminosity of the meteor.
-            All of this contributes to the unwanted selection bias.
+            All of this contributes to unwanted selection bias.
             Furthermore, differences in spectra are responsible for
             variability in detection efficiency with different cameras.
 
@@ -721,7 +720,8 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 
 \section{Simulations} \label{mi}
     At the core of both the orbital and the observational models are numerical simulations.
-    The simulation starts with some assumed distribution of meteoroid particles
+    The simulation works with a generic model of the analyzed physical processes and some initial
+    distribution of meteoroids and tries to match its output to observational data.
 
     \subsection{Simulation in the Solar System} \label{mio}
         Simulating the motion of meteoroids in interplanetary space is comparatively easy.
@@ -836,9 +836,9 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
         This assumption is not universally valid though -- some younger meteor showers often produce dense, narrow filaments,
         which can be observed as short but intensive outbursts of heightened meteor activity.
         A~good example are the November alpha-Monocerotids, with a period of significant
-        activity spanning only about thirty minutes in 2019 \citep{CBET4692}.
+        activity spanning only about thirty minutes in 2019 \citep{imo-cbet4692}.
 
-        By comparing the orbital speed and the diameter of the Earth we can see that the Earth moves
+        By comparing the orbital speed to the diameter of the Earth we can see that the Earth moves
         to a completely different position with respect to the stream within several minutes.
         This means that variations in activity are not going to be significant when crossing an old stream,
         whose radius may be on the order of millions of kilometres, but may cause problems with young, narrow filaments.
@@ -895,8 +895,18 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
 
         Put mathematically,
         \eqn{mmk-kde}{
-            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
+            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)},
         }
+        where
+        \begin{description}
+            \item[$\Hat{F}(\vec{x})$]
+                is the estimated probability density function at $\vec{x}$,
+            \item[$\vec{H}$]
+                is the covariance matrix,
+            \item[$K$]
+                is the kernel.
+        \end{description}
+
         Alternatively we may define KDE in terms of $d$-dimensional convolution of the kernel with the sum of all data points,
         where each data point is represented by a $\delta$-function:
         \eqn{mmk-kdecont}{
@@ -927,11 +937,12 @@ on the properties of \emph{meteoroids}, which are still in heliocentric orbits a
             The most important consideration in KDE is the determination of correct bandwidth.
             If the selected bandwidth is too high, the resulting estimate of the distribution
             becomes very smeared and does not capture the distribution very well.
-            In the limit $\Abs{\vec{H}} \to \infty$ the estimate becomes identical to the original kernel.
+            In the limit $\Abs{\vec{H}} \to \infty$ the estimate becomes identical to the original kernel
+            shifted to the mean position of all data points.
 
             If the bandwidth is too low, individual kernels do not overlap anymore and produce a series
             of kernels at the positions of the original data points. In the limit $\Abs{\vec{H}} \to 0$
-            a sum of $n$ $\delta$-functions is obtained.
+            a sum of $n$ $\delta$-functions centered on data points is obtained.
             Neither of the extremes provides any useful information.
 
             Several algorithms for determining the optimal bandwidth exist \citep{bowman1985,jones+1996},

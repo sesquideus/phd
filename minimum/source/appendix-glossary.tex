@@ -1,19 +1,9 @@
 \begin{description}[labelindent=0mm, leftmargin=40mm]
-    \item[CDF]
-        \emph{cumulative density function} of one random variable describes the probability that the
-        variable takes a value less than or equal to $x$.
-        \[
-            F_X(x) = \mathrm{Pr}[X \leq x].
-        \]
-        It is related to the probability density function $f_X$ of the same variable as
-        \[
-            F_X(x) = \Int[-\infty][x]{f_X(u)}{u}.
-        \]
     \item[convergence angle]
         the angle between two observers as viewed from the observed object (here typically \emph{camera 1} -- meteor -- \emph{camera 2})
     \item[CPU]
-        \emph{central processing unit}, the general purpose electronic circuit of a computer \cite{...} (rewrite).
-        The CPU is universal and can run practically any code, but only with low level of parallelism.
+        \emph{central processing unit}, the main processor a computer \cite{techterms}.
+        CPU cores are universal and can execute virtually any algorithm, but only with low level of parallelism.
     \item[ECEF]
         \emph{earth-centered, earth-fixed} coordinate frame, a rotating reference frame with origin
         in the centre of mass of the Earth, rotating with the solid surface of the Earth \citep{ecef}
@@ -23,7 +13,7 @@
     \item[GPU]
         \emph{graphics processing unit}, a computer chip specifically designed to handle graphics operations \citep{techterms}.
         GPU cores are less versatile then CPU cores and typically much slower, but since there are thousands of them on a single
-        chip, they can execute thousands of identical threads in parallel.
+        chip, GPUs can execute thousands of identical threads in parallel.
     \item[KDE]
         \emph{kernel density estimation}, a non-parametric method of estimating the probability density function
         of random variables from a number of discrete samples \citep{kde}
@@ -33,8 +23,6 @@
         in PDFs: a form of a PDF where the normalisation factor has been omitted
     \item[Null Island]
         a nickname for the fictional place at WGS84 coordinates \ang{0}~N, \ang{0}~E, \SI{0}{\metre} \citep{null-island}.
-    \item[PDF]
-        \emph{probability density function} \todo{finish}
     \item[SIMD]
         \emph{single instruction, multiple data}, the practice of concurrently executing the same operation on
         different data on a multi-processor system or a GPU.

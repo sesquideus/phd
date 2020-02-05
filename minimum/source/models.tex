@@ -1,10 +1,11 @@
 \Epigraph[0.4]{
-    All work and no play makes Jack a dull boy,\\
-    All play and no work makes Jack a mere toy.
+    You saw sagacious Solomon \\
+    You know what came of him \\
+    To him, complexities seemed plain
 }{
-    \textit{English proverb} \\
-    \textit{enhanced by} \textsc{Maria Edgeworth} \\
-    \textit{in} Harry and Lucy Concluded (1825)
+    How Fortunate the Man With None \\
+    \textsc{Bertolt Brecht} \\
+    \textit{translation John Willett}
 }
 
 Once we have ascertained what physical objects and phenomena we are going to be working with and what we want to achieve,
@@ -35,8 +36,12 @@ encountered at certain point of space and time. Detailed maps of meteoroid densi
 and even more so predictions of possible encounters with meteoroid streams in the future,
 are very important for space agencies operating satellites.
 
-In both models, meteoroids and meteors are not treated as discrete entities,
-but rather as random samples from some hidden underlying distribution.
+Even though meteoroids and meteor are discrete entities, it is useful not to treat them as such,
+but rather as random samples from some smooth distribution function in a multi-dimensional coordinate space.
+Actual particles are then treated as random samples obtained from the underlying distribution.
+
+In the project, logic dictates we do this in the opposite direction: we need to approximate
+the underlying distribution from a finite set of known samples.
 The essential steps in building the model are to find a suitable domain of this distribution,
 to design a method of deducing it from available observations, and finally to
 determine its values over the domain.
@@ -908,11 +913,11 @@ determine its values over the domain.
         \end{description}
 
         Alternatively we may define KDE in terms of $d$-dimensional convolution of the kernel with the sum of all data points,
-        where each data point is represented by a $\delta$-function:
-        \eqn{mmk-kdecont}{
-            \Hat{F}(\vec{x}) = K \ast \left(\Sum[i = 1][n]{\delta\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}\right).
-        }
-        \todo{fix this}
+        where each data point is represented by a $\delta$-function.
+%        \eqn{mmk-kdecont}{
+%            \Hat{F}(\vec{x}) = K \ast \left(\Sum[i = 1][n]{\delta\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}\right).
+%        }
+%        \todo{fix this}
 
         \subsubsection{Kernel} \label{mmkk}
             Surprisingly, the choice of the kernel is not particularly important.

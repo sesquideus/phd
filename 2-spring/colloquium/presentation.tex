@@ -1,0 +1,145 @@
+\documentclass[12pt,aspectratio=1610]{beamer}
+\input{../../kvik-beamer.tex}
+
+\title{Meteor(oid?) models and density estimation}
+\subtitle{}
+\author{\small \emph{Martin Baláž}\textsuperscript{1} \and Juraj Tóth, PhD.\textsuperscript{1} \and Peter Vereš, PhD.\textsuperscript{2} \\[4mm] \scriptsize
+    \textsuperscript{1}Comenius University \\
+    \textsuperscript{2}Minor Planet Center, Harvard-Smithsonian Center for Astrophysics}
+\institute{DAA colloquium}
+\date{2020--02--26}
+
+\begin{document}
+    {
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{fireworks-i.png}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
+    \section{Overview}
+        \frejm{Motivation}{
+            {\large All work and no play makes Jack a dull boy...}\\[10mm]
+            \hfill \textit{English proverb}
+        }
+
+
+    \setbeamersize{description width = 5mm}
+    \section{Simulation}
+
+    \section{Parametric estimation}
+        \frejm{Introduction}{
+            Sometimes we know what to expect...
+            \begin{itemize}
+                \item establish the values of $\sigma$ and $\mu$.
+            \end{itemize}
+        }
+
+        \frejm{Algorithm}{
+            \begin{itemize}
+                \item define the class of distributions
+            \end{itemize}
+        }
+
+        \frejm{Histograms}{
+
+        }
+
+        \frejm{Bin width}{
+            \begin{itemize}
+                \item usually we set bin width manually
+                \pause
+                \item there are ±rigorous methods of determination of optimal bin width
+            \end{itemize}
+        }
+
+
+        \frejm{Case study I: heights of people}{
+        }
+
+       % \fspicture{gauss-1.png}
+
+        \frejm{Case study II: height by sex}{
+            \begin{itemize}
+                \item we can extract information from the distribution
+            \end{itemize}
+        }
+
+        \frejm{Summary}{
+            \begin{itemize}
+                \item advantages
+                \begin{itemize}
+                    \item simple
+                    \item can extract information
+                \end{itemize}
+                \item disadvantages
+                \begin{itemize}
+                    \item we have to know the distribution
+                    \item dependent on binning
+                    \item there must be many data points
+                \end{itemize}
+            \end{itemize}
+        }
+
+    \section{Kernel density estimation}
+        \frejm{No parameters}{
+            Sometimes this all is not applicable...
+            \pause
+            \begin{itemize}
+                \item we cannot use parametric methods
+                \item the distribution is not \emph{known}
+                \item there are \emph{too many} parameters or minima
+                \item 
+            \end{itemize}
+        }
+
+        \frejm{One dimension}{
+        }
+
+        \frejm{Bandwidth}{
+            \begin{itemize}
+                \item similar to bin width in histograms
+            \end{itemize}
+            $$
+                \Hat{F}(\vec{x}) = \frac{1}{nh} \Sum[i = 1][n]{K\left(h \left(x - x_i\right)\right)}
+            $$
+        }
+
+        \frejm{Multiple dimensions}{
+        }
+
+        \frejm{Correlation}{
+            $$
+                \hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
+            $$
+        }
+
+        \frejm{Convolution}{
+            KDE can be defined as a convolution
+        }
+
+        \frejm{Adaptive KDE}{
+            Bandwidth need not be constant
+            \begin{itemize}
+                \item sometimes it is beneficial to vary $h$
+                \item generally
+                \begin{itemize}
+                    \item narrow bandwidth where data are abundant
+                    \item wide bandwidth where data are sparse
+                \end{itemize}
+            \end{itemize}
+        }
+
+
+    \section{Summary}
+
+        \frejm{References}{
+            \begin{itemize}
+                \item \textbf{Hwang, J.-N. -- Lay, S.-R. and Lippman, A.}:
+                    Nonparametric multivariate density estimation: a case study.
+                    IEEE Transactions on Signal Processing 42, 1994.
+                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
+                    Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
+            \end{itemize}
+        }
+            
+\end{document}

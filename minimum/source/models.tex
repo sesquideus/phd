@@ -8,7 +8,7 @@
     \textit{translation John Willett}
 }
 
-Once we have ascertained what physical objects and phenomena we are going to be working with and what we want to achieve,
+Once we have ascertained what physical objects and phenomena we are going to be working with,
 we need to understand \emph{how} this can be done and how meteors and meteoroids can be described in a simplified \emph{model}.
 The entire phenomenon is too complex to be described by a single theory: there are very different physical processes
 at play during the cosmic age of the meteoroids and in the very short-lived phase where it can be detected as a meteor.
@@ -28,8 +28,8 @@ Therefore we propose to separate the concerns and produce two distinct (but rela
 The observational model can be directly compared to actual observations, obtained by ground-based
 devices placed on various locations around the Earth. The relatively precision of these measurements puts
 tight constraints on total number and distribution of recorded meteors. There are already numerous
-meteor-observing networks whiciih cover the sky practically continuously, at least as long as the weather is favourable.
-The sky maps obtained from this model are can be used to predict the activity of meteor showers and of the sporadic background.
+meteor-observing networks which cover the sky continuously, at least as long as the weather is favourable.
+The sky maps obtained from this model can be used to predict the activity of meteor showers and of the sporadic background.
 
 On the other side, the orbital model provides understanding of \emph{why} there are meteors
 encountered at certain point of space and time. Detailed maps of meteoroid density in the past,
@@ -40,7 +40,7 @@ Even though meteoroids and meteor are discrete entities, it is useful not to tre
 but rather as random samples from some smooth distribution function in a multi-dimensional coordinate space.
 Actual particles are then treated as random samples obtained from the underlying distribution.
 
-In the project, logic dictates we do this in the opposite direction: we need to approximate
+In the project, logic dictates that we do this in the opposite direction: we need to approximate
 the underlying distribution from a finite set of known samples.
 The essential steps in building the model are to find a suitable domain of this distribution,
 to design a method of deducing it from available observations, and finally to
@@ -58,31 +58,37 @@ determine its values over the domain.
     in terms of their apparent geocentric orbits, time of entry into the atmosphere and other
     observable properties.
 
-    This model can be \emph{complete}, in the sense that it is possible -- at least
-    in principle -- to record all meteors in the Earth's atmosphere and include them in the model.
+    This model can be \emph{complete}: it is possible -- at least in principle -- to record all
+    meteors in the Earth's atmosphere and include them in the model.
     As long as there is sufficient coverage of the sky by networks of ground-based stations,
     no statistically significant grouping of meteors should remain unaccounted for.
-    In reality there might be discrepancies caused by selection bias, lower coverage of the southern hemisphere
-    or difficulty in detecting daytime meteor showers.
+    In reality there might be discrepancies caused by selection bias,
+    lower coverage of the southern hemisphere or difficulty in detecting daytime meteor showers.
 
     \subsection{Physical quantities in the model} \label{msp}
         The design process of any model in astronomy -- or physics in general -- begins with the selection
         of physical quantities available for analysis. Then we should decide which ones are important enough
-        to be included in the model and which are not.
+        to be included and which can be ignored in the model.
+
+        Each of the important quantities then corresponds to a distinct dimension in a virtual coordinate space.
+        The task of building the model is reduced to finding the values of some multivariable
+        function $\mathcal{A}(x_1, x_2, \ldots, x_n)$ describing the expected number density of observable meteors.
+        Easily measurable quantities are for instance time, position, velocity or apparent magnitude.
 
         \subsubsection{Time} \label{mspt}
-            The first quantity is the time of the atmospheric entry of the meteoroid.
+            The first measurable quantity is the time of the atmospheric entry of the meteoroid.
             First of all, it should be noted that while a meteor is not an instantaneous event,
             its typical duration is on the order of \SI{1}{\second}, which is very short compared to the
             period of rotation of the Earth or the scales on which meteor activity varies.
-            Precise timekeeping is thus not very important in the model.
+            Highly precise timekeeping is thus not very important in the model.
             For our purposes we will be using the time of maximum brightness
             of the meteor for both actual data and in simulations.
 
             In the context of this thesis it is immaterial whether any particular meteor
             appeared a minute earlier or later. Since we are only interested in slow variations,
             any such time shift will be invariably smeared during density estimation.
-            Differences on the order of tens of minutes could be visible with very narrow filaments though.
+            Differences on the order of tens of minutes could be visible with very narrow filaments.
+            The precision of AMOS data is more than sufficient.
 
             In examining the evolution of streams we should anticipate two distinct components:
             \begin{itemize}
@@ -92,8 +98,8 @@ determine its values over the domain.
 
                 \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid
                     streams and gradual decay of older streams which are not replenished.
-                    The peaks produced by meteor showers appear abruptly after the parent body passes through the vicinity of the Earth,
-                    producing small meteoroid due to heating or outgassing.
+                    The peaks produced by meteor showers appear abruptly after the parent body
+                    passes through the vicinity of the Earth, producing small meteoroids due to heating or outgassing.
                     Returns of parents bodies on periodic orbits, result in resupply of meteoroid material,
                     and thus form an extra periodic component, included in the secular evolution of the stream.
             \end{itemize}
@@ -111,21 +117,22 @@ determine its values over the domain.
                     is the \emph{solar longitude}, specified in degrees, which represents the fractional part of the year.
             \end{description}
 
-            Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun \approx \ang{139.4}$,
-            while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
+            \begin{example}
+                Under this convention, August \nth{12}, 2020 roughly corresponds to $y = 2020$ and $\lambda_\Sun \approx \ang{139.4}$,
+                while March \nth{14}, 2020 is denoted as $y = 2019$ and $\lambda_\Sun \approx \ang{353.6}$.
+            \end{example}
 
         \subsubsection{Position} \label{mspp}
-            While position in space it is a fundamental physical quantity,
-            it is not very useful in the observational model.
+            While position in space is a fundamental physical quantity, it is not very useful in the observational model.
             On the large scale it is determined by the position of the Earth at the particular time,
             as only particles that enter the atmosphere can be included in the model.
             On the local scale it does not provide much information: most meteoroid streams
             are much wider than the diameter of the Earth and within them,
-            we may treat exact position of meteoroids entry as essentially random.
+            we may treat exact positions of meteoroids entry as essentially random.
             Even a minuscule change in the orbital elements of one meteoroid
             would cause it to enter the atmosphere at a different place,
             and the same observer would see it at a vastly difference place in the sky or not at all;
-            while its adherence to the stream would not be changed.
+            while its adherence to the stream or its radiant would only be changed very slightly.
 
         \subsubsection{Velocity} \label{mspv}
             Another important measurable quantity is the velocity of the meteor.
@@ -134,7 +141,7 @@ determine its values over the domain.
             orbit of the particle, which can in turn be extrapolated into the interplanetary space
             to obtain the original heliocentric orbit.
             This is also the basis for criteria for determination of adherence to streams,
-            such as the $D$-criterion defined by \citet{southworth+1963}.
+            such as the $D$-criterion defined by \citet{southworth+1963} and others.
 
             The meteor's trajectory is approximated by a straight line and extended to infinity.
             The point where this projection intersects the celestial sphere is called the \emph{radiant} of the meteor.
@@ -386,7 +393,7 @@ determine its values over the domain.
             This may negatively influence the conclusions that are drawn from the data, if these effects are not understood and corrected for.
             In our specific case it is chiefly the tendency of the cameras to detect brighter meteors more reliably than fainter ones,
             which leads to underestimating the number of faint meteors observable in the sky.
-            For a detailed list of possible sources of bias and methods refer to \citep{balaz-thesis}.
+            For a detailed list of possible sources of bias and methods refer to \citet{balaz-thesis}.
 
 %    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
 %    and used to determine the total flux of the Perseids in 2016. Instead of trying to
@@ -544,15 +551,8 @@ determine its values over the domain.
     Furthermore, while the trajectory can be computed with very high precision in vacuum,
     meteoroids lose a fraction of their original pre-atmospheric speed before they become visible \citep{vida+2018}.
     This further adds to the uncertainty of the original orbit.
-    One very pronounced effect of this is the vastly overestimated number of objects
-    on interstellar heliocentric orbits in meteor databases \citep{hajdukovajr1994}.
-
-    The orbital model is necessarily incomplete: we cannot see meteoroids that are not intercepted by the atmosphere.
-    It is possible there is a dense stream of particles on an orbit not too far from the orbit of the Earth,
-    but as long as they do not become visible as meteors, virtually nothing is known about them.
-    Therefore meteoroid streams not crossing the Earth's orbit are out of the scope of this thesis.
-    On the other hand, this is not too important, as we are -- and likely always
-    will be -- much more interested in those which do.
+    Low precision of determination of the pre-atmospheric velocity also results in a vastly overestimated
+    number of objects on interstellar heliocentric orbits in meteor databases \citep{hajdukovajr1994}.
 
     \subsection{Choice of coordinate space} \label{moc}
         Similarly to the observational model, we begin with establishing the coordinates in which the model will be constructed.
@@ -956,7 +956,7 @@ determine its values over the domain.
             \emph{mean integral square error} on some synthetic dataset.
             The KDE is then calculated on the real dataset with the determined optimal bandwidth.
 
-            To simplify the fit, instead of the covariance matrix $\vec{H}$ we may opt to use a diagonal matrix,
+            To simplify the procedure somewhat, instead of the covariance matrix $\vec{H}$ we may use a diagonal matrix at first,
             but with a different metric. With meteors, two of the coordinates -- declination
             and right ascension of the radiant -- are in fact spherical coordinates,
             which cannot be correctly described in Euclidean space anyway.

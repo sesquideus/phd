@@ -1,5 +1,6 @@
 Other comments:
 -Abstract: option: if possible do mention one application or result following the usage of the tool.
+!!!!!!
 
 -l 8: reference and additional explanations are needed: I agree meteor science is notoriously difficult, but please explain why for a non-meteor scientist (after all, black hole science is difficult as well...)
     Accepted, added and explanation.
@@ -12,13 +13,12 @@ I might be completely off but I recall the price per kg is about 10k$.
     I understand, it sounds about right to me. But the problem is mostly with achieving high velocities typical for showers (> 30 km/s).
     Just launching the material to LEO or a highly eccentric orbit is not so difficult these days.
 
-
 -l 27: option: why is the density of the atmosphere to be empirically determined? I thought is was well known, even at very high altitude thanks to satellite drag (I might be wrong...)
     It changes with latitude / solar activity / ... Also the models (MSIS and such) are not simple analytic expressions, but tabulated values.
 
 -l 34: "To address this": here is an example of sentence that looks too vague: to address which scientific question exactly? Again in sec 5 we learn that the initial need was to de-bias meteor shower observation,
     so it would be worth mentionning it here (see also very first comment above).
-!!!!!!
+    Well noticed.
 
 -l 46-48: option: I would put this sentence at the end of the article, but it's really up to you
     I tried to, but in the end I decided I like it where it is. Reworded slightly.
@@ -27,16 +27,15 @@ I might be completely off but I recall the price per kg is about 10k$.
 but the reader needs the big picture of the tool before the details are presented. Such big picture would mention some I/O, packages or scripts or data or models needed for the tools etc.
 Several steps (for several purpose/result?) must also be included. The point is: the reader needs an overview of the tool before you describe the models (theory) and the capabilities.
     Understood, I added an overview schema and a detailed list.
+!!! acutally add the list
 
 -l 55 : sum up the tool specifications here ; then explain why it must not be used for super acccurate results such as dark flight calculation
     Did so.
-!!!
 
 -l 65: a piece of advice for future development: please use the SPICE tool for python (https://spiceypy.readthedocs.io/) :
 it will both save you a lot of time, make your code robust and (maybe most important) compatible with any space agency tool.
 You'll be able to get the latest Earth radii and many more constants.
     Will have a look at it.
-
 
 -l 66: "negligeable for most purpose": again this is too vague: please specify.
     Done. We added an option for the WGS84 model in the meantime, but it is not

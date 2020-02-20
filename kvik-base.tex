@@ -23,24 +23,6 @@
     tabularx,
 }
 
-\sisetup{
-    detect-all              = true,
-    separate-uncertainty    = true,                                   % 7.2 ± 0.5
-    multi-part-units        = single,
-    per-mode                = reciprocal,                   % symbol for "m/s", reciprocal for "ms^{-1}"
-    group-separator         = {\,},
-    group-minimum-digits    = 5,
-    inter-unit-product      = {\kern 0.10em},
-    exponent-product        = \cdot,                        % \times for 5 × 10^7, \cdot for 5 . 1O^7    
-    number-unit-product     = {\ },
-    output-decimal-marker   = {\text{.}},
-    range-units             = single,
-    range-phrase            = {\text{ -- }},
-    list-units              = single,
-    list-final-separator    = {\text{\ a\ }},
-    retain-explicit-plus    = true,
-}
-
 \hypersetup{
     hidelinks,
     breaklinks              = true,
@@ -100,3 +82,4 @@
 \setcounter{secnumdepth}{2}
 
 \input{../../math.tex}
+\input{../../siunitx.tex}

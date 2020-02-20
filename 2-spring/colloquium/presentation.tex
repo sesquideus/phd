@@ -9,26 +9,25 @@
 
 \begin{document}
     {
-        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{fireworks-i.png}}
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/fireworks-i.png}}
         \begin{frame}
             \titlepage
         \end{frame}
     }
     \section{Overview}
         \frejm{Motivation}{
-            {\large All work and no play makes Jack a dull boy...}\\[10mm]
+            {\large wtf}\\[10mm]
             \hfill \textit{English proverb}
         }
 
 
     \setbeamersize{description width = 5mm}
-    \section{Simulation}
 
     \section{Parametric estimation}
         \frejm{Introduction}{
             Sometimes we know what to expect...
             \begin{itemize}
-                \item establish the values of $\sigma$ and $\mu$.
+                \item establish the values of $\sigma$ and $\mu$
             \end{itemize}
         }
 
@@ -50,6 +49,23 @@
             \end{itemize}
         }
 
+        \frejm{Scaling}{
+            \begin{itemize}
+                \item histograms are very dependent on bin width
+                \item optimal bin width...?
+                \pause
+            \end{itemize}
+            $$
+                w = 2 \cdot \mathrm{IQR} \cdot N^{-1/3}
+            $$
+        }
+
+        \frejm{Shifting}{
+            Bin position is also important
+            \centering
+            \includegraphics[width = 0.9\linewidth]{pictures/shift.png}
+        }
+
 
         \frejm{Case study I: heights of people}{
         }
@@ -57,9 +73,14 @@
        % \fspicture{gauss-1.png}
 
         \frejm{Case study II: height by sex}{
+            We can extract information from the distribution
             \begin{itemize}
-                \item we can extract information from the distribution
+                \item assume males and females, both normally distributed
             \end{itemize}
+            $$
+                F(x; c_\text{\male}, \mu_\text{\male}, \sigma_\text{\male}, c_\text{female}, \mu_\text{female}, \sigma_\text{\female}) =
+                \frac{c_\text{\male}}{\sqrt{2\pi}\sigma_\text{\male}} e^{\frac{-\left(x - \mu_\text{\male}\right)^2}{2\sigma_\text{\male}^2}}
+            $$
         }
 
         \frejm{Summary}{
@@ -73,6 +94,9 @@
                 \begin{itemize}
                     \item we have to know the distribution
                     \item dependent on binning
+                    \begin{itemize}
+                        \item both \emph{scale} and \emph{shift}
+                    \end{itemize}
                     \item there must be many data points
                 \end{itemize}
             \end{itemize}
@@ -86,7 +110,7 @@
                 \item we cannot use parametric methods
                 \item the distribution is not \emph{known}
                 \item there are \emph{too many} parameters or minima
-                \item 
+                \item ...
             \end{itemize}
         }
 
@@ -98,7 +122,7 @@
                 \item similar to bin width in histograms
             \end{itemize}
             $$
-                \Hat{F}(\vec{x}) = \frac{1}{nh} \Sum[i = 1][n]{K\left(h \left(x - x_i\right)\right)}
+                \Hat[-1pt]{f}(\vec{x}) = \frac{1}{nh} \Sum[i = 1][n]{K\left(h \left(x - x_i\right)\right)}
             $$
         }
 
@@ -108,7 +132,7 @@
                 \item \emph{MISE}
             \end{itemize}
             $$
-                \Expected{\Int[\mathbb{R}]{\left(\Hat{f}(x) - f(x) \right)^2}{x}}
+                \mathrm{MISE}(\Hat[-1pt]{f}(x), f\,(x)) = \Int[\mathbb{R}]{\left(\Hat[-1pt]{f}(x) - f\,(x) \right)^2}{x}
             $$
 
             \begin{itemize}
@@ -118,11 +142,18 @@
 
         \frejm{Multiple dimensions}{
             KDE easily \emph{generalizes} to multivariate functions
+            \begin{itemize}
+                \item but the variables may be \emph{correlated}
+            \end{itemize}
+        }
+
+        \frejm{Example}{
+            \includegraphics[width = \linewidth]{pictures/kde.png}
         }
 
         \frejm{Correlation}{
             $$
-                \hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
+                \Hat[-1pt]{f}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
             $$
         }
 
@@ -134,11 +165,69 @@
             Bandwidth need not be constant
             \begin{itemize}
                 \item sometimes it is beneficial to vary $h$
+                \pause
                 \item generally
                 \begin{itemize}
-                    \item narrow bandwidth where data are abundant
-                    \item wide bandwidth where data are sparse
+                    \item narrow bandwidth where data are \emph{abundant}
+                    \item wide bandwidth where data are \emph{sparse}
                 \end{itemize}
+            \end{itemize}
+        }
+
+    \section{Models}
+        \frejm{What is this good for?}{
+            \begin{itemize}
+                \item we want to find PDFs for \emph{meteors} and \emph{meteoroids}
+                \pause
+            \item devise \emph{two models}
+            \end{itemize}
+        }
+
+        \frejm{Observational model}{
+            We may estimate the distribution of meteors in the sky
+            \begin{itemize}
+                \item time (1)
+                \item not \emph{positions}, but \emph{radiants} (3 or 2+1)
+                \item magnitude spectrum (1)
+            \end{itemize}
+            \pause
+            $$
+                \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
+            $$
+        }
+
+        \frejm{Orbital model}{
+            Observational model tells \emph{when} and \emph{what}...
+            \pause
+            but does not tell \emph{why}
+            \pause
+            \begin{itemize}
+                \item time (1)
+                \item position (coarse vs fine) (\cancel{3})
+                \item velocity (3)
+                \item mass spectrum (1)
+            \end{itemize}
+            $$
+                \mathcal{M}_{\mathrm{rv}}(t, \vec{r}, \vec{v}, \mu) \quad\text{or}\quad
+                \mathcal{M}_{\mathrm{oe}}(t, a, e, i, \omega, \Omega, T, \mu)
+            $$
+            \pause
+            or better
+            $$
+                \mathcal{M}_{\mathrm{rv}}(t, \vec{r}, \vec{v}, \log \mu) \quad\text{or}\quad
+                \mathcal{M}_{\mathrm{oe}}(t, 1/a, e, i, \omega, \Omega, T, \log \mu)
+            $$
+        }
+
+        \frejm{Curse of dimensionality}{
+            $N$-volume of parameter space increases exponentially
+            \begin{itemize}
+                \item the space is \emph{vast}
+                \pause
+                \item $\ang{360} \times \ang{180} \times 8766 \times 50 \times 50 \approx \num{1.42e12}$
+                \pause
+                \item almost all of it is ``in the corner''
+                \item distance metrics are not very useful
             \end{itemize}
         }
 
@@ -154,5 +243,4 @@
                     Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
             \end{itemize}
         }
-            
 \end{document}

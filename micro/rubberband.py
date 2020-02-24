@@ -20,7 +20,7 @@ def compute(x, y, low, up):
         compute(x, y, low, mid)
         compute(x, y, mid, up)
 
-xx = np.linspace(0, 0.5, 51)
+xx = np.linspace(0, 0.5, 11)
 
 for u in xx:
     plt.plot(x, x - cauliflower(u))

@@ -26,7 +26,7 @@ Therefore we propose to separate the concerns and produce two distinct (but rela
 \end{itemize}
 
 The observational model can be directly compared to actual observations, obtained by ground-based
-devices placed on various locations around the Earth. The relatively precision of these measurements puts
+devices placed on various locations around the Earth. The relatively high precision of these measurements puts
 tight constraints on total number and distribution of recorded meteors. There are already numerous
 meteor-observing networks which cover the sky continuously, at least as long as the weather is favourable.
 The sky maps obtained from this model can be used to predict the activity of meteor showers and of the sporadic background.
@@ -63,15 +63,15 @@ determine its values over the domain.
     As long as there is sufficient coverage of the sky by networks of ground-based stations,
     no statistically significant grouping of meteors should remain unaccounted for.
     In reality there might be discrepancies caused by selection bias,
-    lower coverage of the southern hemisphere or difficulty in detecting daytime meteor showers.
+    lower coverage of the southern hemisphere or difficulties in detecting daytime meteor showers.
 
     \subsection{Physical quantities in the model} \label{msp}
         The design process of any model in astronomy -- or physics in general -- begins with the selection
         of physical quantities available for analysis. Then we should decide which ones are important enough
-        to be included and which can be ignored in the model.
+        to be included in the model and which can be ignored.
 
         Each of the important quantities then corresponds to a distinct dimension in a virtual coordinate space.
-        The task of building the model is reduced to finding the values of some multivariable
+        The task of building the model is reduced to finding the values of some multivariate
         function $\mathcal{A}(x_1, x_2, \ldots, x_n)$ describing the expected number density of observable meteors.
         Easily measurable quantities are for instance time, position, velocity or apparent magnitude.
 
@@ -86,7 +86,7 @@ determine its values over the domain.
 
             In the context of this thesis it is immaterial whether any particular meteor
             appeared a minute earlier or later. Since we are only interested in slow variations,
-            any such time shift will be invariably smeared during density estimation.
+            any such time shift will be invariably smeared in kernel density estimations.
             Differences on the order of tens of minutes could be visible with very narrow filaments.
             The precision of AMOS data is more than sufficient.
 
@@ -145,8 +145,8 @@ determine its values over the domain.
 
             The meteor's trajectory is approximated by a straight line and extended to infinity.
             The point where this projection intersects the celestial sphere is called the \emph{radiant} of the meteor.
-            Unlike the observed position of the meteor, the position of the radiant is not dependent on
-            the position of the observer.
+            Unlike the observed position of the meteor in the sky,
+            the position of the radiant is not dependent on the position of the observer.
 
             Clustering of meteors based on their radiants and is the basis of identification
             of meteor showers: particles on nearly the same trajectory intersecting
@@ -172,7 +172,7 @@ determine its values over the domain.
         \subsubsection{Absolute magnitude} \label{mspm}
             Another important characteristic of a single meteoroid population is the distribution of masses
             among constituent particles. A shower that is primarily composed of massive particles
-            will produce a large number of spectacular fireballs while its ZHR may remain fairly low;
+            will produce a large number of spectacular fireballs while its ZHR\footnote{zenithal hourly rate, see \cref{msaz}} may remain fairly low;
             while another shower may consist of a large number of tiny meteoroids with low cumulative mass,
             yet will result in large ZHR.
 
@@ -234,7 +234,7 @@ determine its values over the domain.
 
             It should be kept in mind that the mass and population indices are not fundamental physical quantities,
             but only parameters of simple model distribution functions for masses and apparent magnitudes respectively.
-            Also, value of $r$ can be measured correctly only when assuming there is a sharp limit of the observer's detection efficiency.
+            Also, value of $r$ can be measured correctly only assuming there is a sharp limit of the observer's detection efficiency.
             For more complex detection efficiency profiles (such as the one defined in \cref{eq:msam-sigmoid})
             it cannot be defined.
 
@@ -313,7 +313,7 @@ determine its values over the domain.
 
             ZHR is defined as
             \eqn{eq:ipqz-zhr}{
-                \mathrm{ZHR} = \dfrac{\dfrac{N}{T} \cdot \dfrac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
+                \mathrm{ZHR} = \frac{\frac{N}{T} \cdot \frac{1}{k} \cdot r^{\num{6.5} - m_0}}{\sin{\theta_\mathrm{R}}}
             }
             where
             \begin{description}
@@ -349,7 +349,8 @@ determine its values over the domain.
             \eqn{eq:msaf-tau}{
                 F_0 = -\tau \frac{\dot{m} v^2}{2}
             }
-            for some constant $\tau$ named \emph{luminous efficiency factor}.
+            for some $\tau$ named \emph{luminous efficiency factor}. This can be either a constant
+            or a function of speed or other properties of the meteoroid.
 
             Photometric mass is obtained by working in the reverse direction: we can estimate the
             ablated mass from the amount of light emitted by the meteoroid during its passage through the atmosphere.
@@ -519,7 +520,7 @@ determine its values over the domain.
     it does not provide any deeper understanding of \textit{why} meteors appear
     at the specified time and from a particular region in the sky.
     To address that, we need to analyze the observed meteors and reconstruct
-    the trajectories of the meteoroids which created them.
+    the trajectories of the original meteoroids.
 
     For each meteor, it is in principle possible to trace its visible motion back in time
     and derive the trajectory of the original meteoroid in the vicinity of the Earth.
@@ -531,8 +532,8 @@ determine its values over the domain.
     vicinity of the Earth and the meteoroid streams which happen to cross its orbit.
     This is a prime example of unavoidable selection bias, an effect skewing the observed distribution
     by only recording some of the samples depending on their properties.
-    Determination of flux in these areas is not possible with Earth-based observations at all
-    and can only be investigated with in-situ observations.
+    Determination of flux in these areas of the property space is not possible
+    with Earth-based observations at all and can only be investigated with in-situ observations.
     In this thesis we will not analyze them any further.
 
     A less fundamental, but still important difficulty lies in the precision of these measurements.
@@ -546,7 +547,7 @@ determine its values over the domain.
     with high precision, but the radiant is typically further away.
     Meteors that appear close to the radiant will move slowly in the sky, which introduces large errors,
     however their angular distance from the radiant is small. The effects of geometry thus mostly cancel out.
-    Precision of measurement suffers when the convergence angle is small \citep{ceplecha1987}.
+    Precision of measurement suffers the most when the convergence angle is small \citep{ceplecha1987}.
 
     Furthermore, while the trajectory can be computed with very high precision in vacuum,
     meteoroids lose a fraction of their original pre-atmospheric speed before they become visible \citep{vida+2018}.
@@ -576,7 +577,10 @@ determine its values over the domain.
 %                is the number density of particles in the position-velocity coordinate space.
 %        \end{description}
 
-        Alternatively this may be expressed in terms of standard orbital elements as
+        Alternatively this may be expressed in terms of standard orbital elements.
+        This notation has an advantage in that the gravity of the Sun as
+        the dominant effect does not change the distribution in time.
+        We may write
         \eqn{eq:po-elem}{
             \mathcal{M}_\mathrm{oe}(t, a, e, i, \omega, \Omega, \phi).
         }
@@ -592,7 +596,7 @@ determine its values over the domain.
             The upper portion of the mass interval is populated only very sparsely.
             To address this, we may work in logarithmic space instead, using $\log \mu$ as the measure of mass.
             The distribution of masses will still be shifted towards lower values, but not so heavily.
-            This is very similar to how magnitudes are reported instead of flux densities, as
+            This is very similar to how magnitudes are reported instead of radiation flux densities, as
             values commonly encountered in astronomy span many orders of magnitude.
 
             A similar approach is applicable to other quantities, most importantly the semi-major axis $a$.
@@ -637,14 +641,14 @@ determine its values over the domain.
 
             On the surface of the Earth, or in its close vicinity, we are more concerned with
             the number of particles passing through an unit area of the surface. This depends not only
-            on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as $\uvec{n}$.
+            on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as~$\Hat[-0.5em]{\vec{n}}$.
             To obtain the flux in the open space we integrate over all possible directions.
             The absolute value of the dot product of the velocity and the normal vector is taken,
             since we are ignoring the direction in which the meteoroid intersects the surface.
             \eqn{eq:mopf-flux}{
-                \Phi(t, \vec{r}, \uvec{n}) = \Int[\mu_0][\infty]{
+                \Phi(t, \vec{r}, \Hat[-0.5em]{\vec{n}}) = \Int[\mu_0][\infty]{
                     \Int[\Real^3]{
-                        \mathcal{M}(t, \vec{r}, \vec{v}, \mu) \Abs{\vec{v} \cdot \uvec{n}}
+                        \mathcal{M}(t, \vec{r}, \vec{v}, \mu) \Abs{\vec{v} \cdot \Hat[-0.5em]{\vec{n}}}
                     }{\vec{v}}
                 }{\mu}.
             }
@@ -653,16 +657,14 @@ determine its values over the domain.
             of the distribution over particle masses is calculated.
             \Cref{eq:mopf-flux} becomes
             \eqn{eq:mopf-mflux}{
-                F(t, \vec{r}) = \Int[\mu_0][\infty]{
+                F_\mu(t, \vec{r}) = \Int[\mu_0][\infty]{
                     \Int[\Real^3][]{\mu \mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
                 }{\mu}.
             }
 
         \subsubsection{Mass index and the Pareto distribution} \label{moms}
             While theoretically any distribution of particle masses is possible,
-            in real meteoroid populations there is always a large excess of small particles,
-            at least within the meteoroid mass range which can be covered by visual observations.
-
+            in real meteoroid populations there is always a large excess of small particles.
             In meteor science, it is customary to assume a specific distribution of masses within a population,
             described by a power law with particle mass as the independent variable,
             \eqn{eq:moms-sindex}{
@@ -671,7 +673,7 @@ determine its values over the domain.
             for some constant $s$ named the \emph{mass index}.
 
             To obtain a distribution, this expression needs to be normalised first.
-            Furthermore, the expression $\mu^{-s}$ diverges to infinity for $\mu \to 0$,
+            The expression $\mu^{-s}$ diverges to infinity for $\mu \to 0$,
             which can be dealt with by setting a lower limit on the mass.
             These requirements are satisfied by the well-known Pareto distribution \citep{arnold1983}.
             In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
@@ -698,7 +700,6 @@ determine its values over the domain.
             \eqn{eq:moms-rs}{
                 r = 1 + \num{2.3} \log_{10} s.
             }
-
 
     \subsection{Additional properties} \label{moa}
         Apart from the dynamical properties, which describe only the density of particles
@@ -730,7 +731,7 @@ determine its values over the domain.
 
     \subsection{Simulation in the Solar System} \label{mio}
         Simulating the motion of meteoroids in interplanetary space is comparatively easy.
-        First of all, it is governed by differential equations describing that are known and theoretically well founded.
+        First of all, it is governed by differential equations that are known and theoretically well founded.
         Second, as it is one of the fundamental problems in observational astronomy,
         it has been solved numerous times with ever-increasing precision and performance.
         Modern software packages, such as REBOUND \citep{rein+rebound}, are capable of solving the equations
@@ -739,12 +740,12 @@ determine its values over the domain.
 
         The generic workflow is approximately as follows: the simulation computes the positions of
         the large bodies of the Solar System, most importantly the Sun, the eight planets and their moons.
-        The obtained values may be easily verified by comparing to known databases or ephemeris systems.
-        Then the test particles are created, each representing a single meteoroid body.
+        The obtained values can be easily verified by comparing to known databases or ephemeris systems.
+        Then the test particles are created, each representing a single meteoroid.
 
         Since every two bodies attract each other, finding all forces acting on the bodies generally
         requires computation of $n\left(n - 1\right) = \BigO{n^2}$ pairs of forces.
-        According to Newton's third law opposing forces are equal in magnitude and opposite in their direction,
+        According to Newton's third law, opposing forces are equal in magnitude and opposite in their direction,
         and thus one evaluation in every pair is enough.
         This brings the number of required evaluations to half the stated value, without changing the order.
         Further optimizations are not possible in general.
@@ -835,7 +836,7 @@ determine its values over the domain.
         In order to increase the yield and reduce the required computation time, we may employ a larger artificial detector:
         the diameter of the simulated Earth is increased several times in order to capture more meteoroids.
         If the scale on which the density of the distribution function $\mathcal{M}$ changes significantly
-        is larger then the radius of the Earth, this is fully justified.
+        is much larger then the radius of the Earth, this is fully justified.
         Similarly, under this assumption temporal variations in activity will be slow.
 
         This assumption is not universally valid though -- some younger meteor showers often produce dense, narrow filaments,
@@ -863,11 +864,10 @@ determine its values over the domain.
         of the equations and algorithms can be found in \citep{balaz+2020}.
 
 \section{Mathematical methods} \label{mm}
-    Once we have ascertained what the result should like, we need to describe the mathematical foundation of the methods used to achieve it.
+    Once we have ascertained what the result should like, we need to describe the mathematical foundations of the methods used to achieve it.
     We have stated that even though meteoroids are discrete particles, it is useful to model their density
     as a smooth function in multi-dimensional coordinate space.
     Actual particles are then treated as random samples obtained from the underlying distribution.
-
     However, logic dictates we do this in the opposite direction: we need to approximate
     the underlying distribution from a finite set of known samples.
     The number of parameters encountered and the complexity of the model essentially preclude the use of any parametric models.
@@ -888,11 +888,11 @@ determine its values over the domain.
         A comprehensive, mathematically rigorous description can be found in \citep{hwang+1994}.
         In simple terms, we can imagine computing the KDE as in this simple algorithm:
         \begin{enumerate}
-            \item determine the bandwidth
+            \item select the bandwidth (covariance matrix) to be used
             \item for every data point $i$
                 \begin{enumerate}[label=\arabic*.]
                 \item find the coordinates $\vec{x_i} = (x_{i1}, x_{i2}, ..., x_{id})^T$ of the data point $i$
-                \item replace each data point with the kernel, shifted to $\vec{x_i}$
+                \item replace each data point with the kernel, shifted to $\vec{x_i}$ and transformed by the bandwidth matrix
             \end{enumerate}
             \item sum all shifted kernels
             \item return the function as the result
@@ -900,11 +900,11 @@ determine its values over the domain.
 
         Put mathematically,
         \eqn{mmk-kde}{
-            \Hat{F}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)},
+            F(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)},
         }
         where
         \begin{description}
-            \item[$\Hat{F}(\vec{x})$]
+            \item[$F(\vec{x})$]
                 is the estimated probability density function at $\vec{x}$,
             \item[$\vec{H}$]
                 is the covariance matrix,
@@ -912,7 +912,7 @@ determine its values over the domain.
                 is the kernel.
         \end{description}
 
-        Alternatively we may define KDE in terms of $d$-dimensional convolution of the kernel with the sum of all data points,
+        Alternatively we may define KDE in terms of a $d$-dimensional convolution of the kernel with the sum of all data points,
         where each data point is represented by a $\delta$-function.
 %        \eqn{mmk-kdecont}{
 %            \Hat{F}(\vec{x}) = K \ast \left(\Sum[i = 1][n]{\delta\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}\right).
@@ -942,11 +942,11 @@ determine its values over the domain.
             The most important consideration in KDE is the determination of correct bandwidth.
             If the selected bandwidth is too high, the resulting estimate of the distribution
             becomes very smeared and does not capture the distribution very well.
-            In the limit $\Abs{\vec{H}} \to \infty$ the estimate becomes identical to the original kernel
+            In the limit $\Abs{\vec{H}} \to \infty$ the shape of the estimate becomes identical to the original kernel
             shifted to the mean position of all data points.
 
             If the bandwidth is too low, individual kernels do not overlap anymore and produce a series
-            of kernels at the positions of the original data points. In the limit $\Abs{\vec{H}} \to 0$
+            of narrow kernels at the positions of the original data points. In the limit $\Abs{\vec{H}} \to 0$
             a sum of $n$ $\delta$-functions centered on data points is obtained.
             Neither of the extremes provides any useful information.
 

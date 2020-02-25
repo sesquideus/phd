@@ -16,10 +16,33 @@
     }
     \section{Overview}
         \frejm{Motivation}{
-            {\large wtf}\\[10mm]
-            \hfill \textit{English proverb}
+            We want to develop a model of meteors and meteoroids
+            \begin{itemize}
+                \item density
+                \item flux
+                \item activity in time
+                \item magnitudes
+                \item $r$ or $s$ index
+                \item ...
+            \end{itemize}
         }
 
+        \frejm{Model}{
+            Build a map / prediction
+            \begin{itemize}
+                \item we have
+                \begin{itemize}
+                    \item observations by AMOS
+                    \item model of meteoroid entry
+                    \item simulation toolkit ASMODEUS
+                \end{itemize}
+                \item we want
+                \begin{itemize}
+                    \item describe meteor \emph{distribution}
+                    \item devise a suitable \emph{model}
+                \end{itemize}
+            \end{itemize}
+        }
 
     \setbeamersize{description width = 5mm}
 
@@ -27,6 +50,7 @@
         \frejm{Introduction}{
             Sometimes we know what to expect...
             \begin{itemize}
+                \item assume normal distribution
                 \item establish the values of $\sigma$ and $\mu$
             \end{itemize}
         }
@@ -34,38 +58,17 @@
         \frejm{Algorithm}{
             \begin{itemize}
                 \item define the class of distributions
+                \item try some parameters
+                \item minimize the \emph{error metric}
+                \begin{itemize}
+                    \item gradient descent
+                    \item simulated annealing
+                    \item ...
+                \end{itemize}
             \end{itemize}
         }
 
-        \frejm{Histograms}{
-
-        }
-
-        \frejm{Bin width}{
-            \begin{itemize}
-                \item usually we set bin width manually
-                \pause
-                \item there are ±rigorous methods of determination of optimal bin width
-            \end{itemize}
-        }
-
-        \frejm{Scaling}{
-            \begin{itemize}
-                \item histograms are very dependent on bin width
-                \item optimal bin width...?
-                \pause
-            \end{itemize}
-            $$
-                w = 2 \cdot \mathrm{IQR} \cdot N^{-1/3}
-            $$
-        }
-
-        \frejm{Shifting}{
-            Bin position is also important
-            \centering
-            \includegraphics[width = 0.9\linewidth]{pictures/shift.png}
-        }
-
+     
 
         \frejm{Case study I: heights of people}{
         }
@@ -107,19 +110,54 @@
             \end{itemize}
         }
 
-    \section{Kernel density estimation}
+    \section{Non-parametric methods}
         \frejm{No parameters}{
             Sometimes this all is not applicable...
             \pause
             \begin{itemize}
-                \item we cannot use parametric methods
-                \item the distribution is not \emph{known}
+                \item the distribution is not \emph{known} beforehand
+                \pause
                 \item there are \emph{too many} parameters or minima
-                \item ...
+                \pause
+                \item no suitable metric
             \end{itemize}
         }
 
+        \frejm{Histograms}{
+            We may group samples together 
+            \begin{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Bin width}{
+            \begin{itemize}
+                \item usually we set bin width manually
+                \pause
+                \item there are ±rigorous methods of determination of optimal bin width
+            \end{itemize}
+        }
+
+        \frejm{Scaling}{
+            \begin{itemize}
+                \item histograms are very dependent on bin width
+                \item optimal bin width...?
+                \pause
+            \end{itemize}
+            $$
+                w = 2 \cdot \mathrm{IQR} \cdot N^{-1/3}
+            $$
+        }
+
+        \frejm{Shifting}{
+            Bin position is also important
+            \centering
+            \includegraphics[width = 0.9\linewidth]{pictures/shift.png}
+        }
+
+
+    \section{Kernel density estimation}
         \frejm{One dimension}{
+            
         }
 
         \frejm{Bandwidth}{
@@ -191,15 +229,19 @@
         \frejm{Observational model}{
             We may estimate the distribution of meteors in the sky
             \begin{itemize}
-                \item time (1)
-                \item not \emph{positions}, but \emph{radiants} (3 or 2+1)
-                \item magnitude spectrum (1)
+                \item<1-> time (1)
+                \item\only<2>{positions}\only<3->{\sout{positions}}
+                \item<3-> radiants (3 or 2+1)
+                \item<4-> magnitude spectrum (1)
             \end{itemize}
-            \pause
             $$
-                \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
+                \only<5->{
+                    \mathcal{A}(t, \vec{v}, m) \equiv \mathcal{A}(t, \delta_\mathrm{R}, \alpha_\mathrm{R}, v_\infty, m).
+                }
             $$
         }
+
+        \fspicture{pictures/model.png}[][white]
 
         \frejm{Orbital model}{
             Observational model tells \emph{when} and \emph{what}...
@@ -208,10 +250,14 @@
             \pause
             \begin{itemize}
                 \item time (1)
-                \item position (coarse vs fine) (\cancel{3})
+                \pause
+                \item position (3)
+                \pause
                 \item velocity (3)
+                \pause
                 \item mass spectrum (1)
             \end{itemize}
+            \pause
             $$
                 \mathcal{M}_{\mathrm{rv}}(t, \vec{r}, \vec{v}, \mu) \quad\text{or}\quad
                 \mathcal{M}_{\mathrm{oe}}(t, a, e, i, \omega, \Omega, T, \mu)
@@ -229,7 +275,7 @@
             \begin{itemize}
                 \item the space is \emph{vast}
                 \pause
-                \item $\ang{360} \times \ang{180} \times 8766 \times 50 \times 50 \approx \num{1.42e12}$
+                \item $\ang{360} \times \ang{180} \times \num{8766} \times \num{50} \times \num{50} \approx \num{1.42e12}$
                 \pause
                 \item almost all of it is ``in the corner''
                 \item distance metrics are not very useful
@@ -238,7 +284,6 @@
 
 
     \section{Summary}
-
         \frejm{References}{
             \begin{itemize}
                 \item \textbf{Hwang, J.-N. -- Lay, S.-R. and Lippman, A.}:
@@ -246,6 +291,8 @@
                     IEEE Transactions on Signal Processing 42, 1994.
                 \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
                     Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
+                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
+                    Generating realistic synthetic meteoroid orbits. Icarus 296, 2017.
             \end{itemize}
         }
 \end{document}

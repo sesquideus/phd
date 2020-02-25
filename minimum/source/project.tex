@@ -33,8 +33,8 @@ or conversely, more appropriate methods are found.
 \section{Current state of the project} \label{pc}
     In our master's thesis \citep{balaz-thesis} we used a parametric Monte-Carlo simulation
     to determine the total flux of Perseids.
-    The simulation in the atmosphere has been improved since, however, its basic principle
-    remains unchanged. It can be used without modifications as long as the position of the radiant,
+    The simulation in the atmosphere has been improved since, however, its basic principles
+    remain unchanged. It can be used without modifications as long as the position of the radiant,
     the true velocity of the particles and the physical properties of the material are known.
     Running the simulation with the completed orbital model would output a sample statistically
     similar to actual observational data.
@@ -79,14 +79,14 @@ or conversely, more appropriate methods are found.
 
         The natural solution is to keep spatial and temporal dimensions as they are:
         time is best displayed in a video or in a sequence of images.
-        In the observational model right ascension and declination are displayed as spatial coordinates after being
+        In the observational model, right ascension and declination are displayed as spatial coordinates after being
         flattened using one of the suitable projections.
         In the orbital model there are six separate coordinates, which are difficult to display at the same time.
         The options are to either design a three-dimensional animation, or to only display data with reduced dimensions.
 
         A major difficulty lies in displaying the remaining two quantities -- speed and mass distribution -- simultaneously.
-        Colour mappings to saturation an hue may be added, or both quantities may be considered only separately.
-        For an example with simple artificial data see \cref{e}.
+        Colour mappings may be added, or both quantities may be considered separately.
+        For an example with simple artificial data, see \cref{e}.
 
         \subsubsection{Spatial coordinates} \label{iovs}
             The two spatial coordinates, declination $\delta_R$ and right ascension $\alpha_R$ are preserved.
@@ -121,6 +121,7 @@ or conversely, more appropriate methods are found.
 
 \section{Roadmap} \label{ir}
     At this stage it is difficult to plan progress in detail. The final process may differ significantly.
+    However, a rough roadmap may be outlined.
 
     \begin{itemize}
         \item In the first phase we should develop and revise the model of meteoroid
@@ -136,13 +137,13 @@ or conversely, more appropriate methods are found.
 
     After the orbital model is complete, we may proceed to the second part, designing the observational model.
     \begin{itemize}
-        \item The orbital model is reduced: meteoroids whose trajectory intersects the Earth
+        \item The orbital model is reduced: meteoroids whose trajectories intersect the Earth
             are imported into the virtual observational dataset.
         \item We design another KDE method for determining the probability density function
             in the observational model. The KDE is applied to both the real database and the virtual dataset
             of meteors and compared. An algorithm for comparing the datasets must be devised.
             The virtual dataset is iteratively modified and regenerated until best possible match is found.
-            The observational dataset must be consistent with the influx of mass in the orbital model.
+            The observational dataset must be consistent with the influx of particles in the orbital model.
             The orbital model will likely need to be modified as well.
         \item Finally we develop and test methods of visualising the data. We should be able to provide
             predictions of meteor activity and derive quantities such as the ZHR, the population index

@@ -41,25 +41,38 @@
                 \item we want
                 \begin{itemize}
                     \item describe meteor \emph{distribution}
-                    \item devise a suitable \emph{model}
+                    \item devise suitable \emph{models}
                 \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{}{
+            We have \emph{discrete} events (meteors or meteoroids)
+            \begin{itemize}
+                \item time
+                \item position
+                \item velocity
+            \end{itemize}
+            \pause
+            What can we do with that?
+            \pause
+            \begin{itemize}
+                \item treat meteors as \emph{random samples} from some continuous \emph{distribution}
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item How do we describe it?
+                \item How do we obtain a distribution from samples?
             \end{itemize}
         }
 
     \setbeamersize{description width = 5mm}
 
     \section{Parametric estimation}
-        \frejm{Introduction}{
+        \frejm{Algorithm}{
             Sometimes we know what to expect...
             \begin{itemize}
-                \item assume normal distribution
-                \item establish the values of $\sigma$ and $\mu$
-            \end{itemize}
-        }
-
-        \frejm{Algorithm}{
-            \begin{itemize}
-                \item define the class of distributions
+                \item select the class of distributions
                 \item try some parameters
                 \item minimize the \emph{error metric}
                 \begin{itemize}
@@ -70,13 +83,11 @@
             \end{itemize}
         }
 
-        \frejm{Case study I: heights of people}{
-        }
-
        % \fspicture{gauss-1.png}
 
-        \frejm{Case study II: height by sex}{
+        \frejm{Case study: height by sex}{
             We can extract information from the distribution
+            \pause
             \begin{itemize}
                 \item assume males and females, both normally distributed
             \end{itemize}
@@ -91,16 +102,21 @@
             \end{itemize}
         }
 
+        \fspicture{heights/hist/hist.png}
+        \fspicture{heights/hist/fit.png}
+        \fspicture{heights/hist/full.png}
+
         \frejm{Summary}{
             \begin{itemize}
                 \item advantages
                 \begin{itemize}
-                    \item simple
+                    \item very simple
                     \item can extract information
                 \end{itemize}
+                \pause
                 \item disadvantages
                 \begin{itemize}
-                    \item we have to know the distribution
+                    \item we have to know the underlying distribution
                     \item dependent on binning
                     \begin{itemize}
                         \item both \emph{scale} and \emph{shift}
@@ -153,6 +169,9 @@
             \includegraphics[width = 0.9\linewidth]{pictures/shift.png}
         }
 
+        \frejm{Example}{
+            \url{heights/hist/000.png}
+        }
 
     \section{Kernel density estimation}
         \frejm{One dimension}{
@@ -186,21 +205,25 @@
             \end{itemize}
         }
 
+        \frejm{Example}{
+            \url{heights/kde/000.png}
+        }
+
         \frejm{Multiple dimensions}{
             KDE easily \emph{generalizes} to multivariate functions
             \begin{itemize}
                 \item but the variables may be \emph{correlated}
+                \item we need to find the \emph{correlation matrix} $\vec{H}$
             \end{itemize}
+            \pause
+            Then
+            $$
+                \Hat[-1pt]{f}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
+            $$
         }
 
         \frejm{Example}{
             \includegraphics[width = \linewidth]{pictures/kde.png}
-        }
-
-        \frejm{Correlation}{
-            $$
-                \Hat[-1pt]{f}(\vec{x}) = \frac{1}{n \Abs{\vec{H}}} \Sum[i = 1][n]{K\left(\vec{H}^{-1}\left(\vec{x} - \vec{x}_i\right)\right)}
-            $$
         }
 
         \frejm{Convolution}{
@@ -300,6 +323,12 @@
                     Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
                 \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
                     Generating realistic synthetic meteoroid orbits. Icarus 296, 2017.
+                \item Wikipedia, user \textbf{Drleft}:
+                    Synthetic data 2D histograms, 2010.
+                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_histograms.png}
+                \item Wikipedia, user \textbf{Drleft}:
+                    Synthetic data 2D KDE, 2010.
+                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_KDE.png}
             \end{itemize}
         }
 \end{document}

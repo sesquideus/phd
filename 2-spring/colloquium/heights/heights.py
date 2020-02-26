@@ -21,7 +21,8 @@ matplotlib.rc('font', **{
 
 
 def generate():
-    return np.random.normal(FEMALE_MEAN, FEMALE_SIGMA, FEMALE_COUNT), np.random.normal(MALE_MEAN, MALE_SIGMA, MALE_COUNT)
+    prng = np.random.RandomState(12348)
+    return prng.normal(FEMALE_MEAN, FEMALE_SIGMA, FEMALE_COUNT), prng.normal(MALE_MEAN, MALE_SIGMA, MALE_COUNT)
 
 def histogram(data):
     return np.histogram(data, bins=np.linspace(1300, 2100, 80))
@@ -57,6 +58,7 @@ def kde_frames(data):
         plt.plot(x, yo)
         plt.xlim(1, 2.5)
         plt.ylim(0, 80000)
+        plt.xlabel('height / m')
         plt.tight_layout(rect=(0, 0, 1, 1))
         plt.title(f'Bandwidth {h:.6f}, MISE {result:.0f}')
         plt.savefig(f'kde/{i:03d}.png')
@@ -69,6 +71,8 @@ def kde_frames(data):
 def plot_mises(mises):
     plt.figure(figsize=(16, 10))
     plt.xlim(0, 0.2)
+    plt.xlabel('bandwidth')
+    plt.ylabel('MISE')
     plt.yscale('log')
     plt.plot(bandwidths, mises)
     plt.tight_layout(rect=(0, 0, 1, 1))
@@ -92,16 +96,44 @@ def hist_frames(data):
 #        mises.append(result)
 
         plt.plot(x, yo)
+        plt.xlabel('height / m')
         plt.xlim(1, 2.5)
         plt.ylim(0, 80000)
         plt.tight_layout(rect=(0, 0, 1, 1))
-        plt.title(f'Bin width {1.5 / h:.6f}, MISE {result:.0f}')
+        plt.title(f'Bin width {1.5 / h:.6f}')
         plt.savefig(f'hist/{i:03d}.png')
         plt.close()
         print(f"{i}")
         i = i + 1
 
     return mises
+
+
+def hist_shift(data):
+    i = 1000
+    mises = []
+
+    for h in [300]:
+        for s in np.linspace(0, 0.01, 101):
+            plt.figure(figsize=(16, 10))
+            bins, edges = np.histogram(data, bins=np.linspace(1 + s, 2.5 + s, h + 1), density=True)
+            print(edges)
+
+            plt.bar(edges[:-1], (MALE_COUNT + FEMALE_COUNT) * bins, width=1.5 / h, align='edge', color=(0.7, 0, 0.5, 0.5))
+
+            plt.plot(x, yo)
+            plt.xlabel('height / m')
+            plt.xlim(1, 2.5)
+            plt.ylim(0, 80000)
+            plt.tight_layout(rect=(0, 0, 1, 1))
+            plt.title(f'Bin width {1.5 / h:.6f}')
+            plt.savefig(f'hist/{i:03d}.png')
+            plt.close()
+            print(f"{i} {s}")
+            i = i + 1
+
+    return mises
+
 
 def fit(data):
     xh = np.linspace(1, 2.5, 151)
@@ -115,25 +147,50 @@ def fit(data):
     female_sigma = popt[5]
 
     plt.figure(figsize=(16, 10))
+    plt.xlabel('height / m')
     plt.xlim(1, 2.5)
     plt.ylim(0, 60000)
     plt.bar(edges[:-1], (MALE_COUNT + FEMALE_COUNT) * bins, width=1.5 / 150, align='edge', color=(0.7, 0, 0.5, 0.5))
+    plt.tight_layout(rect=(0, 0, 1, 1))
+    plt.savefig('hist/hist.png')
+    plt.close()
+
+    plt.figure(figsize=(16, 10))
+    plt.xlabel('height / m')
+    plt.xlim(1, 2.5)
+    plt.ylim(0, 60000)
+    plt.bar(edges[:-1], (MALE_COUNT + FEMALE_COUNT) * bins, width=1.5 / 150, align='edge', color=(0.7, 0, 0.5, 0.3))
+    plt.plot(x, gauss(x, males, male_mean, male_sigma), color=(0.0, 0.0, 0.8, 1))
+    plt.plot(x, gauss(x, females, female_mean, female_sigma), color=(1, 0.0, 0.8, 1))
+    plt.plot(x, double_gauss(x, males, male_mean, male_sigma, females, female_mean, female_sigma), color=(1, 0.5, 0, 1))
+    plt.tight_layout(rect=(0, 0, 1, 1))
+    plt.savefig('hist/fit.png')
+    plt.close()
+
+    plt.figure(figsize=(16, 10))
+    plt.xlabel('height / m')
+    plt.xlim(1, 2.5)
+    plt.ylim(0, 60000)
+    plt.bar(edges[:-1], (MALE_COUNT + FEMALE_COUNT) * bins, width=1.5 / 150, align='edge', color=(0.7, 0, 0.5, 0.3))
     plt.plot(x, yo)
-    plt.plot(x, double_gauss(x, males, male_mean, male_sigma, females, female_mean, female_sigma))
-    plt.plot(x, gauss(x, males, male_mean, male_sigma))
-    plt.plot(x, gauss(x, females, female_mean, female_sigma))
+    plt.plot(x, gauss(x, males, male_mean, male_sigma), color=(0.0, 0.0, 0.8, 1))
+    plt.plot(x, gauss(x, females, female_mean, female_sigma), color=(1, 0.0, 0.8, 1))
+    plt.plot(x, double_gauss(x, males, male_mean, male_sigma, females, female_mean, female_sigma), color=(1, 0.5, 0, 1))
     plt.tight_layout(rect=(0, 0, 1, 1))
     plt.title(f'Males: {males:.0f}, {male_mean:.3f} m, females: {females:.0f}, {female_mean:.3f} m')
-    plt.show()
+    plt.savefig('hist/full.png')
+    plt.close()
+
 
 
 def main():
     stacked = np.hstack((female, male))
 
-    #mises = kde_frames(stacked)
-    #plot_mises(mises)
+  #  mises = kde_frames(stacked)
+  #  plot_mises(mises)
 
-    #mises = hist_frames(stacked)
+   ## mises = hist_frames(stacked)
+    mises = hist_shift(stacked)
     #plot_mises(mises)
 
     fit(stacked)

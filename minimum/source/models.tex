@@ -642,7 +642,6 @@ determine its values over the domain.
             On the surface of the Earth, or in its close vicinity, we are more concerned with
             the number of particles passing through an unit area of the surface. This depends not only
             on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as~$\Hat[-0.5em]{\vec{n}}$.
-            To obtain the flux in the open space we integrate over all possible directions.
             The absolute value of the dot product of the velocity and the normal vector is taken,
             since we are ignoring the direction in which the meteoroid intersects the surface.
             \eqn{eq:mopf-flux}{
@@ -653,12 +652,14 @@ determine its values over the domain.
                 }{\mu}.
             }
 
-            Similarly, to determine the total mass influx from a particular population, the first moment
-            of the distribution over particle masses is calculated.
-            \Cref{eq:mopf-flux} becomes
+            Similarly, to determine the total mass influx, the first moment
+            of the distribution over particle masses and velocities is calculated.
+            \Cref{eq:mopf-spatial} becomes
             \eqn{eq:mopf-mflux}{
-                F_\mu(t, \vec{r}) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3][]{\mu \mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
+                \Phi_\mu(t, \vec{r}) = \Int[\mu_0][\infty]{
+                    \Int[\Real^3]{
+                        \mu \Abs{\vec{v}} \mathcal{M}(t, \vec{r}, \vec{v}, \mu)
+                    }{\vec{v}}
                 }{\mu}.
             }
 

@@ -25,11 +25,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:4f2c913303be4f874015993420bf0bd8fd2097a9c88e6b49c6a92f9bdd3fb13a",
-                "sha256:8c3575f81e11390893860d97e1e0154c47512f180ea55bd84ce8fa69ba8051ca"
+                "sha256:2f1ba1db8648484dd5c238fb62504777b7ad090c81c5f1fd8d5eb5ec21b5f283",
+                "sha256:c91c91a7ad6ef67a874a4f76f58ba534f9208412692a840e1d125eb5c279cb0a"
             ],
             "index": "pypi",
-            "version": "==3.0.2"
+            "version": "==3.0.3"
         },
         "django-js-asset": {
             "hashes": [
@@ -40,10 +40,10 @@
         },
         "django-mptt": {
             "hashes": [
-                "sha256:6bf9eb26e54e92006ca82108a1c946c7df533ec27bddf3f795a83a32a3d1b04b",
-                "sha256:c765c1501dd0b5c22f0ca8b948550bd294cd2db68aefa0560c6ed7fcfdf4b95e"
+                "sha256:90eb236eb4f1a92124bd7c37852bbe09c0d21158477cc237556d59842a91c509",
+                "sha256:dfdb3af75ad27cdd4458b0544ec8574174f2b90f99bc2cafab6a15b4bc1895a8"
             ],
-            "version": "==0.10.0"
+            "version": "==0.11.0"
         },
         "django-simple-cms": {
             "hashes": [

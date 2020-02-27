@@ -14,12 +14,40 @@ talks:
         author:         "Ján Šubjak"
         title:          "Prvý hnedý trpaslík z vesmírnej misie TESS objavený v Ondřejove"
         affiliation:    "Astronomický ústav AV ČR Ondřejov"
+        abstract:   >
+            V súčasnosti sú známe približne dve desiatky tranzitujúcich hnedých
+            trpaslíkov s presne zmeranou hmotnosťou a polomerom.
+            K nim sa nedávno pridal systém TOI-503 a pár ďalších čerstvo objavených
+            systémov z vesmírnej misie TESS a potvrdených dodatočnou spektroskopiou.
+            Napriek úspechom tejto misie však ostávame limitovaný pri štúdiu a pochopení
+            populácie hnedých trpaslíkov vzhľadom na malý počet jej objavených členov a každý nový člen
+            sa stáva testom pre súčasné modely a poznatky.
+            TOI-503 je prvý hnedý trpaslík z vesmírnej misie TESS a vôbec prvý v okolí hviezdy
+            spektrálneho typu Am. Podrobne sme analyzovali získané fotometrické a spektroskopické
+            dáta pre tento systém a charakterizovali jeho parametre, ako aj možné spôsoby formovania.
 
     - &zilkova
         author:     "Danica Žilková"
         title:      "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
         abstract:   >
-            abc
+            The “Meteor Automated Light Balloon Experimental Camera” (MALBEC) project aims at the
+            observation of meteors from stratospheric altitude. The advantage is mainly to guarantee
+            the success of an observation run of a meteor shower, even in presence of clouds.
+            In order to fully exploit the scientific potential of a meteor observation
+            (e.g. derive the internal structure and origin via the measure of tensile strength
+            and orbit), double-station setup is required. The consequence for MALBEC is the
+            necessity of stabilisation and we show that a 3-axis stabilisation is necessary.
+            In addition, the two stations must be separated by a distance ranging from
+            \textasciitilde\SIrange{40}{110}{\kilo\metre}, and the cameras must point
+            towards the same portion of atmosphere. We show that under usual circumstances,
+            double station stratospheric observation is possible since the distance and the
+            azimuth between the two balloons (experiencing different atmospheric conditions)
+            varies in small proportions. Under usual slow wind conditions, the distance between
+            the stations varies by a few km and the elevation of the azimuth and elevation
+            of the cameras needed to observe the same portion of atmosphere varies by a few deg only.
+            In order to demonstrate the feasibility of stratospheric
+            double station meteor observation we developed a tool to simulate the flight and predict the
+            trajectory of the MALBEC nacelle. This will be further illustrated in the upcoming presentation.
 
     - &balaz
         author:     "Martin Baláž"
@@ -44,6 +72,26 @@ talks:
             Okrem základných informácii o tom, ako funguje Geocaching, si hľadanie kešky vyskúšame priamo v teréne.
             Aby to nebolo také jednoduché, súradnice miesta budú ukryté v astronómii a astrofyzike.
             Pre nálezcov bude v keške ukryté malé prekvapenie.
+
+    - &chrobakova
+        author:         "Žofia Chrobáková"
+        title:          "Structure of the outer Galactic disk"
+        affiliation:    "Instituto de Astrofisica Canarías"
+        abstract:       >
+            The structure of the outer disk of our Galaxy is still not well described and there are many
+            features that need to be better understood. Gaia DR2 provides data in unprecedented quality
+            that can be analyzed to shed some light on the outermost parts of the Milky Way.
+            We calculated stellar density using star counts obtained from Gaia DR2, up to galactocentric
+            distance $R$ = 20 kpc using a deconvolution technique in the parallax errors.
+            To recover star counts, we carry out the deconvolution, using the Lucy's inversion method
+            of the Fredholm integral equations of the first kind, without assuming any prior.
+            We analyzed the density in order to study the structure of the outer Galactic disk and
+            created density maps, where we can see structural features, mainly the warp.
+            We studied the warp in greater detail, fitting it with multiple models and analyzing its properties.
+            When we study the northern and the southern warps separately, we get an asymmetry of
+            ~25% larger amplitude in the north. We also study the flare -- the increase of the
+            scale-height with galactocentric distance. We will show preliminary results of our analysis,
+            which shed some light on possibility of flaring of the Galactic disk in the remote regions of the Galaxy.
 
     - &maimone
         author:         "Maria Chiara Maimone"

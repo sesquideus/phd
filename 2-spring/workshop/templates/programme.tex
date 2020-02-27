@@ -5,7 +5,6 @@
     right   = 15mm,
     top     = 15mm,
     bottom  = 15mm,
-    includeheadfoot,
 ]{geometry}
 
 \usepackage{siunitx}
@@ -13,7 +12,8 @@
 \usepackage{tcolorbox}
 \usepackage{booktabs}
 \usepackage{titletoc}
-\usepackage{tabularx, ragged2e}
+\usepackage{enumitem}
+\usepackage{tabularx, tabu, ragged2e}
 \usepackage[MnSymbol]{mathspec}
 
 \setcounter{secnumdepth}{0}
@@ -22,26 +22,43 @@
 
 \pagestyle{empty}
 \renewcommand{\arraystretch}{1.5}
-\aboverulesep=1.2ex
-\belowrulesep=1.2ex
+\linespread{1.3}
+\aboverulesep=1.6ex
+\belowrulesep=1.6ex
+
+\setlist[description]{
+    font=\Large,
+    style=multiline,
+    leftmargin=20mm,
+}
 
 \begin{document}
     \begin{minipage}{\textwidth}
         \begin{minipage}{0.2\textwidth}
-            \includegraphics[width=40mm]{input/logo.jpg}
+            \includegraphics[width=32mm]{input/logo.jpg}
         \end{minipage}
-        \begin{minipage}{0.5\textwidth}
+        \begin{minipage}{0.58\textwidth}
             \centering
-            \Huge
+            \fontsize{40}{50}\selectfont
             Astroworkshop\\
             \large
             of the Comenius University\\
             2020
         \end{minipage}
         \begin{minipage}{0.2\textwidth}
-            \includegraphics[width=40mm]{input/fmfi.png}
+            \includegraphics[width=32mm]{input/fmfi.png}
         \end{minipage}
     \end{minipage}
+    \vspace*{10mm}
+
+    \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+        \textbf{Miesto}:    & AGO Modra \\
+        \textbf{Dátum}:     & (* days[0].date *) -- (* days[-1].date *) \\
+        \textbf{Organizátori}: &
+            (@ for org in orgs @)
+                (*- org -*)(@ if not loop.last @), (@ endif @)
+            (@ endfor @) \\
+    \end{tabularx}
 
     (@ for day in days @)
         \section{\color[rgb]{0, 0.1, 0.4}{(* day.title *)}}
@@ -64,7 +81,21 @@
             \bottomrule
         \end{tabularx}
 
-(### comment @)
+        \begin{description}
+            (@ for time, item in day.blocks.items() @)
+                \item[(* time *)]
+                    {\Large (* item.title *)} \\[1ex]
+                    (@ if item.author is defined @)
+                        \textit{\textbf{(* item.author *)}(@ if item.tele @) (telemost)(@ endif @)} \\%
+                    (@ endif @)
+                    (@ if item.affiliation is defined @)\textit{(* item.affiliation *)} \\[1ex](@ endif @)
+                    (@ if item.abstract is defined @)(* item.abstract *) \\(@ endif @)
+                    (@ if not loop.last @)\rule{\paperwidth}{0.4pt}(@ endif @)
+
+            (@ endfor @)
+        \end{description}
+
+
         (@ for time, item in day.blocks.items() @)
             (@ if not item.astro @)
                 \begin{tcolorbox}
@@ -80,6 +111,5 @@
                 \end{tcolorbox}
             (@ endif @)
         (@ endfor @)
-(@ endcomment ###)
     (@ endfor @)
 \end{document}

@@ -14,7 +14,7 @@ talks:
         author:         "Ján Šubjak"
         title:          "Prvý hnedý trpaslík z vesmírnej misie TESS objavený v Ondřejove"
         affiliation:    "Astronomický ústav AV ČR Ondřejov"
-        abstract:   >
+        abstract:       >
             V súčasnosti sú známe približne dve desiatky tranzitujúcich hnedých
             trpaslíkov s presne zmeranou hmotnosťou a polomerom.
             K nim sa nedávno pridal systém TOI-503 a pár ďalších čerstvo objavených
@@ -27,9 +27,10 @@ talks:
             dáta pre tento systém a charakterizovali jeho parametre, ako aj možné spôsoby formovania.
 
     - &zilkova
-        author:     "Danica Žilková"
-        title:      "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
-        abstract:   >
+        author:         "Danica Žilková"
+        title:          "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
+        affiliation:    "FMFI UK"
+        abstract:       >
             The “Meteor Automated Light Balloon Experimental Camera” (MALBEC) project aims at the
             observation of meteors from stratospheric altitude. The advantage is mainly to guarantee
             the success of an observation run of a meteor shower, even in presence of clouds.
@@ -50,19 +51,21 @@ talks:
             trajectory of the MALBEC nacelle. This will be further illustrated in the upcoming presentation.
 
     - &balaz
-        author:     "Martin Baláž"
-        title:      "Kerbal Space Program"
-        length:     30
-        abstract:   >
+        author:         "Martin Baláž"
+        title:          "Kerbal Space Program"
+        length:         30
+        affiliation:    "FMFI UK"
+        abstract:       >
             Kerbal Space Program is one of the most successful realistic space program simulation games.
             Apart from entertainment, it is very useful in teaching and intuitively understanding
             basic concepts of orbital mechanics, rocket construction and space mission design.
 
     - &havrila
-        author:     "Karol Havrila"
-        title:      "Astronomický Geocaching"
-        length:     30
-        abstract:   >
+        author:         "Karol Havrila"
+        title:          "Astronomický Geocaching"
+        affiliation:    "FMFI UK"
+        length:         30
+        abstract:       >
             Mnohí to poznáte: spojenie príjemného s užitočným prináša svoje čaro. A práve toto spojenie príjemného
             (pohyb mestských uličkách a v prírode) s užitočným (spoznávanie svojho okolia v kombinácii s logikou)
             prináša obľúbená celosvetová terénna hra, Geocaching. Cieľom hry je na základe vyriešených hádaniek,
@@ -89,7 +92,7 @@ talks:
             created density maps, where we can see structural features, mainly the warp.
             We studied the warp in greater detail, fitting it with multiple models and analyzing its properties.
             When we study the northern and the southern warps separately, we get an asymmetry of
-            ~25% larger amplitude in the north. We also study the flare -- the increase of the
+            \textasciitilde\SI{25}{\percent} larger amplitude in the north. We also study the flare -- the increase of the
             scale-height with galactocentric distance. We will show preliminary results of our analysis,
             which shed some light on possibility of flaring of the Galactic disk in the remote regions of the Galaxy.
 
@@ -163,7 +166,7 @@ days:
     -   title:
             "štvrtok"
         date:
-            "2020--03--05"
+            "2020-03-05"
         blocks:
             "19:00":
                 title:  "Otvorenie 7. ročníka ASTRO workshopu"
@@ -172,7 +175,7 @@ days:
     -   title:
             "piatok"
         date:
-            "2020--03--06"
+            "2020-03-06"
         blocks:
             "09:00":
                 title:  "Spoločné raňajky"
@@ -180,14 +183,19 @@ days:
             "10:00":    *toth
             "10:30":    *balaz
             "11:00":    *cechvala
+            "12:00":    *chrobakova
+            "13:00":    *subjak
+            "14:00":    *zilkova
 
     -   title:
             "sobota"
         blocks:
-            "18:00":    *ladder
+            "14:00":    *zilkova
 
     -   title:
             "nedeľa"
+        date:
+            "2020-03-08"
         blocks:
             "09:00":
                 title:  "Spoločné raňajky"

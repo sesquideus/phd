@@ -124,6 +124,12 @@ talks:
             a well-modelled dynamic of the planet (i.e. depth, shape, and position of spectral lines) would
             provide us with considerable information about the planetary atmospheric circulation.
 
+    - &simon
+        author:         "Jaro Šimon"
+        title:          "Inštalácia AMOSov ++"
+        length:         60
+        affiliation:    "AGO Modra"
+
     - &toth
         author:         "Juraj Tóth"
         title:          "Expedícia Hawaii 2020"

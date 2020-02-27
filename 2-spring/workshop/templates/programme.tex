@@ -1,0 +1,85 @@
+\documentclass[a4paper]{report}
+
+\usepackage[
+    left    = 15mm,
+    right   = 15mm,
+    top     = 15mm,
+    bottom  = 15mm,
+    includeheadfoot,
+]{geometry}
+
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{titletoc}
+\usepackage{tabularx, ragged2e}
+\usepackage[MnSymbol]{mathspec}
+
+\setcounter{secnumdepth}{0}
+
+\setallmainfonts{Minion Pro}
+
+\pagestyle{empty}
+\renewcommand{\arraystretch}{1.5}
+\aboverulesep=1.2ex
+\belowrulesep=1.2ex
+
+\begin{document}
+    \begin{minipage}{\textwidth}
+        \begin{minipage}{0.2\textwidth}
+            \includegraphics[width=40mm]{input/logo.jpg}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+            \centering
+            \Huge
+            Astroworkshop\\
+            \large
+            of the Comenius University\\
+            2020
+        \end{minipage}
+        \begin{minipage}{0.2\textwidth}
+            \includegraphics[width=40mm]{input/fmfi.png}
+        \end{minipage}
+    \end{minipage}
+
+    (@ for day in days @)
+        \section{\color[rgb]{0, 0.1, 0.4}{(* day.title *)}}
+
+        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+            \toprule
+            (@ for time, item in day.blocks.items() @)
+                {\Large (* time *)} & {\Large (* item.title *)} \\
+                    (@ if item.author is defined @)
+                        & \textit{\textbf{(* item.author *)}(@ if item.tele @) (telemost)(@ endif @)} \\
+                    (@ endif @)
+                    (@ if item.affiliation is defined @)
+                        & \textit{(* item.affiliation *)} \\
+                    (@ endif @)
+                    (@ if item.abstract is defined @)
+                        & (* item.abstract *) \\
+                    (@ endif @)
+                    (@ if not loop.last @)\midrule(@ endif @)
+            (@ endfor @)
+            \bottomrule
+        \end{tabularx}
+
+(### comment @)
+        (@ for time, item in day.blocks.items() @)
+            (@ if not item.astro @)
+                \begin{tcolorbox}
+            (@ endif @)
+                \subsection{(* time *) \hfill (* item.title *)}
+                (@ if item.author is defined @)
+                    \hfill \textit{(* item.author *)} \\
+                (@ endif @)
+                (@ if item.abstract is defined @)
+                    (* item.abstract *)
+                (@ endif @)
+            (@ if not item.astro @)
+                \end{tcolorbox}
+            (@ endif @)
+        (@ endfor @)
+(@ endcomment ###)
+    (@ endfor @)
+\end{document}

@@ -3,7 +3,7 @@
 input/%.tex: \
 	source/%.tex
 	@mkdir -p $(dir $@)
-	./jinja.py $< -c source/context.yaml -o $@
+	../jinja.py $< -c source/context.yaml -o $@
 
 input/%.pdf: source/%.gp
 	@echo -e '$(c_action)[gnuplot] Rendering file $(c_filename)$<$(c_action) to PDF file $(c_filename)$@$(c_action):$(c_default)'

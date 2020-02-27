@@ -1,63 +1,146 @@
-- author:   "Patrik Čechvala"
-  title:    "Dojmy z konferencie AstroEdu v Garchingu"
-  length:   30
-  abstract: >
-        16.--18. septembra 2019 sa konala v Garchingu pri Mníchove konferencia zameraná na vyučovanie a popularizáciu astronómie organizovaná Medzinárodnou astronomickou úniou IAU
-        Konferencia sa odohrávala v návštevníckom centre Európskeho južného observatória ESO Supernova. Na tejto konferencii sme prezentovali príspevok, ktorý vznikol v spolupráci
-        s doktorandkami z Katedry didaktiky. Ukážeme si niektoré zaujímavosti z tejto konferencie. Špeciálne sa budeme venovať samotnému návšteníckemu centru ESO Supernova, ktoré
-        pozostáva z planetária a výstavných plôch.
+talks:
+    - &cechvala
+        author:     "Patrik Čechvala"
+        title:      "Dojmy z konferencie AstroEdu v Garchingu"
+        length:     30
+        abstract:   >
+            16.--18. septembra 2019 sa konala v Garchingu pri Mníchove konferencia zameraná na vyučovanie a popularizáciu astronómie
+            organizovaná Medzinárodnou astronomickou úniou IAU. Konferencia sa odohrávala v návštevníckom centre Európskeho južného
+            observatória ESO Supernova. Na tejto konferencii sme prezentovali príspevok, ktorý vznikol v spolupráci s doktorandkami
+            z Katedry didaktiky. Ukážeme si niektoré zaujímavosti z tejto konferencie. Špeciálne sa budeme venovať samotnému návšteníckemu
+            centru ESO Supernova, ktoré pozostáva z planetária a výstavných plôch.
 
-- author:   "Ján Šubjak"
-  title:    ""
+    - &subjak
+        author:         "Ján Šubjak"
+        title:          "Prvý hnedý trpaslík z vesmírnej misie TESS objavený v Ondřejove"
+        affiliation:    "Astronomický ústav AV ČR Ondřejov"
 
-- author:   "Danica Žilková"
-  title:    "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
-  abstract: >
+    - &zilkova
+        author:     "Danica Žilková"
+        title:      "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
+        abstract:   >
+            abc
 
-  
-- author:   "Martin Baláž"
-  title:    "Kerbal Space Program"
+    - &balaz
+        author:     "Martin Baláž"
+        title:      "Kerbal Space Program"
+        length:     30
+        abstract:   >
+            Kerbal Space Program is one of the most successful realistic space program simulation games.
+            Apart from entertainment, it is very useful in teaching and intuitively understanding
+            basic concepts of orbital mechanics, rocket construction and space mission design.
 
-- author:   "Karol Havrila"
-  title:	"Astronomický Geocaching"
-  length:   30
-  abstract:	>
-        Mnohí to poznáte: spojenie príjemného s užitočným prináša svoje čaro. A práve toto spojenie príjemného (pohyb mestských uličkách a v prírode)
-        s užitočným (spoznávanie svojho okolia v kombinácii s logikou) prináša obľúbená celosvetová terénna hra, Geocaching. Cieľom hry je na základe
-        vyriešených hádaniek, logických úloh v teréne a všestranných indícii získať súradnice miesta, kde je schovaná tzv. „keška“. V našich mestách
-        a okolí sú stovky kešiek, ktoré prinášajú nie len zábavu z hrania, ale aj spoznávanie svojho okolia, jeho histórie a známych osobností,
-        ktoré sú s danou oblasťou spojené. 
-        Okrem základných informácii o tom, ako funguje Geocaching, si hľadanie kešky vyskúšame priamo v terénne. Aby to nebolo také jednoduché,
-        súradnice miesta budú ukryté v astronómii a astrofyzike. Pre nálezcov bude v keške ukryté malé prekvapenie.    
+    - &havrila
+        author:     "Karol Havrila"
+        title:      "Astronomický Geocaching"
+        length:     30
+        abstract:   >
+            Mnohí to poznáte: spojenie príjemného s užitočným prináša svoje čaro. A práve toto spojenie príjemného
+            (pohyb mestských uličkách a v prírode) s užitočným (spoznávanie svojho okolia v kombinácii s logikou)
+            prináša obľúbená celosvetová terénna hra, Geocaching. Cieľom hry je na základe vyriešených hádaniek,
+            logických úloh v teréne a všestranných indícii získať súradnice miesta, kde je schovaná tzv. „keška“.
+            V našich mestách a okolí sú stovky kešiek, ktoré prinášajú nie len zábavu z hrania, ale aj spoznávanie svojho okolia,
+            jeho histórie a známych osobností, ktoré sú s danou oblasťou spojené.
+            Okrem základných informácii o tom, ako funguje Geocaching, si hľadanie kešky vyskúšame priamo v teréne.
+            Aby to nebolo také jednoduché, súradnice miesta budú ukryté v astronómii a astrofyzike.
+            Pre nálezcov bude v keške ukryté malé prekvapenie.
 
-- author:   "Maria Chiara Maimone"
-  title:    "Star And Planet’s Characterisation Through High Spectral Resolution"
-  length:   20
-  day:      3
-  abstract: >
-        With thousands of confirmed exoplanets and an increasing number of dedicated instruments, we are finally moving into an era where we can address
-        fundamental questions concerning the diversity of their compositions, their atmospheric and interior processes, and their formation histories. 
-        How? Via their observable spectroscopic signatures. 
-        In the last decade, tremendous progress has been made in detecting and characterising atmospheric signatures of exoplanets
-        through spectroscopic methods, allowing to unveil the composition for a dozen of them (Birkby, 2018). 
-        Nevertheless these extraordinary results, we are only at the beginning: stellar and planetary models are still computed separately, and 1D models,
-        largely used for the stars until now, do not reproduce the complexity of convection mechanism (Chiavassa & Brogi, 2019).
-        Our work could be the turning point: we aims at upgrading the already-in-place 3D radiative transfer code Optim3D (Chiavassa et al. 2009) -- largely
-        used for stellar purposes so far -- to taking into account also the exoplanetary contribution. 
-        We propose to use simultaneously 3D Radiative Hydrodynamical simulations, performed for stars, and the innovative Global Climate Model (GCM),
-        drawn up for exoplanets, in order to generate unprecedented precise synthetic spectra.
-        As springboard to test the code, the analysis of CO and H2O molecules will be carried out on the well-know benchmark HD189733.
-        Indeed, one of the most challenging problems is to disentangle star’s and its companion’s signals due to the same molecules. Hence, a complete dynamic
-        characterisation is crucial: on one side, a precise knowledge of the stellar dynamic (i.e. convection-related surface structures) would allow to extract
-        unequivocally the planetary signal; on the other one, a well-modelled dynamic of the planet (i.e. depth, shape, and position of spectral lines) would
-        provide us with considerable information about the planetary atmospheric circulation.
+    - &maimone
+        author:         "Maria Chiara Maimone"
+        title:          "Star And Planet’s Characterisation Through High Spectral Resolution"
+        length:         20
+        day:            3
+        affiliation:    "Côte d’Azur observatory"
+        tele:           True
+        abstract:   >
+            With thousands of confirmed exoplanets and an increasing number of dedicated instruments, we are finally moving into an era where we can
+            address fundamental questions concerning the diversity of their compositions, their atmospheric and interior processes,
+            and their formation histories. How? Via their observable spectroscopic signatures.
+            In the last decade, tremendous progress has been made in detecting and characterising atmospheric signatures of exoplanets
+            through spectroscopic methods, allowing to unveil the composition for a dozen of them (Birkby, 2018).
 
-- author:   "Juraj Tóth"
-  title:    "Expedícia Hawaii 2020"
-  length:   30
-  day:      1
+            Nevertheless these extraordinary results, we are only at the beginning: stellar and planetary models are still computed separately,
+            and 1D models, largely used for the stars until now, do not reproduce the complexity of convection mechanism (Chiavassa \& Brogi, 2019).
+            Our work could be the turning point: we aims at upgrading the already-in-place 3D radiative transfer code Optim3D
+            (Chiavassa et al. 2009) -- largely used for stellar purposes so far -- to taking into account also the exoplanetary contribution.
+            We propose to use simultaneously 3D Radiative Hydrodynamical simulations, performed for stars,
+            and the innovative Global Climate Model (GCM), drawn up for exoplanets, in order to generate unprecedented precise synthetic spectra.
+            As springboard to test the code, the analysis of CO and $\mathrm{H}_2\mathrm{O}$
+            molecules will be carried out on the well-know benchmark HD189733.
+            Indeed, one of the most challenging problems is to disentangle star’s and its companion’s signals due to the same molecules.
+            Hence, a complete dynamic characterisation is crucial: on one side, a precise knowledge of the stellar dynamic
+            (i.e. convection-related surface structures) would allow to extract unequivocally the planetary signal; on the other one,
+            a well-modelled dynamic of the planet (i.e. depth, shape, and position of spectral lines) would
+            provide us with considerable information about the planetary atmospheric circulation.
 
-- author:   "Pol Massana"
-  title:
-  length:   20
-  affiliation:  "University of Surrey"
+    - &toth
+        author:         "Juraj Tóth"
+        title:          "Expedícia Hawaii 2020"
+        affiliation:    "FMFI UK"
+        length:         30
+        day:            1
+
+    - &massana
+        author:         "Pol Massana"
+        title:          ""
+        length:         20
+        affiliation:    "University of Surrey"
+
+    - &veres:
+        author:         "Peter Vereš"
+        title:          ""
+        length:         20
+        tele:           True
+        affiliation:    "MPC, Harvard-Smithsonian Institute for Astrophysics"
+        abstract:       >
+            abc
+
+    - &ladder:
+        author:         ["Martin Baláž", "Karol Havrila", "Roman Nagy"]
+        affiliation:    "FMFI UK"
+        title:          "Kozmický rebrík"
+        length:         120
+        workshop:       True
+        abstract:       >
+            Na tomto workshope si ukážeme, ako sa dajú merať vzdialenosti v kozme.
+
+orgs:
+    -   Martin Baláž
+    -   Patrik Čechvala
+    -   Karol Havrila
+    -   Emil Puha
+    -   Matej Zigo
+
+days:
+    -   title:
+            "štvrtok"
+        date:
+            "2020--03--05"
+        blocks:
+            "19:00":
+                title:  "Otvorenie 7. ročníka ASTRO workshopu"
+                other:  True
+
+    -   title:
+            "piatok"
+        date:
+            "2020--03--06"
+        blocks:
+            "09:00":
+                title:  "Spoločné raňajky"
+                other:  True
+            "10:00":    *toth
+            "10:30":    *balaz
+            "11:00":    *cechvala
+
+    -   title:
+            "sobota"
+        blocks:
+            "18:00":    *ladder
+
+    -   title:
+            "nedeľa"
+        blocks:
+            "09:00":
+                title:  "Spoločné raňajky"
+            "11:00":    *maimone

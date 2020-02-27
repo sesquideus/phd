@@ -1,0 +1,95 @@
+\documentclass[a4paper]{report}
+
+\usepackage[
+    left    = 15mm,
+    right   = 15mm,
+    top     = 15mm,
+    bottom  = 15mm,
+    includeheadfoot,
+]{geometry}
+
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{titletoc}
+\usepackage{tabularx, ragged2e}
+\usepackage[MnSymbol]{mathspec}
+
+\setcounter{secnumdepth}{0}
+
+\setallmainfonts{Minion Pro}
+
+\pagestyle{empty}
+\renewcommand{\arraystretch}{1.5}
+\aboverulesep=1.2ex
+\belowrulesep=1.2ex
+
+\begin{document}
+    \begin{minipage}{\textwidth}
+        \begin{minipage}{0.2\textwidth}
+            \includegraphics[width=40mm]{input/logo.jpg}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+            \centering
+            \Huge
+            Astroworkshop\\
+            \large
+            of the Comenius University\\
+            2020
+        \end{minipage}
+        \begin{minipage}{0.2\textwidth}
+            \includegraphics[width=40mm]{input/fmfi.png}
+        \end{minipage}
+    \end{minipage}
+
+            \section{\color[rgb]{0, 0.1, 0.4}{štvrtok}}
+
+        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+            \toprule
+                            {\Large 19:00} & {\Large Otvorenie 7. ročníka ASTRO workshopu} \\
+                                                                                                        \bottomrule
+        \end{tabularx}
+
+            \section{\color[rgb]{0, 0.1, 0.4}{piatok}}
+
+        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+            \toprule
+                            {\Large 09:00} & {\Large Spoločné raňajky} \\
+                                                                                \midrule                            {\Large 10:00} & {\Large Expedícia Hawaii 2020} \\
+                                            & \textit{\textbf{Juraj Tóth}} \\
+                                                                & \textit{FMFI UK} \\
+                                                            \midrule                            {\Large 10:30} & {\Large Kerbal Space Program} \\
+                                            & \textit{\textbf{Martin Baláž}} \\
+                                                                                    & Kerbal Space Program is one of the most successful realistic space program simulation games. Apart from entertainment, it is very useful in teaching and intuitively understanding basic concepts of orbital mechanics, rocket construction and space mission design.
+ \\
+                                        \midrule                            {\Large 11:00} & {\Large Dojmy z konferencie AstroEdu v Garchingu} \\
+                                            & \textit{\textbf{Patrik Čechvala}} \\
+                                                                                    & 16.--18. septembra 2019 sa konala v Garchingu pri Mníchove konferencia zameraná na vyučovanie a popularizáciu astronómie organizovaná Medzinárodnou astronomickou úniou IAU. Konferencia sa odohrávala v návštevníckom centre Európskeho južného observatória ESO Supernova. Na tejto konferencii sme prezentovali príspevok, ktorý vznikol v spolupráci s doktorandkami z Katedry didaktiky. Ukážeme si niektoré zaujímavosti z tejto konferencie. Špeciálne sa budeme venovať samotnému návšteníckemu centru ESO Supernova, ktoré pozostáva z planetária a výstavných plôch.
+ \\
+                                                                \bottomrule
+        \end{tabularx}
+
+            \section{\color[rgb]{0, 0.1, 0.4}{sobota}}
+
+        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+            \toprule
+                            {\Large 18:00} & {\Large } \\
+                                                                                                        \bottomrule
+        \end{tabularx}
+
+            \section{\color[rgb]{0, 0.1, 0.4}{nedeľa}}
+
+        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+            \toprule
+                            {\Large 09:00} & {\Large Spoločné raňajky} \\
+                                                                                \midrule                            {\Large 11:00} & {\Large Star And Planet’s Characterisation Through High Spectral Resolution} \\
+                                            & \textit{\textbf{Maria Chiara Maimone} (telemost)} \\
+                                                                & \textit{Côte d’Azur observatory} \\
+                                                                & With thousands of confirmed exoplanets and an increasing number of dedicated instruments, we are finally moving into an era where we can address fundamental questions concerning the diversity of their compositions, their atmospheric and interior processes, and their formation histories. How? Via their observable spectroscopic signatures. In the last decade, tremendous progress has been made in detecting and characterising atmospheric signatures of exoplanets through spectroscopic methods, allowing to unveil the composition for a dozen of them (Birkby, 2018).
+Nevertheless these extraordinary results, we are only at the beginning: stellar and planetary models are still computed separately, and 1D models, largely used for the stars until now, do not reproduce the complexity of convection mechanism (Chiavassa \& Brogi, 2019). Our work could be the turning point: we aims at upgrading the already-in-place 3D radiative transfer code Optim3D (Chiavassa et al. 2009) -- largely used for stellar purposes so far -- to taking into account also the exoplanetary contribution. We propose to use simultaneously 3D Radiative Hydrodynamical simulations, performed for stars, and the innovative Global Climate Model (GCM), drawn up for exoplanets, in order to generate unprecedented precise synthetic spectra. As springboard to test the code, the analysis of CO and $\mathrm{H}_2\mathrm{O}$ molecules will be carried out on the well-know benchmark HD189733. Indeed, one of the most challenging problems is to disentangle star’s and its companion’s signals due to the same molecules. Hence, a complete dynamic characterisation is crucial: on one side, a precise knowledge of the stellar dynamic (i.e. convection-related surface structures) would allow to extract unequivocally the planetary signal; on the other one, a well-modelled dynamic of the planet (i.e. depth, shape, and position of spectral lines) would provide us with considerable information about the planetary atmospheric circulation.
+ \\
+                                                                \bottomrule
+        \end{tabularx}
+
+    \end{document}

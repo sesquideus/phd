@@ -2,7 +2,8 @@ MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += --no-builtin-variables
 
 input/programme.tex: \
-	talks/talks.yaml
+	talks/talks.yaml \
+	templates/programme.tex
 	../../jinja.py -c $< -o $@ templates/programme.tex
 
 #	pandoc --mathjax --from markdown+smart --pdf-engine xelatex -to tex --metadata land=sk-SK

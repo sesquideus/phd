@@ -11,10 +11,11 @@
 \usepackage{xcolor}
 \usepackage{tcolorbox}
 \usepackage{booktabs}
-\usepackage{titletoc}
+\usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{tabularx, tabu, ragged2e}
 \usepackage[MnSymbol]{mathspec}
+
 
 \setcounter{secnumdepth}{0}
 
@@ -32,6 +33,8 @@
     leftmargin=20mm,
 }
 
+\titleformat{\section}[hang]{\Huge\centering\bfseries}{}{6pt}{}[]
+
 \begin{document}
     \begin{minipage}{\textwidth}
         \begin{minipage}{0.2\textwidth}
@@ -41,9 +44,8 @@
             \centering
             \fontsize{40}{50}\selectfont
             Astroworkshop\\
-            \large
-            of the Comenius University\\
-            2020
+            \Large
+            AGO Modra, (* days[0].date *) -- (* days[-1].date *)
         \end{minipage}
         \begin{minipage}{0.2\textwidth}
             \includegraphics[width=32mm]{input/fmfi.png}
@@ -52,8 +54,6 @@
     \vspace*{10mm}
 
     \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
-        \textbf{Miesto}:    & AGO Modra \\
-        \textbf{Dátum}:     & (* days[0].date *) -- (* days[-1].date *) \\
         \textbf{Organizátori}: &
             (@ for org in orgs @)
                 (*- org -*)(@ if not loop.last @), (@ endif @)
@@ -61,11 +61,11 @@
     \end{tabularx}
 
     (@ for day in days @)
-        \section{\color[rgb]{0, 0.1, 0.4}{(* day.title *)}}
-
-        \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
-            \toprule
-            (@ for time, item in day.blocks.items() @)
+        \section{(* day.title|capitalize *)}
+(###
+        (@ for time, item in day.blocks.items() @)
+            \begin{tabularx}{\textwidth}{>{}p{2cm} >{\RaggedRight}X}
+                \midrule
                 {\Large (* time *)} & {\Large (* item.title *)} \\
                     (@ if item.author is defined @)
                         & \textit{\textbf{(* item.author *)}(@ if item.tele @) (telemost)(@ endif @)} \\
@@ -73,14 +73,12 @@
                     (@ if item.affiliation is defined @)
                         & \textit{(* item.affiliation *)} \\
                     (@ endif @)
-                    (@ if item.abstract is defined @)
-                        & (* item.abstract *) \\
-                    (@ endif @)
-                    (@ if not loop.last @)\midrule(@ endif @)
-            (@ endfor @)
-            \bottomrule
-        \end{tabularx}
+                    (@ if loop.last @)\midrule(@ endif @)
+            \end{tabularx}
+        (@ endfor @)
+###)
 
+(###
         \begin{description}
             (@ for time, item in day.blocks.items() @)
                 \item[(* time *)]
@@ -89,27 +87,41 @@
                         \textit{\textbf{(* item.author *)}(@ if item.tele @) (telemost)(@ endif @)} \\%
                     (@ endif @)
                     (@ if item.affiliation is defined @)\textit{(* item.affiliation *)} \\[1ex](@ endif @)
-                    (@ if item.abstract is defined @)(* item.abstract *) \\(@ endif @)
                     (@ if not loop.last @)\rule{\paperwidth}{0.4pt}(@ endif @)
 
             (@ endfor @)
         \end{description}
-
+###)
 
         (@ for time, item in day.blocks.items() @)
-            (@ if not item.astro @)
-                \begin{tcolorbox}
-            (@ endif @)
-                \subsection{(* time *) \hfill (* item.title *)}
+            \begin{tcolorbox}[
+                (@ if item.workshop @)
+                    colback=blue!10,
+                    colframe=black!50!blue,
+                (@ elif item.meal @)
+                    colback=red!10,
+                    colframe=red!50!black,
+                (@ elif item.other @)
+                    colback=green!10,
+                    colframe=green!50!black,
+                (@ else @)
+                    colback=white,
+                    colframe=black!70!white,
+                (@ endif @)
+                fonttitle=\Large\bfseries,
+                title=(* time *)
+            ]
+                {\Large (* item.title *)}
                 (@ if item.author is defined @)
-                    \hfill \textit{(* item.author *)} \\
+                    (@ if item.author is string @)
+                        \\ \textbf{\textit{(* item.author *)}}
+                    (@ else @)
+                        \\ (@ for author in item.author @)\textit{\textbf{(* author *)}}(@ if not loop.last @), (@ endif @)(@ endfor @)
+                    (@ endif @)
                 (@ endif @)
-                (@ if item.abstract is defined @)
-                    (* item.abstract *)
-                (@ endif @)
-            (@ if not item.astro @)
-                \end{tcolorbox}
-            (@ endif @)
+                (@ if item.affiliation is defined @)\\ \textit{(* item.affiliation *)}(@ endif @)
+                (@ if item.abstract @)\\[2ex](* item.abstract *)(@ endif @)
+            \end{tcolorbox}
         (@ endfor @)
     (@ endfor @)
 \end{document}

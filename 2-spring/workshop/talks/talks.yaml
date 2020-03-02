@@ -1,8 +1,187 @@
+participants:
+    - &mbalaz
+        name:           Martin
+        surname:        Baláž
+        org:            True
+        present:        True
+        affiliation:    "FMFI UK"
+    - &pcechvala
+        name:           Patrik
+        surname:        Čechvala
+        org:            True
+        present:        True
+        affiliation:    "FMFI UK"
+    - &khavrila
+        name:           Karol
+        surname:        Havrila
+        org:            True
+        present:        True
+        affiliation:    "FMFI UK"
+    - &mkovacova
+        name:           Martina
+        surname:        Kováčová
+        org:            True
+        present:        True
+        affiliation:    "FMFI UK"
+    - &epuha
+        name:           Emil
+        surname:        Puha
+        org:            True
+        present:        False
+        affiliation:    "FMFI UK"
+    - &mzigo
+        name:           Matej
+        surname:        Zigo
+        org:            True
+        present:        False
+        affiliation:    "FMFI UK"
+
+    - &rnagy
+        name:           Roman
+        surname:        Nagy
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &jtoth
+        name:           Juraj
+        surname:        Tóth
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &pmatlovic
+        name:           Pavol
+        surname:        Matlovič
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &smackovjak
+        name:           Šimon
+        surname:        Mackovjak
+        org:            False
+        present:        False
+        affiliation:    "Oddelenie kozmickej fyziky, Ústav experimentálnej fyziky Slovenskej akadémie vied"
+    - &jsimon
+        name:           Jaro
+        surname:        Šimon
+        org:            False
+        present:        True
+        affiliation:    "SOLAR hvezdáreň Senec"
+    - &pveres
+        name:           Peter
+        surname:        Vereš
+        org:            False
+        present:        True
+        affiliation:    "Minor Planet Center, Harvard-Smithsonian Institute for Astrophysics"
+    - &jsilha
+        name:           Jiří
+        surname:        Šilha
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+
+    - &msturc
+        name:           Michal
+        surname:        Šturc
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &dzilkova
+        name:           Danica
+        surname:        Žilková
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &dbartkova
+        name:           Daniela
+        surname:        Bartková
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &jkosvanec
+        name:           Jakub
+        surname:        Košvanec
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &sdurisova
+        name:           Silvia
+        surname:        Ďurišová
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &fhlobik
+        name:           Filip
+        surname:        Hlobík
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &throbar
+        name:           Tomáš
+        surname:        Hrobár
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &aokruhlica
+        name:           Adam
+        surname:        Okruhlica
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+    - &mdluhy
+        name:           Marián
+        surname:        Dluhý
+        org:            False
+        present:        True
+        affiliation:    "FMFI UK"
+
+    - &zchrobakova
+        name:           Žofia
+        surname:        Chrobáková
+        org:            False
+        present:        True
+        affiliation:    "Instituto de Astrofisica Canarías"
+    - &lzsilinszka
+        name:           Lucia
+        surname:        Zsilinszká
+        org:            False
+        present:        True
+        affiliation:    "Pelikán"
+    - &jsubjak
+        name:           Ján
+        surname:        Šubjak
+        org:            False
+        present:        True
+        affiliation:    "Astronomický ústav AV ČR Ondřejov"
+    - &jnovakova
+        name:           Justína
+        surname:        Nováková
+        org:            False
+        present:        True
+        affiliation:    "PriF UK"
+
+    - &mcmaimone
+        name:           Maria Chiara
+        surname:        Maimone
+        org:            False
+        present:        False
+        affiliation:    "Côte d’Azur observatory"
+    - &pmassana
+        name:           Pol
+        surname:        Massana
+        org:            False
+        present:        False
+        affiliation:    "University of Surrey"
+    - &jkubica
+        name:           Juraj
+        surname:        Kubica
+        org:            False
+        present:        True
+        affiliation:    "Slovenské planetáriá"
+
 talks:
     - &cechvala
-        author:         "Patrik Čechvala"
+        author:         *pcechvala
         title:          "Dojmy z konferencie AstroEdu v Garchingu"
-        affiliation:    "FMFI UK"
         length:         30
         abstract:       >
             16.--18. septembra 2019 sa konala v Garchingu pri Mníchove konferencia zameraná na vyučovanie a popularizáciu astronómie
@@ -12,9 +191,8 @@ talks:
             centru ESO Supernova, ktoré pozostáva z planetária a výstavných plôch.
 
     - &subjak
-        author:         "Ján Šubjak"
+        author:         *jsubjak
         title:          "Prvý hnedý trpaslík z vesmírnej misie TESS objavený v Ondřejove"
-        affiliation:    "Astronomický ústav AV ČR Ondřejov"
         abstract:       >
             V súčasnosti sú známe približne dve desiatky tranzitujúcich hnedých
             trpaslíkov s presne zmeranou hmotnosťou a polomerom.
@@ -28,7 +206,7 @@ talks:
             dáta pre tento systém a charakterizovali jeho parametre, ako aj možné spôsoby formovania.
 
     - &zilkova
-        author:         "Danica Žilková"
+        author:         *dzilkova
         title:          "Optimisation of double-station balloon flights for meteor observation: Prediction of the MALBEC nacelle trajectory"
         affiliation:    "FMFI UK"
         abstract:       >
@@ -52,7 +230,7 @@ talks:
             trajectory of the MALBEC nacelle. This will be further illustrated in the upcoming presentation.
 
     - &balaz
-        author:         "Martin Baláž"
+        author:         *mbalaz
         title:          "Kerbal Space Program"
         length:         30
         affiliation:    "FMFI UK"
@@ -62,9 +240,8 @@ talks:
             basic concepts of orbital mechanics, rocket construction and space mission design.
 
     - &havrila
-        author:         "Karol Havrila"
+        author:         *khavrila
         title:          "Astronomický Geocaching"
-        affiliation:    "FMFI UK"
         length:         30
         workshop:       True
         abstract:       >
@@ -79,9 +256,8 @@ talks:
             Pre nálezcov bude v keške ukryté malé prekvapenie.
 
     - &chrobakova
-        author:         "Žofia Chrobáková"
+        author:         *zchrobakova
         title:          "Structure of the outer Galactic disk"
-        affiliation:    "Instituto de Astrofisica Canarías"
         abstract:       >
             The structure of the outer disk of our Galaxy is still not well described and there are many
             features that need to be better understood. Gaia DR2 provides data in unprecedented quality
@@ -99,11 +275,10 @@ talks:
             which shed some light on possibility of flaring of the Galactic disk in the remote regions of the Galaxy.
 
     - &maimone
-        author:         "Maria Chiara Maimone"
+        author:         *mcmaimone
         title:          "Star And Planet’s Characterisation Through High Spectral Resolution"
         length:         20
         day:            3
-        affiliation:    "Côte d’Azur observatory"
         tele:           True
         abstract:   >
             With thousands of confirmed exoplanets and an increasing number of dedicated instruments, we are finally moving into an era where we can
@@ -111,7 +286,6 @@ talks:
             and their formation histories. How? Via their observable spectroscopic signatures.
             In the last decade, tremendous progress has been made in detecting and characterising atmospheric signatures of exoplanets
             through spectroscopic methods, allowing to unveil the composition for a dozen of them (Birkby, 2018).
-
             Nevertheless these extraordinary results, we are only at the beginning: stellar and planetary models are still computed separately,
             and 1D models, largely used for the stars until now, do not reproduce the complexity of convection mechanism (Chiavassa \& Brogi, 2019).
             Our work could be the turning point: we aims at upgrading the already-in-place 3D radiative transfer code Optim3D
@@ -127,28 +301,26 @@ talks:
             provide us with considerable information about the planetary atmospheric circulation.
 
     - &simon
-        author:         "Jaro Šimon"
+        author:         *jsimon
         title:          "Inštalácia AMOSov ++"
         length:         60
         affiliation:    "AGO Modra"
         abstract:       >
-           Celooblohový systeé na pozorovanie meteorov AMOS sa v súčasnosti okrem Slovenska nachádza aj na viacerých vyznamných
+           Celooblohový systém na pozorovanie meteorov AMOS sa v súčasnosti okrem Slovenska nachádza aj na viacerých vyznamných
            observatoriách vo svete. Na prednáške si ukážeme zaujimavé fotografie z miest, kde je nainštalovaný,
            a porozprávame si o zážitkoch pri inštaláciách.
 
     - &toth
-        author:         "Juraj Tóth"
+        author:         *jtoth
         title:          "Expedícia Hawaii 2020"
-        affiliation:    "FMFI UK"
         length:         30
         day:            1
 
     - &massana
-        author:         "Pol Massana"
+        author:         *pmassana
         title:          "The diet of galaxies"
         length:         20
         tele:           True
-        affiliation:    "University of Surrey"
         abstract:       >
             Galaxies are gigantic complex structures and understanding how they are formed and
             evolve is a difficult matter. But one thing we do know, they feed from each other.
@@ -159,24 +331,21 @@ talks:
             In these talk we will answer all these questions and learn about the latest developments in our understanding of galaxies.
 
     - &veres
-        author:         "Peter Vereš"
+        author:         *pveres
         title:          "???"
         length:         20
         tele:           True
-        affiliation:    "Minor Planet Center, Harvard-Smithsonian Institute for Astrophysics"
 
     - &mackovjak
-        author:         "Šimon Mackovjak"
+        author:         *smackovjak
         title:          "Výskum airglowu na Slovensku"
         length:         20
-        affiliation:    "Oddelenie kozmickej fyziky, Ústav experimentálnej fyziky Slovenskej akadémie vied"
         tele:           True
 
     - &sturc
-        author:         "Michal Šturc"
+        author:         *msturc
         title:          "Migrácia Slnka a viacrozmerné grafy"
         length:         30
-        affiliation:    "FMFI UK"
         abstract:       >
             Migrácia Slnka v Galaxii je zaujímavá (aspoň pre mňa) kvôli chemickému zloženiu planét
             a následne kvôli podmienkam pre vznik života. Keďže fázový priestor v dvojrozmernom modeli Galaxie je
@@ -184,29 +353,34 @@ talks:
             Ukážeme si teda zobrazovanie pomocou rovnobežných osí.
 
     - &novakova
-        author:         "Justína Nováková"
+        author:         *jnovakova
         title:          "Kozmochémia v praxi"
         length:         30
-        affiliation:    "PriF UK"
         abstract:       >
-            Kozmochémia je vetva astronómie, ktorá prepája astronómiu, mineralógiu, petrológiu a chémiu pri štúdiu mimozemských
-            materiálov. V súčasnosti najrýchlejšie napredujúcou analytickou metódou v tomto odvetví je hmotnostná spektrometria,
+            Kozmochémia prepája astronómiu, mineralógiu, petrológiu a chémiu pri štúdiu mimozemských materiálov.
+            V súčasnosti najrýchlejšie napredujúcou analytickou metódou v tomto odvetví je hmotnostná spektrometria,
             ktorá je v rôznych podobách vhodná na vysokocitlivú analýzu chemického zloženia v podstate ľubovoľného materiálu.
             Táto prednáška bude venovaná predstaveniu hmotnostných spektrometrov, ktoré sú najvhodnejšie na analýzu meteoritov
             a porovnaniu ich špecifických prínosov.
 
     - &planetaria
-        author:         "Juraj Kubica"
+        author:         *jkubica
         title:          "Popularizácia astronómie cez občianske združenie Slovenské planetáriá"
-        affiliation:    "Slovenské planetáriá"
         length:         60
         abstract:       >
             Aký je stav popularizácie prírodných vied na Slovensku a ako sa v tom angažuje občianske združenie
             Slovenské planetáriá, ktoré sa zasadzuje za výstavbu prvého planetária v Bratislavskom kraji.
 
 workshops:
+    - &silha
+        author:         *jsilha
+        title:          "???"
+        workshop:       True
+        abstract:       >
+            ???
+
     - &telescopes
-        author:         ["Patrik Čechvala", "Karol Havrila"]
+        author:         [*pcechvala, *khavrila]
         affiliation:    "FMFI UK"
         title:          "Ako s ďalekohľadom? -- praktické ukážky"
         workshop:       True
@@ -218,7 +392,7 @@ workshops:
             k základnej výbave každého správneho astronóma.
 
     - &ladder
-        author:         ["Martin Baláž", "Patrik Čechvala", "Karol Havrila", "Roman Nagy"]
+        author:         [*mbalaz, *pcechvala, *khavrila, *rnagy]
         affiliation:    "FMFI UK"
         title:          "Kozmický rebrík"
         length:         120
@@ -240,13 +414,6 @@ extras:
         title:          "Spoločný výlet"
         other:          True
 
-orgs:
-    -   Martin Baláž
-    -   Patrik Čechvala
-    -   Karol Havrila
-    -   Emil Puha
-    -   Matej Zigo
-
 days:
     -   title:
             "štvrtok"
@@ -255,11 +422,12 @@ days:
         blocks:
             "18:00":
                 title:  "Otvorenie 7. ročníka ASTRO workshopu"
-                author: "Roman Nagy"
+                author: *rnagy
                 other:  True
             "18:30":
                 title:  "Prekvapenie"
-                author: "...a možná přijde i kouzelník..."
+                author:
+                    name:   "...a možná přijde i kouzelník..."
                 other:  True
             "20:00":    *supper
 
@@ -298,12 +466,13 @@ days:
             "10:00":    *mackovjak
             "10:30":    *veres
             "11:00":    *sturc
+            "11:30":    *silha
 
             "12:30":    *lunch
 
-            "16:00":    *massana
-            "16:30":    *subjak
-            "17:00":    *zilkova
+            "16:30":    *massana
+            "17:00":    *subjak
+            "17:30":    *zilkova
             "18:00":    *planetaria
 
             "19:00":    *supper

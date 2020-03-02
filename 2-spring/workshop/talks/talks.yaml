@@ -131,6 +131,10 @@ talks:
         title:          "Inštalácia AMOSov ++"
         length:         60
         affiliation:    "AGO Modra"
+        abstract:       >
+           Celooblohový systeé na pozorovanie meteorov AMOS sa v súčasnosti okrem Slovenska nachádza aj na viacerých vyznamných
+           observatoriách vo svete. Na prednáške si ukážeme zaujimavé fotografie z miest, kde je nainštalovaný,
+           a porozprávame si o zážitkoch pri inštaláciách.
 
     - &toth
         author:         "Juraj Tóth"
@@ -141,10 +145,18 @@ talks:
 
     - &massana
         author:         "Pol Massana"
-        title:          "???"
+        title:          "The diet of galaxies"
         length:         20
         tele:           True
         affiliation:    "University of Surrey"
+        abstract:       >
+            Galaxies are gigantic complex structures and understanding how they are formed and
+            evolve is a difficult matter. But one thing we do know, they feed from each other.
+            Under the current paradigm of galaxy evolution, big galaxies have grown by assimilating
+            smaller galaxies. These kind of events usually produce the most astonishingly
+            beautiful images that can be taken with telescopes. But what is really happening when two galaxies collide?
+            Is there really any violence involved at all? Should we be worried that our galaxy will be eaten as well?
+            In these talk we will answer all these questions and learn about the latest developments in our understanding of galaxies.
 
     - &veres
         author:         "Peter Vereš"
@@ -162,9 +174,14 @@ talks:
 
     - &sturc
         author:         "Michal Šturc"
-        title:          "ešte nevie"
+        title:          "Migrácia Slnka a viacrozmerné grafy"
         length:         30
         affiliation:    "FMFI UK"
+        abstract:       >
+            Migrácia Slnka v Galaxii je zaujímavá (aspoň pre mňa) kvôli chemickému zloženiu planét
+            a následne kvôli podmienkam pre vznik života. Keďže fázový priestor v dvojrozmernom modeli Galaxie je
+            štvorrozmerný, tak budeme potrebovať netradičné spôsoby zobrazenia dát.
+            Ukážeme si teda zobrazovanie pomocou rovnobežných osí.
 
     - &novakova
         author:         "Justína Nováková"
@@ -263,8 +280,7 @@ days:
             "14:00":    *havrila
             "15:00":    *trip
 
-            "17:00":    *subjak
-            "17:30":    *zilkova
+            "17:00":    *simon
             "18:00":    *balaz
 
             "19:00":    *supper
@@ -285,9 +301,9 @@ days:
 
             "12:30":    *lunch
 
-            "14:00":    *zilkova
-            "15:00":    *simon
             "16:00":    *massana
+            "16:30":    *subjak
+            "17:00":    *zilkova
             "18:00":    *planetaria
 
             "19:00":    *supper

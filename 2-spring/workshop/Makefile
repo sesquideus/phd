@@ -1,6 +1,10 @@
 MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += --no-builtin-variables
 
+all: \
+	output/programme.pdf \
+	output/certificates.pdf ;
+
 input/programme.tex: \
 	talks/talks.yaml \
 	templates/programme.tex
@@ -16,7 +20,3 @@ input/certificates.tex: \
 output/%.pdf: input/%.tex
 	@texfot xelatex -file-line-error -jobname=$(subst .pdf,,$@) -halt-on-error -interaction=nonstopmode $<
 
-
-all: \
-	output/programme.pdf \
-	output/certificate.pdf ;

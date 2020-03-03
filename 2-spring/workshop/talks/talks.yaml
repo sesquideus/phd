@@ -239,6 +239,29 @@ talks:
             Apart from entertainment, it is very useful in teaching and intuitively understanding
             basic concepts of orbital mechanics, rocket construction and space mission design.
 
+    - &zigo
+        author:         *mzigo
+        title:          "Basics of debris observation"
+        length:         20
+        abstract:       >
+            Do you know what space debris is? Do you know how many debris pieces are out there?
+            Do you know the differences between asteroid and space debris observation?
+            Do you think that the trails on astronomic picture can only waste all the information on the image?
+            Here in this presentation, will be summarized the basics of the space debris research and the general
+            difficulties of capturing and processing of the data. We will talk about the necessary monitoring of these fragments,
+            why we should study something, which was originally created by us and how the growing space debris population can cause the death of George Clooney.
+
+    - &puha
+        author:         *epuha
+        title:          "The Hitchhiker's Guide to Astronomical Databases"
+        length:         30
+        abstract:       >
+            A brief presentation about the most extensive and open-access astronomical databases Simbad and Vizier.
+            We will show their basic handling such as executing table queries and table crossmatches.
+            Moreover, we'll introduce the desktop application Topcat -- a table processing tool, capable to directly connect
+            and download the necessary data from online databases. Finally, we will mention some nice Python libraries,
+            which allow you to perform all of the mentioned tasks from your own code.
+
     - &havrila
         author:         *khavrila
         title:          "Astronomický Geocaching"
@@ -332,9 +355,17 @@ talks:
 
     - &veres
         author:         *pveres
-        title:          "???"
+        title:          "Minor Planet Center (MPC)"
         length:         20
         tele:           True
+        abstract:       >
+            MPC je celosvetové stredisko, ktoré prijíma astrometriu asteroidov a komét z celého sveta, počíta a zverejňuje ich dráhy
+            a poskytuje služby ako efemeridy a online publikácie pozorovaní a dráh, ako aj registráciu observatórií.
+            MPC je už niekoľko rokov financované NASA a za posledné roky prebehlo veľkými personálnymi aj štrukturálnymi zmenami.
+            Jeho úloha je v súčasnosti zameraná najmä na podporu hľadania blízkozemských asteroidov a real-time služby a spracovanie dát.
+            Jednou z úloh, ktoré MPC rieši, je identifikácia a spájanie pozorovaní do spoločných dráh. O tom, koľko dráh má viacero označení,
+            že označenia podliehajú neustálym zmenám a ako sa určuje objaviteľ asteroidu a ako sa dá pomýliť kozmické smetie s asteroidom,
+            porozpráva Peter Vereš z Harvard-Smithsonian Center for Astrophysics, z oddelenia MPC.
 
     - &mackovjak
         author:         *smackovjak
@@ -469,6 +500,7 @@ days:
             "11:30":    *silha
 
             "12:30":    *lunch
+            "14:00":    *trip
 
             "16:30":    *massana
             "17:00":    *subjak
@@ -487,3 +519,5 @@ days:
             "09:00":    *breakfast
 
             "10:00":    *maimone
+            "10:30":    *puha
+            "11:00":    *zigo

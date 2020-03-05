@@ -13,5 +13,7 @@
 *.vrb
 */grant*/*.pdf
 */input/*
+*/*/input/*
 */output/*
+*/*/output/*
 presentation.pdf

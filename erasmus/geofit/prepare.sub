@@ -1,0 +1,44 @@
+      subroutine prepare(ncomp,nsp,nint,area,m,d,parray)
+c   nint = N intimate mixture?
+c   nsp = N spatial mixture?
+
+      include 'geofit.inc'
+      integer nsp, nint, ncomp
+      real*8 area(maxcomp), m(maxcomp), d(maxcomp), parray(i2comp)
+
+
+      if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then
+!                 spatial & intimate mixture
+        print *, "Both spatial and intimate mixtures present"
+        print *, "nint=", nint
+        print *, "nsp=", nsp
+        do i=1,nsp+1
+          parray(i) = area(i)
+        enddo
+        i = i - 1
+        do j=1,nint
+          k = 2*j
+          L = k - 1
+          parray(i+L) = m(j)
+          parray(i+k) = d(j)
+        enddo
+      elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
+        print *, "Only spatial mixture present"
+        print *, "nsp=", nsp
+!                  spatial mixture only
+        do i=1,nsp
+          parray(i) = area(i)
+        enddo
+      elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+        print *, "Only intimate mixture present"
+        print *, "nint=", nint
+!                  intimate mixture only
+        do i=1,nint
+          parray(2*i-1) = m(i)
+          parray(2*i) = d(i)
+        enddo
+      endif
+      print *, "Prepared the parray (this is a mess)"
+      print *, parray
+      return
+      end

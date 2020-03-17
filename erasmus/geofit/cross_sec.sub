@@ -1,0 +1,50 @@
+      subroutine cross_sec(ncomp,nsp,nintm,pay,rho,xsec,xsectot)
+c   this subroutine calculates each particles geometrical cross
+c   sectional area and the total cross sectional area of all particles
+
+c   INPUT
+
+c   maxcomp - maximum number of components
+c   ncomp - actual number of components in mixture
+c   pay - parameter array containing the relative mass fractions 
+c     and particle diameter, in mm, of each component in the mixture
+c   rho - solid density of each component in the mixture, in g/cm^3
+
+c   OUTPUT
+
+c   xsec(maxcomp) - the geometrical cross sectional area of each
+c      component
+c   xsectot - the total geometrical cross sectional area of all
+c      components
+
+      include 'geofit.inc'
+      integer ncomp, nsp, nintm
+      real*8 pay(i2comp), rho(maxcomp)
+      real*8 xsec(maxcomp), xsectot
+
+c     print *, 'in cross section'
+c     print *, ncomp, nsp, nintm
+c     do i=1,2*nintm
+c         print *, pay(i)
+c     enddo
+c     do i=1,nintm
+c         print *, rho(i)
+c     enddo
+      xsectot=0.0
+      do i=1,nintm
+        if ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
+          j= 2*i
+          k = nsp+1
+          xsec(i)= pay(k+j-1) / ( rho(i) * ( pay(k+j) / 10.0) )
+c         print *, 'm= ',pay(k+j-1),' rho= ',rho(i),' d= ',pay(k+j)
+        elseif ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
+          xsec(i)= pay(2*i-1) / ( rho(i) * ( pay(2*i) / 10.0) )
+c         print *, 'm= ',pay(2*i-1),' rho= ',rho(i),' d= ',pay(2*i)
+        endif
+        xsectot = xsectot + xsec(i)
+      enddo
+c     do i=1,nintm
+c       print *, 'xsec= ',xsec(i)/xsectot
+c     enddo
+      return
+      end

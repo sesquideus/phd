@@ -1,0 +1,156 @@
+      SUBROUTINE AMOEBA(nwave,ncomp,nsp,nint,nscl,ncalc,xarray,rho,
+     $                 b,c,beta,wve,u,n,nk,hi,galb_m,galb_merr,
+     $                 galb_c,p,y,ftol,iter,alb_sp,alb_sperr,debug)
+c   P,Y,MP,NP,NDIM,FTOL,FUNK,ITER)
+
+      include 'geofit.inc'
+      include 'declare.inc'
+
+      integer nwave, ncomp, nsp, nint, nscl, ITER, MPTS, NDIM
+      real*8 u, uo, g, e, xarray(i2comp)
+      real*8 galb_c(maxwave)
+      real*8 P(i2comp+1,maxcomp), Y(i2comp+1), FTOL
+      real*8 PR(i2comp),PRR(i2comp),PBAR(i2comp)
+      real*8 YPR, YPRR, ALPH, BET, GAMMA, RTOL
+
+c     real*8 P(MP,NP),Y(MP),PR(NMAX),PRR(NMAX),PBAR(NMAX)
+
+      PARAMETER (ALPH=1.0,BET=0.5,GAMMA=2.0,ITMAX=200)
+
+c     open(unit=44,file='amoeba.out',status='new')
+
+c     print *, 'in amoeba, ftol= ',ftol
+      if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then
+        NDIM = nsp + (2*nint) + 1
+        MPTS = NDIM + 1
+      elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
+        NDIM = ncomp
+        MPTS = NDIM + 1
+      elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+        NDIM = 2*ncomp
+        MPTS = NDIM + 1
+      endif
+      ITER=0
+1     ILO=1
+      IF(Y(1).GT.Y(2))THEN
+        IHI=1
+        INHI=2
+      ELSE
+        IHI=2
+        INHI=1
+      ENDIF
+      DO 11 I=1,MPTS
+        IF(Y(I).LT.Y(ILO)) ILO=I
+        IF(Y(I).GT.Y(IHI))THEN
+          INHI=IHI
+          IHI=I
+        ELSE IF(Y(I).GT.Y(INHI))THEN
+          IF(I.NE.IHI) INHI=I
+        ENDIF
+11    CONTINUE
+c     print *, 'ihi= ',ihi,' ilo= ',ilo
+c     print *, 'yhi= ',y(ihi),' ylo= ',y(ilo)
+      RTOL=2.*DABS(Y(IHI)-Y(ILO))/(DABS(Y(IHI))+DABS(Y(ILO)))
+c     print *, 'RTOL= ', RTOL
+      IF(RTOL.LT.FTOL)THEN
+         PRINT*, 'RTOL < FTOL'
+         RETURN
+      ENDIF
+      IF(ITER.EQ.ITMAX) GOTO 40
+      ITER=ITER+1
+      PRINT *, 'ITER= ', ITER
+      DO 12 J=1,NDIM
+        PBAR(J)=0.
+12    CONTINUE
+      DO 14 I=1,MPTS
+        IF(I.NE.IHI)THEN
+          DO 13 J=1,NDIM
+            PBAR(J)=PBAR(J)+P(I,J)
+13        CONTINUE
+        ENDIF
+14    CONTINUE
+c     Compute the reflection point:
+      DO 15 J=1,NDIM
+        PBAR(J)=PBAR(J)/NDIM
+        PR(J)=(1.+ALPH)*PBAR(J)-ALPH*P(IHI,J)
+15    CONTINUE
+      CALL RENORM(NCOMP,NSP,NINT,PR)
+      CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PR,rho,b,c,
+     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           galb_m,galb_merr,galb_c,e,debug)
+      YPR=e
+c     write(44,*) j, PR(j), YPR
+      IF(YPR.LE.Y(ILO))THEN
+        DO 16 J=1,NDIM
+c	Compute the expansion point:
+          PRR(J)=GAMMA*PR(J)+(1.-GAMMA)*PBAR(J)
+16      CONTINUE
+c       CALL RENORM(NCOMP,NSP,NINT,PR)
+        CALL RENORM(NCOMP,NSP,NINT,PRR)
+      CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PRR,rho,b,c,
+     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           galb_m,galb_merr,galb_c,e,debug)
+        YPRR=e
+c       write(44,*) j, PRR(j), YPRR
+        IF(YPRR.LT.Y(ILO))THEN
+          DO 17 J=1,NDIM
+            P(IHI,J)=PRR(J)
+17        CONTINUE
+          Y(IHI)=YPRR
+        ELSE
+          DO 18 J=1,NDIM
+            P(IHI,J)=PR(J)
+18        CONTINUE
+          Y(IHI)=YPR
+        ENDIF
+      ELSE IF(YPR.GE.Y(INHI))THEN
+        IF(YPR.LT.Y(IHI))THEN
+          DO 19 J=1,NDIM
+            P(IHI,J)=PR(J)
+19        CONTINUE
+          Y(IHI)=YPR
+        ENDIF
+c	Compute the expansion:
+        DO 21 J=1,NDIM
+          PRR(J)=BET*P(IHI,J)+(1.-BET)*PBAR(J)
+21      CONTINUE
+c       CALL RENORM(NCOMP,NSP,NINT,PR)
+        CALL RENORM(NCOMP,NSP,NINT,PRR)
+      CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PRR,rho,b,c,
+     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           galb_m,galb_merr,galb_c,e,debug)
+        YPRR=e
+c       write(44,*) j, PRR(j), YPRR
+        IF(YPRR.LT.Y(IHI))THEN
+          DO 22 J=1,NDIM
+            P(IHI,J)=PRR(J)
+22        CONTINUE
+          Y(IHI)=YPRR
+        ELSE
+          DO 24 I=1,MPTS
+            IF(I.NE.ILO)THEN
+              DO 23 J=1,NDIM
+                PR(J)=0.5*(P(I,J)+P(ILO,J))
+                P(I,J)=PR(J)
+23            CONTINUE
+              CALL RENORM(NCOMP,NSP,NINT,PR)
+              CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PR,rho,b,c,
+     $                   beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $                   galb_m,galb_merr,galb_c,e,debug)
+              Y(I)=E
+c             Y(I)=FUNK(PR)
+c             write(44,*) j, PR(j), Y(I)
+            ENDIF
+24        CONTINUE
+        ENDIF
+      ELSE
+        DO 25 J=1,NDIM
+          P(IHI,J)=PR(J)
+25      CONTINUE
+        Y(IHI)=YPR
+      ENDIF
+      GO TO 1
+40    PRINT *, 'Amoeba exceeding maximum iterations.'
+c     close(44)
+45    RETURN
+      END

@@ -1,0 +1,88 @@
+C        SUBROUTINE MULSC1 CALCULATES HAPKE'S MULTIPLE SCATTERRING TERM
+C        USING A DOUBLE LINEAR INTERPOLATON OF CHANDRASEKHARS H-FUNCTION
+C        INPUT -- U, UO, AND W
+c	 OUTPUY -- MSCAT, HUU AND HUO (THE MULTIPLE SCATTERED INTENSITY
+C	 (MSI) AND INTERPOLATED VALUES (HUU HUO)
+
+        subroutine mulsc1(MSCAT,HI,u,UO,W,HUU,HUO)
+
+        real*8 MSCAT,u,uo,w,HUU,HUO,diff
+        real*8 HI(15,21),XLIN,WI(15),XU(21),hij,hij1
+        real*8 WJ1,XJ1,HU
+
+        DATA (WI(I),I=1,15) /0.,.1,.2,.3,.4,.5,.6,.7,
+     $.8,.85,.9,.925,.95,.975,1./
+
+        DATA (XU(I),I=1,21) /0.,.05,.10,.15,.20,.25,.30,
+     $.35,.40,.45,.50,.55,.60,.65,.70,.75,.80,.85,.90,.95,1./
+
+C        FIND WJ,XJ1 AND SET VALUES OF INTERPOLATION TO WJ, XJ1
+ 33       DO JK=1,2
+             IF(JK.EQ.1)THEN
+                WJ1= W
+                XJ1=U
+             ELSE IF(JK.EQ.2)THEN
+                WJ1= W
+                XJ1=UO
+            END IF
+
+         DO J=1,14
+            diff = w - wi(j+1)
+            IF( (WJ1.GE.WI(J)) .AND. (WJ1.LT.WI(J+1)) )THEN
+               JB=J
+               JT=J+1
+               GO TO 100
+            ELSE IF(WJ1 .EQ. WI(J+1)) THEN
+               JB=J
+               JT=J+1
+            END IF
+ 100     END DO
+
+         DO I=1,20
+          IF( (XJ1.GE.XU(I)). AND. (XJ1.LT.XU(I+1)) ) THEN
+            IB=I
+            IT=I+1
+            GO TO 101
+          ELSE IF (XJ1.EQ.XU(I+1)) THEN
+            IB=I
+            IT=I+1
+          END IF
+ 101      END DO
+
+
+C          INTERPOLATE
+C
+            HIJ=XLIN(WJ1,HI(JB,IB),HI(JT,IB),WI(JB),WI(JT))
+            HIJ1=XLIN(WJ1,HI(JB,IT),HI(JT,IT),WI(JB),WI(JT))
+            HU=XLIN(XJ1,HIJ,HIJ1,XU(IB),XU(IT)) 
+
+             IF(JK.EQ.1)THEN
+             HUU=HU
+             ELSE IF(JK.EQ.2)THEN
+             HUO=HU
+             END IF
+           END DO
+
+        MSCAT = HUO * HUU - 1.
+
+        write(75,*) 'in mulsc1.sub'
+        write(75,*) 'w= ',w
+        write(75,*) 'ib= ',ib,' it= ',it
+        write(75,*) 'jb= ',jb,' jt= ',jt
+        write(75,*) 'huu= ',huu
+        write(75,*) 'huo= ',huo
+        write(75,*) 'mscat= ',mscat
+
+        RETURN
+        END
+
+
+      
+C       LINEAR INTERPOLATION TERM FOR MULTIPLE SCATTERING
+        FUNCTION XLIN(XP,Y1,Y2,X1,X2)
+        DOUBLE PRECISION XP,Y1,Y2,X1,X2,XLIN
+
+        SLOPE = (Y2 - Y1) / (X2 - X1)
+        B = Y2 - SLOPE * X2
+        XLIN = SLOPE * XP + B
+        END

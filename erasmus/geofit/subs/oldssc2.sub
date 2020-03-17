@@ -1,0 +1,75 @@
+       SUBROUTINE OLD_SSC2(W,NX,NKX,G,WV,ES,D,sx,SI,R1)
+
+C        SSC CALCULATES THE SINGLE SCATTERING ALBEDO (W).
+C	INPUT -- U, UO, Nx, NKx, G, WV, S, D
+C	OUTPUT -- W, SX, SI, (SE), R1
+
+       real*8 w,nx,nkx,g,wv,es,d,sx,si,r1
+       real*8 UX,VX,RR,RL,q2
+       real*8 arg1,arg2,arg3,dumm,num,den
+
+       dumm = nx**2 - nkx**2 - dsin(g/2.)**2
+       arg1 = dumm**2 + (4. * NX**2 * NKX**2)
+       if(arg1.lt.0.) then
+          arg1 = 0.
+       endif
+
+       arg2 = dumm + dsqrt(arg1)
+       if(arg2.lt.0.) then
+          arg2 = 0.
+       endif
+       arg2 = arg2 / 2.
+       ux = dsqrt(arg2)
+
+       arg3 = (-1. * dumm) + dsqrt(arg1)
+       if(arg3.lt.0.) then
+          arg3 = 0.
+       endif
+       arg3 = arg3 / 2.
+       vx = dsqrt(arg3)
+
+       num = (dcos(G/2.) - UX)**2 + VX**2
+       den = (dcos(G/2.) + UX)**2 + VX**2
+       rr = num / den
+ 
+        num = ( (NX**2 - NKX**2) * dcos(G/2.) - UX )**2
+     $     +  ( 2. * NX * NKX * dcos(G/2.) - VX )**2
+        den = ( (NX**2 - NKX**2) * dcos(G/2.) + UX )**2
+     $     +  ( 2. * NX * NKX * dcos(G/2.) + VX )**2
+        RL = num / den
+
+        sx = (RR + RL) / 2.
+
+C    INTG1 INTEGRATES THE COMPONENTS OF SINGLE SCATTERING REFLECTION
+C    SE (REFLECTION FROM SURFACE) AND SI (ELEMENT REFRACTED INTO
+C    VOLUME).  INPUT -- NX,NKXS; OUTPUT -- SI (SE)
+
+          call intg1(si,nx)
+
+         ALPHA=(4. * 3.1415927 * NKX) / WV
+         IF(  (ALPHA.EQ.0.) .OR. (ALPHA.LT.1.E-15) )THEN
+             R1=1.
+         ELSE IF(ES.LT.1.E-15) THEN
+             R1=0.
+         ELSE
+             num = 1. - dsqrt( (ALPHA / (ALPHA + ES)) )
+             den = 1. + dsqrt( (ALPHA / (ALPHA + ES)) )
+             r1 = num / den
+         END IF
+
+         num = (1. - sx) * (1. - SI)
+     $     * (R1 + dexp( -2. * dsqrt( ALPHA * (ALPHA+ES) ) * D / 3.) )
+         den = 1. - (R1 * SI)
+     $   + (R1 - SI) * dexp( -2. * dsqrt( ALPHA * (ALPHA+ES) ) * D / 3.)
+
+         q2 = num / den
+         W = sx + Q2
+
+c        because of potenital round-off errors, check that the single
+c        scattering albedo does not exceed 1.0
+
+	 if (w .gt. 1.) then
+            w = 1.0
+         endif
+        RETURN
+        END

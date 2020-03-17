@@ -1,0 +1,74 @@
+      subroutine output(ncomp,nwave,nsp,nint,ncalc,outf,x,errval,
+     $wve,freq,galb_c,debug)
+c   this subroutine is intended to write out data of the calculated 
+c   relfectivity for an n-component mixture. A number of parameters
+c   are defined in the main program.
+
+c   INPUT
+
+c   debug - parameter used for debugging purposes
+c   outf - output file name
+c   err - final chi squared value
+c   wve(i) - array containing wavelengths (in micrometers)
+c   freq(i) - array containing frequencies (inverse centimeters)
+c   galb_c(i) - array containing the calculated reflectances
+c   nwave - actual number of waves associated with the data
+c   ncomp - actual number of components in the mixture
+c   nsp - number of spatial components
+c   nint - numberof components in intimate mixture
+
+c   INTERNAL VARIABLES - none
+
+      include 'geofit.inc'
+      include 'declare.inc'
+      character*80 outf
+      integer nwave, ncomp, nsp, nint
+      real*8 galb_c(maxwave), x(i2comp), errval
+
+c      open the output file
+
+      print *, "opening the output file ", outf
+
+      open(unit=20,file=outf,status='old',access='append')
+
+      write(20,10) errval
+ 10   format(1x,'final chi squared value= ',g11.5)
+
+      write(20,15) ncalc
+ 15   format(1x,'total number of geo. albedos calculated= ',i4)
+
+      do i=1,nsp
+         write(20,20) i, x(i)
+ 20      format(1x,'spatial component(',i2,'):  area fraction= ',g10.4)
+      enddo
+
+      if ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+        write(20,*) 'Intimate Mixture Only'
+        do j=1,nint
+          k = 2*j-1
+          L = 2*j
+          write(20,35) j, x(k), x(L)
+        enddo
+      elseif ( ( nint .gt. 0) .and. (nsp .gt. 0) ) then
+        write(20,30) i, x(nsp+1)
+ 30     format(1x,'intimate component(',i2,'):  area fraction= ',g10.4)
+        do j=1,nint
+          k = nsp+1+(2*j-1)
+          L = nsp+1+(2*j)
+          write(20,35) j, x(k), x(L)
+        enddo
+      endif
+ 35       format(1x,'   component(',i2,'):  mass frac.= ',
+     $           g10.4,' particle diam. (mm)= ',g10.4)
+
+      write(20,40)
+ 40   format(1x,'wave (um)',5x,'reflectance')
+
+      do j=1,nwave
+        write(20,95) wve(j), galb_c(j)
+ 95     format(1x,g12.6,5x,g12.6)
+      enddo
+      close(20)
+
+      return
+      end

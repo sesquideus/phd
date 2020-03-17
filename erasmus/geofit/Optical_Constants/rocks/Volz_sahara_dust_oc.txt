@@ -1,0 +1,52 @@
+From:	IO::"memilham@CRDEC-VAX4.ARPA" 14-JUN-1988 12:52
+To:	HAL::DALTON
+Subj:	Optical Constants: Sahara Dust
+
+Received: from CRDEC-VAX4.ARPA by ames-io.ARPA with INTERNET ;
+          Tue, 14 Jun 88 12:43:10 PDT
+Date:     Tue, 14 Jun 88 14:19:52 EDT
+From:     "Merrill E. Milham" <memilham@CRDEC-VAX4.ARPA>
+To:       dalton%hal@AMES-IO.ARPA
+Subject:  Optical Constants: Sahara Dust
+Message-ID:  <8806141419.aa15848@CRDEC-VAX4.CRDEC-VAX4.ARPA>
+
+These MAY BE the values shown in F. Volz, Infrared optical constants of
+ammonium sulfate, Sahara dust, volcanic pumice, and flyash, Appl. Opt.,
+V. 12, 564-568, 1973.
+ 
+SAHARA DUST PARTICLES -F. VOLZ
+    wl    n    k
+   (um)
+   2.5 1.450 0.010
+   2.9 1.470 0.040
+   3.1 1.480 0.024
+   4.0 1.470 0.045
+   5.0 1.500 0.013
+   6.0 1.430 0.045
+   6.3 1.420 0.050
+   7.0 1.450 0.110
+   7.5 1.370 0.071
+   8.0 1.180 0.085
+   8.5 1.070 0.190
+   8.6 1.070 0.230
+   8.8 1.650 0.330
+   9.0 1.870 0.440
+   9.2 2.170 0.520
+   9.4 2.800 0.610
+   9.6 3.070 0.700
+   9.9 2.750 0.800
+  10.0 2.590 0.920
+  10.2 2.770 0.880
+  10.4 1.820 0.700
+  10.6 1.700 0.600
+  10.8 1.790 0.370
+  11.0 1.840 0.310
+  12.0 1.800 0.180
+  13.0 1.740 0.180
+  14.0 1.640 0.200
+  15.0 1.520 0.250
+  19.0 2.370 0.900
+  20.0 2.200 0.800
+  24.0 3.160 0.850
+  30.0 2.400 0.650
+  40.0 2.400 0.650

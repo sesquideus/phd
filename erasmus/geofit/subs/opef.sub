@@ -1,0 +1,13 @@
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C       SUBROUTINE OPEF CALCULATES SHADOWING TERM
+C       PASS VALUES OF S0,W,G,PHS,H
+C       RETURNS VALUE OF BG MULTIPLE SCATTERING TERM
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+         SUBROUTINE OPEF(BG,S0,W,G,PHS,H)
+         DOUBLE PRECISION BG,S0,W,G,PHS,H,BO
+
+	 BO = S0 / (W * PHS)
+	 BG = BO / (1 + dtan(G/2.) / H)
+         RETURN
+         END         

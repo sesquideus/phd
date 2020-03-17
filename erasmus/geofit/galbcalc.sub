@@ -1,0 +1,296 @@
+      subroutine galbcalc(nwave,ncomp,nsp,nintm,nscl,ncalc,rho,b,c,
+     $                   beta,wve,u,n,nk,hi,xray,galb_c,debug)
+C     Gaussian Quadrature
+c   number of wavelengths
+c   number of components
+c   number of spatial
+c   number of intimate
+c   number of ???
+c   number of ??? to calculate?
+c   density
+c   who knows?
+
+      include 'geofit.inc'
+      include 'declare.inc'
+      parameter(ngpts=8)
+      parameter(x1=0.0)
+      parameter(x2=1.0)
+      integer nwave, nsp, nintm, inc, iflag
+      real*8 ysum, yval, uo, g, u
+      real*8 xgpt(ngpts), gwts(ngpts), haprfl
+      real*8 galb_c(maxwave)
+      real*8 xray(i2comp)
+      real*8 xsec(maxcomp), xsectot
+
+c     print *, 'in galbcalc'
+c     print *, 'nsp= ', nsp, 'nintm= ', nintm
+c     print *, 'w= ', w
+c     pause 7
+c  define Gaussian points & weights
+      ncalc = ncalc + 1
+
+      call gauleg(X1,X2,XGPT,GWTS,ngpts)
+
+c     print *, 'Gaussian weights and points calculated'
+c     print *, 'w= ', w
+c     pause 7
+
+c  check if calc. geom. alb. for spatial component only
+
+      iflag = 1
+      if(nintm .eq. -1) then
+        iflag = 0
+        nintm = 1
+      endif
+
+c   define cross sectional area of each component
+
+c     print *, 'before cross_sec nintm= ',nintm
+c     print *, 'w= ', w
+c     pause 7
+
+      if (nintm .gt. 1) then
+        call cross_sec(ncomp,nsp,nintm,xray,rho,xsec,xsectot)
+      else
+        xsec(1) = 1.
+        xsectot = 1.
+      endif
+
+c     do i=1,ncomp
+c        print *, 'i= ',i,' xsec= ', xsec(i)/xsectot
+c     enddo
+
+c     print *, 'cross sectional area calculated'
+c     print *, 'iflag= ',iflag
+c     print *, 'w= ', w
+c     pause 8
+
+c     do i=1,nintm
+c        print *, xsec(i)/xsectot
+c     enddo
+      DO inc=1,nwave
+c       print *, 'i= ', inc
+c       print *, 'nintm= ',nintm
+        ysum = 0.0
+
+        do k=1,ngpts
+c         print *, 'begin galb loop, k= ',k
+c         print *, 'w= ', w
+c         pause 9
+          G=0.
+          UO=XGPT(k)        
+c         print *, 'uo defined'
+          yval = gwts(k)*haprfl(inc,k,G,UO,XGPT(k),
+     $    nsp,nintm,iflag,n,nk,b,c,beta,rho,xray,xsec,xsectot,wve,hi)
+          ysum = ysum + yval
+c         print *, 'after haprfl, k= ', k
+c         pause 10
+        enddo
+
+      galb_c(inc) = 2. * ysum
+
+      ENDDO
+c     write(50,*) 'in geometric albedo subroutine:'
+c     do i=1,nintm
+c       write(50,*) 'mass= ',xray(2*i-1),' dia.= ',xray(2*i)
+c     enddo
+c     do i=1,nwave
+c       write(50,*) wve(i), galb_c(i)
+c     enddo
+      if (nscl .gt. 0) then
+       do inc=1,nwave
+          galb_c(inc) = galb_c(inc) / galb_c(nscl)
+       enddo
+      endif
+      if (iflag .eq. 0) nintm = -1
+      return
+      end
+
+      include 'cross_sec.sub'
+
+       real*8 function haprfl(l,kk,g,uo,uu,nsp,nintm,iflag,
+     $                 n,nk,b,c,beta,rho,xray,xsec,xsectot,wve,hi)
+c      THIS PROGRAM CALCULATES THE reflectivity of an n-component
+c      mixture GIVEN the optical constants of each individual
+c      component.  Also A NUMBER OF PARAMETERS need to be DEFINED
+c      IN THE PARAMETER STATEMENTS. 
+C      THE MAIN PROGRAM ENTERS THE PARAMETERS
+C      AND CALLS THE VARIOUS SUBROUTINES THAT DEFINE DIFFERENT
+C      COMPONENTS OF THE reflectivity CALCULATION SUCH AS THE
+C      THE SINGLE SCATTERING TERM AND THE MULTIPLE SCATTERING TERM.
+C      ONE INTERGRATION IS PERFORMED IN THE CALCULATION
+C      AND IF you WISH THE PROGRAM TO RUN FASTER THEN you SHOULD CHANGE THE
+C      PARAMETER  N IN THE SUBROUTINE INTG1.SUB WHICH IS CALLED FROM
+C      SSC.SUB AND DETERMINES ONE COMPONENT OF THE SINGLE SCATTERING
+C      efficiency.
+
+
+C      INPUTS
+C      B(I),C(I)   probability FACTORS FOR DETERMINATION OF
+C      THE PHASE ANGLE PHSE and are the coefficients of the Legrende polynomial
+C      MSI= Analytic MULTIPLE SCATTERING TERM
+C      HUU,HUO= COMPONENTS OF MSI
+C      IN=intensity OF reflection
+C      refl= THE FINAL ALBEDO
+
+      include 'geofit.inc'
+      include 'declare.inc'
+      integer l, kk, nsp, nintm, iflag
+      real*8 w(maxcomp), xray(i2comp)
+      real*8 xsec(maxcomp), xsectot, Pg(maxcomp)
+      real*8 So(maxcomp),Po(maxcomp),refl
+      real*8 HUU,HUO,MSI,wbar,wtot,frs,uu,uo,g,sx,si,r1,one,h
+      real*8 term2num,term2den,term2,term1,zero,s
+      real*8 STDSo,STDPg,STDPo,STDTR1,STDTR2,STDMSI,STDREFL
+
+
+C      D PARTICLE DIAMETER OF THE REGOLITH
+C      INTERNAL SCATTERRING COEFFICIENT INSIDE THE PARTICLE
+C      COSINE OF THE ANGLE OF VIEW FROM THE SURFACE NORMAL=u
+C      COSINE OF THE ANGLE OF THE SUN FROM THE SURFACE NORMAL
+C      OF THE SUNS INCIDENT rays=uo
+C      G=PHASE ANGLE
+C      FACTOR THAT MULTIPLIES THE FRESNEL reflection COEFFICIENT TO GIVE
+C      THE FRACTION OF LIGHT SCATTERRED OFF THE SURFACE OF A PARTICLE
+C      AT G=0 is BETA
+C      SURFACE SHADOWING PARAMETER
+       parameter(h=0.05)
+       parameter(pi=3.1415927)
+C      INTERNAL SCATTERRING COEFFICIENT INSIDE THE PARTICLE
+       S=1.e-17
+       zero = 0.
+       one = 1.
+
+c     debug=0
+      wtot=0.0
+      wbar=0.0
+      term1=0.0
+      term2num=0.0
+      term2den=0.0       
+c     print *, 'in haprfl, nintm= ',nintm
+c     print *, 'w= ', w
+c     pause 11
+      do i=1,nintm
+c          print *, 'in haprfl i= ', i
+c          print *, 'iflag= ',iflag
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C        SSC CALCULATES THE SINGLE SCATTERING efficiency W. PASS VALUES OF
+C        U UO N NK G WAVE S D VALUES RETURNED W SINGLE SCATTERRING ALBEDO
+C        SX,SE,SI,R1. 
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      if (iflag .eq. 0) then
+        call old_ssc(w(i),n(i,l),nk(i,l),g,wve(l),s,
+     $               xray(2*i)*1000.,sx,si,r1)
+      else
+        mm = nsp + 1 + (2*i-1)
+c       print *, 'i= ', i,' mm= ',mm,' xray= ',xray(mm)
+c       print *, 'w(i)= ',w(i)
+        call old_ssc(w(i),n(i,l),nk(i,l),g,wve(l),s,
+     $               xray(mm)*1000.,sx,si,r1)
+      endif
+c     print *, 'single scattering albedo calculated'
+c     pause 13
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C        SUBROUTINE FR CALCULATES THE FRESNEL reflection FROM A NONOPAQUE
+C        SURFACE. S0 N,NK,BETA PASSED.
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
+
+c        CALL FR(STDSo,FRS,N(i,l),zero,one)
+         CALL FR(So(i),FRS,N(i,l),NK(i,l),BETA(i))
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C       SUBROUTINE PHSE EVALUATES PHASE FUNCTION  WHEN G=0, USING
+C       B AND C WHICH DEFINE THE PROBABILITIES OF
+C       LIGHT BEING SCATERRED IN SPECIFIED DIRECTIONS. 
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+c        CALL PHSE(STDPo,zero,zero,zero)
+         CALL PHSE(Po(i),zero,B(i),C(i))
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C       SUBROUTINE PHSE EVALUATES PHASE FUNCTION AT THE arbitrary
+C       PHASE ANGLE (G), DEFINED ABOVE, USING B AND C WHICH DEFINE THE 
+C       PROBABILITIES OF LIGHT BEING SCATERRED IN SPECIFIED DIRECTIONS. 
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+c        CALL PHSE(STDPg,g,zero,zero)
+         CALL PHSE(Pg(i),G,B(i),C(i))
+
+c        STDTR1 = STDPg
+c        STDTR2 = STDSo
+
+         term1=term1+(w(i)*Pg(i)*(xsec(i)/xsectot))
+         term2num=term2num+(w(i)*So(i)*Pg(i)*(xsec(i)/xsectot))
+         term2den=term2den+(w(i)*Po(i)*(xsec(i)/xsectot))
+         wtot=wtot+(w(i)*xsec(i))
+       enddo
+         term2=(term2num/term2den)*(1./(1.+(tan(g/2.)/h)))
+         wbar=wtot/xsectot
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C       SUBROUTINE OPEF CALCULATES SHADOWING TERM
+C       PASS VALUES OF S0,W,G,PHS,H
+C       RETURNS VALUE OF BG MULTIPLE SCATTERING TERM
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+c        CALL OPEF(BG1,So1,w1,G,PHS,H)
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C	 SUBROUTINE MULSC1 MULTIPLE SCATTERING TERM CALCULATED HERE
+C	 FROM A DOUBLE LINEAR INTERPOLATON OF HI VALUES AS A FUNCTION
+C	 OF U,UO. HUU HUO analytic REPRESENTATIONS FOR MSI.
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+         CALL MULSC1(MSI,HI,uu,uo,wbar,HUU,HUO)
+c        CALL MULSC1(STDMSI,HI,u,uo,one,HUU,HUO)
+
+C        CALCULATE THE intensity
+
+         refl = (uo/((uo+uu)*4.))*(term1 + term2 +(wbar * msi))
+c        STDREFL = (uo/((uo+u)*4.))*(STDTR1 + STDTR2 + STDMSI)
+c        haprfl = refl / STDREFL
+         haprfl = refl * uu
+
+         END 
+
+
+       include './subs/phse.sub'
+       include './subs/oldssc.sub'
+       include './subs/fr.sub'
+       include './subs/opef.sub'
+       include './subs/mulsc1.sub'
+       include './subs/intg1.sub'
+
+      SUBROUTINE GAULEG(X1,X2,XG,WG,N)
+      IMPLICIT REAL*8 (A-H,O-Z)
+      REAL*4 X1,X2
+      real*8 XG(N),WG(N)
+      PARAMETER (EPS=3.D-14)
+      M=(N+1)/2
+      XM=0.5D0*(X2+X1)
+      XL=0.5D0*(X2-X1)
+      DO 12 I=1,M
+        Z=COS(3.141592654D0*(I-.25D0)/(N+.5D0))
+1       CONTINUE
+          P1=1.D0
+          P2=0.D0
+          DO 11 J=1,N
+            P3=P2
+            P2=P1
+            P1=((2.D0*J-1.D0)*Z*P2-(J-1.D0)*P3)/J
+11        CONTINUE
+          PP=N*(Z*P1-P2)/(Z*Z-1.D0)
+          Z1=Z
+          Z=Z1-P1/PP
+        IF(ABS(Z-Z1).GT.EPS)GO TO 1
+        XG(I)=XM-XL*Z
+        XG(N+1-I)=XM+XL*Z
+        WG(I)=2.D0*XL/((1.D0-Z*Z)*PP*PP)
+        WG(N+1-I)=WG(I)
+12    CONTINUE
+      RETURN
+      END

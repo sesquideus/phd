@@ -1,0 +1,15 @@
+LiF from Almaz Optics Web Page
+value at 0.157 from Burnett et al.
+2002, Appl. Opt. 41, 2508-2513
+Wavel   Real
+µm     Index 
+0.157   1.485
+0.20    1.44
+0.22    1.43
+0.24    1.42
+0.29    1.41
+0.39    1.40
+0.60    1.39
+1.75    1.38
+2.75    1.37
+3.40    1.36

@@ -1,0 +1,27 @@
+       subroutine minval(ncomp,nsp,nint,p,x,y,ifit)
+c   determine which of the vertices has the lowest energy value
+       include 'geofit.inc'
+       integer ncomp, nsp, nint, ifit, nc
+       real*8 x(i2comp), y(i2comp), p(i2comp+1,i2comp), temp
+
+       if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then
+         nc = nsp+1+2*nint+1
+       elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
+         nc = ncomp+1
+       elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+         nc = 2*nint+1
+       endif
+
+       temp = 50000.
+       do i=1,nc
+         if ( y(i) .lt. temp ) then
+           ifit=i
+           temp = y(i)
+         endif
+       enddo
+
+      do j=1,nc
+        x(j) = p(ifit,j)
+      enddo
+      return
+      end

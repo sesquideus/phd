@@ -1,0 +1,10 @@
+2 4
+'h2o_ice_model_2_fitb.txt'
+0. 1.e-6
+'h2o_ice_model.dat'
+-16
+0 -1
+3
+'coldice_oc.txt'  0.0500 0.915 2.500 0. 0. 1.
+'coldice_oc.txt'  0.800 0.915 0.5500 0. 0. 1.
+'coldice_oc.txt' 0.150 0.915 0.0850 0. 0. 1.

@@ -66,7 +66,7 @@ c NOEMI. Aug 2010. I CHANGE ALL pause 2 FOR call sleep(2)
       real*8 u, wv, ftol
 
       parameter(pi=3.1415927)
-      print *,'debug= ', debug
+      print *, 'Debug = ', debug
 c     open the input file
 c     read in viewing geometry parameters and change to radians
 c     read output filename
@@ -79,8 +79,8 @@ c     read output filename
       read(50,*) u, ftol
       u=dcos((u*pi/180.))
 
-      print *, "Now in albinput"
-	
+      print *, "--> subroutine albinput"
+
       if(debug.eq.0) then
         print *, "u=", u, "ftol=", ftol
         print *, outf
@@ -121,6 +121,7 @@ c   read the measured reflectance data
       write(20,*) 'nsp= ', nsp, '  nintm= ', nintm
 c     in case the we have spatial components
       sum = 0.
+      print *, "Now processing spatial data, nsp=", nsp
       do i=1,nsp
         read(50,*) icalc, area(i)
         sum = sum + area(i)
@@ -176,12 +177,16 @@ c      read optical constant filename and associated parameter data
          write(20,30) m(i), rho(i), d(i)
  30      format(1x,'mass frac.= ',g10.4,' rho= ',g10.4,'d(mm)= ',g10.4)
 !         write(20,*) b(i), c(i), beta(i)
+         print *, "opening file ", comp, nci
          open(unit=40,file=comp,status='old')
+
+C        If there are four components, read four...
          if(nci .eq. 4 ) then
            do j=1,nwave
              if (debug .eq. 1) write(20,*) 'j= ', j
              read(40,*,end=35)wv,freq(j),n(i,j),nk(i,j)
            enddo
+C        If there are only three, read three
           elseif(nci .eq. 3 ) then
             if (debug .eq. 1) write(20,*) 'j= ', j
             do j=1,nwave
@@ -195,6 +200,7 @@ c      read optical constant filename and associated parameter data
           endif
  35    close(40)
        enddo
+       print *, "Intimate data processed"
  45    close(50)
        close(20)
        if ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
@@ -204,6 +210,7 @@ c      read optical constant filename and associated parameter data
        elseif( (nintm .gt. 0) .and. (nsp .le. 0) ) then
          ncomp = nintm
        endif
+
        print *, ncd, nci, outf, u, ftol, inf, nscl, nsp, nintm
        print *, 'number of components= ',ncomp
 

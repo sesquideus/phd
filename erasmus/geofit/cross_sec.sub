@@ -1,3 +1,5 @@
+C   REWRITTEN, CHECK
+
       subroutine cross_sec(ncomp,nsp,nintm,pay,rho,xsec,xsectot)
 c   this subroutine calculates each particles geometrical cross
 c   sectional area and the total cross sectional area of all particles
@@ -19,8 +21,8 @@ c      components
 
       include 'geofit.inc'
       integer ncomp, nsp, nintm
-      real*8 pay(i2comp), rho(maxcomp)
-      real*8 xsec(maxcomp), xsectot
+      real*8 pay(i2comp), rho(maxcomp) ! IN
+      real*8 xsec(maxcomp), xsectot ! OUT
 
 c     print *, 'in cross section'
 c     print *, ncomp, nsp, nintm
@@ -38,6 +40,7 @@ c     enddo
           xsec(i)= pay(k+j-1) / ( rho(i) * ( pay(k+j) / 10.0) )
 c         print *, 'm= ',pay(k+j-1),' rho= ',rho(i),' d= ',pay(k+j)
         elseif ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
+c         print *, pay(2*i - 1), rho(i), pay(2*i)
           xsec(i)= pay(2*i-1) / ( rho(i) * ( pay(2*i) / 10.0) )
 c         print *, 'm= ',pay(2*i-1),' rho= ',rho(i),' d= ',pay(2*i)
         endif

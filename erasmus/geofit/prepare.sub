@@ -9,7 +9,7 @@ c   nsp = N spatial mixture?
 
       if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then
 !                 spatial & intimate mixture
-        print *, "Both spatial and intimate mixtures present"
+        print *, "Both spatial and intimate mixtures present (aaaamdmd)"
         print *, "nint=", nint
         print *, "nsp=", nsp
         do i=1,nsp+1
@@ -21,16 +21,17 @@ c   nsp = N spatial mixture?
           L = k - 1
           parray(i+L) = m(j)
           parray(i+k) = d(j)
+C       Contains nsp areas, then nint (mass, density) pairs
         enddo
       elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
-        print *, "Only spatial mixture present"
+        print *, "Only spatial mixture present (area-area-area...)"
         print *, "nsp=", nsp
 !                  spatial mixture only
         do i=1,nsp
           parray(i) = area(i)
         enddo
       elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
-        print *, "Only intimate mixture present"
+        print *, "Only intimate mixture present (mass-diameter-m-d...)"
         print *, "nint=", nint
 !                  intimate mixture only
         do i=1,nint
@@ -38,7 +39,10 @@ c   nsp = N spatial mixture?
           parray(2*i) = d(i)
         enddo
       endif
-      print *, "Prepared the parray (this is a mess)"
-      print *, parray
+      print *, "Prepared the parray:"
+      do i = 1,i2comp
+          write (*, 47, advance="no") parray(i)
+47        format(1x, f8.6)
+      enddo
       return
       end

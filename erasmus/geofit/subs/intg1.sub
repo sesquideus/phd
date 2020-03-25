@@ -1,7 +1,7 @@
         subroutine intg1(si,nx)
 
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-C       use the following line if including integrAting over all        C
+C       use the following line if including integrating over all        C
 C	external reflection angles                                      C
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 C       SUBROUTINE INTG1(SE,SI,NX,NKX)

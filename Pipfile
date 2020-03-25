@@ -17,6 +17,7 @@ django = ">=3.0"
 sklearn = "*"
 dotmap = "*"
 colorama = "*"
+ccdproc = "*"
 
 [requires]
 python_version = "3.7"

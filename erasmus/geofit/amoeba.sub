@@ -15,23 +15,41 @@ c   P,Y,MP,NP,NDIM,FTOL,FUNK,ITER)
 
 c     real*8 P(MP,NP),Y(MP),PR(NMAX),PRR(NMAX),PBAR(NMAX)
 
-      PARAMETER (ALPH=1.0,BET=0.5,GAMMA=2.0,ITMAX=200)
+      PARAMETER (ALPH=1.0,BET=0.5,GAMMA=2.0,ITMAX=3)
 
 c     open(unit=44,file='amoeba.out',status='new')
 
-c     print *, 'in amoeba, ftol= ',ftol
+      print *, '--> subroutine amoeba (Nelder-Mead method?)'
+      print *, 'ftol= ',ftol
+      print *, "p is now"
+      do i = 1, 2*ncomp + 1
+        do j = 1, 2*ncomp
+          write(*, 249, advance="no") p(i, j)
+249       format(1x, f8.3)
+        enddo
+        print *
+      enddo
+
+
       if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then
+C       both intimate and spatial
         NDIM = nsp + (2*nint) + 1
         MPTS = NDIM + 1
       elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
+C       only spatial
         NDIM = ncomp
         MPTS = NDIM + 1
       elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+C       only intimate
         NDIM = 2*ncomp
         MPTS = NDIM + 1
       endif
+
+      PRINT *, "Set dimensions, NDIM=", NDIM, " MPTS=", MPTS
+
       ITER=0
 1     ILO=1
+
       IF(Y(1).GT.Y(2))THEN
         IHI=1
         INHI=2
@@ -39,6 +57,8 @@ c     print *, 'in amoeba, ftol= ',ftol
         IHI=2
         INHI=1
       ENDIF
+
+C     This looks like we are trying to find the minimum and the maximum
       DO 11 I=1,MPTS
         IF(Y(I).LT.Y(ILO)) ILO=I
         IF(Y(I).GT.Y(IHI))THEN
@@ -48,32 +68,45 @@ c     print *, 'in amoeba, ftol= ',ftol
           IF(I.NE.IHI) INHI=I
         ENDIF
 11    CONTINUE
-c     print *, 'ihi= ',ihi,' ilo= ',ilo
-c     print *, 'yhi= ',y(ihi),' ylo= ',y(ilo)
+
+      print *, 'ihi= ',ihi,' ilo= ',ilo,' inhi= ',inhi
+      print *, 'yhi= ',y(ihi),' ylo= ',y(ilo), 'ynhi= ',y(inhi)
       RTOL=2.*DABS(Y(IHI)-Y(ILO))/(DABS(Y(IHI))+DABS(Y(ILO)))
-c     print *, 'RTOL= ', RTOL
+      print *, 'RTOL= ', RTOL, ' FTOL=', FTOL
       IF(RTOL.LT.FTOL)THEN
-         PRINT*, 'RTOL < FTOL'
+         PRINT *, 'RTOL < FTOL'
          RETURN
+      ELSE
+         PRINT *, 'RTOL >= FTOL (that is OK)'
       ENDIF
-      IF(ITER.EQ.ITMAX) GOTO 40
+
+      IF (ITER .EQ. ITMAX) GOTO 40  ! exceeded number of iterations
+
       ITER=ITER+1
-      PRINT *, 'ITER= ', ITER
+      print *
+      print *
+      PRINT *, '************ AMOEBA ITER= ', ITER, '*******************'
+
       DO 12 J=1,NDIM
         PBAR(J)=0.
 12    CONTINUE
+
+C     computer marginal sum of p and stor in PBAR
       DO 14 I=1,MPTS
-        IF(I.NE.IHI)THEN
+        IF (I .NE. IHI) THEN
           DO 13 J=1,NDIM
-            PBAR(J)=PBAR(J)+P(I,J)
+            PBAR(J) = PBAR(J) + P(I,J)
 13        CONTINUE
         ENDIF
 14    CONTINUE
+
 c     Compute the reflection point:
       DO 15 J=1,NDIM
         PBAR(J)=PBAR(J)/NDIM
         PR(J)=(1.+ALPH)*PBAR(J)-ALPH*P(IHI,J)
 15    CONTINUE
+
+      print *, "Renormalizing PR"
       CALL RENORM(NCOMP,NSP,NINT,PR)
       CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PR,rho,b,c,
      $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
@@ -110,7 +143,7 @@ c       write(44,*) j, PRR(j), YPRR
 19        CONTINUE
           Y(IHI)=YPR
         ENDIF
-c	Compute the expansion:
+c     Compute the expansion:
         DO 21 J=1,NDIM
           PRR(J)=BET*P(IHI,J)+(1.-BET)*PBAR(J)
 21      CONTINUE

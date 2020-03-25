@@ -1,10 +1,12 @@
-C   This calculates something I have no idea about.
+C   This is never executed and is in galbcalc.sub anyway
 
       SUBROUTINE GAULEG(X1,X2,X,W,N)
       IMPLICIT REAL*8 (A-H,O-Z)
       REAL*4 X1,X2
       real*8 X(N),W(N)
       PARAMETER (EPS=3.D-14)
+
+      print *, "GAULEG (separate file)"
       M=(N+1)/2
       XM=0.5D0*(X2+X1)
       XL=0.5D0*(X2-X1)

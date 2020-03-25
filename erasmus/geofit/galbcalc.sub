@@ -1,14 +1,17 @@
+C Calculates geometric albedo
       subroutine galbcalc(nwave,ncomp,nsp,nintm,nscl,ncalc,rho,b,c,
      $                   beta,wve,u,n,nk,hi,xray,galb_c,debug)
 C     Gaussian Quadrature
-c   number of wavelengths
-c   number of components
-c   number of spatial
-c   number of intimate
-c   number of ???
-c   number of ??? to calculate?
-c   density
-c   who knows?
+c   number of wavelengths   integer
+c   number of components    integer
+c   number of spatial       integer
+c   number of intimate      integer
+c   scaling to wavelength   integer not important
+c   number of calculations  output
+c   density                 input
+c   legendre coefs b c      double double
+c   something beta
+
 
       include 'geofit.inc'
       include 'declare.inc'
@@ -27,7 +30,10 @@ c     print *, 'nsp= ', nsp, 'nintm= ', nintm
 c     print *, 'w= ', w
 c     pause 7
 c  define Gaussian points & weights
+
       ncalc = ncalc + 1
+      print *, "--> subroutine galbcalc, ncalc=", ncalc
+
 
       call gauleg(X1,X2,XGPT,GWTS,ngpts)
 
@@ -76,11 +82,11 @@ c       print *, 'nintm= ',nintm
         do k=1,ngpts
 c         print *, 'begin galb loop, k= ',k
 c         print *, 'w= ', w
-c         pause 9
+c         pause 925.104.191.109
           G=0.
-          UO=XGPT(k)        
+          UO=XGPT(k)
 c         print *, 'uo defined'
-          yval = gwts(k)*haprfl(inc,k,G,UO,XGPT(k),
+          yval = gwts(k) * haprfl(inc,k,G,UO,XGPT(k),
      $    nsp,nintm,iflag,n,nk,b,c,beta,rho,xray,xsec,xsectot,wve,hi)
           ysum = ysum + yval
 c         print *, 'after haprfl, k= ', k
@@ -97,6 +103,8 @@ c     enddo
 c     do i=1,nwave
 c       write(50,*) wve(i), galb_c(i)
 c     enddo
+
+C     rescale to NSCL
       if (nscl .gt. 0) then
        do inc=1,nwave
           galb_c(inc) = galb_c(inc) / galb_c(nscl)
@@ -108,6 +116,7 @@ c     enddo
 
       include 'cross_sec.sub'
 
+C     Hapke reflectivity
        real*8 function haprfl(l,kk,g,uo,uu,nsp,nintm,iflag,
      $                 n,nk,b,c,beta,rho,xray,xsec,xsectot,wve,hi)
 c      THIS PROGRAM CALCULATES THE reflectivity of an n-component
@@ -118,7 +127,7 @@ C      THE MAIN PROGRAM ENTERS THE PARAMETERS
 C      AND CALLS THE VARIOUS SUBROUTINES THAT DEFINE DIFFERENT
 C      COMPONENTS OF THE reflectivity CALCULATION SUCH AS THE
 C      THE SINGLE SCATTERING TERM AND THE MULTIPLE SCATTERING TERM.
-C      ONE INTERGRATION IS PERFORMED IN THE CALCULATION
+C      ONE INTEGRATION IS PERFORMED IN THE CALCULATION
 C      AND IF you WISH THE PROGRAM TO RUN FASTER THEN you SHOULD CHANGE THE
 C      PARAMETER  N IN THE SUBROUTINE INTG1.SUB WHICH IS CALLED FROM
 C      SSC.SUB AND DETERMINES ONE COMPONENT OF THE SINGLE SCATTERING
@@ -143,7 +152,6 @@ C      refl= THE FINAL ALBEDO
       real*8 term2num,term2den,term2,term1,zero,s
       real*8 STDSo,STDPg,STDPo,STDTR1,STDTR2,STDMSI,STDREFL
 
-
 C      D PARTICLE DIAMETER OF THE REGOLITH
 C      INTERNAL SCATTERRING COEFFICIENT INSIDE THE PARTICLE
 C      COSINE OF THE ANGLE OF VIEW FROM THE SURFACE NORMAL=u
@@ -157,6 +165,7 @@ C      SURFACE SHADOWING PARAMETER
        parameter(h=0.05)
        parameter(pi=3.1415927)
 C      INTERNAL SCATTERRING COEFFICIENT INSIDE THE PARTICLE
+
        S=1.e-17
        zero = 0.
        one = 1.
@@ -166,7 +175,7 @@ c     debug=0
       wbar=0.0
       term1=0.0
       term2num=0.0
-      term2den=0.0       
+      term2den=0.0
 c     print *, 'in haprfl, nintm= ',nintm
 c     print *, 'w= ', w
 c     pause 11
@@ -266,31 +275,47 @@ c        haprfl = refl / STDREFL
        include './subs/intg1.sub'
 
       SUBROUTINE GAULEG(X1,X2,XG,WG,N)
-      IMPLICIT REAL*8 (A-H,O-Z)
+C      IMPLICIT REAL*8 (A-H,O-Z)
       REAL*4 X1,X2
-      real*8 XG(N),WG(N)
+      real*8 XG(N),WG(N),P1,P2,P3
       PARAMETER (EPS=3.D-14)
+
+      print *, "--> subroutine GAULEG (from galbcalc)"
       M=(N+1)/2
       XM=0.5D0*(X2+X1)
       XL=0.5D0*(X2-X1)
-      DO 12 I=1,M
+      DO I=1,M
         Z=COS(3.141592654D0*(I-.25D0)/(N+.5D0))
+C       print *, z, xm, xl
 1       CONTINUE
           P1=1.D0
           P2=0.D0
-          DO 11 J=1,N
+          DO J=1,N
             P3=P2
             P2=P1
             P1=((2.D0*J-1.D0)*Z*P2-(J-1.D0)*P3)/J
-11        CONTINUE
+          ENDDO
+C         print *, p1, p2, p3
           PP=N*(Z*P1-P2)/(Z*Z-1.D0)
+          print *, z, z1, pp
           Z1=Z
           Z=Z1-P1/PP
+C         print *, ABS(Z-Z1)
         IF(ABS(Z-Z1).GT.EPS)GO TO 1
         XG(I)=XM-XL*Z
         XG(N+1-I)=XM+XL*Z
         WG(I)=2.D0*XL/((1.D0-Z*Z)*PP*PP)
         WG(N+1-I)=WG(I)
-12    CONTINUE
+      ENDDO
+
+      do i = 1, 8
+          write(*, 774) xg(i)
+774   format(1x, f10.8)
+      enddo
+      print *
+      do i = 1, 8
+          write(*, 774) wg(i)
+      enddo
+
       RETURN
       END

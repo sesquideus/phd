@@ -166,6 +166,13 @@ C       TLR -- 1/10/92
         u = dsqrt(arg3)
         END
 
+c   def u(uu, nx):
+c       nysq = 1/nx**2
+c       arg1 = max(0, 1 - uu**2)
+c       arg2 = max(0, (nysq - arg1)**2)
+c       arg3 = max(0, (nysq - arg1 + np.sqrt(arg2)) / 2)
+c       return np.sqrt(arg3)
+
 C      because nky is 0, equations below have been altered
 C       TLR -- 1/10/92
 
@@ -188,3 +195,11 @@ C       TLR -- 1/10/92
         arg3 = arg3 / 2.
         v = dsqrt(arg3)
         END
+
+c   def v(uu, nx):
+
+c       arg1 = max(0, 1 - uu**2)
+c       arg2 = max(0, (nysq - arg1)**2)
+c       arg3 = max(0, (nysq - arg1 + np.sqrt(arg2)) / 2)
+c       return np.sqrt(arg3)
+

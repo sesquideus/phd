@@ -9,30 +9,38 @@
       real*8 alb_sperr(maxcomp,maxwave), alb_sp(maxcomp,maxwave)
       real*8 cost, chisq
 
+      print *, '--> subroutine energy'
+
+C      print *, "ncomp=", ncomp
+C      print *, "nwave=", nwave
+C      print *, "nsp=", nsp
+C      print *, "nintm=", nintm
+C      print *, "nscl=", nscl
+C      print *, "rho=", rho
+C      print *, "b=", b
+C      print *, "c=", c
+C      print *, "d=", d
+C      print *, "beta=", beta
+C      print *, "u=", u
+C      print *, "ftol=", ftol
+C      print *, "area=", area
+C      print *, "x=", x
+
+
       if (nintm .gt. 0) then
-c       print *, 'in energy before galbcalc'
-c       print *, 'nsp= ',nsp,' nintm= ', nintm
-c       pause 6
         call galbcalc(nwave,ncomp,nsp,nintm,nscl,ncalc,rho,b,c,
      $               beta,wve,u,n,nk,hi,x,galb_c,debug)
-c       print *, 'returned from galbcalc'
-c       pause 7
         do j=1,nwave
            alb_sp(nsp+1,j) = galb_c(j)
-c          print *, alb_sp(nsp+1,j)
         enddo
       endif
 
-c     print *, 'array filled'
-
       call spatial(nwave,ncomp,nsp,nintm,x,alb_sp,alb_sperr,galb_c)
-
-c     print *, 'spatial calculated'
 
       call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
       write(99,100) (x(i),i=1,2*ncomp),chisq
 
-c     print *, 'chisqrd calculated'
+c     print *, 'chisqrd calculated, chisq=', chisq
 
       call costfunc(ncomp,nsp,nintm,x,cost,debug)
 
@@ -50,11 +58,11 @@ c     JULIA. 23 feb 2011. Intento que el formato de salida del chi_out.txt sea a
      $                   x,alb_sp,alb_sperr,galb_c)
       include 'geofit.inc'
       integer nwave, ncomp, nsp, nintm
-      real*8 x(i2comp), alb_sp(maxcomp,maxwave)
-      real*8 alb_sperr(maxcomp,maxwave), galb_c(maxwave)
+      real*8 x(i2comp), alb_sp(maxcomp,maxwave)          ! IN
+      real*8 alb_sperr(maxcomp,maxwave), galb_c(maxwave) ! OUT
       real*8 sum
 
-c     print *, 'in spatial nwave= ',nwave
+      print *, '--> subroutine spatial (energy), nwave= ',nwave
       do j=1,nwave
         if ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
           i=1
@@ -71,24 +79,30 @@ c     print *, 'in spatial nwave= ',nwave
           enddo
         endif
         galb_c(j) = sum
+        write(*, 58) j, sum
+58      format(1x, "galb_c(", i3, ") = ", f8.6)
       enddo
+
       return
       end
 
-
+C     Calculates chi-squared (easy)
       subroutine chisqrd(nwave,galb_m,galb_merr,rc,chisq,debug)
+C   goemetric albedo measured, its error, geometric albedo computed
       include 'geofit.inc'
       include 'declare.inc'
       integer nwave
-      real*8 rc(maxwave), chisq
+      real*8 rc(maxwave), chisq ! OUT
+
+      print *, '--> subroutine chisqrd (energy)'
 
       chisq=0.0
       do i=1,nwave
 c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
         if (galb_merr(i) .ne. 0.) then
-          chisq = chisq + (galb_m(i) - rc(i) )**2 / galb_merr(i)**2
+          chisq = chisq + (galb_m(i) - rc(i))**2 / galb_merr(i)**2
         else
-          chisq = chisq + ( galb_m(i) - rc(i) )**2
+          chisq = chisq + (galb_m(i) - rc(i))**2
         endif
       enddo
       return
@@ -100,6 +114,8 @@ c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
       integer ncomp
       real*8 x(i2comp)
       real*8 cost, val, sum
+
+      print *, '--> subroutine costfunc (energy)'
 
       val = 10000.
       cost = 0.
@@ -126,5 +142,6 @@ c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
           enddo
           if (sum .ne. 1.) cost = cost + val
       endif
+      print *, "Cost is ", cost
       return
       end

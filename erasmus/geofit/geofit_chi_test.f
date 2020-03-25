@@ -86,18 +86,43 @@ c                                      (2) wavelengths
 c                                      (3) final reflectances
 
       integer maxwave, maxcomp, i2comp, debug, ncalc
-      parameter(maxwave=20000, maxcomp=11, i2comp=2*maxcomp)
+      parameter(maxwave=20000, maxcomp=3, i2comp=2*maxcomp)
       real*8 b(maxcomp), c(maxcomp), beta(maxcomp), rho(maxcomp)
       real*8 n(maxcomp,maxwave), nk(maxcomp,maxwave)
       real*8 wve(maxwave), freq(maxwave), hi(15,21)
       real*8 galb_m(maxwave), galb_merr(maxwave)
-      
-character*80 outf
+
+      character*80 outf
       integer nwave, ncomp, nsp, nintm, nscl
       real*8 m(maxcomp), d(maxcomp), area(maxcomp), galb_c(maxwave)
       real*8 alb_sperr(maxcomp,maxwave), alb_sp(maxcomp,maxwave)
       real*8 parray(i2comp), chisq
       real*8 p(i2comp+1,i2comp), y(i2comp), x(i2comp), e, ftol, u
+
+      do i = 1,maxcomp
+        b(i) = 0
+        c(i) = 0
+        beta(i) = 0
+        rho(i) = 0
+        m(i) = 0
+        d(i) = 0
+        area(i) = 0
+        do j = 1, maxwave
+          n(i, j) = 0
+          nk(i, j) = 0
+          freq(j) = 0
+          wve(j) = 0
+          freq(j) = 0
+          galb_m(j) = 0
+          galb_merr(j) = 0
+        enddo
+      enddo
+
+      do i = 1, i2comp
+        parray(i) = 0
+        y(i) = 0
+        x(i) = 0
+      enddo
 
 c   read input parameters
 c   Open the output file
@@ -137,10 +162,12 @@ c   prepare the parameter array
 
       call prepare(ncomp,nsp,nintm,area,m,d,parray)
 
-      print *, 'parameter array prepared'
 c        pause 3
 
 c   calculate the function value for initial vertices of the simplex
+
+      print *
+      print *, "Calculating the function value for initial vertices"
 
       if ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
 !           spatial & intimate mixture
@@ -175,6 +202,7 @@ c   calculate the function value for initial vertices of the simplex
 !     $              c,beta,wve,u,hi,alb_sp,alb_sperr,area,n,
 !     $              nk,galb_m,galb_merr,galb_c,y(i),debug)
 !     call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
+          print *, p
         enddo
       elseif ( (nintm .le. 0) .and. (nsp .gt. 0) ) then
 !           spatial mixture only
@@ -196,32 +224,34 @@ c   calculate the function value for initial vertices of the simplex
       elseif ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
 !           intimate mixture only
 !         write(20,*) 'initial vertices'
+        print *, "Intimate mixture only"
+        print *
         do i=1,2*ncomp+1
+          print *
+          print *, "Iteration i = ", i
+          print *
           do j=1,2*ncomp
             if (j .eq. i-1) then
+C           copy to ith column
               p(i,j) = parray(j)
             else
               p(i,j) = 1.25 * parray(j)
             endif
+C           copy ith row to "x" so that it can be used in renorm
             x(j) = p(i,j)
           enddo
+
           call renorm(ncomp,nsp,nintm,x)
-          if (debug .eq. 0) then 
-            print *, 'renormalize completed'
-c            pause 4
-          endif
+          print *, 'Renormalization completed'
+
           call energy(nwave,ncomp,nsp,nintm,nscl,ncalc,x,rho,b,
      $              c,beta,wve,u,hi,alb_sp,alb_sperr,area,n,
      $              nk,galb_m,galb_merr,galb_c,y(i),debug)
-          if (debug .eq. 0) then 
-            print *, 'initial energies computed'
-c            pause 5
-          endif
+          print *, 'Initial energies computed'
+
           call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
-          if (debug .eq. 0) then           
-            print *, 'chisqrd computed'
-c            pause 6
-          endif
+          print *, 'Chisqrd computed, chisq=', chisq
+
  !        write(99,100) (x(k),k=1,2*ncomp),chisq
  !         write(20,*) 'y(',i,')= ',y(i)
  !        do k=1,2*ncomp
@@ -229,8 +259,16 @@ c            pause 6
  !        enddo
         enddo
       endif
- 
-       print *, 'beginning vertices initialized'
+
+      print *, "p is now"
+      do i = 1, 2*ncomp + 1
+        do j = 1, 2*ncomp
+          write(*, 49, advance="no") p(i, j)
+49        format(1x, f8.3)
+        enddo
+        print *
+      enddo
+
 !      do i=1,nwave
 !        print *, wve(i), galb_m(i)
 !      enddo
@@ -251,14 +289,18 @@ c            pause 6
 !
 !c   begin the simplex routine
 !
-       print *, 'simplex called'
- 
+
+       return
+       print *
+       print *
+       print *, 'Simplex called'
+       print *, iter
        ncalc = 0
        call amoeba(nwave,ncomp,nsp,nintm,nscl,ncalc,parray,rho,b,
      $            c,beta,wve,u,n,nk,hi,galb_m,galb_merr,galb_c,
      $            p,y(i),ftol,iter,alb_sp,alb_sperr,debug)
  
-       print *, 'simplex returned'
+       print *, 'Simplex returned'
  
 !c   evaluate the function at each final vertex
 !
@@ -322,7 +364,7 @@ c          write(20,*) 'final vertices'
       elseif ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
         ncalc = ncalc - 2*nintm + 1
       endif
-      print *, 'final energies calculated'
+      print *, 'Final energies calculated'
 
 !c   determine the final vertex with the lowest energy value
 
@@ -333,7 +375,10 @@ c       do k=1,2*ncomp
 c          write(20,*) 'x(',k,')= ',x(k)
 c       enddo
 
-      print *, 'minimum energy defined'
+      print *, 'Minimum energy defined'
+      print *, p
+      print *, x
+      print *, y
 
 c   calculate the final geometric albedo using the lowest energy vertex
 

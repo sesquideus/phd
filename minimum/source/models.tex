@@ -55,7 +55,7 @@ determine its values over the domain.
 
 \section{Observational model} \label{ms}
     In the observational model we will aim to describe the observed distribution of meteors
-    in terms of their apparent geocentric orbits, time of entry into the atmosphere and other
+    in terms of their apparent geocentric trajectories, time of entry into the atmosphere and other
     observable properties.
 
     This model can be \emph{complete}: it is possible -- at least in principle -- to record all
@@ -94,7 +94,7 @@ determine its values over the domain.
             \begin{itemize}
                 \item the \emph{periodic component}, emerging as the result of the motion of the Earth
                     around the Sun and encountering various streams along its orbit.
-                    This component can be expressed in terms of the \emph{longitude of the sun} $\lambda_\Sun$.
+                    This component can be expressed in terms of the \emph{solar longitude} $\lambda_\Sun$.
 
                 \item the slowly-varying \emph{secular component}, associated with appearance of new meteoroid
                     streams and gradual decay of older streams which are not replenished.
@@ -131,7 +131,7 @@ determine its values over the domain.
             we may treat exact positions of meteoroids entry as essentially random.
             Even a minuscule change in the orbital elements of one meteoroid
             would cause it to enter the atmosphere at a different place,
-            and the same observer would see it at a vastly difference place in the sky or not at all;
+            and the same observer would see it at a vastly different position in the sky or not at all;
             while its adherence to the stream or its radiant would only be changed very slightly.
 
         \subsubsection{Velocity} \label{mspv}
@@ -141,15 +141,15 @@ determine its values over the domain.
             orbit of the particle, which can in turn be extrapolated into the interplanetary space
             to obtain the original heliocentric orbit.
             This is also the basis for criteria for determination of adherence to streams,
-            such as the $D$-criterion defined by \citet{southworth+1963} and others.
+            such as the $D$-criterion defined by \citet{southworth+1963} and other criteria.
 
             The meteor's trajectory is approximated by a straight line and extended to infinity.
             The point where this projection intersects the celestial sphere is called the \emph{radiant} of the meteor.
             Unlike the observed position of the meteor in the sky,
             the position of the radiant is not dependent on the position of the observer.
 
-            Clustering of meteors based on their radiants and is the basis of identification
-            of meteor showers: particles on nearly the same trajectory intersecting
+            Clustering of meteors based on their radiants and geocentric velocities
+            is the basis of identification of meteor showers: particles on nearly the same trajectory intersecting
             the Earth at the same time will always have (approximately) the same radiant.
             The equality is not perfect due to slight dispersion of orbits,
             and due to the fact that the radiants slowly move across the sky,
@@ -185,9 +185,9 @@ determine its values over the domain.
             such as the entry angle or chemical composition, having some effect as well.
 
         \subsubsection{Population index} \label{msar}
-            A useful derived measure of meteor activity is the \emph{population index}.
+            A useful derived measure of meteor activity is the \emph{population index}, commonly denoted $r$.
             The definition by \citet{molau2015} is "[the population index] represents the [relative] increase
-            in total meteor count when the limiting magnitude $\mathrm{lm}$ improves by one mag[nitude]."
+            in total meteor count when the limiting magnitude $lm$ improves by one mag[nitude]."
 
             So if we denote the total number of observed meteors with magnitude at most $m$ as $N(m)$
             and compare the counts for different values of $m$ and $m + 1$, we need $N$ to satisfy the requirement
@@ -282,8 +282,8 @@ determine its values over the domain.
             A slightly better approach is to assume a gradual decrease of detection efficiency.
             This can be described by a sigmoid function, where the transition occurs on some interval
             between very faint meteors (none of which can be recorded, $p \to 0$)
-            and very bright meteors (where it is reasonable to assume they cannot be missed, $p \to 1$).
-            While there is no universally agreed-upon form, a simple yet reasonable parameterised function is
+            and very bright meteors (where it is justifiable to assume they cannot be missed, $p \to 1$).
+            While there is no universally agreed-upon form, a simple yet reasonable parameterised function is \citep{jedicke+1997}
             \eqn{eq:msam-sigmoid}{
                 D(m; m_0, \omega) = \frac{1}{1 + \exp\left(\frac{m-m_0}{\omega}\right)},
             }
@@ -547,7 +547,7 @@ determine its values over the domain.
     with high precision, but the radiant is typically further away.
     Meteors that appear close to the radiant will move slowly in the sky, which introduces large errors,
     however their angular distance from the radiant is small. The effects of geometry thus mostly cancel out.
-    Precision of measurement suffers the most when the convergence angle is small \citep{ceplecha1987}.
+    Precision of measurement suffers the most when the \gls{conv-angle} is small \citep{ceplecha1987}.
 
     Furthermore, while the trajectory can be computed with very high precision in vacuum,
     meteoroids lose a fraction of their original pre-atmospheric speed before they become visible \citep{vida+2018}.
@@ -582,7 +582,7 @@ determine its values over the domain.
         the dominant effect does not change the distribution in time.
         We may write
         \eqn{eq:po-elem}{
-            \mathcal{M}_\mathrm{oe}(t, a, e, i, \omega, \Omega, \phi).
+            \mathcal{M}_\mathrm{oe}(t, a, e, i, \omega, \Omega, \theta).
         }
 
         While in the observational model we were mostly interested in the distribution of apparent and absolute
@@ -625,7 +625,7 @@ determine its values over the domain.
         \subsubsection{Fluxes and densities} \label{mopf}
             While the distribution function $\mathcal{M}$ aims to provide complete information
             about the density of particles and its change in time,
-            the high number of dimensions it has makes it difficult to comprehend.
+            its number of dimensions makes it difficult to comprehend.
             Methods of reduction to a lower number of dimensions are necessary.
 
             The primary measure of activity of a meteor shower (or the sporadic background) is the number
@@ -694,7 +694,7 @@ determine its values over the domain.
             }
 
             Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being most common
-            for meteor showers and values around \num{2.2} for sporadic background \citep{blaauw+2011}.
+            for meteor showers and values around \num{2.2} for the sporadic background \citep{blaauw+2011}.
             The collisional equilibrium for particles of equal strength is reached at $s = 11/6$ \citep{dohnanyi1969}.
 
             The mass index $s$ can be related to the population index $r$ by an empirical relationship by \citet{koschack+1990},
@@ -865,7 +865,7 @@ determine its values over the domain.
         of the equations and algorithms can be found in \citep{balaz+2020}.
 
 \section{Mathematical methods} \label{mm}
-    Once we have ascertained what the result should like, we need to describe the mathematical foundations of the methods used to achieve it.
+    Once we have ascertained what the result should look like, we need to describe the mathematical foundations of the methods used to achieve it.
     We have stated that even though meteoroids are discrete particles, it is useful to model their density
     as a smooth function in multi-dimensional coordinate space.
     Actual particles are then treated as random samples obtained from the underlying distribution.
@@ -941,12 +941,12 @@ determine its values over the domain.
 
         \subsubsection{Bandwidth} \label{mmkw}
             The most important consideration in KDE is the determination of correct bandwidth.
-            If the selected bandwidth is too high, the resulting estimate of the distribution
+            If the selected bandwidth is too wide, the resulting estimate of the distribution
             becomes very smeared and does not capture the distribution very well.
             In the limit $\Abs{\vec{H}} \to \infty$ the shape of the estimate becomes identical to the original kernel
             shifted to the mean position of all data points.
 
-            If the bandwidth is too low, individual kernels do not overlap anymore and produce a series
+            If the bandwidth is too narrow, individual kernels do not overlap anymore and produce a series
             of narrow kernels at the positions of the original data points. In the limit $\Abs{\vec{H}} \to 0$
             a sum of $n$ $\delta$-functions centered on data points is obtained.
             Neither of the extremes provides any useful information.

@@ -28,13 +28,14 @@
     csquotes,
 }
 
-\usepackage[many]{tcolorbox}
-\usepackage[all]{nowidow}                                       % Prevent widows and orphans (single line at the beginning or end of page)
 \usepackage[
     pdfpagelabels,
     hidelinks,
     breaklinks              = true,
 ]{hyperref}
+\usepackage[xindy,nonumberlist]{glossaries}
+\usepackage[many]{tcolorbox}
+\usepackage[all]{nowidow}                                       % Prevent widows and orphans (single line at the beginning or end of page)
 \usepackage[bottom]{footmisc}
 \usepackage{fancyhdr}                                           % Fancy headers
 \usepackage{titlesec}
@@ -67,13 +68,13 @@
 
 \usepackage[
     backend         = biber,
-    style           = authoryear-icomp,
+    style           = iso-authoryear,
     natbib          = true,
     maxcitenames    = 2,
 ]{biblatex}
 
 \addbibresource{../kvik.bib}
-
+\input{glossary.tex}
 
 % Hack XeLaTeX loader to enable 256 alphabets instead of 16
 \makeatletter
@@ -120,6 +121,9 @@
 
 
 \titleformat{\paragraph}[hang]{\semibold}{}{0pt}{}
+
+\NewDocumentCommand{\Sun}{}{}
+\NewDocumentCommand{\Earth}{}{}
 
 \input{siunitx.tex}
 \input{math.tex}

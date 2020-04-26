@@ -1,15 +1,29 @@
       subroutine energy(nwave,ncomp,nsp,nintm,nscl,ncalc,x,rho,b,c,
-     $                 beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $                 beta,wve,u,hi,alb_sp,area,n,nk,
      $                 galb_m,galb_merr,galb_c,e,debug)
+
+C     nwave     number of wavelengths
+C     ncomp     number of components
+C     nsp       number of spatial
+C     nintm     number of intimate
+C     x         current mixture param-array
+C     rho       densities of components
+C     b         Legendre linear
+C     c         Legendre quadratic
+C     beta      opposition surge coef
+C     wve       array of wavelengths
+C     u         array of frequencies (weird units)
+C     hi        Chandrasekhar function (15, 21)
+C     alb_sp    albedo spectral
 
       include 'geofit.inc'
       include 'declare.inc'
       integer nwave, nsp, nintm, ncomp
       real*8 x(i2comp), area(maxcomp), e, galb_c(maxwave)
-      real*8 alb_sperr(maxcomp,maxwave), alb_sp(maxcomp,maxwave)
+      real*8 alb_sp(maxcomp,maxwave)
       real*8 cost, chisq
 
-      print *, '--> subroutine energy'
+!      print *, '--> subroutine energy'
 
 C      print *, "ncomp=", ncomp
 C      print *, "nwave=", nwave
@@ -30,39 +44,42 @@ C      print *, "x=", x
       if (nintm .gt. 0) then
         call galbcalc(nwave,ncomp,nsp,nintm,nscl,ncalc,rho,b,c,
      $               beta,wve,u,n,nk,hi,x,galb_c,debug)
+C    save the result in (nsp+1)th column
         do j=1,nwave
            alb_sp(nsp+1,j) = galb_c(j)
         enddo
       endif
 
-      call spatial(nwave,ncomp,nsp,nintm,x,alb_sp,alb_sperr,galb_c)
+      call spatial(nwave,nsp,nintm,x,alb_sp,galb_c)
+
+!      print *, "After spatial, galb_c is "
+!      do i = 1, 5
+!          print *, galb_c(i)
+!      enddo
 
       call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
       write(99,100) (x(i),i=1,2*ncomp),chisq
 
-c     print *, 'chisqrd calculated, chisq=', chisq
-
       call costfunc(ncomp,nsp,nintm,x,cost,debug)
 
-c     print *, 'cost calculated'
-
       e = chisq + cost
+      print *, "Energy is ", e
 
 c     JULIA. 23 feb 2011. Intento que el formato de salida del chi_out.txt sea automatico
 
  100  format(10(1x,G11.4),G11.4)
+!      print *, "<-- subroutine energy"
       return
       end
 
-      subroutine spatial(nwave,ncomp,nsp,nintm,
-     $                   x,alb_sp,alb_sperr,galb_c)
+      subroutine spatial(nwave,nsp,nintm,x,alb_sp,galb_c)
       include 'geofit.inc'
-      integer nwave, ncomp, nsp, nintm
-      real*8 x(i2comp), alb_sp(maxcomp,maxwave)          ! IN
-      real*8 alb_sperr(maxcomp,maxwave), galb_c(maxwave) ! OUT
+      integer nwave, nsp, nintm                     ! IN
+      real*8 x(i2comp), alb_sp(maxcomp,maxwave)     ! IN
+      real*8 galb_c(maxwave)                        ! OUT
       real*8 sum
 
-      print *, '--> subroutine spatial (energy), nwave= ',nwave
+!      print *, '--> subroutine spatial (energy), nwave= ',nwave
       do j=1,nwave
         if ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
           i=1
@@ -75,13 +92,14 @@ c     JULIA. 23 feb 2011. Intento que el formato de salida del chi_out.txt sea a
         elseif ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
           sum = 0.
           do i=1,nsp+1
-            sum = sum + x(i)*alb_sp(i,j)
+            sum = sum + x(i) * alb_sp(i,j)
           enddo
         endif
         galb_c(j) = sum
-        write(*, 58) j, sum
-58      format(1x, "galb_c(", i3, ") = ", f8.6)
+c         write(*, 58) j, sum
+c 58      format(1x, "galb_c(", i3, ") = ", f12.10)
       enddo
+!      print *, '<-- subroutine spatial (energy)'
 
       return
       end
@@ -94,8 +112,6 @@ C   goemetric albedo measured, its error, geometric albedo computed
       integer nwave
       real*8 rc(maxwave), chisq ! OUT
 
-      print *, '--> subroutine chisqrd (energy)'
-
       chisq=0.0
       do i=1,nwave
 c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
@@ -105,6 +121,8 @@ c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
           chisq = chisq + (galb_m(i) - rc(i))**2
         endif
       enddo
+      write(*, 114) chisq
+114   format(1x, "Chisq is ", f8.6)
       return
       end
 
@@ -115,8 +133,6 @@ c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
       real*8 x(i2comp)
       real*8 cost, val, sum
 
-      print *, '--> subroutine costfunc (energy)'
-
       val = 10000.
       cost = 0.
       sum = 0.
@@ -124,13 +140,13 @@ c       print *, i,'galb_m= ',galb_m(i),' rc= ',rc(i)
           do i=1,ncomp
               if (x(i) .lt. 0.) cost = cost + val**2
           enddo
-          do i=1,nsp+1
+          do i=1,2*nintm,2
               sum = sum + x(i)
           enddo
           if (sum .ne. 1.) cost = cost + val
           if (nsp .gt. 0) then
             sum = 0.
-            do i=nsp+2,ncomp,2
+            do i=1,nsp+1
                 sum = sum + x(i)
             enddo
             if (sum .ne. 1.) cost = cost + val

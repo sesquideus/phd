@@ -9,17 +9,17 @@ c   P,Y,MP,NP,NDIM,FTOL,FUNK,ITER)
       integer nwave, ncomp, nsp, nint, nscl, ITER, MPTS, NDIM
       real*8 u, uo, g, e, xarray(i2comp)
       real*8 galb_c(maxwave)
-      real*8 P(i2comp+1,maxcomp), Y(i2comp+1), FTOL
+      real*8 P(i2comp+1,maxcomp), y(i2comp+1), FTOL
       real*8 PR(i2comp),PRR(i2comp),PBAR(i2comp)
       real*8 YPR, YPRR, ALPH, BET, GAMMA, RTOL
 
 c     real*8 P(MP,NP),Y(MP),PR(NMAX),PRR(NMAX),PBAR(NMAX)
 
-      PARAMETER (ALPH=1.0,BET=0.5,GAMMA=2.0,ITMAX=3)
+      PARAMETER (ALPH=1.0,BET=0.5,GAMMA=2.0,ITMAX=200)
 
 c     open(unit=44,file='amoeba.out',status='new')
 
-      print *, '--> subroutine amoeba (Nelder-Mead method?)'
+      print *, '--> subroutine amoeba (Nelder-Mead method)'
       print *, 'ftol= ',ftol
       print *, "p is now"
       do i = 1, 2*ncomp + 1
@@ -91,7 +91,7 @@ C     This looks like we are trying to find the minimum and the maximum
         PBAR(J)=0.
 12    CONTINUE
 
-C     computer marginal sum of p and stor in PBAR
+C     computer marginal sum of p and store in PBAR
       DO 14 I=1,MPTS
         IF (I .NE. IHI) THEN
           DO 13 J=1,NDIM
@@ -106,10 +106,13 @@ c     Compute the reflection point:
         PR(J)=(1.+ALPH)*PBAR(J)-ALPH*P(IHI,J)
 15    CONTINUE
 
+      print *, "pbar is ", pbar
+      print *, "pr is   ", pr
+
       print *, "Renormalizing PR"
       CALL RENORM(NCOMP,NSP,NINT,PR)
       CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PR,rho,b,c,
-     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           beta,wve,u,hi,alb_sp,area,n,nk,
      $           galb_m,galb_merr,galb_c,e,debug)
       YPR=e
 c     write(44,*) j, PR(j), YPR
@@ -121,7 +124,7 @@ c	Compute the expansion point:
 c       CALL RENORM(NCOMP,NSP,NINT,PR)
         CALL RENORM(NCOMP,NSP,NINT,PRR)
       CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PRR,rho,b,c,
-     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           beta,wve,u,hi,alb_sp,area,n,nk,
      $           galb_m,galb_merr,galb_c,e,debug)
         YPRR=e
 c       write(44,*) j, PRR(j), YPRR
@@ -150,7 +153,7 @@ c     Compute the expansion:
 c       CALL RENORM(NCOMP,NSP,NINT,PR)
         CALL RENORM(NCOMP,NSP,NINT,PRR)
       CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PRR,rho,b,c,
-     $           beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $           beta,wve,u,hi,alb_sp,area,n,nk,
      $           galb_m,galb_merr,galb_c,e,debug)
         YPRR=e
 c       write(44,*) j, PRR(j), YPRR
@@ -168,7 +171,7 @@ c       write(44,*) j, PRR(j), YPRR
 23            CONTINUE
               CALL RENORM(NCOMP,NSP,NINT,PR)
               CALL ENERGY(nwave,ncomp,nsp,nint,nscl,ncalc,PR,rho,b,c,
-     $                   beta,wve,u,hi,alb_sp,alb_sperr,area,n,nk,
+     $                   beta,wve,u,hi,alb_sp,area,n,nk,
      $                   galb_m,galb_merr,galb_c,e,debug)
               Y(I)=E
 c             Y(I)=FUNK(PR)

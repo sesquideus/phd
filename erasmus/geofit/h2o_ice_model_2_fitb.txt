@@ -1,6 +1,6 @@
  ncd=            2   nci=            4
  measured datafile= h2o_ice_model.dat                                         
- # wavelengths=            6
+ # wavelengths=          328
  scaling data to value at data point          -16
  nsp=            0   nintm=           -1
  nintm=            3

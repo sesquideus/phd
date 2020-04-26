@@ -1,0 +1,210 @@
+      subroutine albinput(ncomp,nwave,nsp,nintm,nscl,outf,m,rho,d,
+     $b,c,beta,u,ftol,wve,freq,n,nk,hi,galb_m,galb_merr,area,
+     $alb_sp,alb_sperr,x,debug)
+
+c   this subroutine is intended to read in data necessary for
+c   calculating the geometric albedo of an n-component mixture given
+c   the optical constants of each individual component.  A number
+c   of parameters are defined in the main program that are used here
+
+c   INPUT
+
+c      maxwave - the maximum number of wavelengths associates with
+c          the real and imaginary indices of refraction.
+c      maxsp - the maximum number of spatial mixture components
+c      maxint - the maximum number of initmate mixture components
+c      debug - parameter used for debugging purposes
+
+c   OUTPUT
+
+c   outf - output file name
+c   comp - file name of each component in the mixture
+c   m(i) - relative mass fraction of a intimate mixture component
+c   rho(i) - solid density of a intimate mixture component
+c   d(i) - particle diameter of intimate mixture component (mm)
+c   b(i) and c(i) - intimate mixture Legrende polynomial coefficients
+c   beta(i) - factor that multiplies the Fresnel reflection coefficient
+c      to give the fraction of light scattered from the surface of a
+c      particle at g=0 (i.e. zero phase) for intimate mixture
+c   u - emergence angle (MEASURED FROM THE SURFACE NORMAL)
+c       read in as the angle (in degrees) then converted to cosine
+c       (in radians)
+c   wve(i) - wavelengths (in micrometers)
+c   freq(i) - frequencies (inverse centimeters)
+c   n(i,j) - real indices of refraction of each component
+c   nk(i,j) - imaginary indices of refraction of each component
+c   hi(i,j) - look up table for determining the values of 
+c     Chandrasekhar's H-functions
+c   nwave - number of wavelengths associated with the data
+c   ncomp - total number of components in the mixture
+c   nsp - number of spatial components
+c   nintm - number of intimate mix components
+c   galb_m - measured geometric albedo
+c   galb_merr - measured geometric albedo error
+c   area(i) - spatial % of each component
+c   alb_sp(i,j) - geo. alb. of spatial component(i) at wavelength(j)
+c   alb_sperr(i,j) - geo. alb. error of spatial comp.(i) at wave.(j)
+c   ftol - fractional tolerence between fit and data
+
+c   INTERNAL VARIABLES
+
+c   inf - input file containing the measured reflectances and errors
+c   wv - dummy variable
+c   pi - pi
+c   icalc - determins if spatial comp. geo. alb. is calculated or read
+c   ncd - number of columns associated with observed data
+c   nci - number of columns associated with optical constant data
+
+c NOEMI. Aug 2010. I CHANGE ALL pause 2 FOR call sleep(2)
+      include 'geofit.inc'
+      include 'declare.inc'
+      character*80 comp, inf, outf
+      integer nwave, ncomp, nsp, nintm, icalc, nscl, ncd, nci
+
+      real*8 m(maxcomp), d(maxcomp), area(maxcomp), x(i2comp)
+      real*8 alb_sp(maxcomp,maxwave), alb_sperr(maxcomp,maxwave)
+      real*8 u, wv, ftol
+
+      parameter(pi=3.1415927)
+	  print *,'debug= ', debug
+	  call sleep(2)
+c     open the input file
+c     read in viewing geometry parameters and change to radians
+c     read output filename
+      open(unit=50,file='geofit.in',status='old')
+
+      read(50,*) ncd, nci
+!      print *, 'ncd= ', ncd, '  nci= ', nci
+!      print *,'He leido la primera fila del Input'
+	  call sleep(2)
+      read(50,*) outf
+      read(50,*) u, ftol
+      u=dcos((u*pi/180.))
+	
+      if(debug.eq.0) then
+        print *, u, ftol
+        print *, outf
+      endif
+c   open output file 
+      open(unit=20,file=outf,status='new')
+!      write(20,*) 'ncd= ', ncd, '  nci= ', nci
+
+c   read the measured reflectance data
+      read(50,*) inf
+      print *, inf
+      open(unit=10,file=inf,status='old')
+      write(20,5) inf
+ 5    format(1x,'measured datafile= ',a58)
+      do i=1,maxwave
+        if (ncd .eq. 2) then
+          read(10,*,end=7) wve(i), galb_m(i)
+          galb_merr(i) = 0.
+        elseif (ncd .eq. 3) then
+          read(10,*,end=7) wve(i), galb_m(i), galb_merr(i)
+        endif
+        if (debug .eq. 1) print *, wve(i), galb_m(i), galb_merr(i)
+        if (debug .eq. 1) write(20,*) wve(i), galb_m(i), galb_merr(i)
+      enddo
+      call sleep(5)
+ 7    close(10)
+      nwave = i - 1
+      print *, '# wavelengths= ', nwave
+      write(20,*) '# wavelengths= ', nwave
+
+      read(50,*) nscl
+      print *, 'scaling data to value at data point ', nscl
+      write(20,*) 'scaling data to value at data point ', nscl
+      read(50,*) nsp, nintm
+      write(20,*) 'nsp= ', nsp, '  nintm= ', nintm
+c     in case the we have spatial components
+      sum = 0.
+      do i=1,nsp
+        read(50,*) icalc, area(i)
+        sum = sum + area(i)
+        if(icalc .eq. 0) then         ! read geom. alb. from a file
+          read(50,*) comp
+          write(20,10) i, comp
+          open(unit=40,file=comp,status='old')
+          do k=1,3
+             read(40,*)
+          enddo
+          do j=1,nwave
+            read(40,*,end=20) wv, alb_sp(i,j)
+                 alb_sperr(i,j) = 0.
+c           read(40,*,end=20) wv, alb_sp(i,j), alb_sperr(i,j)
+          enddo
+        elseif(icalc .eq. 1) then     ! calc. geo. alb. from opt. const.
+          read(50,*,end=20)comp,x(1),rho(i),x(2),b(i),c(i),beta(i)
+          write(20,10) i, comp
+          open(unit=40,file=comp,status='old')
+          if(nci .eq. 4 ) then
+            do j=1,nwave
+              read(40,*,end=35) wv,freq(j),n(i,j),nk(i,j)
+            enddo
+          elseif(nci .eq. 3 ) then
+            do j=1,nwave
+              read(40,*,end=20)wv,n(i,j),nk(i,j)
+              freq(j) = 1.e+4/wv
+            enddo
+          endif
+ 10       format(1x,'spatial component (',i1,')= ',a56)
+          call galbcalc(nwave,1,nsp,nintm,rho,b,c,beta,wve,u,
+     $n,nk,hi,x,galb_c,debug)
+        endif
+ 20   close(40)
+      enddo
+        read(50,*) nintm
+        write(20,*) 'nintm= ', nintm
+      if (nintm .gt. 0) area(nsp+1) = 1.0 - sum
+
+c      read optical constant filename and associated parameter data
+	
+       do i=1,nintm
+         if ( debug .eq. 1 ) write(20,*) 'i= ', i
+         read(50,*,end=45)comp,m(i),rho(i),d(i),b(i),c(i),beta(i)
+         print *, comp
+         write(20,25) i, comp
+ 25      format(1x,'intimate component (',i1,')= ',a55)
+         print *, m(i), rho(i), d(i)
+         write(20,30) m(i), rho(i), d(i)
+ 30      format(1x,'mass frac.= ',g10.4,' rho= ',g10.4,'d(mm)= ',g10.4)
+!         write(20,*) b(i), c(i), beta(i)
+         open(unit=40,file=comp,status='old')
+         if(nci .eq. 4 ) then
+           do j=1,nwave
+             if (debug .eq. 1) write(20,*) 'j= ', j
+             read(40,*,end=35)wv,freq(j),n(i,j),nk(i,j)
+           enddo
+          elseif(nci .eq. 3 ) then
+            if (debug .eq. 1) write(20,*) 'j= ', j
+            do j=1,nwave
+              read(40,*,end=35)wv,n(i,j),nk(i,j)
+              freq(j)=1.e+4/wv
+              if (debug .eq. 0) print *, wv, n(i,j), nk(i,j)
+            enddo
+            print *,'(i) =', i
+  !          print *,'What shows up are the constants' !Noemi
+  !          call sleep(2)
+          endif
+ 35    close(40)
+       enddo
+ 45    close(50)
+       close(20)
+       if ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
+         ncomp = nsp + nintm + 1
+       elseif( (nintm .le. 0) .and. (nsp .gt. 0) ) then
+         ncomp = nsp
+       elseif( (nintm .gt. 0) .and. (nsp .le. 0) ) then
+         ncomp = nintm
+       endif
+       print *, 'number of components= ',ncomp
+
+C      read file containing the Chandrasekhars H-functions
+       open(unit=15,file='hval.sav',status='old')
+
+         do j=1,21
+            read(15,*)(hi(i,j),i=1,15)
+         enddo
+       close(15)
+       return
+       end

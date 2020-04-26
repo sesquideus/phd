@@ -54,10 +54,10 @@ c    $      FNC(U1(I),NX,NKX,
 c    $	    U(U1(I),NX),VXX(U1(I),NX,NKX)))*(U1(I)-U1(I-1))
 c           SUM(I)=SUM(I-1)+SUM(I)
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-
-	    SUM1(I) = .5 * ( U1(I) - U1(I-1) ) *
+        
+        SUM1(I) = .5 * ( U1(I) - U1(I-1) ) *
      $      ( FNC1( U1(I-1), NX, U(U1(I-1),NX), V(U1(I-1),NX)) +
-     $	    FNC1( U1(I), NX, U(U1(I),NX), V(U1(I),NX)) )
+     $	      FNC1( U1(I  ), NX, U(U1(I),  NX), V(U1(I), NX)) )
 
             SUM1(I) = SUM1(I-1) + SUM1(I)
 

@@ -1,3 +1,4 @@
+C THIS IS EXACTLY THE SAME AS oldssc.sub, only s is renamed to es
        SUBROUTINE OLD_SSC2(W,NX,NKX,G,WV,ES,D,sx,SI,R1)
 
 C        SSC CALCULATES THE SINGLE SCATTERING ALBEDO (W).

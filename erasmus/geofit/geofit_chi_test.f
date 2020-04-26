@@ -86,7 +86,7 @@ c                                      (2) wavelengths
 c                                      (3) final reflectances
 
       integer maxwave, maxcomp, i2comp, debug, ncalc
-      parameter(maxwave=20000, maxcomp=3, i2comp=2*maxcomp)
+      parameter(maxwave=500, maxcomp=3, i2comp=2*maxcomp)
       real*8 b(maxcomp), c(maxcomp), beta(maxcomp), rho(maxcomp)
       real*8 n(maxcomp,maxwave), nk(maxcomp,maxwave)
       real*8 wve(maxwave), freq(maxwave), hi(15,21)
@@ -97,7 +97,8 @@ c                                      (3) final reflectances
       real*8 m(maxcomp), d(maxcomp), area(maxcomp), galb_c(maxwave)
       real*8 alb_sperr(maxcomp,maxwave), alb_sp(maxcomp,maxwave)
       real*8 parray(i2comp), chisq
-      real*8 p(i2comp+1,i2comp), y(i2comp), x(i2comp), e, ftol, u
+      real*8 p(i2comp+1,i2comp), y(i2comp+1), x(i2comp), e, ftol, u
+      real*8 abc, def
 
       do i = 1,maxcomp
         b(i) = 0
@@ -138,6 +139,7 @@ c   Open the output file
       print *, "nsp=", nsp, "nintm=", nintm
 c        pause 2
 
+      ncalc = 0
 c   prepare the parameter array 
 
       print *, "Now reading in the data (albinput)"
@@ -226,7 +228,7 @@ c   calculate the function value for initial vertices of the simplex
 !         write(20,*) 'initial vertices'
         print *, "Intimate mixture only"
         print *
-        do i=1,2*ncomp+1
+        do i=1, 2*ncomp+1
           print *
           print *, "Iteration i = ", i
           print *
@@ -242,21 +244,21 @@ C           copy ith row to "x" so that it can be used in renorm
           enddo
 
           call renorm(ncomp,nsp,nintm,x)
-          print *, 'Renormalization completed'
+          print *, x
 
           call energy(nwave,ncomp,nsp,nintm,nscl,ncalc,x,rho,b,
-     $              c,beta,wve,u,hi,alb_sp,alb_sperr,area,n,
+     $              c,beta,wve,u,hi,alb_sp,area,n,
      $              nk,galb_m,galb_merr,galb_c,y(i),debug)
           print *, 'Initial energies computed'
 
           call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
           print *, 'Chisqrd computed, chisq=', chisq
 
- !        write(99,100) (x(k),k=1,2*ncomp),chisq
- !         write(20,*) 'y(',i,')= ',y(i)
- !        do k=1,2*ncomp
- !           write(20,*) 'x(',k,')= ',x(k)
- !        enddo
+          write(99,100) (x(k),k=1,2*ncomp),chisq
+          write(20,*) 'y(',i,')= ',y(i)
+         do k=1,2*ncomp
+            write(20,*) 'x(',k,')= ',x(k)
+         enddo
         enddo
       endif
 
@@ -264,10 +266,18 @@ C           copy ith row to "x" so that it can be used in renorm
       do i = 1, 2*ncomp + 1
         do j = 1, 2*ncomp
           write(*, 49, advance="no") p(i, j)
-49        format(1x, f8.3)
+49        format(1x, f10.6)
         enddo
         print *
       enddo
+
+      print *, "parray is now"
+      do i = 1, 2*ncomp
+        write(*, 49, advance="no") parray(i)
+      enddo
+      print *
+
+      print *, y
 
 !      do i=1,nwave
 !        print *, wve(i), galb_m(i)
@@ -290,17 +300,16 @@ C           copy ith row to "x" so that it can be used in renorm
 !c   begin the simplex routine
 !
 
-       return
        print *
        print *
-       print *, 'Simplex called'
+       print *, 'Nelder-Mead method called'
        print *, iter
        ncalc = 0
        call amoeba(nwave,ncomp,nsp,nintm,nscl,ncalc,parray,rho,b,
      $            c,beta,wve,u,n,nk,hi,galb_m,galb_merr,galb_c,
-     $            p,y(i),ftol,iter,alb_sp,alb_sperr,debug)
+     $            p,y,ftol,iter,alb_sp,alb_sperr,debug)
  
-       print *, 'Simplex returned'
+       print *, 'Nelder-Mead method returned'
  
 !c   evaluate the function at each final vertex
 !
@@ -346,7 +355,7 @@ c          write(20,*) 'final vertices'
           enddo
           call renorm(ncomp,nsp,nintm,x)
           call energy(nwave,ncomp,nsp,nintm,nscl,ncalc,x,rho,b,
-     $              c,beta,wve,u,hi,alb_sp,alb_sperr,area,n,
+     $              c,beta,wve,u,hi,alb_sp,area,n,
      $              nk,galb_m,galb_merr,galb_c,y(i),debug)
 !c       write(20,*) 'y(',i,')= ',y(i)
 !c       do k=1,2*ncomp
@@ -376,18 +385,16 @@ c          write(20,*) 'x(',k,')= ',x(k)
 c       enddo
 
       print *, 'Minimum energy defined'
-      print *, p
-      print *, x
-      print *, y
 
 c   calculate the final geometric albedo using the lowest energy vertex
 
       call renorm(ncomp,nsp,nintm,x)
       call energy(nwave,ncomp,nsp,nintm,nscl,ncalc,x,rho,b,
-     $           c,beta,wve,u,hi,alb_sp,alb_sperr,area,n,
+     $           c,beta,wve,u,hi,alb_sp,area,n,
      $           nk,galb_m,galb_merr,galb_c,e,debug)
 
       print *, 'final albedo calculated'
+      print *, x
 
 !c   write the solutions to the output file
       call chisqrd(nwave,galb_m,galb_merr,galb_c,chisq,debug)
@@ -400,7 +407,7 @@ c   calculate the final geometric albedo using the lowest energy vertex
      $            chisq,wve,freq,galb_c,debug)
       nc=2*ncomp
 !
-! 100  format(4(G12.5,2x),G12.5)
+ 100  format(4(G12.5,2x),G12.5)
 ! 100  format(6(G11.4,1x),G11.4)
       STOP
       END

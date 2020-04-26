@@ -1,0 +1,16 @@
+        SUBROUTINE FR(S0,FRS,NX1,NKX1,BETS)
+
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+C        SUBROUTINE FR CALCULATES THE FRESNEL REFLECTION FROM A NONOPAQUE
+C        SURFACE. S0 N,NK,BETA PASSED.
+C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
+
+	DOUBLE PRECISION NX1,NKX1,S0,BETS,FRS,num,den
+
+	num = (NX1 - 1.)**2 + NKX1**2
+	den = (NX1 + 1.)**2 + NKX1**2
+	FRS = num / den
+	S0 = BETS * FRS
+
+	RETURN
+        END

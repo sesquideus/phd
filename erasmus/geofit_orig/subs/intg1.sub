@@ -1,0 +1,178 @@
+        subroutine intg1(si,nx)
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C       use the following line if including integrAting over all        C
+C	external reflection angles                                      C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C       SUBROUTINE INTG1(SE,SI,NX,NKX)
+
+C       INTG1 INTEGRATES THE COMPONENTS OF SINGLE SCATTERING REFLECTION C
+C	(SE (REFLECTED FROM SURFACE) AND SI (ELEMENT REFRACTED INTO     C
+C	VOLUME).  IT IS GOOD FOR CALCULATION OF SE AND SI TO 7 PLACES   C
+C	IN CONVERGENCE 10,000 POINTS.  NUMERICAL INTEGRATION IS         C
+C	PERFORMED BY TRAPAZOID RULE OVER PHASE ANGLES (0-180) 2*(0-90)  C
+C                                                                       C
+C	INPUT -- NK,NXn                                                 C
+C       OUTPUT -- SE SI.                                                C
+
+        real*8 U1(150000),XDIV,nx,FNC1,SUM1(150000),U,V,si
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C       use the following lines if including integration of external    C
+C       reflection over all angles                                      C
+
+C       DOUBLE PRECISION U1(150000),SUM(150000),XDIV,FNC
+C    $  NX,NKX,UXX,VXX,FNC1,SUM1(150000),U,V,se,si
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+        PARAMETER(ndiv=100)
+!       print *, 'in intg1'
+!       print *, 'si= ',si,' nx= ', nx
+!       pause 14
+
+
+C       CALCULATE SE INTEGRATION OF FNC BY TRAPEZOID RULE
+C       U(0) INITIAL X0, 1 XF
+
+C       this next line for external reflection                         C
+c       SUM(1)=0.
+c       print *, 'in intg1'
+c       pause 14
+
+        U1(1)=0.
+        SUM1(1)=0.
+        XDIV = 1.d+0 / dble(ndiv)
+          DO I=2,ndiv+1
+
+            U1(I) = U1(I-1) + XDIV
+
+C  this section for integration of external reflection  over all angles
+C           before using check functions 12/1/91 TLR
+c           SUM(I)=.5*(FNC(U1(I-1),NX,NKX,
+c    $	    U(U1(I-1),NX),V(U1(I-1),NX))+
+c    $      FNC(U1(I),NX,NKX,
+c    $	    U(U1(I),NX),VXX(U1(I),NX,NKX)))*(U1(I)-U1(I-1))
+c           SUM(I)=SUM(I-1)+SUM(I)
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+	    SUM1(I) = .5 * ( U1(I) - U1(I-1) ) *
+     $      ( FNC1( U1(I-1), NX, U(U1(I-1),NX), V(U1(I-1),NX)) +
+     $	    FNC1( U1(I), NX, U(U1(I),NX), V(U1(I),NX)) )
+
+            SUM1(I) = SUM1(I-1) + SUM1(I)
+
+         END DO
+
+C        next line for external reflection
+c        SE=2*SUM(i-1)
+
+         si = 2. * SUM1(i-1)
+         RETURN
+         END
+
+
+C    this section for integrating external reflection over all angles
+C	before using check functions 12/1/91 TLR
+C       FUNCTION FNC FUNCTION TO INTEGRATE FOR CALCULATION OF
+C       SURFACE REFLECTION
+c       FUNCTION FNC(UU,NX,NKX,UXX,VXX)
+c       DOUBLE PRECISION FNC,UU,NX,NKX,UXX,VXX
+c       IF( (UU.EQ.0.) .AND. (UXX.EQ.0.) .AND. (VXX.EQ.0) )THEN
+c       FNC=0.
+c       ELSE
+c       FNC=( (
+c    $  ((UU-UXX)**2+VXX**2)/( (UU+UXX)**2+VXX**2) )
+c    $  + (
+c    $  ( (((NX**2-NKX**2)*UU-UXX)**2)+
+c    $  ((2*NX*NKX*UU-VXX)**2) )
+c    $  /( (((NX**2-NKX**2)*UU+UXX)**2)+
+c    $  ((2*NX*NKX*UU+VXX)**2) ) )
+c    $  )/2.*UU
+c       END IF
+c       END
+
+C       FUNCTION FNC1 FUNCTION TO INTEGRATE FOR CALCULATION OF SI
+C       REFRACTED FROM SURFACE
+
+        FUNCTION FNC1(UU,NX,UX,VX)
+        real*8 FNC1,UU,NX,UX,VX,NT,num,den,trm1,trm2
+        NT=1./NX
+
+c       NKT=NKX*0.
+c       because nkt is 0, the following code has been changed from the
+c       original lines given by Kathy Poliakoff.  This should speed
+c	execution and make the code more readable  -- TLR -- 1/13/92
+
+        IF( (UU.EQ.0.) .AND. (UX.EQ.0.) .AND. (VX.EQ.0.) ) THEN
+          FNC1=0.
+        ELSE
+          num = (UU-UX)**2 + VX**2
+          den = (UU+UX)**2 + VX**2
+          trm1 = num / den
+          num = ( NT**2 * UU - UX )**2 + VX**2
+          den = ( NT**2 * UU + UX )**2 + VX**2
+          trm2 = num / den
+          FNC1 = ( trm1 + trm2 ) * UU / 2.
+        END IF
+        END
+
+C   this section for integrating external reflection over all angles
+C	check functions before use 12/1/91 TLR
+C      FUNCTION UXX(UU,NX,NKX)
+C      DOUBLE PRECISION UU,UXX,NX,NKX
+C        write(6,*)uu,nx,nkx,'uu nx nkx'
+C      UXX=dSQRT( ( NX**2-NKX**2-dSQRT(1.-UU**2)**2+
+C    $ dSQRT( (NX**2-NKX**2-dSQRT(1.-UU**2)**2)**2+4.*NX**2*NKX**2) )/2.)
+C      END
+C
+C      FUNCTION VXX(UU,NX,NKX)
+C      DOUBLE PRECISION UU,VXX,NX,NKX
+C      VXX=dSQRT( ( -1.*(NX**2-NKX**2-dSQRT(1.-UU**2)**2)+
+C    $ dSQRT( (NX**2-NKX**2-dSQRT(1.-UU**2)**2)**2+4.*NX**2*NKX**2) )/2.)
+C      END
+
+C      because nky is 0, equations below have been altered
+C       TLR -- 1/10/92
+
+       FUNCTION U(UU,NX)
+       DOUBLE PRECISION UU,U,NX,NY,nysq,arg1,arg2,arg3
+       NY=1./NX
+       nysq = ny**2
+       arg1 = 1.0d+0 - uu**2
+       if(arg1.lt.0.) then
+          arg1 = 0.
+       endif
+       arg2 = (nysq - arg1)**2
+       if(arg2.lt.0.) then
+          arg2 = 0.
+       endif
+       arg3 = nysq - arg1 + dsqrt(arg2)
+       if(arg3.lt.0.) then
+          arg3 = 0.
+       endif
+       arg3 = arg3 / 2.d+0
+       u = dsqrt(arg3)
+       END
+
+C      because nky is 0, equations below have been altered
+C       TLR -- 1/10/92
+
+       FUNCTION V(UU,NX)
+       DOUBLE PRECISION UU,V,NX,NY,nysq,arg1,arg2,arg3
+       NY=1./NX
+       nysq = ny**2
+       arg1 = 1.d+0 - uu**2
+       if(arg1.lt.0.) then
+          arg1 = 0.
+       endif
+       arg2 = (nysq - arg1)**2
+       if(arg2.lt.0.) then
+          arg2 = 0.
+       endif
+       arg3 = (-1. * (nysq - arg1) ) + dsqrt(arg2)
+       if(arg3.lt.0.) then
+          arg3 = 0.
+       endif
+       arg3 = arg3 / 2.
+       v = dsqrt(arg3)
+       END

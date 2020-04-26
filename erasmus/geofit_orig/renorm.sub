@@ -1,0 +1,60 @@
+      subroutine renorm(ncomp,nsp,nint,x)
+      include 'geofit.inc'
+      integer ncomp, nsp, nint
+      real*8 x(i2comp), sum
+
+c     print *, 'begin renorm, nint= ', nint
+c     print *, x(2*nint-1), x(2*nint)
+      do i=1,ncomp
+        if(x(i) .lt. 0.) x(i) = abs(x(i))    ! check all parameters >0.
+      enddo
+
+      if ( (nint .gt. 0) .and. (nsp .gt. 0) ) then 
+!              spatial + intimate mixture
+          sum = 0.
+          do i=nsp+2,2*nint+nsp+1,2
+              sum = sum + x(i)
+          enddo
+          if (sum .ne. 1.) then        ! check mass fractions sum to 1.
+              do i=nsp+2,2*nint+nsp+1,2
+                  x(i) = x(i) / sum
+              enddo
+          endif
+          sum = 0.
+          do i=1,nsp+1
+              sum = sum + x(i)
+          enddo
+          if (sum .ne. 1.) then       ! check areal fractions sum to 1.
+              do i=1,nsp+1
+                  x(i) = x(i) / sum
+              enddo
+          endif
+      elseif ( (nint .le. 0) .and. (nsp .gt. 0) ) then
+!             spatial mixture only
+          sum = 0.
+          do i=1,ncomp
+              sum = sum + x(i)
+          enddo
+          if (sum .ne. 1.) then       ! check areal fractions sum to 1.
+              do i=1,ncomp
+                  x(i) = x(i) / sum
+              enddo
+          endif
+      elseif ( (nint .gt. 0) .and. (nsp .le. 0) ) then
+!             intimate mixture only
+          sum = 0.
+          do i=1,2*ncomp,2
+              sum = sum + x(i)
+          enddo
+          if (sum .ne. 1.) then        ! check mass fractions sum to 1.
+              do i=1,2*ncomp,2
+                  x(i) = x(i) / sum
+              enddo
+          endif
+      endif
+c     print *, 'end renorm, nint= ', nint
+c     do i=1,((2*nint)+nsp+1)
+c        print *, i, x(i)
+c     enddo
+      return
+      end

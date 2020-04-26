@@ -3,6 +3,8 @@
 \input{input/settings.tex}
 \input{input/commands.tex}
 
+\makeglossaries
+
 \begin{document}
     \pagestyle{empty}
     \pagenumbering{gobble}
@@ -29,9 +31,12 @@
 
     \appendix
     %\insertChapter{\textsc{Asmodeus} operation}{appendix-asmodeus}{A}
-    \insertChapter{Glossary and abbreviations}{appendix-glossary}{g}
+    %\insertChapter{Glossary and abbreviations}{appendix-glossary}{g}
     \insertChapter{Visualisations}{appendix-visualisation}{e}
     \clearpage
+
+    \setglossarystyle{altlist}
+    \printglossary[title=Glossary and abbreviations,toctitle=Glossary and abbreviations]
 
     \pagestyle{bibliography}
     \fancyhead[L]{}

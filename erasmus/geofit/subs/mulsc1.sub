@@ -6,7 +6,7 @@ C	 (MSI) AND INTERPOLATED VALUES (HUU HUO)
 
         subroutine mulsc1(MSCAT,HI,u,UO,W,HUU,HUO)
 
-        real*8 MSCAT,u,uo,w,HUU,HUO,diff
+        real*8 MSCAT,u,uo,w,HUU,HUO
         real*8 HI(15,21),XLIN,WI(15),XU(21),hij,hij1
         real*8 WJ1,XJ1,HU
 
@@ -17,53 +17,57 @@ C	 (MSI) AND INTERPOLATED VALUES (HUU HUO)
      $.35,.40,.45,.50,.55,.60,.65,.70,.75,.80,.85,.90,.95,1./
 
 C        FIND WJ,XJ1 AND SET VALUES OF INTERPOLATION TO WJ, XJ1
- 33       DO JK=1,2
-             IF(JK.EQ.1)THEN
+ 33     DO JK=1,2
+            IF(JK.EQ.1)THEN
                 WJ1= W
                 XJ1=U
-             ELSE IF(JK.EQ.2)THEN
+            ELSE IF(JK.EQ.2)THEN
                 WJ1= W
                 XJ1=UO
             END IF
 
-         DO J=1,14
-            diff = w - wi(j+1)
-            IF( (WJ1.GE.WI(J)) .AND. (WJ1.LT.WI(J+1)) )THEN
-               JB=J
-               JT=J+1
-               GO TO 100
-            ELSE IF(WJ1 .EQ. WI(J+1)) THEN
-               JB=J
-               JT=J+1
-            END IF
- 100     END DO
+            DO J=1,14
+                IF((WJ1.GE.WI(J)) .AND. (WJ1.LT.WI(J+1)) )THEN
+                    JB=J
+                    JT=J+1
+                    GO TO 100
+                ELSE IF(WJ1 .EQ. WI(J+1)) THEN
+                    JB=J
+                    JT=J+1
+                ELSE
+                    !print *, "NOTHIN", j, xu(j), wj1, wi(j+1), jb, jt
+                END IF
+ 100        END DO
 
-         DO I=1,20
-          IF( (XJ1.GE.XU(I)). AND. (XJ1.LT.XU(I+1)) ) THEN
-            IB=I
-            IT=I+1
-            GO TO 101
-          ELSE IF (XJ1.EQ.XU(I+1)) THEN
-            IB=I
-            IT=I+1
-          END IF
- 101      END DO
+            DO I=1,20
+                IF( (XJ1.GE.XU(I)). AND. (XJ1.LT.XU(I+1)) ) THEN
+                    IB=I
+                    IT=I+1
+                    !print *, "inc i", i, xu(i), xj1, xu(i+1)
+                    GO TO 101
+                ELSE IF (XJ1.EQ.XU(I+1)) THEN
+                    IB=I
+                    IT=I+1
+                ELSE
+                    !print *, "NOTHIN", i, xu(i), xj1, xu(i+1), ib, it
+                END IF
+ 101        END DO
 
-
-C          INTERPOLATE
-C
             HIJ=XLIN(WJ1,HI(JB,IB),HI(JT,IB),WI(JB),WI(JT))
             HIJ1=XLIN(WJ1,HI(JB,IT),HI(JT,IT),WI(JB),WI(JT))
-            HU=XLIN(XJ1,HIJ,HIJ1,XU(IB),XU(IT)) 
+            HU=XLIN(XJ1,HIJ,HIJ1,XU(IB),XU(IT))
 
-             IF(JK.EQ.1)THEN
-             HUU=HU
-             ELSE IF(JK.EQ.2)THEN
-             HUO=HU
-             END IF
-           END DO
+            IF(JK.EQ.1)THEN
+                HUU=HU
+            ELSE IF(JK.EQ.2)THEN
+                HUO=HU
+            END IF
+        END DO
+
 
         MSCAT = HUO * HUU - 1.
+        !print *, u, uo, w
+!        print *, "MULSC: HUO=", huo, " HUU=", huu, " MSCAT=", MSCAT
 
         RETURN
         END

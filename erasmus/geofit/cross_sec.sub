@@ -24,6 +24,8 @@ c      components
       real*8 pay(i2comp), rho(maxcomp) ! IN
       real*8 xsec(maxcomp), xsectot ! OUT
 
+C      print *, "--> subroutine cross_sec"
+
 c     print *, 'in cross section'
 c     print *, ncomp, nsp, nintm
 c     do i=1,2*nintm
@@ -35,13 +37,13 @@ c     enddo
       xsectot=0.0
       do i=1,nintm
         if ( (nintm .gt. 0) .and. (nsp .gt. 0) ) then
-          j= 2*i
-          k = nsp+1
-          xsec(i)= pay(k+j-1) / ( rho(i) * ( pay(k+j) / 10.0) )
+          j = 2 * i
+          k = nsp + 1
+          xsec(i) = pay(k+j-1) / ( rho(i) * ( pay(k+j) / 10.0) )
 c         print *, 'm= ',pay(k+j-1),' rho= ',rho(i),' d= ',pay(k+j)
         elseif ( (nintm .gt. 0) .and. (nsp .le. 0) ) then
 c         print *, pay(2*i - 1), rho(i), pay(2*i)
-          xsec(i)= pay(2*i-1) / ( rho(i) * ( pay(2*i) / 10.0) )
+          xsec(i) = pay(2*i-1) / ( rho(i) * ( pay(2*i) / 10.0) )
 c         print *, 'm= ',pay(2*i-1),' rho= ',rho(i),' d= ',pay(2*i)
         endif
         xsectot = xsectot + xsec(i)
@@ -49,5 +51,6 @@ c         print *, 'm= ',pay(2*i-1),' rho= ',rho(i),' d= ',pay(2*i)
 c     do i=1,nintm
 c       print *, 'xsec= ',xsec(i)/xsectot
 c     enddo
+C      print *, "<-- subroutine cross_sec"
       return
       end

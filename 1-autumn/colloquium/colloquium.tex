@@ -1,70 +1,7 @@
 \documentclass[10pt]{beamer}
-\input{../../kvik.sty}
-\input{../../kvik-beamer.sty}
+\input{../../kvik-beamer.tex}
 
 \usepackage{tabularx}
-
-\mode<presentation> {
-    \usetheme{Szeged}
-    \usecolortheme{beaver}
-    
-    \usefonttheme{professionalfonts}
-    \setallmainfonts{Minion Pro}
-    \setmathrm{Minion Pro}
-    
-    \setsansfont{Segoe UI}
-    \setmonofont{Consolas}
-    \setbeamercolor*{enumerate item}{fg = citem}
-    \setbeamercolor*{enumerate subitem}{fg = csitem}
-    \setbeamercolor*{enumerate subsubitem}{fg = cssitem}
-    \setbeamercolor*{description item}{fg = desc}
-    \setbeamercolor*{itemize item}{fg = citem}
-    \setbeamercolor*{itemize subitem}{fg = csitem}
-    \setbeamercolor*{itemize subsubitem}{fg = cssitem}
-    \setbeamercolor*{palette primary}{fg = red, bg = qprimarybg}
-}
-
-\definecolor{mildlydone}{rgb}{0.7, 1, 0.7}
-
-\AtBeginSection[]{
-    \subsection{\insertsection}
-    \begin{frame}
-        \vfill
-        \centering
-        \begin{beamercolorbox}[sep = 8pt, center, shadow = true, rounded = true]{title}
-            \usebeamerfont{title}\insertsectionhead\\[1.5mm]%
-            \vfill
-        \end{beamercolorbox}
-        \vfill
-    \end{frame}
-}
-\makeatletter
-
-% Render percent sign with nice font, not ugly Computer modern
-    \mathcode`\%="7025
-
-% Fixes mathspec bug -- URL numbers are rendered with wrong font
-    \ernewcommand\eu@MathPunctuation@symfont{Latin:m:n}
-    \DeclareMathSymbol{,}{\mathpunct}{\eu@MathPunctuation@symfont}{`,}
-    \DeclareMathSymbol{.}{\mathord}{\eu@MathPunctuation@symfont}{`.}
-    \DeclareMathSymbol{<}{\mathrel}{\eu@MathPunctuation@symfont}{`<}
-    \DeclareMathSymbol{>}{\mathrel}{\eu@MathPunctuation@symfont}{`>}
-    \DeclareMathSymbol{/}{\mathord}{\eu@MathPunctuation@symfont}{`/}
-    \DeclareMathSymbol{;}{\mathpunct}{\eu@MathPunctuation@symfont}{`;}
-    \DeclareMathSymbol{(}{\mathopen}{\eu@DigitsArabic@symfont}{`(}
-    \DeclareMathSymbol{)}{\mathclose}{\eu@DigitsArabic@symfont}{`)}
-    \XeTeXDeclareMathSymbol{^^^^2026}{\mathinner}{\eu@MathPunctuation@symfont}{"2026}[\mathellipsis]
-    \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
-    \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
-    \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
-    \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
-    \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
-    \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
-    \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
-    \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
-    \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
-    \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
-\makeatother
 
 \title{Determination of total meteoroid flux in millimetre to metre size range}
 \subtitle{Volume 4: Six Months Later}
@@ -76,7 +13,7 @@
     \begin{frame}
         \titlepage
     \end{frame}
-                
+
     \section{Overview}
         \frejm{Contents}{
             \setbeamersize{description width = 25mm}
@@ -89,7 +26,7 @@
                 \item[problems]         What are we going to do with this?
             \end{description}
         }
-        
+
         \frejm{Objective}{
             To \emph{determine} the total meteoroid flux in millimetre to metre size range
             \begin{itemize}
@@ -103,10 +40,10 @@
                 \item estimate the flux
             \end{itemize}
         }
-        
+
         \frejm{Algorithm}{
             So-called \textbf{holistic approach}
-            
+
             \begin{itemize}
                 \item suggested by Peter Vereš
                 \begin{itemize}
@@ -118,9 +55,9 @@
                 \item simulate everything what could possibly be seen
                 \item compare \emph{output} of the simulation to observations
                 \begin{itemize}
-                    \item change values of parameters (how?)                    
+                    \item change values of parameters (how?)
                     \item repeat until best match with observational data is found
-                \end{itemize}                
+                \end{itemize}
                 \item look at the original \emph{input} of the simulation
                 \begin{itemize}
                     \item declare it to be the true population
@@ -128,7 +65,7 @@
                 \end{itemize}
             \end{itemize}
         }
-        
+
         \frejm{Algorithm -- details}{
             \begin{enumerate}
                 \item generate the meteoroid population
@@ -136,7 +73,7 @@
                 \item simulate atmospheric entry and create \texttt{Meteor} objects
                 \pause
                 \item compute virtual \texttt{Sighting}s using locations of \texttt{Observer}s
-                \item filter visible events and apply observational bias 
+                \item filter visible events and apply observational bias
                     \begin{itemize}
                         \item distance
                         \item atmospheric attenuation
@@ -146,14 +83,14 @@
                         \item ...
                     \end{itemize}
                 \pause
-                \item calculate statistics and compare to AMOS data 
-                \item adjust the particle distribution and observational bias parameters 
+                \item calculate statistics and compare to AMOS data
+                \item adjust the particle distribution and observational bias parameters
                 \pause
                 \item repeat \textit{ad libitum}
             \end{enumerate}
         }
-        
-    \section{\textsc{Asmodeus}}    
+
+    \section{\textsc{Asmodeus}}
         \frejm{What is it}{
             \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator
             \begin{itemize}
@@ -167,7 +104,7 @@
                 \item ready to be published on \texttt{GitHub}
             \end{itemize}
         }
-        
+
         \frejm{How does it work?}{
             \begin{itemize}
                 \item \texttt{asmodeus-generate}
@@ -193,13 +130,13 @@
                         \item plots the resulting data
                         \item \texttt{gnuplot} is required to produce images
                         \item we should switch to \texttt{matplotlib} instead
-                    \end{itemize}               
+                    \end{itemize}
             \end{itemize}
         }
-                            
-        \frejm{Model}{            
+
+        \frejm{Model}{
             Designed by \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
-            
+
             We assume
             \begin{itemize}
                 \item spherical particles
@@ -209,16 +146,16 @@
                     \item only drag / ablation
                 \end{itemize}
             \end{itemize}
-            
+
             And we need
             \begin{itemize}
                 \item equations of motion
                 \item equations of luminance
                 \item to construct a virtual CCD image
                 \item to compute the statistic
-            \end{itemize}            
+            \end{itemize}
         }
-    
+
         \frejm{Equations of motion}{
             \begin{itemize}
                 \item braking equation
@@ -238,7 +175,7 @@
                 \end{itemize}
             \end{itemize}
         }
-        
+
         \frejm{Simulation of flight}{
             \begin{itemize}
                 \item equations solved by the Runge--Kutta method (RK4)
@@ -262,7 +199,7 @@
                 \end{itemize}
             \end{itemize}
         }
-        
+
     \section{\texttt{asmodeus-observe}}
         \frejm{Virtual observations}{
             In the next step we create observations
@@ -280,14 +217,14 @@
                         \item flight time...
                     \end{itemize}
                 \end{itemize}
-            \end{itemize}           
+            \end{itemize}
         }
-                
+
         \fspicture{shower.png}[H][black]
         \fspicture{angularSpeed-ago.png}[H][black]
-        
+
         \frejm{Selection bias}{
-            \emph{Detection efficiency is not constant!}            
+            \emph{Detection efficiency is not constant!}
             \begin{itemize}
                 \item probability of detection is higher for meteors that are
                 \begin{itemize}
@@ -298,8 +235,8 @@
                 \end{itemize}
             \end{itemize}
         }
-        
-        \frejm{Selection bias -- quantitative}{            
+
+        \frejm{Selection bias -- quantitative}{
             Bias summarized in \emph{detection probability functions}
             \begin{itemize}
                 \item determine whether a meteor is detected
@@ -314,16 +251,16 @@
                 \item we need to establish values of parameters $f$, $m_0$, $\omega$, $\alpha$
                 \item assume the effects are \emph{independent}
             \end{itemize}
-        }        
+        }
         \fspicture{limmag.pdf}[W][white]
-        \fspicture{altitude-powersine.pdf}[][white]        
-                        
-    
-        
-       
-        
-        
-        
+        \fspicture{altitude-powersine.pdf}[][white]
+
+
+
+
+
+
+
         \frejm{Validation of the model}{
             \begin{itemize}
                 \item we used a Perseid bolide \emph{EN120812}
@@ -342,10 +279,10 @@
                     \item but this is not good science
                 \end{itemize}
             \end{itemize}
-        }  
-        
+        }
+
         \fspicture{validation-power.png}[][white]
-        
+
         \frejm{Validation results}{
             \begin{tabularx}{\textwidth}{X r r}
                 \toprule
@@ -364,7 +301,7 @@
                 \bottomrule
             \end{tabularx}
         }
-        
+
     \section{\texttt{asmodeus-observe}}
         \frejm{Magnitude determination}{
             \begin{itemize}
@@ -377,7 +314,7 @@
                 \end{itemize}
             \end{itemize}
         }
-        
+
         \frejm{Magnitude determination}{
             \begin{itemize}
                 \item the model is not very precise
@@ -394,9 +331,9 @@
                 \end{itemize}
                 \pause
             \end{itemize}
-            
+
         }
-        
+
     \section{\texttt{asmodeus-multifit}}
         \frejm{Parameter variation}{
             \begin{itemize}
@@ -416,8 +353,8 @@
                 \bottomrule
             \end{tabularx}
         }
-    
-        
+
+
     \section{Results}
         \frejm{Evaluation}{
             \begin{itemize}
@@ -436,13 +373,13 @@
                 \item histograms evaluated using $\chi^2$ tests
                 \begin{itemize}
                     \item determine similarity between histograms
-                    \item normalized to 1   
+                    \item normalized to 1
                 \end{itemize}
-            \end{itemize}            
-        }        
+            \end{itemize}
+        }
         \fspicture{example-magnitude-nobias.pdf}[][white]
         \fspicture{example-magnitude-bias.pdf}[][white]
-    
+
         \frejm{Magnitude DPF}{
             $$
                 D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
@@ -456,15 +393,15 @@
                 \item find values of parameters where $\chi^2$ is minimal
                 \item account for statistical noise
             \end{itemize}
-        }        
+        }
         \fspicture{chiSquare-magnitude-1d8.pdf}[][white]
         \fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
         \fspicture{histogram-magnitude-1d8-optimum.pdf}[][white]
-        
+
         \frejm{Mass index $s$}{
             There are way too many bright meteors...
             \pause
-            \begin{itemize}                
+            \begin{itemize}
                 \item a natural reaction is to try another value of $s$
                 \begin{itemize}
                     \item a full range \numrange{1.6}{2.8} was tried
@@ -472,21 +409,21 @@
                 \item best fit for $s = \text{2.15}$
                 \item no value below 2 is consistent with observations
             \end{itemize}
-        
-        }        
+
+        }
         \fspicture{histogram-magnitude-total-optimum.pdf}[][white]
-        
+
         \frejm{Altitudinal DPF}{
             $$
                 A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
             $$
-            \begin{itemize}                
+            \begin{itemize}
                 \item only a simple 1D fit
                 \item a very well defined minimum at $\alpha = \text{0.4}$
             \end{itemize}
         }
         \fspicture{chiSquare-altitude-2d15.pdf}[][white]
-        
+
         \frejm{Total flux}{
             Finally, we may calculate the total flux
             \begin{itemize}
@@ -495,14 +432,14 @@
                 $$D(m) = \frac{1}{1 + e^{\frac{m + 0.1}{0.35}}}$$
                 \item number of meteors is \emph{scaled} to match observations
             \end{itemize}
-            
+
             \begin{itemize}
                 \item we obtain \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour}
                 \item \SI{0.338}{\kilo\gram} per \SI{1000000}{\kilo\metre\squared\hour},
                 \item about \SI{43}{\kilo\gram\per\hour} on Earth
             \end{itemize}
         }
-                        
+
     \section{Conclusion}
         \frejm{Summary}{
             \begin{itemize}
@@ -529,32 +466,28 @@
                 \end{itemize}
             \end{itemize}
         }
-        
-        %otázky oponenta!
-        
+
     \section{Known problems}
-       
-        
         \frejm{Temporal variation}{
         }
-        
+
         \frejm{Unit tests}{
             Sometimes, it is a good idea to scrutinize everything you are doing
             \begin{itemize}
-                \item every single concept 
+                \item every single concept
             \end{itemize}
-            
+
         }
-        
-        
+
+
         \frejm{Conclusion}{
             \begin{itemize}
                 \item Python is your friend
-                \item Test, test, test everything                
+                \item Test, test, test everything
             \end{itemize}
         }
 
-    
+
         \frejm{Thank you for your attention}{
             \textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
             \scriptsize
@@ -562,8 +495,8 @@
                 Claude Lévi-Strauss\\
                 Le Cru et le Cuit, 1964
             \end{flushright}
-        }      
-                
+        }
+
         \frejm{References}{
             \begin{itemize}
                 \item \textbf{Jenniskens, P.}:
@@ -571,10 +504,10 @@
                 \item \textbf{Luciuk, M.}:
                     Meteor Showers. {\footnotesize \url{http://www.asterism.org/tutorials/tut36\%20Meteor\%20Showers.pdf}}.
                 \item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
-                    High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005) 
+                    High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005)
                 \item \textbf{Öpik, E. J.}:
-                    Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.  
+                    Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.
             \end{itemize}
         }
-            
+
 \end{document}

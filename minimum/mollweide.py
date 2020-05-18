@@ -35,7 +35,7 @@ X, Y = np.meshgrid(xgrid, ygrid)
 
 xy = np.vstack([Y.ravel(), X.ravel()]).T
 
-kde = KernelDensity(bandwidth=0.1, metric='haversine', kernel='gaussian', algorithm='ball_tree', rtol=1e-12)
+kde = KernelDensity(bandwidth=0.1, metric='haversine', kernel='gaussian', algorithm='ball_tree', rtol=1e-9)
 coord = np.vstack([theta, phi]).T
 
 print("Fitting...")
@@ -48,6 +48,7 @@ z = z.reshape(X.shape)
 print("Plotting...")
 plt.contourf(X, Y, z, levels=np.linspace(0, z.max(), 100), cmap='Blues')
 plt.scatter(phi, theta, (speed / 1000), np.log(speed), marker='.')
+plt.gca().invert_xaxis()
 plt.grid()
 plt.tight_layout()
 plt.show()

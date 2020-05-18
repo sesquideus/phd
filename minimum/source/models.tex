@@ -185,7 +185,7 @@ determine its values over the domain.
             such as the entry angle or chemical composition, having some effect as well.
 
         \subsubsection{Population index} \label{msar}
-            A useful derived measure of meteor activity is the \emph{population index}, commonly denoted $r$.
+            A useful derived measure of meteor activity is the \emph{population index}, commonly denoted~$r$.
             The definition by \citet{molau2015} is "[the population index] represents the [relative] increase
             in total meteor count when the limiting magnitude $lm$ improves by one mag[nitude]."
 
@@ -242,7 +242,7 @@ determine its values over the domain.
             The final model would thus be a five-dimensional map of distribution of meteor activity, with independent variables being
             \begin{itemize}
                 \item one temporal coordinate $t$, representing the meteor activity in \emph{time};
-                \item two spatial coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
+                \item two angular coordinates: the \emph{right ascension} $\alpha_R$ and \emph{declination} $\delta_R$ of the radiant;
                 \item the \emph{pre-atmospheric geocentric speed} of the particles $v_\infty$;
                 \item and the \emph{magnitude spectrum}, or the probability density function of absolute magnitudes of meteors.
             \end{itemize}
@@ -256,7 +256,7 @@ determine its values over the domain.
             \begin{itemize}
                 \item the \emph{sporadic background}, which forms the main contour lines of the maps, the ``terrain'';
                 \item and several well-defined, sharp peaks, representing the \emph{meteor showers}.
-                    Due to their common origin and orbit, these peaks should be very narrow in all dimensions
+                    Due to their common origin and orbit, these peaks should be typically very narrow in all dimensions
                     except for the distribution of magnitudes.
             \end{itemize}
 
@@ -347,7 +347,7 @@ determine its values over the domain.
             One of the simplest models \citep{hill+2005} assumes that the energy emitted as visible light
             is proportional to change in particle's kinetic energy,
             \eqn{eq:msaf-tau}{
-                F_0 = -\tau \frac{\dot{m} v^2}{2}
+                F_0 = -\tau \frac{\dot{\mu} v^2}{2}
             }
             for some $\tau$ named \emph{luminous efficiency factor}. This can be either a constant
             or a function of speed or other properties of the meteoroid.
@@ -357,11 +357,11 @@ determine its values over the domain.
             The standard approach is to invert the equation \cref{eq:msaf-tau} and integrate it
             throughout the light phase,
             \eqn{eq:msaf-photo}{
-                \fdiff m = \Int[t_\mathrm{begin}][t_\mathrm{end}]{\frac{F(t)}{\tau v(t)^2}}{t},
+                \fdiff \mu = \Int[t_\mathrm{begin}][t_\mathrm{end}]{\frac{F(t)}{\tau v(t)^2}}{t},
             }
             where
             \begin{description}
-                \item[$\fdiff m$]
+                \item[$\fdiff \mu$]
                     is the total mass lost due to ablation;
                 \item[$F(t)$]
                     is the instantaneous light flux, corrected for the sensitivity of the camera;
@@ -377,7 +377,7 @@ determine its values over the domain.
 
             Initial mass is then obtained as
             \eqn{eq:msaf-orig}{
-                m_\mathrm{begin} = m_\mathrm{end} + \fdiff m.
+                \mu_\mathrm{begin} = \mu_\mathrm{end} + \fdiff \mu.
             }
 
             Since in most cases the meteoroid is too small and fast to survive the entry, its final mass is zero

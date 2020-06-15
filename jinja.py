@@ -71,11 +71,13 @@ class Builder():
 
     def load_context(self):
         self.context = Context()
-        for context_file in self.args.context:
-            self.context.devour(Context.from_YAML(context_file[0]))
 
-        if self.args.debug:
-            self.context.print()
+        if self.args.context is not None:
+            for context_file in self.args.context:
+                self.context.devour(Context.from_YAML(context_file[0]))
+
+            if self.args.debug:
+                self.context.print()
 
     def build(self):
         print(

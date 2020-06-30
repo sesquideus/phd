@@ -1,0 +1,131 @@
+\documentclass[12pt,aspectratio=1610]{beamer}
+\input{../../kvik-beamer.tex}
+
+\title{Reflectance spectroscopy with GTC}
+\subtitle{}
+\author{\small \emph{Martin Baláž}}
+\institute{DAA coffee}
+\date{2020--07--01}
+
+\begin{document}
+    {
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/gtc.jpg}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
+
+    \section{OSIRIS}
+        \frejm{OSIRIS}{
+            čo to je?
+        }
+
+        \frejm{\texttt{IRAF} and \texttt{Starlink}}{
+            \begin{columns}
+                \begin{column}{0.5\textwidth}
+                    \begin{itemize}
+                        \item IRAF
+                            \begin{itemize}
+                                \item US NOAO, since 1985
+                                \item horrible installation
+                                \item last release 2012
+                                \item usage in new projects discouraged
+                            \end{itemize}
+                        \pause
+                        \item Starlink
+                            \begin{itemize}
+                                \item the same but very British
+                                \item \SI{1}{\giga\byte} of... something
+                                \item slightly newer
+                            \end{itemize}
+                    \end{itemize}
+                \end{column}
+                \pause
+                \begin{column}{0.4\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/dinosaur-computer.jpg}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{\texttt{THELI} and \texttt{ccdproc}}{
+            Let us use something newer...
+            \begin{itemize}
+                \item Theli
+                    \begin{itemize}
+                        \item new German software
+                        \item highly recommended for general purpose reduction
+                    \end{itemize}
+                \pause
+                \item \texttt{ccdproc}
+                    \begin{itemize}
+                        \item not a \emph{program}, but a \emph{Python library}
+                        \item well documented
+                        \item great for pipelline integration
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Osiris reduction pipeline}{
+            Basic operations but fine-tuned for this purpose
+            \begin{itemize}
+                \item preprocessing
+                    \begin{itemize}
+                        \item master bias
+                        \item master flat
+                        \item trimming
+                    \end{itemize}
+                \pause
+                \item extraction of the spectrum
+                    \begin{itemize}
+                        \item identification
+                        \item background
+                        \item cosmic rays
+                    \end{itemize}
+                \item normalization
+                    \begin{itemize}
+                        \item spectral flat field
+                        \item divide by solar analogue spectrum
+                    \end{itemize}
+            \end{itemize}
+        }
+
+    \section{Geofit}
+        \frejm{Geofit}{
+            \begin{itemize}
+                \item program by Ted Roush
+                \item FORTRAN77
+                \item written in January 1992
+                \pause
+                \item uses \emph{Hapke model} to compute synthetic reflectance spectra
+                \item comparison to observational spectra
+                \pause
+                \item virtually no comments
+                \item untouched since 2012
+            \end{itemize}
+        }
+
+        \frejm{Objective}{
+            \begin{columns}
+                \begin{column}{0.7\textwidth}
+                    \begin{itemize}
+                        \item make at least some sense of it
+                        \item rewrite in \texttt{Python}
+                        \item optimize
+                        \pause
+                        \item job halfway between \emph{programming} and \emph{archaeology}
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.28\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/frankenstein.jpg}
+                \end{column}
+            \end{columns}
+        }
+
+
+    \section{Summary}
+        \frejm{References}{
+            \begin{itemize}
+                \item GTC image: Daniel López, \texttt{elcielodecanarias.com}
+            \end{itemize}
+        }
+\end{document}

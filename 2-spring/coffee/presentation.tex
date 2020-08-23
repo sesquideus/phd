@@ -17,7 +17,21 @@
 
     \section{OSIRIS}
         \frejm{OSIRIS}{
-            čo to je?
+            Optical System for Imaging and low Resolution Integrated Spectroscopy
+            \begin{itemize}
+                \item long slit / multiple object spectroscopy
+                \item two CCDs (2 × 2048 × 4096, binning 2 × 2)
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item for us
+                \begin{itemize}
+                    \item long slit spectroscopy
+                    \item reflectance spectra of faint asteroids
+                    \item always use CCD2
+                    \item design a pipeline to process the original output
+                \end{itemize}
+            \end{itemize}
         }
 
         \frejm{\texttt{IRAF} and \texttt{Starlink}}{
@@ -134,19 +148,15 @@
                         \pause
                         \item Nelder-Mead minimization of the objective function ($\chi^2$)
                         \item database of materials
+                        \begin{itemize}
+                            \item try various tuples
+                            \item report minimum
+                        \end{itemize}
                     \end{itemize}
                 \end{column}
                 \begin{column}{0.28\textwidth}
                     \includegraphics[width=\linewidth]{pictures/brdf.png}
                 \end{column}
             \end{columns}
-        }
-
-
-    \section{Summary}
-        \frejm{References}{
-            \begin{itemize}
-                \item GTC image: Daniel López, \texttt{elcielodecanarias.com}
-            \end{itemize}
         }
 \end{document}

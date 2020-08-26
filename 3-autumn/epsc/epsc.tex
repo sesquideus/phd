@@ -1,0 +1,501 @@
+\documentclass[10pt]{beamer}
+\input{../../kvik-beamer.tex}
+
+\usepackage{tabularx}
+
+\title{ASMODEUS Meteor Simulation Tool}
+\subtitle{Universal Virtual Meteor Observatory}
+\author{Martin Baláž}
+\institute{DAPEM Comenius University}
+\date{2020--09--07}
+
+\begin{document}
+    \begin{frame}
+        \titlepage
+    \end{frame}
+
+    \section{Overview}
+        \frejm{Objective}{
+            To \emph{determine} the total meteoroid flux in millimetre to metre size range
+            \begin{itemize}
+                \item extrapolation from collected data
+                \item we need to
+                    \begin{itemize}
+                        \item analyze the detection ability of AMOS
+                        \item calibrate the system
+                        \item \emph{de-bias} the observations
+                    \end{itemize}
+                \item estimate the flux
+            \end{itemize}
+        }
+
+        \frejm{Algorithm}{
+            So-called \textbf{holistic approach}
+
+            \begin{itemize}
+                \item suggested by Peter Vereš
+                \begin{itemize}
+                    \item originally used to determine the number of observable NEOs
+                \end{itemize}
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item simulate everything what could possibly be seen
+                \item compare \emph{output} of the simulation to observations
+                \begin{itemize}
+                    \item change values of parameters (how?)
+                    \item repeat until best match with observational data is found
+                \end{itemize}
+                \item look at the original \emph{input} of the simulation
+                \begin{itemize}
+                    \item declare it to be the true population
+                    \item show or calculate whatever interests you
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Algorithm -- details}{
+            \begin{enumerate}
+                \item generate the meteoroid population
+                \pause
+                \item simulate atmospheric entry and create \texttt{Meteor} objects
+                \pause
+                \item compute virtual \texttt{Sighting}s using locations of \texttt{Observer}s
+                \item filter visible events and apply observational bias
+                    \begin{itemize}
+                        \item distance
+                        \item atmospheric attenuation
+                        \item fill factor
+                        \item limiting magnitude
+                        \item activity variations
+                        \item ...
+                    \end{itemize}
+                \pause
+                \item calculate statistics and compare to AMOS data
+                \item adjust the particle distribution and observational bias parameters
+                \pause
+                \item repeat \textit{ad libitum}
+            \end{enumerate}
+        }
+
+    \section{\textsc{Asmodeus}}
+        \frejm{What is it}{
+            \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator
+            \begin{itemize}
+                \item a suite of five or six \emph{Python} scripts
+                \begin{itemize}
+                    \item custom-written vector transformations
+                    \item low memory footprint
+                    \item multithreaded
+                \end{itemize}
+                \item implements the developed model
+                \item ready to be published on \texttt{GitHub}
+            \end{itemize}
+        }
+
+        \frejm{How does it work?}{
+            \begin{itemize}
+                \item \texttt{asmodeus-generate}
+                    \begin{itemize}
+                        \item creates and saves a population
+                        \item simulates atmospheric entry
+                    \end{itemize}
+                \item \texttt{asmodeus-observe}
+                    \begin{itemize}
+                        \item computes and stores meteor observations
+                    \end{itemize}
+                \item \texttt{asmodeus-analyze}
+                    \begin{itemize}
+                        \item computes the statistics
+                    \end{itemize}
+                \item \texttt{asmodeus-multifit}
+                    \begin{itemize}
+                        \item performs a multi-parametric fit
+                        \item compares simulation to observational data
+                    \end{itemize}
+                \item \texttt{asmodeus-plot}
+                    \begin{itemize}
+                        \item plots the resulting data
+                        \item \texttt{gnuplot} is required to produce images
+                        \item we should switch to \texttt{matplotlib} instead
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Model}{
+            Designed by \emph{Whipple} (1938), improved by \emph{Öpik} (1955) and \emph{Ceplecha} (2001)
+
+            We assume
+            \begin{itemize}
+                \item spherical particles
+                \item moving in a straight line
+                \begin{itemize}
+                    \item no gravity
+                    \item only drag / ablation
+                \end{itemize}
+            \end{itemize}
+
+            And we need
+            \begin{itemize}
+                \item equations of motion
+                \item equations of luminance
+                \item to construct a virtual CCD image
+                \item to compute the statistic
+            \end{itemize}
+        }
+
+        \frejm{Equations of motion}{
+            \begin{itemize}
+                \item braking equation
+                $$
+                    \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+                $$
+                \item equation of ablation
+                $$
+                    \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                $$
+                \item equation of luminance
+                $$
+                    L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+                $$
+                \begin{itemize}
+                    \item $\tau(v)$ determined by \emph{Jones \& Halliday (2001)}
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Simulation of flight}{
+            \begin{itemize}
+                \item equations solved by the Runge--Kutta method (RK4)
+                \item until complete ablation of the particle
+                \item properties recorded in every \texttt{Frame} (1/20 second)
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item multiple integration steps between frames
+                \begin{itemize}
+                    \item greatly enhanced precision
+                    \item trajectory data are very precise even without splitting
+                    \item luminance increases by up to about 5\%
+                \end{itemize}
+            \end{itemize}
+            \begin{itemize}
+                \item more precise integrator is not necessary
+                \begin{itemize}
+                    \item Vaubaillon (2018)
+                    \item \texttt{IAS15} or something symplectic
+                \end{itemize}
+            \end{itemize}
+        }
+
+    \section{\texttt{asmodeus-observe}}
+        \frejm{Virtual observations}{
+            In the next step we create observations
+            \begin{itemize}
+                \item multiple observers on the ground
+                \item each represents an AMOS camera
+                \item reduction of properties
+                \begin{itemize}
+                    \item entire \textit{streak} may be shown
+                    \item but only a \textit{dot} is analyzed
+                    \begin{itemize}
+                        \item brightest frame
+                        \item initial mass
+                        \item initial and terminal elevation
+                        \item flight time...
+                    \end{itemize}
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \fspicture{shower.png}[H][black]
+        \fspicture{angularSpeed-ago.png}[H][black]
+
+        \frejm{Selection bias}{
+            \emph{Detection efficiency is not constant!}
+            \begin{itemize}
+                \item probability of detection is higher for meteors that are
+                \begin{itemize}
+                    \item bright
+                    \item fast
+                    \item close to zenith
+                    \item ...
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Selection bias -- quantitative}{
+            Bias summarized in \emph{detection probability functions}
+            \begin{itemize}
+                \item determine whether a meteor is detected
+                \item magnitude dependence
+                $$
+                    D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
+                $$
+                \item altitudinal dependence
+                $$
+                    A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
+                $$
+                \item we need to establish values of parameters $f$, $m_0$, $\omega$, $\alpha$
+                \item assume the effects are \emph{independent}
+            \end{itemize}
+        }
+        \fspicture{limmag.pdf}[W][white]
+        \fspicture{altitude-powersine.pdf}[][white]
+
+
+
+
+
+
+
+        \frejm{Validation of the model}{
+            \begin{itemize}
+                \item we used a Perseid bolide \emph{EN120812}
+                \item position and velocity by \emph{Spurný (2015)}
+                \item one virtual observer
+                \begin{itemize}
+                    \item directly below point of maximal brightness
+                \end{itemize}
+                \vspace{5mm}
+                \item a very good match was obtained
+                \begin{itemize}
+                    \item discrepancy likely caused by fragmentation
+                \end{itemize}
+                \item we could further vary initiall mass and shape
+                \begin{itemize}
+                    \item but this is not good science
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \fspicture{validation-power.png}[][white]
+
+        \frejm{Validation results}{
+            \begin{tabularx}{\textwidth}{X r r}
+                \toprule
+                    property    & reference & simulation \\
+                \midrule
+                    latitude at maximum brightness              & \ang{48.785}          & \ang{48.766} \\
+                    longitude at maximum brightness             & \ang{13.505}          & \ang{13.476} \\
+                    elevation at maximum brightness             & \SI{82700}{\metre}    & \SI{80733}{\metre} \\
+                    absolute magnitude ($\tau = \text{0.095}$)  & ---                   & -8.54 \\
+                    absolute magnitude ($\tau = \text{0.18}$)   & -9.7 $\pm$ 0.2        & -9.41 \\
+                \midrule
+                    terminal latitude                           & \ang{48.747}          & \ang{48.704} \\
+                    terminal longitude                          & \ang{13.457}          & \ang{13.396} \\
+                    terminal elevation                          & \SI{78600}{\metre}    & \SI{73130}{\metre} \\
+                    terminal speed                              & \SI{55 \pm 1}{\kilo\metre\per\second} & \SI{56.045}{\kilo\metre\per\second} \\
+                \bottomrule
+            \end{tabularx}
+        }
+
+    \section{\texttt{asmodeus-observe}}
+        \frejm{Magnitude determination}{
+            \begin{itemize}
+                \item we know the luminous power
+                \item we need to calculate the absolute magnitude
+                \begin{itemize}
+                    \item meteor in zenith
+                    \item \SI{100}{\kilo\metre} high
+                    \item no atmospheric attenuation
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Magnitude determination}{
+            \begin{itemize}
+                \item the model is not very precise
+                \begin{itemize}
+                    \item material constants are wild guesses
+                    \item no fragmentation
+                    \item luminous efficiency $\tau$ is questionable at best
+                \end{itemize}
+                \pause
+                \item AMOS has not been calibrated
+                \item \textsc{UFOAnalyzerV2} outputs are not reliable for bolides
+                \begin{itemize}
+                    \item Spurný vs Kaniansky, 2018 Poloniny bolide
+                \end{itemize}
+                \pause
+            \end{itemize}
+
+        }
+
+    \section{\texttt{asmodeus-multifit}}
+        \frejm{Parameter variation}{
+            \begin{itemize}
+                \item the process is inherently stochastic
+                \begin{itemize}
+                    \item multiple repetitions and averaging
+                \end{itemize}
+                \item there are multiple possible approaches
+            \end{itemize}
+            \begin{tabularx}{\textwidth}{X r r}
+                \toprule
+                    property    & advantage & disadvantage \\
+                \midrule
+                    exhaustive  & very precise & slow \\
+                    gradient descent & converges quickly & finds only a local minimum \\
+                    simulated annealing & converges quickly & \\
+                \bottomrule
+            \end{tabularx}
+        }
+
+
+    \section{Results}
+        \frejm{Evaluation}{
+            \begin{itemize}
+                \item we fixed the model and the particle count
+                \begin{itemize}
+                    \item Perseids 2016 (August 11--12)
+                    \item observed from \emph{Tepličné} (\ang{48.6822}~N, \ang{19.8580}~E, \SI{700}{\metre})
+                    \item seven hours (19:00 -- 02:00 UTC)
+                    \item mass index $s =$ 1.8
+                \end{itemize}
+                \item 100000 meteoroids are generated
+                \pause
+            \end{itemize}
+            \begin{itemize}
+                \item we varied the DPF parameters with \texttt{asmodeus-multifit}
+                \item histograms evaluated using $\chi^2$ tests
+                \begin{itemize}
+                    \item determine similarity between histograms
+                    \item normalized to 1
+                \end{itemize}
+            \end{itemize}
+        }
+        \fspicture{example-magnitude-nobias.pdf}[][white]
+        \fspicture{example-magnitude-bias.pdf}[][white]
+
+        \frejm{Magnitude DPF}{
+            $$
+                D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
+            $$
+            \begin{itemize}
+                \item a wide range of parameter combinations was searched
+                \item fill factor $f$ does not contribute any information
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item find values of parameters where $\chi^2$ is minimal
+                \item account for statistical noise
+            \end{itemize}
+        }
+        \fspicture{chiSquare-magnitude-1d8.pdf}[][white]
+        \fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
+        \fspicture{histogram-magnitude-1d8-optimum.pdf}[][white]
+
+        \frejm{Mass index $s$}{
+            There are way too many bright meteors...
+            \pause
+            \begin{itemize}
+                \item a natural reaction is to try another value of $s$
+                \begin{itemize}
+                    \item a full range \numrange{1.6}{2.8} was tried
+                \end{itemize}
+                \item best fit for $s = \text{2.15}$
+                \item no value below 2 is consistent with observations
+            \end{itemize}
+
+        }
+        \fspicture{histogram-magnitude-total-optimum.pdf}[][white]
+
+        \frejm{Altitudinal DPF}{
+            $$
+                A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
+            $$
+            \begin{itemize}
+                \item only a simple 1D fit
+                \item a very well defined minimum at $\alpha = \text{0.4}$
+            \end{itemize}
+        }
+        \fspicture{chiSquare-altitude-2d15.pdf}[][white]
+
+        \frejm{Total flux}{
+            Finally, we may calculate the total flux
+            \begin{itemize}
+                \item simulation is run again with \emph{optimal DPF parameters}
+                $$A(\theta) = \left(\sin \theta\right)^{0.4}$$
+                $$D(m) = \frac{1}{1 + e^{\frac{m + 0.1}{0.35}}}$$
+                \item number of meteors is \emph{scaled} to match observations
+            \end{itemize}
+
+            \begin{itemize}
+                \item we obtain \num{135000} particles per \SI{1000000}{\kilo\metre\squared\hour}
+                \item \SI{0.338}{\kilo\gram} per \SI{1000000}{\kilo\metre\squared\hour},
+                \item about \SI{43}{\kilo\gram\per\hour} on Earth
+            \end{itemize}
+        }
+
+    \section{Conclusion}
+        \frejm{Summary}{
+            \begin{itemize}
+                \item \texttt{asmodeus} works as expected
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item simulation is a \emph{surprisingly good} method
+                \begin{itemize}
+                    \item correct geometry and luminance data
+                    \item observations \emph{comparable} to real data
+                    \item and results are aesthetically pleasing
+                \end{itemize}
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item we were able to estimate the flux
+                \begin{itemize}
+                    \item by \emph{varying} the DPF parameters
+                    \item a very good fit was found
+                    \pause
+                    \item mass index seems to be much higher than known values
+                    \item a larger observational dataset is needed
+                \end{itemize}
+            \end{itemize}
+        }
+
+    \section{Known problems}
+        \frejm{Temporal variation}{
+        }
+
+        \frejm{Unit tests}{
+            Sometimes, it is a good idea to scrutinize everything you are doing
+            \begin{itemize}
+                \item every single concept
+            \end{itemize}
+
+        }
+
+
+        \frejm{Conclusion}{
+            \begin{itemize}
+                \item Python is your friend
+                \item Test, test, test everything
+            \end{itemize}
+        }
+
+
+        \frejm{Thank you for your attention}{
+            \textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
+            \scriptsize
+            \begin{flushright}
+                Claude Lévi-Strauss\\
+                Le Cru et le Cuit, 1964
+            \end{flushright}
+        }
+
+        \frejm{References}{
+            \begin{itemize}
+                \item \textbf{Baláž, M. et al.}
+                    ASMODEUS Meteor Simulation Tool. Planetary \& Space Science, 2020
+                \item \textbf{Luciuk, M.}:
+                    Meteor Showers. {\footnotesize \url{http://www.asterism.org/tutorials/tut36\%20Meteor\%20Showers.pdf}}.
+                \item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
+                    High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005)
+                \item \textbf{Öpik, E. J.}:
+                    Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.
+            \end{itemize}
+        }
+
+\end{document}

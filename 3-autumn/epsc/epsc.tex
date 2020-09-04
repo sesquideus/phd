@@ -7,7 +7,7 @@
 \subtitle{A Universal Virtual Meteor Observatory}
 \author{Martin Baláž}
 \institute{DAPEM Comenius University}
-\date{2020--09--07}
+\date{2020--09--21}
 
 \begin{document}
     \begin{frame}
@@ -16,7 +16,7 @@
 
     \section{Overview}
         \frejm{What is it?}{
-            an universal virtual meteor observatory
+            a universal virtual meteor observatory
 
             \pause
             \begin{itemize}
@@ -33,37 +33,56 @@
             \begin{itemize}
                 \item select general area and time
                 \item ensure \emph{homogeneity} over the observed surface
-                \item velocity vector
+                \pause
+                \item select velocity vector
                     \begin{itemize}
-                        \item showers (fixed radiant)
+                        \item showers (fixed radiant, easy)
                         \item sporadic (complex)
                     \end{itemize}
                 \pause
-                \item variable activity in time
-                \item sample from pre-defined distributions
+                \item sample properties from pre-defined distributions
                     \begin{itemize}
+                        \item time (activity profile)
                         \item mass
-                        \item material constants
+                        \item density
+                        \item heat of ablation
+                        \item ...
                     \end{itemize}
             \end{itemize}
         }
 
         \frejm{Simulating meteors}{
-            \begin{itemize}
-                \item pluggable model
+            \begin{columns}
+                \begin{column}{0.65\textwidth}
                     \begin{itemize}
-                        \item Whipple, Ceplecha, fragmentation, ...
-                        \item equations of motion
-                    \end{itemize}
+                        \item pluggable physical models
+                            \begin{itemize}
+                                \item model of atmosphere (NRLMSISE-00)
+                                \item equations of motion (Whipple or Ceplecha, +fragmentation, ...)
+                                \item equation of luminance (Hill et al.)
+                            \end{itemize}
 
-                \item selection of integrators
-                    \begin{itemize}
-                        \item Euler, RK4, Dormand--Prince, ...
-                        \item constant or adaptive step
-                    \end{itemize}
+                        \item<2-> selection of integrators
+                            \begin{itemize}
+                                \item Euler, RK4, Dormand--Prince, ...
+                                \item constant or adaptive step
+                            \end{itemize}
 
-                \item snapshots recorded at constant time intervals
-            \end{itemize}
+                        \item<2-> snapshots recorded at constant time intervals
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.35\textwidth}<1->
+                    $$
+                        \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
+                    $$
+                    $$
+                        \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                    $$
+                    $$
+                        L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+                    $$
+                \end{column}
+            \end{columns}
         }
 
 
@@ -74,10 +93,14 @@
                 \item observers usually correspond to real cameras
                 \item \emph{streaks} or \emph{dots} depending on purpose
                 \pause
-                \item distance ($\propto d^{-2}$)
-                \item atmospheric attenuation ($\propto e^{-\kappa d}$)
-                \item fill factor
-                \item ...
+            \item calculate geometry (ECEF $\to$ horizontal coordinates)\\[5mm]
+                \pause
+                \item account for various effects
+                    \begin{itemize}
+                        \item distance ($\propto d^{-2}$)
+                        \item atmospheric attenuation (air mass, ...)
+                        \item refraction
+                    \end{itemize}
             \end{itemize}
         }
         \fspicture{pictures/streaks.png}[H]
@@ -98,17 +121,13 @@
 
             \pause
             \begin{itemize}
-                \item determine whether a meteor is detected
-                \item magnitude dependence
-                $$
-                    D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
-                $$
-                \item altitudinal dependence
-                $$
-                    A(\theta; \alpha) = \left(\sin \theta\right)^\alpha
-                $$
-                \item light pollution
-                \item cloud coverage
+                \item we need to determine whether a meteor is \emph{detected}, depending on
+                \begin{itemize}
+                    \item apparent magnitude
+                    \item altitudinal dependence
+                    \item light pollution
+                    \item cloud coverage
+                \end{itemize}
             \end{itemize}
         }
 
@@ -117,29 +136,19 @@
 
 
     \section{Applications}
-        \frejm{Analyses}{
-            \begin{itemize}
-                \item most freedom is given to the user here
-                \pause
-                \item anything can be done...
-                \pause
-                \item ...but several scripts are provided
-            \end{itemize}
-        }
-
         \frejm{Optimal observing direction}{
             We may determine the optimal field of view...
             \\[5mm]
             \pause
 
-            \emph{``Given a camera with FoV of \ang[parse-numbers=false]{x}, where should I point it to capture most meteors of shower~$y$ on night~$z$?''}
+            \emph{``I have a camera with field of view of \ang[parse-numbers=false]{x}. Where should I point it to capture most meteors of shower~$y$ on night~$z$?''}
             \\[5mm]
             \pause
 
             \begin{itemize}
-                \item kernel density estimation
-                \item find minimum of the integral over all possible fields
-                \item return its centre (alt / az)
+                \item perform kernel density estimation of $D(\theta, \phi)$
+                \item convolve with the camera FoV
+                \item find maximum
             \end{itemize}
         }
 
@@ -147,7 +156,7 @@
             We may determine the optimal latitude for observing showers...
 
             \pause
-            E. g. Perseids:
+            e. g. Perseids:
             \begin{itemize}
                 \item $\delta_R \approx$ \ang{+56}
                 \item at \ang{60} N
@@ -155,10 +164,10 @@
                         \item nights are short in August
                         \item radiant high up in the morning
                     \end{itemize}
-                \item at \ang{0} N
+                \item at \ang{20} N
                     \begin{itemize}
-                        \item longer nights
-                        \item but radiant is low
+                        \item nights are long
+                        \item but radiant is hidden or very low
                     \end{itemize}
 
                 \item analytic solution difficult (sunlight, changing $z_R$, ...)
@@ -179,19 +188,30 @@
         \frejm{Determination of flux}{
             We may determine the total \emph{number} or \emph{mass} of meteoroids...
             \pause
-            \begin{itemize}
+            \begin{enumerate}
                 \item simulate everything what could be seen
                 \item compare the \emph{output} to observations
                 \begin{itemize}
                     \item change values of parameters (how?)
                     \item repeat until best match is found
                 \end{itemize}
+
+                \item find best possible parameters
+                    \begin{itemize}
+                        \item magnitude dependence
+                        $$
+                            D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
+                        $$
+                    \end{itemize}
                 \item look at the original \emph{input}
-                \begin{itemize}
-                    \item declare it to be the true population
-                \end{itemize}
-            \end{itemize}
+
+            \end{enumerate}
         }
+
+        \fspicture{example-magnitude-nobias.pdf}[][white]
+        \fspicture{chiSquare-magnitude-1d8.pdf}[][white]
+        \fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
+        \fspicture{histogram-magnitude-total-optimum.pdf}[][white]
 
         \frejm{Validation of a distribution model}{
             ...and we may go even deeper...
@@ -200,76 +220,12 @@
                 \item construct an \emph{orbital model} of meteoroids
                 \item track atmospheric entry
                 \item compare to observations, $\chi^2$ test, ...
-            \end{itemize}
-        }
-
-
-
-    \section{\textsc{Asmodeus}}
-        \frejm{What is it}{
-            \textbf{A}ll-\textbf{S}ky \textbf{M}eteor \textbf{O}ptical \textbf{D}etection \textbf{E}fficiency \textbf{S}imulator
-            \begin{itemize}
-                \item a suite of five or six \emph{Python} scripts
-                \item \url{https://github.com/sesquideus/asmodeus}
-            \end{itemize}
-        }
-
-        \fspicture{shower.png}[H][black]
-        \fspicture{angularSpeed-ago.png}[H][black]
-
-        \fspicture{limmag.pdf}[W][white]
-
-
-    \section{Results}
-        \frejm{Evaluation}{
-            \begin{itemize}
-                \item we fixed the model and the particle count
                 \pause
-            \end{itemize}
-            \begin{itemize}
-                \item histograms evaluated using $\chi^2$ tests
-                \begin{itemize}
-                    \item determine similarity between histograms
-                    \item normalized to 1
-                \end{itemize}
+                \item computationally difficult
             \end{itemize}
         }
-        \fspicture{example-magnitude-nobias.pdf}[][white]
-        \fspicture{example-magnitude-bias.pdf}[][white]
 
-        \frejm{Magnitude DPF}{
-            $$
-                D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
-            $$
-            \begin{itemize}
-                \item a wide range of parameter combinations was searched
-                \item fill factor $f$ does not contribute any information
-            \end{itemize}
-            \pause
-            \begin{itemize}
-                \item find values of parameters where $\chi^2$ is minimal
-                \item account for statistical noise
-            \end{itemize}
-        }
-        \fspicture{chiSquare-magnitude-1d8.pdf}[][white]
-        \fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
-        \fspicture{histogram-magnitude-1d8-optimum.pdf}[][white]
-
-        \frejm{Mass index $s$}{
-            There are way too many bright meteors...
-            \pause
-            \begin{itemize}
-                \item a natural reaction is to try another value of $s$
-                \begin{itemize}
-                    \item a full range \numrange{1.6}{2.8} was tried
-                \end{itemize}
-                \item best fit for $s = \text{2.15}$
-                \item no value below 2 is consistent with observations
-            \end{itemize}
-
-        }
-        \fspicture{histogram-magnitude-total-optimum.pdf}[][white]
-
+        \fspicture{angularSpeed-ago.png}[H][black]
 
     \section{Conclusion}
         \frejm{Thank you for your attention}{

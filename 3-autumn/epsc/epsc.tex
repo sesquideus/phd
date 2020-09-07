@@ -1,11 +1,11 @@
-\documentclass[10pt,aspectratio=1610]{beamer}
+\documentclass[10pt,aspectratio=169]{beamer}
 \input{../../kvik-beamer.tex}
 
 \usepackage{tabularx}
 
 \title{ASMODEUS Meteor Simulation Tool}
 \subtitle{A Universal Virtual Meteor Observatory}
-\author{Martin Baláž}
+\author{\emph{Martin Baláž} \\ Juraj Tóth, PhD. \\ Peter Vereš, PhD. \\ Robert Jedicke, PhD.}
 \institute{DAPEM Comenius University}
 \date{2020--09--21}
 
@@ -43,7 +43,7 @@
                 \item sample properties from pre-defined distributions
                     \begin{itemize}
                         \item time (activity profile)
-                        \item mass
+                        \item mass (mass index $s$)
                         \item density
                         \item heat of ablation
                         \item ...
@@ -55,31 +55,31 @@
             \begin{columns}
                 \begin{column}{0.65\textwidth}
                     \begin{itemize}
-                        \item pluggable physical models
+                        \item<1-> pluggable physical models
                             \begin{itemize}
                                 \item model of atmosphere (NRLMSISE-00)
                                 \item equations of motion (Whipple or Ceplecha, +fragmentation, ...)
                                 \item equation of luminance (Hill et al.)
                             \end{itemize}
 
-                        \item<2-> selection of integrators
+                        \item<3-> selection of integrators
                             \begin{itemize}
                                 \item Euler, RK4, Dormand--Prince, ...
                                 \item constant or adaptive step
                             \end{itemize}
 
-                        \item<2-> snapshots recorded at constant time intervals
+                        \item<4-> snapshots recorded at constant time intervals
                     \end{itemize}
                 \end{column}
-                \begin{column}{0.35\textwidth}<1->
+                \begin{column}{0.35\textwidth}<2->
                     $$
-                        \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
-                    $$
-                    $$
-                        \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                        \color{gray} \diff{v} = -\frac{\Gamma A}{m^{1/3} \rho^{2/3}} \rho_{\mathrm{air}} v^2 \diff{t}
                     $$
                     $$
-                        L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
+                        \color{gray} \diff{m} = -\frac{\Lambda A}{2Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^3 \diff{t}
+                    $$
+                    $$
+                        \color{gray} L = \tau(v) \frac{\Lambda A}{4Q} \frac{m^{2/3}}{\rho^{2/3}} \rho_{\mathrm{air}} v^5
                     $$
                 \end{column}
             \end{columns}
@@ -107,7 +107,7 @@
         \fspicture{pictures/dots.png}[H]
 
         \frejm{Selection bias effects}{
-            Detection efficiency is not constant!
+            Detection efficiency is \emph{not constant}!
 
             \pause
             \begin{itemize}
@@ -121,12 +121,13 @@
 
             \pause
             \begin{itemize}
-                \item we need to determine whether a meteor is \emph{detected}, depending on
+                \item determine whether a meteor is \emph{detected}, depending on
                 \begin{itemize}
                     \item apparent magnitude
-                    \item altitudinal dependence
+                    \item altitude
                     \item light pollution
                     \item cloud coverage
+                    \item ...
                 \end{itemize}
             \end{itemize}
         }
@@ -141,7 +142,7 @@
             \\[5mm]
             \pause
 
-            \emph{``I have a camera with field of view of \ang[parse-numbers=false]{x}. Where should I point it to capture most meteors of shower~$y$ on night~$z$?''}
+            \emph{``We have a camera with field of view of \ang[parse-numbers=false]{x}. Where should we point it to capture most meteors of shower~$y$ on night~$z$?''}
             \\[5mm]
             \pause
 
@@ -182,19 +183,21 @@
                 \item observe the variations in the \emph{output}
             \end{itemize}
         }
-        \fspicture{pictures/Mhu.png}
-        \fspicture{pictures/Twu.png}
+        \fspicture{pictures/Mhu.png}[H][white]
+        \fspicture{pictures/uqu.png}[H][white]
 
         \frejm{Determination of flux}{
             We may determine the total \emph{number} or \emph{mass} of meteoroids...
             \pause
             \begin{enumerate}
                 \item simulate everything what could be seen
+                \pause
                 \item compare the \emph{output} to observations
                 \begin{itemize}
                     \item change values of parameters (how?)
                     \item repeat until best match is found
                 \end{itemize}
+                \pause
 
                 \item find best possible parameters
                     \begin{itemize}
@@ -203,31 +206,41 @@
                             D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
                         $$
                     \end{itemize}
+                \pause
                 \item look at the original \emph{input}
-
             \end{enumerate}
         }
 
-        \fspicture{example-magnitude-nobias.pdf}[][white]
-        \fspicture{chiSquare-magnitude-1d8.pdf}[][white]
-        \fspicture{chiSquare-magnitude-1d8z.pdf}[][white]
-        \fspicture{histogram-magnitude-total-optimum.pdf}[][white]
+        \fspicture{example-magnitude-nobias.pdf}[H][white]
+        \fspicture{chiSquare-magnitude-1d8.pdf}[H][white]
+        \fspicture{chiSquare-magnitude-1d8z.pdf}[H][white]
+        \fspicture{histogram-magnitude-total-optimum.pdf}[H][white]
 
         \frejm{Validation of a distribution model}{
             ...and we may go even deeper...
             \pause
             \begin{itemize}
                 \item construct an \emph{orbital model} of meteoroids
-                \item track atmospheric entry
+                \item track orbits and intersection with the Earth
+                \item simulate atmospheric entry
                 \item compare to observations, $\chi^2$ test, ...
                 \pause
                 \item computationally difficult
             \end{itemize}
         }
 
-        \fspicture{angularSpeed-ago.png}[H][black]
-
     \section{Conclusion}
+        \frejm{Conclusion}{
+            \begin{itemize}
+                \item we have developed a universal Monte-Carlo simulator of meteors
+                \item has a multitude of applications
+                \item freely available at GitHub
+                    \begin{itemize}
+                        \item UI is not very friendly yet
+                    \end{itemize}
+            \end{itemize}
+        }
+
         \frejm{Thank you for your attention}{
             \textit{The scientist is not a person who gives the right answers, he's one who asks the right questions.}
             \scriptsize
@@ -241,12 +254,12 @@
             \begin{itemize}
                 \item \textbf{Baláž, M. et al.}
                     ASMODEUS Meteor Simulation Tool. Planetary \& Space Science, 2020
-                \item \textbf{Luciuk, M.}:
-                    Meteor Showers. {\footnotesize \url{http://www.asterism.org/tutorials/tut36\%20Meteor\%20Showers.pdf}}.
                 \item \textbf{Hill, K. A. -- Rogers, L. A. -- Hawkes, R. L.}:
                     High geocentric velocity meteor ablation. Astronomy \& Astrophysics 444, 615--624 (2005)
                 \item \textbf{Öpik, E. J.}:
                     Physics of meteor flight in the atmosphere. Interscience Publishers, 1958.
+                \item \textbf{Picone, J. M. et al.}
+                    NRLMSISE-00 empirical model of the atmosphere: Statistical comparisons and scientific issues. Journal of Geophysical Research: Space Physics. 107 (A12): 1468, 2002.
             \end{itemize}
         }
 

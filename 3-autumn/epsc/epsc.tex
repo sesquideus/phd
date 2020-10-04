@@ -16,23 +16,18 @@
 
     \section{Overview}
         \frejm{What is it?}{
-            a universal virtual meteor observatory
-
-            \pause
             \begin{itemize}
-                \item simulate a set of meteors
-                \item compute how they would be seen from the ground
-                \item analyze the dataset
-                \item visualize
-                \item draw conclusions
+                \item a universal virtual meteor observatory
+                \item Monte--Carlo method
+                \item WGS84 model of Earth
+                \item written in \texttt{Python} + \texttt{matplotlib}
             \end{itemize}
         }
 
     \section{Simulation}
         \frejm{Generating meteors}{
-            \begin{itemize}
+            \begin{enumerate}
                 \item select general area and time
-                \item ensure \emph{homogeneity} over the observed surface
                 \pause
                 \item select velocity vector
                     \begin{itemize}
@@ -48,7 +43,7 @@
                         \item heat of ablation
                         \item ...
                     \end{itemize}
-            \end{itemize}
+            \end{enumerate}
         }
 
         \frejm{Simulating meteors}{
@@ -137,7 +132,7 @@
 
 
     \section{Applications}
-        \frejm{Optimal observing direction}{
+        \frejm{I. Optimal observing direction}{
             We may determine the optimal field of view...
             \\[5mm]
             \pause
@@ -153,7 +148,7 @@
             \end{itemize}
         }
 
-        \frejm{Optimal observation location}{
+        \frejm{II. Optimal observation location}{
             We may determine the optimal latitude for observing showers...
 
             \pause
@@ -175,7 +170,7 @@
             \end{itemize}
         }
 
-        \frejm{Analysis of flight models}{
+        \frejm{III. Analysis of flight models}{
             We may analyze models of meteoroid flight...
             \pause
             \begin{itemize}
@@ -186,7 +181,7 @@
         \fspicture{pictures/Mhu.png}[H][white]
         \fspicture{pictures/uqu.png}[H][white]
 
-        \frejm{Determination of flux}{
+        \frejm{IV. Determination of flux}{
             We may determine the total \emph{number} or \emph{mass} of meteoroids...
             \pause
             \begin{enumerate}
@@ -203,7 +198,7 @@
                     \begin{itemize}
                         \item magnitude dependence
                         $$
-                            D(m; f, m_0, \omega) = \frac{f}{1 + e^{\frac{m - m_0}{\omega}}}
+                            D(m; m_0, \omega) = \frac{1}{1 + e^{\frac{m - m_0}{\omega}}}
                         $$
                     \end{itemize}
                 \pause
@@ -216,18 +211,6 @@
         \fspicture{chiSquare-magnitude-1d8z.pdf}[H][white]
         \fspicture{histogram-magnitude-total-optimum.pdf}[H][white]
 
-        \frejm{Validation of a distribution model}{
-            ...and we may go even deeper...
-            \pause
-            \begin{itemize}
-                \item construct an \emph{orbital model} of meteoroids
-                \item track orbits and intersection with the Earth
-                \item simulate atmospheric entry
-                \item compare to observations, $\chi^2$ test, ...
-                \pause
-                \item computationally difficult
-            \end{itemize}
-        }
 
     \section{Conclusion}
         \frejm{Conclusion}{

@@ -1,0 +1,211 @@
+\documentclass[12pt,aspectratio=1610]{beamer}
+\input{../../kvik-beamer.tex}
+
+\title{Hapke, OSIRIS \& Kvet ústavy 1}
+\subtitle{Doing science in times of a pandemic}
+\author{\small \emph{Martin Baláž}}
+\institute{DAA colloquium}
+\date{2020--10--21}
+
+\begin{document}
+    {
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/fireworks-i.png}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
+    \section{Overview}
+        \frejm{Motivation}{
+                    }
+
+
+    \section{OSIRIS}
+        \frejm{OSIRIS}{
+            Optical System for Imaging and low Resolution Integrated Spectroscopy
+            \begin{itemize}
+                \item long slit / multiple object spectroscopy
+                \item two CCDs (2 × 2048 × 4096, binning 2 × 2)
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item for us
+                \begin{itemize}
+                    \item long slit spectroscopy
+                    \item reflectance spectra of faint asteroids
+                    \item always use CCD2
+                    \item design a pipeline to process the original output
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{\texttt{IRAF} and \texttt{Starlink}}{
+            \begin{columns}
+                \begin{column}{0.5\textwidth}
+                    \begin{itemize}
+                        \item IRAF
+                            \begin{itemize}
+                                \item US NOAO, since 1985
+                                \item horrible installation
+                                \item last release 2012
+                                \item ``usage in new projects \emph{discouraged}''
+                            \end{itemize}
+                        \pause
+                        \item Starlink
+                            \begin{itemize}
+                                \item the same but very British
+                                \item \SI{1}{\giga\byte} of... something
+                                \item slightly newer
+                            \end{itemize}
+                    \end{itemize}
+                \end{column}
+                \pause
+                \begin{column}{0.4\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/dinosaur-computer.jpg}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{\texttt{THELI} and \texttt{ccdproc}}{
+            Let us use something newer...
+            \begin{itemize}
+                \item Theli
+                    \begin{itemize}
+                        \item new German software
+                        \item highly recommended for general purpose reduction
+                    \end{itemize}
+                \pause
+                \item \texttt{ccdproc}
+                    \begin{itemize}
+                        \item not a \emph{program}, but a \emph{Python library}
+                        \item well documented
+                        \item great for pipeline integration
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Osiris reduction pipeline}{
+            Basic operations but fine-tuned for this purpose
+            \begin{itemize}
+                \item preprocessing
+                    \begin{itemize}
+                        \item master bias
+                        \item master flat
+                        \item trimming
+                    \end{itemize}
+                \pause
+                \item extraction of the spectrum
+                    \begin{itemize}
+                        \item identification
+                        \item background
+                        \item cosmic rays
+                    \end{itemize}
+                \item normalization
+                    \begin{itemize}
+                        \item spectral flat field
+                        \item divide by solar analogue spectrum
+                    \end{itemize}
+            \end{itemize}
+        }
+
+    \section{Geofit}
+        \frejm{Geofit}{
+            \begin{itemize}
+                \item program by Ted Roush
+                \item FORTRAN77
+                \item written in January 1992
+                \pause
+                \item uses \emph{Hapke model} to compute synthetic reflectance spectra
+                \item comparison to observational spectra
+                \pause
+                \item virtually no comments
+                \item untouched since 2012
+            \end{itemize}
+        }
+
+        \frejm{Objective}{
+            \begin{columns}
+                \begin{column}{0.7\textwidth}
+                    \begin{itemize}
+                        \item make at least some sense of it
+                        \item rewrite in \texttt{Python}
+                        \item optimize
+                        \pause
+                        \item job halfway between \emph{programming} and \emph{archaeology}
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.28\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/frankenstein.jpg}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{Operation}{
+            \begin{columns}
+                \begin{column}{0.7\textwidth}
+                    \begin{itemize}
+                        \item \emph{ab initio} model of BRDF $f_r(\omega_i, \omega_r)$
+                        \item material mixtures, interpolation of spectral values
+                        \begin{itemize}
+                            \item intimate
+                            \item spatial
+                        \end{itemize}
+                        \pause
+                        \item Nelder-Mead minimization of the objective function ($\chi^2$)
+                        \item database of materials
+                        \begin{itemize}
+                            \item try various tuples
+                            \item report minimum
+                        \end{itemize}
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.28\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/brdf.png}
+                \end{column}
+            \end{columns}
+        }
+
+
+
+    \section{Kvet ústavy 1}
+        \frejm{Objective}{
+            \begin{itemize}
+                \item collect meteoroid dust in the upper atmosphere
+                \item first iteration
+                    \begin{itemize}
+                        \item proof of concept
+                        \item test electronics, collector
+                        \item preliminary analyses
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{History}{
+            \begin{itemize}
+                \item failed attempt December 2019 (misia sv. Mikuláša)
+                \item failed attempt 2020--09--03 (bad weather)
+                \item successful attempt 2020--09--13
+            \end{itemize}
+        }
+
+
+
+
+    \section{Summary}
+        \frejm{References}{
+            \begin{itemize}
+                \item \textbf{Hwang, J.-N. -- Lay, S.-R. and Lippman, A.}:
+                    Nonparametric multivariate density estimation: a case study.
+                    IEEE Transactions on Signal Processing 42, 1994.
+                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
+                    Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
+                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
+                    Generating realistic synthetic meteoroid orbits. Icarus 296, 2017.
+                \item Wikipedia, user \textbf{Drleft}:
+                    Synthetic data 2D histograms, 2010.
+                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_histograms.png}
+                \item Wikipedia, user \textbf{Drleft}:
+                    Synthetic data 2D KDE, 2010.
+                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_KDE.png}
+            \end{itemize}
+        }
+\end{document}

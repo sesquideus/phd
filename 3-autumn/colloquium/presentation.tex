@@ -9,15 +9,28 @@
 
 \begin{document}
     {
-        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/fireworks-i.png}}
+        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/gtc.jpg}}
         \begin{frame}
             \titlepage
         \end{frame}
     }
     \section{Overview}
-        \frejm{Motivation}{
-                    }
-
+        \frejm{Gentle introduction}{
+            Desperate times call for desperate measures...
+            \pause
+            \begin{itemize}
+                \item last day exit from Slovakia
+                \item 50 days of \emph{lockdown}
+                \pause
+                \item ...and also some work
+                    \begin{itemize}
+                        \item one whole day
+                        \item home office until the end of time
+                    \end{itemize}
+                \pause
+                \item trips and fun as well
+            \end{itemize}
+        }
 
     \section{OSIRIS}
         \frejm{OSIRIS}{
@@ -40,12 +53,12 @@
 
         \frejm{\texttt{IRAF} and \texttt{Starlink}}{
             \begin{columns}
-                \begin{column}{0.5\textwidth}
+                \begin{column}{0.66\textwidth}
                     \begin{itemize}
                         \item IRAF
                             \begin{itemize}
                                 \item US NOAO, since 1985
-                                \item horrible installation
+                                \item horrible installation process
                                 \item last release 2012
                                 \item ``usage in new projects \emph{discouraged}''
                             \end{itemize}
@@ -59,7 +72,7 @@
                     \end{itemize}
                 \end{column}
                 \pause
-                \begin{column}{0.4\textwidth}
+                \begin{column}{0.33\textwidth}
                     \includegraphics[width=\linewidth]{pictures/dinosaur-computer.jpg}
                 \end{column}
             \end{columns}
@@ -84,7 +97,8 @@
         }
 
         \frejm{Osiris reduction pipeline}{
-            Basic operations but fine-tuned for this purpose
+            Only basic operations... but fine-tuned for this purpose
+            \pause
             \begin{itemize}
                 \item preprocessing
                     \begin{itemize}
@@ -150,7 +164,11 @@
                             \item spatial
                         \end{itemize}
                         \pause
-                        \item Nelder-Mead minimization of the objective function ($\chi^2$)
+                        \item Nelder-Mead minimization of the objective ($\chi^2$)
+                        \begin{itemize}
+                            \item \url{https://www.youtube.com/watch?v=j2gcuRVbwR0}
+                        \end{itemize}
+                        \pause
                         \item database of materials
                         \begin{itemize}
                             \item try various tuples
@@ -164,7 +182,100 @@
             \end{columns}
         }
 
+    \section{Comet C/2020 F3 (NEOWISE)}
+        \frejm{Comet}{
+            The brighest comet visible from Slovakia since 1997
+            \begin{itemize}
+                \item naked eye
+                \item even straight from Bratislava
+                \item nice in binoculars
+            \end{itemize}
+        }
 
+
+    \section{2020 Perseids}
+        \frejm{Dark skies}{
+            \begin{itemize}
+                \item Bortle scale
+                \item magnitude per sq arcsec
+                \item artificial to natural ratio...
+            \end{itemize}
+
+            \begin{table}
+                \begin{tabular}{c r c}
+                    \toprule
+                        place & ratio & Bortle scale \\
+                    \midrule
+                        Bratislava  &       30  & 9 \\
+                        AGO Modra   & \num{1.2} & 4 \\
+                        rural sky   & \num{0.5} & 3 \\
+                        Poloniny    & \num{0.045} & 2 \\
+                        Atacama     & \num{0.0006} & 1 \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}
+        }
+
+        \frejm{Observation setup}{
+            In the end \emph{two nights} of observation
+            \begin{itemize}
+                \item six observers, covering $\pm$ whole sky
+                \item less than optimal conditions this year
+                \pause
+                    \begin{itemize}
+                        \item thousands of mosquitoes
+                        \item rising Moon (01:00 -- 02:00)
+                        \item COVID
+                    \end{itemize}
+                \pause
+                \item multiple coverage
+            \end{itemize}
+        }
+
+        \frejm{Night 1 (2020--08--11/12)}{
+            \begin{itemize}
+                \item location: \emph{Grúň}, Hažín, MI, \SI{134}{\metre}
+                \item light pollution index \num{0.33} (Bortle 3)
+            \end{itemize}
+        }
+
+        \frejm{Night 2 (2020--08--12/13)}{
+            \begin{itemize}
+                \item location: \emph{Sninský kameň}, Vihorlatské vrchy, \SI{1006}{\metre}
+                \item ratio \num{0.13} (Bortle 2)
+            \end{itemize}
+        }
+
+        \frejm{Earthquake!}{
+            \begin{columns}
+                \begin{column}{0.4\textwidth}
+                    \begin{itemize}
+                        \item 2020--08--12T18:07:09Z (sunset)
+                        \item magnitude \num{2.1}
+                        \item loud crash, rumbling sound
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.59\textwidth}
+                    \includegraphics[keepaspectratio, width=\textwidth]{pictures/seismo.png}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{Meteors}{
+            \begin{itemize}
+                \item only differential recording
+                \item no timestamps
+                \item 18:30 -- 01:30 UTC
+                \item summary
+                    \begin{itemize}
+                        \item 341 meteors by me
+                        \item 235 meteors by other people
+                        \item total \emph{576} in 7 hours
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \fspicture{pictures/starlink.jpg}[][black]
 
     \section{Kvet ústavy 1}
         \frejm{Objective}{
@@ -174,6 +285,7 @@
                     \begin{itemize}
                         \item proof of concept
                         \item test electronics, collector
+                        \item obtain launch permission
                         \item preliminary analyses
                     \end{itemize}
             \end{itemize}
@@ -182,30 +294,50 @@
         \frejm{History}{
             \begin{itemize}
                 \item failed attempt December 2019 (misia sv. Mikuláša)
+                \pause
                 \item failed attempt 2020--09--03 (bad weather)
+                \pause
                 \item successful attempt 2020--09--13
+                \begin{itemize}
+                    \item reached altitude of \SI{32760}{\metre}
+                    \item ground track \SI{52}{\kilo\metre}
+                    \item successful recovery
+                \end{itemize}
             \end{itemize}
         }
 
+        \fspicture{pictures/2d_map.png}
+        \fspicture{pictures/3dmap_1.png}
+        \fspicture{pictures/3dmap_2.png}
 
+        \frejm{Results}{
+            \begin{itemize}
+                \item lots of readily identifiable debris
+                \pause
+                    \begin{itemize}
+                        \item pollen
+                        \item fragments of maize leaves
+                        \item insects
+                        \item fragments of the device itself
+                    \end{itemize}
+            \end{itemize}
+        }
 
+        \frejm{Results}{
+            ...and even more beautiful objects
+            \begin{itemize}
+                \item 
+            \end{itemize}
+        }
 
     \section{Summary}
         \frejm{References}{
             \begin{itemize}
-                \item \textbf{Hwang, J.-N. -- Lay, S.-R. and Lippman, A.}:
-                    Nonparametric multivariate density estimation: a case study.
-                    IEEE Transactions on Signal Processing 42, 1994.
-                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
-                    Modeling the measurement accuracy of pre-atmosphere velocities of meteoroids. MNRAS 479, 2018
-                \item \textbf{Vida, D. -- Brown, P. -- Campbell-Brown, M.}:
-                    Generating realistic synthetic meteoroid orbits. Icarus 296, 2017.
-                \item Wikipedia, user \textbf{Drleft}:
-                    Synthetic data 2D histograms, 2010.
-                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_histograms.png}
-                \item Wikipedia, user \textbf{Drleft}:
-                    Synthetic data 2D KDE, 2010.
-                    \url{https://en.wikipedia.org/wiki/File:Synthetic_data_2D_KDE.png}
+                \item \textbf{Slovenské seizmologické stránky}: Lokálne zemetrasenia
+                    \url{http://www.seismology.sk/Local_Earthquakes/}
+                \item \textbf{SatLeft}: image of Starlink train
+                    \url{https://www.satflare.com/obspic/P822363815806934143.jpg}
+                \item photos of KVÚ-1 by \textbf{Michal Valíček}
             \end{itemize}
         }
 \end{document}

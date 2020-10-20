@@ -113,6 +113,7 @@
                         \item background
                         \item cosmic rays
                     \end{itemize}
+                \pause
                 \item normalization
                     \begin{itemize}
                         \item spectral flat field
@@ -155,15 +156,13 @@
 
         \frejm{Operation}{
             \begin{columns}
+                \begin{column}{0.28\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/brdf.png}
+                \end{column}
                 \begin{column}{0.7\textwidth}
                     \begin{itemize}
                         \item \emph{ab initio} model of BRDF $f_r(\omega_i, \omega_r)$
                         \item material mixtures, interpolation of spectral values
-                        \begin{itemize}
-                            \item intimate
-                            \item spatial
-                        \end{itemize}
-                        \pause
                         \item Nelder-Mead minimization of the objective ($\chi^2$)
                         \begin{itemize}
                             \item \url{https://www.youtube.com/watch?v=j2gcuRVbwR0}
@@ -175,9 +174,6 @@
                             \item report minimum
                         \end{itemize}
                     \end{itemize}
-                \end{column}
-                \begin{column}{0.28\textwidth}
-                    \includegraphics[width=\linewidth]{pictures/brdf.png}
                 \end{column}
             \end{columns}
         }
@@ -192,6 +188,7 @@
             \end{itemize}
         }
 
+        %\fspicture{pictures/neowise.jpg}
 
     \section{2020 Perseids}
         \frejm{Dark skies}{
@@ -216,6 +213,21 @@
             \end{table}
         }
 
+        \frejm{Location}{
+            \begin{itemize}
+                \item first night 2020--08--11/12
+                    \begin{itemize}
+                        \item location: \emph{Grúň}, Hažín, MI, \SI{134}{\metre}
+                        \item ratio \num{0.33} (Bortle 3)
+                    \end{itemize}
+                \item second night 2020--08--12/13
+                    \begin{itemize}
+                        \item location: \emph{Sninský kameň}, Vihorlatské vrchy, \SI{1006}{\metre}
+                        \item ratio \num{0.13} (Bortle 2)
+                    \end{itemize}
+            \end{itemize}
+        }
+
         \frejm{Observation setup}{
             In the end \emph{two nights} of observation
             \begin{itemize}
@@ -229,20 +241,6 @@
                     \end{itemize}
                 \pause
                 \item multiple coverage
-            \end{itemize}
-        }
-
-        \frejm{Night 1 (2020--08--11/12)}{
-            \begin{itemize}
-                \item location: \emph{Grúň}, Hažín, MI, \SI{134}{\metre}
-                \item light pollution index \num{0.33} (Bortle 3)
-            \end{itemize}
-        }
-
-        \frejm{Night 2 (2020--08--12/13)}{
-            \begin{itemize}
-                \item location: \emph{Sninský kameň}, Vihorlatské vrchy, \SI{1006}{\metre}
-                \item ratio \num{0.13} (Bortle 2)
             \end{itemize}
         }
 
@@ -261,6 +259,8 @@
             \end{columns}
         }
 
+        \fspicture{pictures/starlink.jpg}[][black]
+
         \frejm{Meteors}{
             \begin{itemize}
                 \item only differential recording
@@ -268,18 +268,44 @@
                 \item 18:30 -- 01:30 UTC
                 \item summary
                     \begin{itemize}
-                        \item 341 meteors by me
-                        \item 235 meteors by other people
-                        \item total \emph{576} in 7 hours
+                        \item $122 + 89 = 211$ FIX THIS
+                        \item $341 + 235 = 576$
+                    \end{itemize}
+                \pause
+                \item highlights
+                    \begin{itemize}
+                        \item mystery object
+                        \item super-fragmenting yellow meteor
                     \end{itemize}
             \end{itemize}
         }
 
-        \fspicture{pictures/starlink.jpg}[][black]
+        \frejm{Future plans}{
+            \begin{itemize}
+                \item Orionids (tonight!)
+                    \begin{itemize}
+                        \item ZHR about 20
+                        \item morning hours
+                    \end{itemize}
+                \pause
+                \item Geminids
+                    \begin{itemize}
+                        \item new moon (!)
+                        \item predictions of high ZHR (>150)
+                    \end{itemize}
+                \pause
+                \item 2021 Perseids
+                    \begin{itemize}
+                        \item new moon
+                        \item La Palma?
+                    \end{itemize}
+            \end{itemize}
+        }
 
     \section{Kvet ústavy 1}
         \frejm{Objective}{
             \begin{itemize}
+                \item mission by ??? team (Dušan Velič)
                 \item collect meteoroid dust in the upper atmosphere
                 \item first iteration
                     \begin{itemize}
@@ -318,26 +344,23 @@
                         \item pollen
                         \item fragments of maize leaves
                         \item insects
-                        \item fragments of the device itself
+                        \item fragments of the device itself (?)
                     \end{itemize}
             \end{itemize}
         }
 
-        \frejm{Results}{
-            ...and even more beautiful objects
-            \begin{itemize}
-                \item 
-            \end{itemize}
+    \section{Summary}
+        \frejm{Wake up, it's over}{
+            If there are any questions...
         }
 
-    \section{Summary}
         \frejm{References}{
             \begin{itemize}
                 \item \textbf{Slovenské seizmologické stránky}: Lokálne zemetrasenia
                     \url{http://www.seismology.sk/Local_Earthquakes/}
                 \item \textbf{SatLeft}: image of Starlink train
                     \url{https://www.satflare.com/obspic/P822363815806934143.jpg}
-                \item photos of KVÚ-1 by \textbf{Michal Valíček}
+                \item pictures of KVÚ-1 path by \textbf{Michal Valíček}
             \end{itemize}
         }
 \end{document}

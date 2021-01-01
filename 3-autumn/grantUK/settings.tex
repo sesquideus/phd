@@ -1,0 +1,168 @@
+\usepackage[
+    paper                   = a4paper,
+    left                    = 20mm,
+    right                   = 20mm,
+    top                     = 30mm,
+    bottom                  = 20mm,
+    headheight              = 16pt,
+    footskip                = 0pt,
+]{geometry}
+
+\usepackage{
+    amsmath,
+    xparse,
+    enumitem,
+    graphicx,
+    booktabs,
+    siunitx,
+    cancel,
+    tabularx,
+    float,
+    etoolbox,
+    setspace,
+    subcaption,
+    longtable,
+}
+
+\usepackage[many]{tcolorbox}
+\usepackage[all]{nowidow}
+\usepackage[
+    pdfpagelabels,
+    hidelinks,
+    breaklinks              = true,
+]{hyperref}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[
+    format                  = hang,
+    labelfont               = {small, stretch=1.2},
+    textfont                = {small, stretch=1.3},
+    parskip                 = 7pt,
+]{caption}
+
+\usepackage[
+    final
+]{pdfpages}
+\usepackage[noabbrev]{cleveref}
+\usepackage{
+    mathspec,
+    polyglossia,
+    xunicode,
+}
+\setdefaultlanguage{slovak}
+
+\usepackage{csquotes}
+
+\usepackage[
+    backend                 = biber,
+    natbib                  = true,
+    doi                     = true,
+    style                   = numeric,
+]{biblatex}
+
+\sisetup{
+    separate-uncertainty,
+    detect-all              = true,
+    multi-part-units        = single,
+    per-mode                = reciprocal,
+    group-separator         = {\,},
+    group-minimum-digits    = 5,
+    inter-unit-product      = {\kern 0.05em},
+    exponent-product        = \cdot,
+    number-unit-product     = {\ },
+    output-decimal-marker   = {\text{,}},
+    range-units             = single,
+    range-phrase            = {\text{--}},
+    list-units              = single,
+    list-final-separator    = {\ a\ },
+}
+
+
+\defaultfontfeatures{
+    Mapping         = tex-text,
+    Scale           = MatchLowercase,
+    Ligatures       = TeX
+}
+
+\newfontfamily{\greek}{Minion Pro Italic}
+\defaultfontfeatures{
+    Mapping         = tex-text,
+    Scale           = MatchLowercase,
+    Ligatures       = TeX
+}
+\setallmainfonts{Minion Pro}
+\setmathsfont(Digits,Latin,Greek){Minion Pro}
+\setmathrm{Minion Pro}
+\setmonofont{Ubuntu Mono}
+\providecommand{\tightlist}{}
+\DeclareSIUnit{\eur}{€}
+
+\NewDocumentCommand{\URL}{v}{\href{#1}{\texttt{\nolinkurl{#1}}}}
+
+\setcounter{secnumdepth}{0}
+\setstretch{1.3}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3mm}
+\setlength{\abovedisplayskip}{0mm}
+\setlength{\belowdisplayskip}{0mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{5mm}
+\setlength{\textfloatsep}{10mm}
+\setlength{\intextsep}{10mm}
+\setlength{\belowcaptionskip}{0mm}
+
+\renewcommand{\arraystretch}{1.5}
+
+\hyphenpenalty=1000
+\tolerance=2000
+\emergencystretch=10pt
+
+\fancypagestyle{main}{
+    \fancyhf{}
+    \fancyhead[C]{\textit{Kalibrácia fotometrie systému AMOS vizuálnym pozorovaním}}
+    \titleformat{\subsection}[hang]{\Large\bf}{}{0pt}{}
+}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+}
+
+\fancypagestyle{bibliography}{
+    \pagestyle{main}
+    \fancyhead[R]{}
+}
+
+\titleformat{\section}[block]{\centering\LARGE}{}{0pt}{}
+\titleformat{\subsection}[block]{\centering\large}{}{0pt}{}
+% Set list environments
+
+\setlist[enumerate]{
+    itemsep             = -1mm,
+}
+
+\setlist[description]{
+    style               = multiline,
+    labelindent         = 6mm,
+    leftmargin          = 40mm,
+    itemsep             = 0mm,
+}
+
+\setlist[itemize]{
+    topsep              = 0mm,
+    itemsep             = 0mm,
+}
+
+\patchcmd{\thebibliography}{\chapter*}{\section*}{}{}
+\makeatletter
+     \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
+     \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
+     \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
+     \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
+     \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
+     \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
+     \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
+     \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
+     \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
+     \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
+\makeatother

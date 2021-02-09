@@ -1,31 +1,88 @@
-\documentclass[12pt, aspectratio=1610]{beamer}
+\documentclass[12pt,aspectratio=1610]{beamer}
 \input{../../kvik-beamer.tex}
 
-\usepackage{tabularx}
-
-
-\title{The AMOS database system}
-\subtitle{Storing data, one meteor at a time}
-\author{Mgr. Martin Baláž}
-\institute{DAA DAPEM colloquium}
-\date{2019--04--17}
+\title{AMOS data processing pipeline}
+\subtitle{Writing astronomical software, one mistake at a time}
+\author{\small \emph{Martin Baláž}}
+\institute{DAA colloquium}
+\date{2021--02--17}
 
 \begin{document}
-    \begin{frame}
-        \titlepage
-    \end{frame}
+    {
+%        \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pictures/gtc.jpg}}
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
 
     \section{Overview}
-        \subsection{Overview}
-            \frejm{Contents}{
-                \setbeamersize{description width = 30mm}
-                \begin{description}
-                    \item[objective]        What are we doing?
-                    \item[motivation]       Why?
-                    \item[implementation]   How?
-                    \item[results]          What have we done?
-                \end{description}
-            }
+        \frejm{Contents}{
+            \setbeamersize{description width = 30mm}
+            \begin{description}
+                \item[objective]        What are we doing?
+                \item[motivation]       Why?
+                \item[implementation]   How?
+                \item[results]          What have we done?
+            \end{description}
+        }
+
+        \frejm{The pipeline}{
+            \begin{itemize}
+                \item data acquisition
+                \item preprocessing
+                \item retrieval
+                \item storage
+                \item trajectory and orbit estimation
+            \end{itemize}
+        }
+
+        \frejm{Current state}{
+            \begin{itemize}
+                \item replace the old stack
+                \begin{itemize}
+                    \item \model{daemon.exe} (daemon) + \model{client.exe} (console)
+                    \item \model{launcher.exe} (service)
+                    \item \model{cleaner.exe} (service)
+                    \item \model{Synology network drive}
+                    \item \model{(nothing)}
+                \end{itemize}
+                \pause
+                \item by the \emph{new stack}
+                \begin{itemize}
+                    \item \model{AMOS controller} (GUI application)
+                        \begin{itemize}
+                            \item manages \model{UFO}, local storage
+                            \item controls the dome
+                        \end{itemize}
+                    \item \model{AMOS server}
+                        \begin{itemize}
+                            \item persistent storage
+                            \item data analysis
+                        \end{itemize}
+                \end{itemize}
+            \end{itemize}
+        }
+
+    \section{AMOS client / controller}
+        \frejm{}
+
+        \frejm{Technology}{
+            We want a \emph{GUI} application (Windows 10)
+
+            After a lengthy decision process... \emph{C++} and \emph{Qt5}
+            \begin{itemize}
+                \item multi-platform
+                \item \emph{great} documentation
+                \item free (under \emph{GPL})
+                \item Python bindings also available (PyQt)
+            \end{itemize}
+        }
+
+
+    \section{AMOS server}
+        \frejm{Database structure}{
+
+        }
 
             \frejm{Objective}{
                 \begin{itemize}
@@ -59,17 +116,23 @@
             }
 
     \section{Data}
-        \subsection{Data}
             \frejm{Acquisition}{
                 Data are acquired by AMOS cameras
                 \begin{itemize}
-                    \item \emph{UFOCapture} by SonotaCo
+                    \item \emph{UFOCapturev2} by SonotaCo
                     \item \emph{AMOS} by Kvant
                     \begin{itemize}
                         \item will be ready in about two months...
                         \pause
                         \item ...for the last three years
                     \end{itemize}
+                \end{itemize}
+            }
+
+            \frejm{UFOCapturev2}{
+                \begin{itemize}
+                    \item problems with video codec \texttt{Y16} vs \texttt{Y800}
+                    \item mysterious flashes (maybe II?)
                 \end{itemize}
             }
 
@@ -86,7 +149,7 @@
                     \end{itemize}
                     \pause
                     \item saved in an \code{XML} file
-                    \item raw video stored in uncompressed \code{AVI} file
+                    \item raw video stored in an uncompressed \code{AVI} file
                     \item overview in a \code{JPG} file
                 \end{itemize}
                 \pause
@@ -220,10 +283,10 @@
                 \emph{Problem}: We need a way to visualize and comprehend the data
 
                 \pause
-                \emph{Solution}: A database and a simple web interface
+                \emph{Solution}: A database and a web interface
                 \begin{itemize}
                     \item provides a basic framework for data operations
-                    \item much more user-friendly than a bare directory listing
+                    \item much more user-friendly than bare directory listing
                     \item much easier to retrieve, sort and analyze the data
                 \end{itemize}
             }
@@ -251,7 +314,7 @@
                     \ \\
                     \highlightbox<2>{orange}{\texttt{SELECT "id", "timestamp", "magnitude" \textbackslash}} \\
                     \highlightbox<3>{orange}{\texttt{FROM "meteors" \textbackslash}} \\
-                    \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2019-04-16 15:00:00" AND "2019-04-17 09:00:00" \textbackslash}} \\
+                    \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2021-02-16 18:00:00" AND "2021-02-17 06:00:00" \textbackslash}} \\
                     \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" ASC \textbackslash}} \\
                     \highlightbox<6>{orange}{\texttt{LIMIT 5;}}
                     \vspace{5mm}
@@ -368,7 +431,7 @@
             }
 
             \frejm{Database diagram}{
-                \includegraphics[page = 2, width = 0.875 \textwidth]{diagram.pdf}
+                \includegraphics[page = 2, width = 0.875 \textwidth]{pictures/schema.pdf}
             }
 
     \section{Visualisation}
@@ -402,23 +465,6 @@
                 \end{itemize}
             }
 
-            \frejm{System in operation}{
-                As of now, the core of the system is operational
-                \begin{itemize}
-                    \item \href{http://192.168.0.177:4805/}{dashboard}
-                    \item \href{http://192.168.0.177:4805/meteors/}{meteor list}
-                    \item \href{http://192.168.0.177:4805/sighting/2537}{example of a sighting}
-                    \item \href{http://192.168.0.177:4805/meteor/example/path}{example of a meteor path}
-                \end{itemize}
-                \pause
-                We need to implement
-                \begin{itemize}
-                    \item remote station monitoring
-                    \item data import routines
-                    \item data export (\code{CSV}, \code{JSON}, ...)
-                    \item API
-                \end{itemize}
-            }
 
             \frejm{And then?}{
                 The system will enable us to do much more:
@@ -432,7 +478,7 @@
                             \pause
                             \item provide foundation for my PhD thesis
                             \pause
-                            \item provide data for \emph{you}
+                            \item data for \emph{you}
                         \end{itemize}
                     \end{column}
                     \begin{column}{0.3\textwidth}
@@ -450,6 +496,11 @@
             \end{flushright}
         }
 
+    \section{Summary}
+        \frejm{Fell free to wake up, it's over}{
+            Questions? Comments? Threats?
+        }
+
         \frejm{References}{
             \begin{itemize}
                 \item \textbf{Database.Guide}:
@@ -460,5 +511,8 @@
                     \texttt{dbdiagram.io} database relationship diagram tool. \texttt{https://dbdiagram.io/}.
             \end{itemize}
         }
+
+
+
 
 \end{document}

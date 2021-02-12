@@ -32,6 +32,24 @@
     }
 }
 
+\NewDocumentCommand{\fspdfpage}{m m O{W} O{black}}{
+    {
+        \setbeamertemplate{navigation symbols}{}
+        \setbeamercolor{background canvas}{bg = #4}
+        \begin{frame}[plain]
+            \begin{tikzpicture}[remember picture, overlay]
+                \node[at=(current page.center)] {
+                    \ifstrequal{H}{#3}{
+                        \includegraphics[page=#2, height=\paperheight]{#1}%
+                    }{%
+                        \includegraphics[page=#2, width=\paperwidth]{#1}%
+                    }
+                };
+            \end{tikzpicture}
+        \end{frame}
+    }
+}
+
 \NewDocumentCommand{\frejm}{m +m}{
     \begin{frame}
         \frametitle{#1}

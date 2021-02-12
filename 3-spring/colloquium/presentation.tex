@@ -26,46 +26,75 @@
             \end{description}
         }
 
+        \frejm{Objective and motivation}{
+            Current state is \only<1>{a disaster}\only<2->{\sout{a disaster} slightly suboptimal}
+            \pause
+            \begin{itemize}
+                \item no unified data file format
+                \item data spread across multiple computers
+                \item analysis impossible
+            \end{itemize}
+            \pause
+            \emph{Let us tidy up and organize the data!}
+        }
+
         \frejm{The pipeline}{
             \begin{itemize}
                 \item data acquisition
+                    \begin{itemize}
+                        \item 11 stations in various stages of decay
+                        \item dome with all-sky camera
+                        \item computer with software
+                        \item \textcolor{gray}{optional spectral camera}
+                    \end{itemize}
+                \pause
                 \item preprocessing
+                    \begin{itemize}
+                        \item image recognition
+                    \end{itemize}
                 \item retrieval
                 \item storage
-                \item trajectory and orbit estimation
+                \item trajectory and orbit computation
+                \item storage of final data
             \end{itemize}
         }
 
         \frejm{Current state}{
-            \begin{itemize}
-                \item replace the old stack
-                \begin{itemize}
-                    \item \model{daemon.exe} (daemon) + \model{client.exe} (console)
-                    \item \model{launcher.exe} (service)
-                    \item \model{cleaner.exe} (service)
-                    \item \model{Synology network drive}
-                    \item \model{(nothing)}
-                \end{itemize}
+            \begin{columns}
+                \begin{column}{0.49\textwidth}
+                    Replace the \emph{old stack}...
+                    \begin{itemize}
+                        \item \code{daemon.exe} (daemon)
+                        \item \code{client.exe} (console)
+                        \item \code{launcher.exe} (service)
+                        \item \code{cleaner.exe} (service)
+                        \pause
+                        \item Synology (network drive)
+                        \item mystery script on \code{charon} (???)
+                    \end{itemize}
+                \end{column}
                 \pause
-                \item by the \emph{new stack}
-                \begin{itemize}
-                    \item \model{AMOS controller} (GUI application)
-                        \begin{itemize}
-                            \item manages \model{UFO}, local storage
-                            \item controls the dome
-                        \end{itemize}
-                    \item \model{AMOS server}
-                        \begin{itemize}
-                            \item persistent storage
-                            \item data analysis
-                        \end{itemize}
-                \end{itemize}
-            \end{itemize}
+                \begin{column}{0.49\textwidth}
+                    ...by the \emph{new stack}!
+                    \begin{itemize}
+                        \item \code{AMOS controller} (GUI application)
+                            \begin{itemize}
+                                \item controls the dome
+                                \item manages \code{UFO}, local storage
+                            \end{itemize}
+                        \item \code{AMOS server}
+                            \begin{itemize}
+                                \item persistent storage
+                                \item bindings to \code{MT}
+                                \item data analysis
+                            \end{itemize}
+                        \item no Synology, but \emph{RAID} on board
+                    \end{itemize}
+                \end{column}
+            \end{columns}
         }
 
     \section{AMOS client / controller}
-        \frejm{}
-
         \frejm{Technology}{
             We want a \emph{GUI} application (Windows 10)
 
@@ -78,415 +107,300 @@
             \end{itemize}
         }
 
+        \frejm{Implementation}{
+            \begin{itemize}
+                \item Montenbruck C++ astronomy library
+                \item logic from old \code{daemon.exe}
+                \pause
+                \item lots of improvements
+                    \begin{itemize}
+                        \item full display of status
+                        \item manual control
+                        \item visible to the user
+                        \item notifications
+                    \end{itemize}
+            \end{itemize}
+        }
+
 
     \section{AMOS server}
+        \frejm{Design criteria}{
+            \begin{itemize}
+                \item has a \emph{public IP}
+                \item clients do not (VPN, NAT, Chilean desert)
+                \begin{itemize}
+                    \item client connects to server
+                    \item server is always available
+                \end{itemize}
+            \end{itemize}
+        }
+
         \frejm{Database structure}{
 
         }
 
-            \frejm{Objective}{
-                \begin{itemize}
-                    \item to build a database system for storing AMOS meteor data
-                    \pause
-                    \item and a simple dashboard for monitoring the network status
-                    \pause
-                    \item it should be
-                    \setbeamersize{description width = 40mm}
-                    \begin{description}
-                        \item<1->[web-based]        accessible from anywhere
-                        \item<2->[comprehensible]   we are able to identify interesting events easily
-                        \item<3->[autonomous]       integrate the entire processing pipeline
-                    \end{description}
-                \end{itemize}
-            }
-
-            \frejm{Motivation}{
-                Current state is \only<1>{a disaster}\only<2->{\sout{a disaster} slightly suboptimal}
-                \pause
-                \begin{itemize}
-                    \item no unified data file format
-                    \item data spread across multiple computers
-                    \item analysis next to impossible
-                    \begin{itemize}
-                        \item and I badly missed it in my diploma thesis
-                    \end{itemize}
-                \end{itemize}
-                \pause
-                \emph{Let us tidy up and organize the data!}
-            }
-
     \section{Data}
-            \frejm{Acquisition}{
-                Data are acquired by AMOS cameras
+        \frejm{Acquisition}{
+            Data are acquired by AMOS cameras
+            \begin{itemize}
+                \item \emph{UFOCapturev2} by SonotaCo
+                \item \emph{AMOS} by Kvant
                 \begin{itemize}
-                    \item \emph{UFOCapturev2} by SonotaCo
-                    \item \emph{AMOS} by Kvant
-                    \begin{itemize}
-                        \item will be ready in about two months...
-                        \pause
-                        \item ...for the last three years
-                    \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{UFOCapturev2}{
-                \begin{itemize}
-                    \item problems with video codec \texttt{Y16} vs \texttt{Y800}
-                    \item mysterious flashes (maybe II?)
-                \end{itemize}
-            }
-
-            \frejm{Pre-processing}{
-                First of all, raw data are filtered and annotated
-
-                \begin{itemize}
-                    \item meteor recognition and data extraction
-                    \begin{itemize}
-                        \item position in the sky
-                        \item magnitude
-                        \item angular speed
-                        \item ...
-                    \end{itemize}
+                    \item will be ready in about two months...
                     \pause
-                    \item saved in an \code{XML} file
-                    \item raw video stored in an uncompressed \code{AVI} file
-                    \item overview in a \code{JPG} file
+                    \item ...for the last three years
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{UFOCapturev2}{
+            \begin{itemize}
+                \item problems with video codec \texttt{Y16} vs \texttt{Y800}
+                \item mysterious flashes (maybe II?)
+            \end{itemize}
+        }
+
+        \frejm{Pre-processing}{
+            First of all, raw data are filtered and annotated
+
+            \begin{itemize}
+                \item meteor recognition and data extraction
+                \begin{itemize}
+                    \item position in the sky
+                    \item magnitude
+                    \item angular speed
+                    \item ...
                 \end{itemize}
                 \pause
-                \begin{itemize}
-                    \item not much can be easily done about this
-                \end{itemize}
-            }
+                \item saved in an \code{XML} file
+                \item raw video stored in an uncompressed \code{AVI} file
+                \item overview in a \code{JPG} file
+            \end{itemize}
+            \pause
+            \begin{itemize}
+                \item not much can be easily done about this
+            \end{itemize}
+        }
 
-            \frejm{Retrieval}{
-                \emph{Currently}:
+        \frejm{Retrieval}{
+            \begin{columns}
+                \begin{column}{0.49\textwidth}
+                    \emph{Old}:
+                    \begin{itemize}
+                        \item UFOCapture launches a \code{bat} file
+                        \item mail transfer via SMTP (e-mail)
+                        \item processed by \code{charon}
+                    \end{itemize}
+                \end{column}
+                \pause
+                \begin{column}{0.49\textwidth}
+                    \emph{New}:
+                    \begin{itemize}
+                        \item AMOS controller scans the output directory
+                        \item files moved to correct subdirectory (\code{yyyy/mm/dd})
+                        \item sent over HTTP in a POST request (except AVI)
+                    \end{itemize}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{Storage}{
+            At this point the data are ready to be stored
+            \begin{itemize}
+                \item in a \emph{structured} and \emph{semantic} way
+                \item consistency \emph{enforced} at all times
+                \item auxiliary data
                 \begin{itemize}
-                    \item UFOCapture launches a \code{bat} file
-                    \item mail transfer via SMTP (e-mail)
-                    \item processed by \code{charon}
+                    \item housekeeping
+                    \item statistics
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Data retention}{
+            To prevent problems down the line, we should
+            \pause
+            \begin{itemize}
+                \item \emph{never} delete anything
+                \begin{itemize}
+                    \item unless provably \emph{incorrect}
                 \end{itemize}
                 \pause
-                \emph{Proposal}:
+                \item enable raw data re-processing
                 \begin{itemize}
-                    \item video capturing software forwards data to a daemon
-                    \item sent over HTTP in a POST request
+                    \item data import from an offline station
+                    \item manual correction
+                    \item new processing algorithms
                 \end{itemize}
-            }
+            \end{itemize}
+        }
 
-            \frejm{Retrieval -- proposed approach}{
-                We may need an \emph{API}
-                \begin{itemize}
-                    \item station submits a new \model{Sighting}
-                    \item website retrieves a list of \model{Meteor}s
-                    \item daemon periodically computes \model{Meteor} data
-                    \item data exports
+        \frejm{Housekeeping}{
+            \textit{Def:} Data of little or \emph{no scientific value} but \emph{high operational importance} \\[10mm]
+            \pause
+            \begin{columns}
+                \begin{column}{0.33\textwidth}
                     \begin{itemize}
-                        \item scientific analyses
-                        \item maps (with JavaScript)
-                        \item integration with other services
+                        \item environment
+                            \begin{itemize}
+                                \item rain
+                                \item temperature
+                                \item humidity
+                                \item ...
+                            \end{itemize}
                     \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Processing}{
-                Data need to be \emph{validated} and \emph{processed}
-                \begin{itemize}
-                    \item remove invalid data (false detections, ...)
-                    \item compute actual meteor positions from multiple sightings
+                \end{column}
+                \begin{column}{0.33\textwidth}
                     \begin{itemize}
-                        \item currently done by \code{MT}
-                        \item only use its output
-                        \item write data import routines
+                        \item station
+                            \begin{itemize}
+                                \item cover status
+                                \item system uptime
+                                \item disk usage
+                                \item ...
+                            \end{itemize}
                     \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Storage}{
-                At this point the data are ready to be stored
-                \begin{itemize}
-                    \item in a \emph{structured} and \emph{semantic} way
-                    \item consistency is \emph{enforced} at all times
-                    \item auxiliary data
+                \end{column}
+                \begin{column}{0.33\textwidth}
                     \begin{itemize}
-                        \item housekeeping
-                        \item statistics
+                        \item network
+                            \begin{itemize}
+                                \item connection
+                                \item last data
+                                \item ...
+                            \end{itemize}
                     \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Data retention}{
-                To prevent problems down the line, we should
-                \pause
-                \begin{itemize}
-                    \item keep \emph{all} raw data available
-                    \pause
-                    \item \emph{never} delete anything
-                    \begin{itemize}
-                        \item unless provably \emph{incorrect}
-                    \end{itemize}
-                    \pause
-                    \item enable raw data re-processing
-                    \begin{itemize}
-                        \item data import from an offline station
-                        \item manual correction
-                        \item new processing algorithms
-                    \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Housekeeping}{
-                \textit{Def:} Data of \emph{low scientific value} but \emph{high operational importance}\\[10mm]
-                \pause
-                \begin{columns}
-                    \begin{column}{0.33\textwidth}
-                        \begin{itemize}
-                            \item environment
-                                \begin{itemize}
-                                    \item temperature
-                                    \item humidity
-                                    \item pressure
-                                    \item ...
-                                \end{itemize}
-                        \end{itemize}
-                    \end{column}
-                    \begin{column}{0.33\textwidth}
-                        \begin{itemize}
-                            \item station
-                                \begin{itemize}
-                                    \item system uptime
-                                    \item UPS status
-                                    \item disk usage
-                                    \item ...
-                                \end{itemize}
-                        \end{itemize}
-                    \end{column}
-                    \begin{column}{0.33\textwidth}
-                        \begin{itemize}
-                            \item network
-                                \begin{itemize}
-                                    \item connection
-                                    \item IP address
-                                    \item last data
-                                    \item ...
-                                \end{itemize}
-                        \end{itemize}
-                    \end{column}
-                \end{columns}
-                \pause
-                \vspace{8mm}
-                Everything is displayed on a \emph{dashboard}
-            }
+                \end{column}
+            \end{columns}
+            \pause
+            \vspace{8mm}
+            \begin{itemize}
+                \item sent as \model{Heartbeat}
+                \item everything displayed in a \emph{dashboard}
+            \end{itemize}
+        }
 
     \section{Database}
-        \subsection{Database}
-            \frejm{The database}{
-                \emph{Problem}: We need a way to visualize and comprehend the data
+        \frejm{The database}{
+            \emph{Problem}: We need a way to visualize and comprehend the data
 
-                \pause
-                \emph{Solution}: A database and a web interface
+            \pause
+            \emph{Solution}: A database and a web interface
+            \begin{itemize}
+                \item provides a basic framework for data operations
+                \item more user-friendly than bare directory listing
+                \item easier to retrieve, sort and analyze the data
+            \end{itemize}
+        }
+
+        \frejm{Design}{
+            Underlying data are well-structured and suitable for an \emph{object-relational} database
+
+            \begin{itemize}
+                \item ORDBMS
                 \begin{itemize}
-                    \item provides a basic framework for data operations
-                    \item much more user-friendly than bare directory listing
-                    \item much easier to retrieve, sort and analyze the data
+                    \item data are stored in \emph{relations} (tables)
+                    \item each column stores the same \emph{property}
+                    \item each row stores a single \emph{entity} (object)
+                    \item each object has an identifier -- \emph{primary key}
+                    \item fields may point to other tables -- \emph{foreign keys}
+                    \item data are accessed and manipulated using a \emph{query language}
                 \end{itemize}
-            }
+            \end{itemize}
+        }
 
-            \frejm{Design}{
-                Underlying data are well-structured and suitable for an \emph{object-relational} database
+        \begin{frame}[fragile]
+            \frametitle{ORDBMS}
+            \small
+            \begin{overlayarea}{\textwidth}{0.7 \textheight}
+                \ \\
+                \highlightbox<2>{orange}{\texttt{SELECT "id", "timestamp", "magnitude" \textbackslash}} \\
+                \highlightbox<3>{orange}{\texttt{FROM "meteors" \textbackslash}} \\
+                \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2021-02-16 18:00:00" AND "2021-02-17 06:00:00" \textbackslash}} \\
+                \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" ASC \textbackslash}} \\
+                \highlightbox<6>{orange}{\texttt{LIMIT 5;}}
+                \vspace{5mm}
 
-                \begin{itemize}
-                    \item ORDBMS
-                    \begin{itemize}
-                        \item data are stored in \emph{relations} (tables)
-                        \item each column stores the same \emph{property}
-                        \item each row stores a single \emph{entity} (object)
-                        \item each object has an identifier -- \emph{primary key}
-                        \item fields may point to other tables -- \emph{foreign keys}
-                        \item data are accessed and manipulated using a \emph{query language}
-                    \end{itemize}
-                \end{itemize}
-            }
+                \begin{onlyenv}<7>
+                    Response:
+                \begin{verbatim}
+356, "2021-04-17 03:45:10", -5.8
+728, "2021-04-17 04:14:23", -3.2
+456, "2021-04-16 23:56:04", -2.7
+908, "2021-04-17 01:23:45", -2.5
+854, "2021-04-16 21:58:35", -2.2
+                \end{verbatim}
+                \end{onlyenv}
+            \end{overlayarea}
+        \end{frame}
 
-            \begin{frame}[fragile]
-                \frametitle{ORDBMS}
-                \small
-                \begin{overlayarea}{\textwidth}{0.7 \textheight}
-                    \ \\
-                    \highlightbox<2>{orange}{\texttt{SELECT "id", "timestamp", "magnitude" \textbackslash}} \\
-                    \highlightbox<3>{orange}{\texttt{FROM "meteors" \textbackslash}} \\
-                    \highlightbox<4>{orange}{\texttt{WHERE "timestamp" BETWEEN "2021-02-16 18:00:00" AND "2021-02-17 06:00:00" \textbackslash}} \\
-                    \highlightbox<5>{orange}{\texttt{ORDER BY "magnitude" ASC \textbackslash}} \\
-                    \highlightbox<6>{orange}{\texttt{LIMIT 5;}}
-                    \vspace{5mm}
-                    \begin{onlyenv}<7>
-                    \begin{verbatim}
-356, "2019-04-17 03:45:10", -5.8
-728, "2019-04-17 04:14:23", -3.2
-456, "2019-04-16 23:56:04", -2.7
-908, "2019-04-17 01:23:45", -2.5
-854, "2019-04-16 21:58:35", -2.2
-                    \end{verbatim}
-                    \end{onlyenv}
-                \end{overlayarea}
-            \end{frame}
+        \frejm{Models}{
+            The art and science of creating databases...
 
-            \frejm{Models}{
-                The art and science of creating databases...
+            \pause
+            ...is to naturally translate the real world to models:
+            \pause
+            \begin{itemize}
+                \item \model{Meteor}
+                \item \model{Sighting}
+                \item \model{Station}
+                \item \model{Subnetwork}
+                \item \model{Country}
+                \item ...more as needed
+            \end{itemize}
+        }
 
-                \pause
-                ...is to naturally translate the real world to models:
-                \pause
-                \begin{itemize}
-                    \item \model{Meteor}
-                    \item \model{Sighting}
-                    \item \model{Station}
-                    \item \model{Subnetwork}
-                    \item \model{Country}
-                    \item ...more as needed
-                \end{itemize}
-            }
-
-            \frejm{Model \model{Sighting}}{
-                Describes the \emph{sighting} of a single meteor by an AMOS camera
-                \pause
-                \begin{itemize}
-                    \item identifier
-                    \item observed projected position on the sky
-                        \item three coordinates
-                        \begin{itemize}
-                            \item azimuth
-                            \item altitude
-                        \end{itemize}
-                        \pause
-                        \item at three moments
-                        \begin{itemize}
-                            \item \emph{beginning}
-                            \item \emph{maximum brightness}
-                            \item \emph{end}
-                        \end{itemize}
-                    \item maximum apparent magnitude
-                \end{itemize}
-            }
-
-            \frejm{Model \model{Sighting} -- extras}{
-                \begin{itemize}
-                    \item miscellaneous computed information
-                        \begin{itemize}
-                            \item arc length
-                            \item duration
-                            \item Sun and Moon info
-                            \begin{itemize}
-                                \item position
-                                \item elongation
-                                \item magnitude
-                                \item not stored in the database
-                            \end{itemize}
-                        \end{itemize}
-                    \pause
-                    \item visualisation
-                        \begin{itemize}
-                            \item real photograph from AMOS
-                            \item corresponding simulation (?)
-                        \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Model \model{Meteor}}{
-                Describes the actual \emph{event}, the atmospheric entry of a meteoroid particle
-                \begin{itemize}
-                    \item \emph{timestamp}
-                    \item true geographic location
-                    \begin{itemize}
-                        \item again, four coordinates
-                        \begin{itemize}
-                            \item \emph{timestamp}
-                            \item \emph{latitude}
-                            \item \emph{longitude}
-                            \item \emph{altitude}
-                        \end{itemize}
-                        \pause
-                        \item at three moments
-                        \begin{itemize}
-                            \item \emph{beginning}
-                            \item \emph{maximum brightness}
-                            \item \emph{end}
-                        \end{itemize}
-                    \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Model \model{Meteor} -- auxiliary data}{
-                \begin{itemize}
-                    \item true \emph{trail length}
-                    \begin{itemize}
-                        \item this is not well-defined
-                    \end{itemize}
-                    \item computed maximal \emph{absolute magnitude} (least-squares)
-                    \item \emph{visualisation}
-                    \begin{itemize}
-                        \item \code{KML} file for \emph{Google Earth}
-                        \item \emph{online map} (OpenLayers)
-                    \end{itemize}
-                \end{itemize}
-            }
-
-            \frejm{Database diagram}{
-                \includegraphics[page = 2, width = 0.875 \textwidth]{pictures/schema.pdf}
-            }
+        \fspdfpage{pictures/schema.pdf}{2}
 
     \section{Visualisation}
-        \subsection{Visualisation}
-            \frejm{Overview}{
-                We have implemented a website in \emph{Python/Django}
+        \frejm{Overview}{
+            We have implemented a website in \emph{Python/Django}
 
+            \begin{itemize}
+                \item webserver + CRUD operations
+                \item administration interface (courtesy of Django)
+                \item REST framework
+            \end{itemize}
+        }
+
+        \frejm{Dashboard}{
+            We need to detect problems and bring them to attention
+            \pause
+            \begin{itemize}
+                \item various problems can be detected and addressed
                 \begin{itemize}
-                    \item webserver + CRUD operations
-                    \item administration interface (courtesy of Django)
-                    \item REST framework
+                    \item lost connection
+                    \item lost power
+                    \item software problems
+                    \item AMOS hardware failure
+                    \item no data
+                    \item ...
                 \end{itemize}
-            }
+            \end{itemize}
+        }
 
-            \frejm{Dashboard}{
-                We need to detect problems and bring them to attention
-                \pause
-                \begin{itemize}
-                    \item add \code{status} to \model{Station}
-                    \item various problems can be detected and addressed
+        \frejm{And then?}{
+            The system enables us to do much more:
+            \begin{columns}
+                \begin{column}{0.6\textwidth}
                     \begin{itemize}
-                        \item lost connection
-                        \item lost power
-                        \item software problems
-                        \item AMOS hardware failure
-                        \item no data
-                        \item ...
+                        \item sort and display meteors by any criteria
+                        \pause
+                        \item display meteor activity
+                        \item use data from \code{Asmodeus} to estimate flux
+                        \pause
+                        \item provide foundation for my PhD thesis
+                        \pause
+                        \item data for \emph{you}
                     \end{itemize}
-                    \pause
-                    \item requires station-side changes to software
-                \end{itemize}
-            }
+                \end{column}
+                \begin{column}{0.3\textwidth}
+                    \includegraphics[width = \linewidth]{pictures/unclesam.jpg}
+                \end{column}
+            \end{columns}
+        }
 
-
-            \frejm{And then?}{
-                The system will enable us to do much more:
-                \begin{columns}
-                    \begin{column}{0.6\textwidth}
-                        \begin{itemize}
-                            \item sort and display meteors by any criteria
-                            \pause
-                            \item display meteor activity
-                            \item use data from \code{Asmodeus} to estimate flux
-                            \pause
-                            \item provide foundation for my PhD thesis
-                            \pause
-                            \item data for \emph{you}
-                        \end{itemize}
-                    \end{column}
-                    \begin{column}{0.3\textwidth}
-                        \includegraphics[width = \linewidth]{unclesam.jpg}
-                    \end{column}
-                \end{columns}
-            }
-
+    \section{Summary}
         \frejm{Thank you for your attention}{
             {\large \textit{Above all else, show the data.}}
             \scriptsize
@@ -494,11 +408,6 @@
                 Edward R. Tufte\\
                 The Visual Display of Quantitative Information, 1983
             \end{flushright}
-        }
-
-    \section{Summary}
-        \frejm{Fell free to wake up, it's over}{
-            Questions? Comments? Threats?
         }
 
         \frejm{References}{

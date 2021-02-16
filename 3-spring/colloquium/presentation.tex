@@ -26,40 +26,73 @@
             \end{description}
         }
 
+        \frejm{AMOS}{
+            \emph{A}ll-sky \emph{M}eteor \emph{O}rbit \emph{S}ystem
+            \begin{columns}
+                \begin{column}{0.6\textwidth}
+                    \begin{itemize}
+                        \item a network of 11 all-sky cameras
+                        \item permanent surveillance of the skies
+                        \item trilateration of meteor trajectories
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.39\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/amos-map.png}
+                \end{column}
+            \end{columns}
+        }
+
+        \fspicture{pictures/amos-view.jpg}[H][black]
+
         \frejm{Objective and motivation}{
             Current state is \only<1>{a disaster}\only<2->{\sout{a disaster} slightly suboptimal}
             \pause
             \begin{itemize}
                 \item no unified data file format
                 \item data spread across multiple computers
-                \item analysis impossible
+                \item analysis very difficult
             \end{itemize}
             \pause
             \emph{Let us tidy up and organize the data!}
         }
 
-        \frejm{The pipeline}{
+        \frejm{Illustration}{
+            \begin{columns}
+                \begin{column}{0.46 \textwidth}
+                    \includegraphics[width=\linewidth]{pictures/foundations.jpg}
+                \end{column}
+                \pause
+                \begin{column}{0.05 \textwidth}
+                    $\Rightarrow$
+                \end{column}
+                \begin{column}{0.46 \textwidth}
+                    \includegraphics[width=\linewidth]{pictures/neuschwanstein.jpg}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{Pipeline}{
             \begin{itemize}
                 \item data acquisition
                     \begin{itemize}
                         \item 11 stations in various stages of decay
                         \item dome with all-sky camera
                         \item computer with software
-                        \item \textcolor{gray}{optional spectral camera}
+                        \pause
+                        \item \textcolor{gray}{optionally spectral camera}
                     \end{itemize}
                 \pause
                 \item preprocessing
                     \begin{itemize}
                         \item image recognition
                     \end{itemize}
-                \item retrieval
-                \item storage
+                \item retrieval and storage
                 \item trajectory and orbit computation
                 \item storage of final data
             \end{itemize}
         }
 
-        \frejm{Current state}{
+        \frejm{Plan}{
             \begin{columns}
                 \begin{column}{0.49\textwidth}
                     Replace the \emph{old stack}...
@@ -68,9 +101,9 @@
                         \item \code{client.exe} (console)
                         \item \code{launcher.exe} (service)
                         \item \code{cleaner.exe} (service)
-                        \pause
                         \item Synology (network drive)
                         \item mystery script on \code{charon} (???)
+                        \item folder listing
                     \end{itemize}
                 \end{column}
                 \pause
@@ -88,77 +121,53 @@
                                 \item bindings to \code{MT}
                                 \item data analysis
                             \end{itemize}
-                        \item no Synology, but \emph{RAID} on board
                     \end{itemize}
                 \end{column}
             \end{columns}
         }
 
-    \section{AMOS client / controller}
-        \frejm{Technology}{
-            We want a \emph{GUI} application (Windows 10)
+        \fspdfpage{pictures/full.pdf}{1}[H][white]
 
-            After a lengthy decision process... \emph{C++} and \emph{Qt5}
-            \begin{itemize}
-                \item multi-platform
-                \item \emph{great} documentation
-                \item free (under \emph{GPL})
-                \item Python bindings also available (PyQt)
-            \end{itemize}
-        }
-
-        \frejm{Implementation}{
-            \begin{itemize}
-                \item Montenbruck C++ astronomy library
-                \item logic from old \code{daemon.exe}
-                \pause
-                \item lots of improvements
+    \section{Client side}
+        \frejm{Remote station}{
+            \begin{columns}
+                \begin{column}{0.49\textwidth}
+                    Various components as available
                     \begin{itemize}
-                        \item full display of status
-                        \item manual control
-                        \item visible to the user
-                        \item notifications
+                        \item mini-ITX motherboard
+                        \item dome control
+                            \begin{itemize}
+                                \item electronics by Pavol Zigo
+                            \end{itemize}
+                        \item Synology (network drive)
+                        \item own router
+                            \begin{itemize}
+                                \item source of problems
+                            \end{itemize}
                     \end{itemize}
-            \end{itemize}
+                \end{column}
+                \pause
+                \begin{column}{0.49\textwidth}
+                    Unified design
+                    \begin{itemize}
+                        \item new mini-ITX motherboard
+                            \begin{itemize}
+                                \item ideally does not burn
+                            \end{itemize}
+                        \item same dome control
+                        \item 2× 4 TB HDD in \code{RAID1}
+                        \item no network drive
+                        \item no router
+                        \item metadata on server
+                    \end{itemize}
+                \end{column}
+            \end{columns}
+
         }
 
+        \fspicture{pictures/amos-pc.jpg}
 
-    \section{AMOS server}
-        \frejm{Design criteria}{
-            \begin{itemize}
-                \item has a \emph{public IP}
-                \item clients do not (VPN, NAT, Chilean desert)
-                \begin{itemize}
-                    \item client connects to server
-                    \item server is always available
-                \end{itemize}
-            \end{itemize}
-        }
-
-        \frejm{Database structure}{
-
-        }
-
-    \section{Data}
-        \frejm{Acquisition}{
-            Data are acquired by AMOS cameras
-            \begin{itemize}
-                \item \emph{UFOCapturev2} by SonotaCo
-                \item \emph{AMOS} by Kvant
-                \begin{itemize}
-                    \item will be ready in about two months...
-                    \pause
-                    \item ...for the last three years
-                \end{itemize}
-            \end{itemize}
-        }
-
-        \frejm{UFOCapturev2}{
-            \begin{itemize}
-                \item problems with video codec \texttt{Y16} vs \texttt{Y800}
-                \item mysterious flashes (maybe II?)
-            \end{itemize}
-        }
+        \fspicture{pictures/amos-inside.jpg}
 
         \frejm{Pre-processing}{
             First of all, raw data are filtered and annotated
@@ -178,7 +187,60 @@
             \end{itemize}
             \pause
             \begin{itemize}
-                \item not much can be easily done about this
+                \item \code{UFO} ...not much can be easily done about this
+            \end{itemize}
+        }
+
+        \frejm{UFOCaptureV2}{
+            \begin{itemize}
+                \item problems with video codec \code{Y16} vs \code{Y800}
+                \item mysterious flashes (maybe II?)
+                \item old, weakly supported
+                \pause
+                \item basically a \emph{black box}
+                \item complex configuration
+                \pause
+                \item we should move to the \emph{Kvant} software
+                \begin{itemize}
+                    \item problem with frame rate
+                \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Technology}{
+            We want a \emph{GUI} application (Windows 10)... \emph{AMOS client / controller}
+            \pause
+
+            After a lengthy decision process... \emph{C++} and \emph{Qt5}
+            \begin{columns}
+                \begin{column}{0.75\textwidth}
+                    \begin{itemize}
+                        \item multi-platform
+                        \item \emph{great} documentation
+                        \item free (under \emph{GPL})
+                        \item Python bindings also available (PyQt)
+                    \end{itemize}
+                \end{column}
+                \begin{column}{0.15\textwidth}
+                    \includegraphics[width=\linewidth]{pictures/qt.png}
+                    \\[5mm]
+                    \includegraphics[width=\linewidth]{pictures/c++.png}
+                \end{column}
+            \end{columns}
+        }
+
+        \frejm{Implementation}{
+            \begin{itemize}
+                \item Montenbruck C++ astronomy library
+                \item logic from old \code{daemon.exe}
+                \pause
+                \item lots of improvements
+                    \begin{itemize}
+                        \item full display of status
+                        \item manual control
+                        \item visible to the user
+                        \item notifications
+                    \end{itemize}
             \end{itemize}
         }
 
@@ -196,23 +258,44 @@
                 \begin{column}{0.49\textwidth}
                     \emph{New}:
                     \begin{itemize}
-                        \item AMOS controller scans the output directory
-                        \item files moved to correct subdirectory (\code{yyyy/mm/dd})
-                        \item sent over HTTP in a POST request (except AVI)
+                        \item client scans the output directory
+                        \item files moved to correct subdirectory
+                            \begin{itemize}
+                                \item \code{yyyy/mm/dd}
+                            \end{itemize}
+                        \item sent over HTTP in a POST request
+                            \begin{itemize}
+                                \item \code{JPG}, \code{XML}, \code{AVI} size
+                            \end{itemize}
                     \end{itemize}
                 \end{column}
             \end{columns}
         }
 
+    \section{Server side}
+        \frejm{Design criteria}{
+            \begin{itemize}
+                \item has a \emph{public IP}
+                \begin{itemize}
+                    \item clients do not (VPN, NAT, Chilean desert)
+                    \item server is always available
+                \end{itemize}
+                \item contains all final data
+            \end{itemize}
+        }
+
+
         \frejm{Storage}{
-            At this point the data are ready to be stored
+            How to store all the data?
+            \pause
             \begin{itemize}
                 \item in a \emph{structured} and \emph{semantic} way
                 \item consistency \emph{enforced} at all times
-                \item auxiliary data
+                \item also auxiliary data
                 \begin{itemize}
                     \item housekeeping
                     \item statistics
+                    \item user accounts...
                 \end{itemize}
             \end{itemize}
         }
@@ -297,20 +380,17 @@
             Underlying data are well-structured and suitable for an \emph{object-relational} database
 
             \begin{itemize}
-                \item ORDBMS
-                \begin{itemize}
-                    \item data are stored in \emph{relations} (tables)
-                    \item each column stores the same \emph{property}
-                    \item each row stores a single \emph{entity} (object)
-                    \item each object has an identifier -- \emph{primary key}
-                    \item fields may point to other tables -- \emph{foreign keys}
-                    \item data are accessed and manipulated using a \emph{query language}
-                \end{itemize}
+                \item data are stored in \emph{relations} (tables)
+                \item each column stores the same \emph{property}
+                \item each row stores a single \emph{entity} (object)
+                \item each object has an identifier -- \emph{primary key}
+                \item fields may point to other tables -- \emph{foreign keys}
+                \item data are accessed and manipulated using a \emph{query language}
             \end{itemize}
         }
 
         \begin{frame}[fragile]
-            \frametitle{ORDBMS}
+            \frametitle{SQL example}
             \small
             \begin{overlayarea}{\textwidth}{0.7 \textheight}
                 \ \\
@@ -338,7 +418,7 @@
             The art and science of creating databases...
 
             \pause
-            ...is to naturally translate the real world to models:
+            ...is in how to naturally translate the real world to models:
             \pause
             \begin{itemize}
                 \item \model{Meteor}
@@ -350,7 +430,7 @@
             \end{itemize}
         }
 
-        \fspdfpage{pictures/schema.pdf}{2}
+        \fspdfpage{pictures/schema.pdf}{2}[W][white]
 
     \section{Visualisation}
         \frejm{Overview}{
@@ -379,6 +459,7 @@
             \end{itemize}
         }
 
+    \section{Summary}
         \frejm{And then?}{
             The system enables us to do much more:
             \begin{columns}
@@ -400,7 +481,6 @@
             \end{columns}
         }
 
-    \section{Summary}
         \frejm{Thank you for your attention}{
             {\large \textit{Above all else, show the data.}}
             \scriptsize

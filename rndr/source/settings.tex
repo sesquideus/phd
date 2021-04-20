@@ -1,0 +1,254 @@
+\usepackage[
+    paper                   = a4paper,
+    left                    = 35mm,
+    right                   = 20mm,
+    top                     = 25mm,
+    bottom                  = 25mm,
+    headheight              = 16pt,
+    footskip                = 36pt,
+]{geometry}
+
+\usepackage{
+    amsmath,
+    amssymb,
+    siunitx,
+    xparse,
+    enumitem,
+    graphicx,
+    rotating,
+    booktabs,
+    cancel,
+    tabularx,
+    epigraph,
+    float,
+    etoolbox,
+    setspace,
+    longtable,
+    subcaption,
+    csquotes,
+}
+
+\usepackage[
+    pdfpagelabels,
+    hidelinks,
+    breaklinks              = true,
+]{hyperref}
+\usepackage[xindy,nonumberlist]{glossaries}
+\usepackage[many]{tcolorbox}
+\usepackage[all]{nowidow}                                       % Prevent widows and orphans (single line at the beginning or end of page)
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}                                           % Fancy headers
+\usepackage{titlesec}
+\usepackage[titletoc, title, toc, page]{appendix}
+\usepackage[
+    format                  = hang,
+    labelfont               = {small, stretch=1.2},
+    textfont                = {small, stretch=1.3},
+    parskip                 = 7pt,
+]{caption}
+\usepackage[super]{nth}
+
+%\usepackage[f]{esvect}
+\usepackage[
+    final
+]{pdfpages}
+\usepackage[noabbrev]{cleveref}
+\usepackage[
+    colorinlistoftodos,
+    prependcaption,
+    textsize                = scriptsize,
+]{todonotes}\reversemarginpar
+\usepackage[MnSymbol]{mathspec}                                 % includes fontspec
+\usepackage{
+    polyglossia,
+    xunicode,
+}
+\setdefaultlanguage{english}
+\usepackage[nottoc]{tocbibind}
+
+\usepackage[
+    backend         = biber,
+    style           = iso-authoryear,
+    natbib          = true,
+    maxcitenames    = 2,
+]{biblatex}
+
+\addbibresource{../kvik.bib}
+
+% Hack XeLaTeX loader to enable 256 alphabets instead of 16
+\makeatletter
+    \def\new@mathgroup{\alloc@8\mathgroup\mathchardef\@cclvi}
+    \patchcmd{\document@select@group}{\sixt@@n}{\@cclvi}{}{}
+    \patchcmd{\select@group}{\sixt@@n}{\@cclvi}{}{}
+\makeatother
+
+\defaultfontfeatures{
+    Mapping         = tex-text,
+    Scale           = MatchLowercase,
+    Ligatures       = TeX
+}
+
+\newfontfamily{\semibold}{Adobe Garamond Pro Semibold}
+\newfontfamily{\greek}{Minion Pro Italic}
+\setallmainfonts[
+    Path            = fonts/ ,
+    Extension       = .otf ,
+    UprightFont     = *-r ,
+    BoldFont        = *-b ,
+    ItalicFont      = *-i ,
+    BoldItalicFont  = *-bi
+]{adobegaramondpro}
+\setmonofont[
+    Path            = fonts/ ,
+    Extension       = .ttf ,
+    UprightFont     = *-r ,
+    BoldFont        = *-b ,
+    ItalicFont      = *-i ,
+    BoldItalicFont  = *-bi
+]{ubuntumono}
+\setsansfont[
+    Path            = fonts/ ,
+    Extension       = .ttf ,
+    UprightFont     = *-r ,
+    BoldFont        = *-b ,
+    ItalicFont      = *-i ,
+    BoldItalicFont  = *-bi
+]{verdana}
+\setmathsfont(Digits,Latin,Greek){Minion Pro}
+\setmathrm{Minion Pro}
+\setmonofont{Consolas}
+
+
+\titleformat{\paragraph}[hang]{\semibold}{}{0pt}{}
+
+\NewDocumentCommand{\Sun}{}{}
+\NewDocumentCommand{\Earth}{}{}
+
+\input{siunitx.tex}
+\input{math.tex}
+
+\numberwithin{equation}{section}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+\setlength\bibitemsep{3mm}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3mm}
+\setlength{\abovedisplayskip}{0mm}
+\setlength{\belowdisplayskip}{0mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{5mm}
+\setlength{\epigraphwidth}{0.400\textwidth}
+\setlength{\afterepigraphskip}{6mm}
+\setlength{\textfloatsep}{10mm}
+\setlength{\intextsep}{10mm}
+\setlength{\belowcaptionskip}{0mm}
+\RenewDocumentCommand{\epigraphsize}{}{\footnotesize}
+
+\setstretch{1.5}
+\renewcommand{\arraystretch}{1.7}
+\renewcommand{\chaptername}{}
+
+\fancypagestyle{title}{
+    \fancyhf{}
+    \RenewDocumentCommand{\headrulewidth}{}{0pt}
+    \RenewDocumentCommand{\footrulewidth}{}{0pt}
+    \fancyfoot[LE,RO]{\thepage}
+}
+
+\hyphenpenalty=1000
+\tolerance=2000
+\emergencystretch=10pt
+
+\fancypagestyle{main}{
+    \pagestyle{title}
+    \RenewDocumentCommand{\headrulewidth}{}{0.5pt}
+    \RenewDocumentCommand{\sectionmark}{m}{\markright{\thesection\ ##1}}
+    \fancyhead[LO,RE]{\small{\nouppercase{\leftmark}}}
+    \fancyhead[LE,RO]{\small{\textit{\nouppercase{\rightmark}}}}
+}
+
+\fancypagestyle{plain}{
+    \pagestyle{title}
+}
+
+\fancypagestyle{bibliography}{
+    \pagestyle{main}
+    \fancyhead[R]{}
+}
+
+% Set list environments
+
+\setlist[enumerate]{
+    itemsep             = -1mm,
+}
+
+\setlist[description]{
+    style               = multiline,
+    labelindent         = 6mm,
+    leftmargin          = 25mm,
+    itemsep             = 0mm,
+    font                = \normalfont\semibold,
+}
+
+\setlist[itemize]{
+    topsep              = 0mm,
+    itemsep             = 0mm,
+}
+
+\newcounter{example}
+\NewDocumentEnvironment{example}{O{}}{
+    \vspace{4mm}
+    \colorlet{colexam}{black} % Global example color
+    \newtcolorbox[use counter=example]{examplebox}{
+        empty,% Empty previously set parameters
+        title={\raisebox{5mm}{\kern1.5pt \ifstrempty{#1}{Example}{#1}}},% use \thetcbcounter to access the testexample counter text
+        % Attaching a box requires an overlay
+        attach boxed title to top left,
+           % Ensures proper line breaking in longer titles
+           minipage boxed title,
+        % (boxed title style requires an overlay)
+        boxed title style={empty,size=minimal,toprule=0pt,top=4pt,left=3mm,overlay={}},
+        coltitle=colexam,fonttitle=\bfseries,
+        before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=3mm,right=0mm,top=2pt,breakable,pad at break=0mm,
+           before upper=\csname @totalleftmargin\endcsname0pt, % Use instead of parbox=true. This ensures parskip is inherited by box.
+        % Handles box when it exists on one page only
+        overlay unbroken={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
+        overlay first={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
+        overlay middle={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },
+        overlay last={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },%
+    }
+    \begin{examplebox}
+}{%
+    \end{examplebox}\endlist%
+}
+
+\makeatletter
+% Render percent sign with nice font, not ugly Computer modern
+    \mathcode`\%="7025
+
+% Fixes mathspec bug -- URL numbers are rendered with wrong font
+    \ernewcommand\eu@MathPunctuation@symfont{Latin:m:n}
+    \DeclareMathSymbol{,}{\mathpunct}{\eu@MathPunctuation@symfont}{`,}
+    \DeclareMathSymbol{.}{\mathord}{\eu@MathPunctuation@symfont}{`.}
+    \DeclareMathSymbol{<}{\mathrel}{\eu@MathPunctuation@symfont}{`<}
+    \DeclareMathSymbol{>}{\mathrel}{\eu@MathPunctuation@symfont}{`>}
+    \DeclareMathSymbol{/}{\mathord}{\eu@MathPunctuation@symfont}{`/}
+    \DeclareMathSymbol{;}{\mathpunct}{\eu@MathPunctuation@symfont}{`;}
+    \XeTeXDeclareMathSymbol{^^^^2026}{\mathinner}{\eu@MathPunctuation@symfont}{"2026}[\mathellipsis]
+    \DeclareMathSymbol{0}{\mathalpha}{\eu@DigitsArabic@symfont}{`0}
+    \DeclareMathSymbol{1}{\mathalpha}{\eu@DigitsArabic@symfont}{`1}
+    \DeclareMathSymbol{2}{\mathalpha}{\eu@DigitsArabic@symfont}{`2}
+    \DeclareMathSymbol{3}{\mathalpha}{\eu@DigitsArabic@symfont}{`3}
+    \DeclareMathSymbol{4}{\mathalpha}{\eu@DigitsArabic@symfont}{`4}
+    \DeclareMathSymbol{5}{\mathalpha}{\eu@DigitsArabic@symfont}{`5}
+    \DeclareMathSymbol{6}{\mathalpha}{\eu@DigitsArabic@symfont}{`6}
+    \DeclareMathSymbol{7}{\mathalpha}{\eu@DigitsArabic@symfont}{`7}
+    \DeclareMathSymbol{8}{\mathalpha}{\eu@DigitsArabic@symfont}{`8}
+    \DeclareMathSymbol{9}{\mathalpha}{\eu@DigitsArabic@symfont}{`9}
+    \DeclareMathSymbol{,}{\mathpunct}{\eu@MathPunctuation@symfont}{`,}
+\makeatother
+
+%\RenewDocumentCommand{\vec}{m}{\vv{#1}}
+

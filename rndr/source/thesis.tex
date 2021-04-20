@@ -1,0 +1,45 @@
+\documentclass[12pt, a4paper, twoside]{report}
+
+\input{input/settings.tex}
+\input{input/commands.tex}
+
+\makeglossaries
+
+\begin{document}
+    \pagestyle{empty}
+    \pagenumbering{gobble}
+    \input{input/title-inside}
+    %\includepdf[pages = -]{zadanie.pdf}
+    %\input{input/acknowledgement}
+    %\clearpage
+    %\input{input/abstract-sk}
+    %\clearpage
+    \input{input/abstract-en}
+    \clearpage
+    \setstretch{1}
+    \tableofcontents
+    \clearpage
+    \setstretch{1.5}
+
+    \pagenumbering{arabic}
+    \pagestyle{main}
+    \insertChapterx{Preface}{preface}{f}
+    \insertChapter{Introduction}{introduction}{i}
+    \insertChapter{Models and numerical simulations}{models}{m}
+    \insertChapter{Dissertation thesis project}{project}{p}
+    %\insertChapter{Discussion and future development}{future}{f}
+
+    \appendix
+    %\insertChapter{\textsc{Asmodeus} operation}{appendix-asmodeus}{A}
+    %\insertChapter{Glossary and abbreviations}{appendix-glossary}{g}
+    \insertChapter{Visualisations}{appendix-visualisation}{e}
+    \clearpage
+
+    \setglossarystyle{altlist}
+    \printglossary[title=Glossary and abbreviations,toctitle=Glossary and abbreviations]
+
+    \pagestyle{bibliography}
+    \fancyhead[L]{}
+    \fancyhead[R]{\slshape Bibliography}
+    \printbibliography
+\end{document}

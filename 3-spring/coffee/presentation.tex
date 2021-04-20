@@ -1,0 +1,142 @@
+\documentclass[12pt,aspectratio=1610]{beamer}
+\input{../../kvik-beamer.tex}
+
+\title{???}
+\subtitle{Traja pátrači: záhada koeficientu Γ}
+\author{\small \emph{Martin Baláž}}
+\institute{MPH seminár}
+\date{2021--04--23}
+
+\begin{document}
+    {
+        \begin{frame}
+            \titlepage
+        \end{frame}
+    }
+
+    \section{Overview}
+        \frejm{Odpor vzduchu}{
+            Ab initio:
+            $$
+                F = \Derivative{p}{t} = k \frac{Mv}{t} = 2 e \frac{Mv}{t}
+            $$
+            \pause
+            $$
+                M = \rho V = \rho S v t
+            $$
+            \pause
+            $$\vec{F} = c S \rho v^2 \Hat[-1.7mm]{v}$$
+            \pause
+            $$\vec{F} = -\frac{1}{2} \Gamma S \rho v^2 \Hat[-1.7mm]{v}$$
+        }
+
+        \frejm{Koľko je Γ?}{
+            Klasické riešenie pre guľu: Γ = \num{0.47}
+            \begin{itemize}
+                \item ...lenže to platí pre Re = 10000
+            \end{itemize}
+            \pause
+            Čo teraz?
+            \begin{itemize}
+                \item Karol: CFD
+                \item experimentálne korelácie
+            \end{itemize}
+        }
+
+        \frejm{Drag crisis / Eiffel paradox}{
+            \begin{itemize}
+                \item Prečo je golfová loptička poďobaná?
+                \item Prečo padajúci meteorit v exponenciálne hustnúcej atmosfére zrýchľuje?
+            \end{itemize}
+        }
+
+        \setbeamersize{description width = 30mm}
+        \frejm{Reynoldsovo číslo}{
+            $$\mathrm{Re} = \frac{L \rho_\infty v_\infty}{\mu}$$
+            kde
+            \begin{description}
+                \item[$L$] charakteristický rozmer
+                \item[$\rho_\infty$] hustota prostredia (unperturbed)
+                \item[$v_\infty$] rýchlosť voči prostrediu (unperturbed)
+                \item[$\mu$] koeficient dynamickej viskozity
+            \end{description}
+            \\[5mm]
+            \begin{itemize}
+                \item inerciálne efekty pre veľké Re
+                \item viskózne efekty pre malé Re
+            \end{itemize}
+        }
+
+        \fspicture{pictures/morrison-drag.png}[][white]
+
+        \frejm{...stále máme problém}{
+            \begin{columns}
+                \begin{column}{0.7\textwidth}
+                    \begin{itemize}
+                        \item častica \SI{e6}{\kilo\gram} vo výške \SI{180}{\kilo\metre}
+                        \pause
+                        \item terminálna rýchlosť \SI{65}{\metre\per\second}?
+                    \end{itemize}
+                    \pause
+                \end{column}
+                \begin{column}{0.29\textwidth}
+                    \includegraphics[keepaspectratio, width=\textwidth]{pictures/wat.jpg}
+                \end{column}
+            \end{columns}
+            \pause
+            Čo s tým?
+            \begin{itemize}
+                \item model platí pre \emph{nestlačiteľnú} kvapalinu
+                \item dva ďalšie efekty
+                    \begin{itemize}
+                        \item riedka atmosféra vo veľkých výškach -- non-continuum effects
+                        \item vysoko nadzvuková rýchlosť a rázové vlny -- 
+                    \end{itemize}
+            \end{itemize}
+        }
+
+        \frejm{Knudsenovo číslo}{
+            Pomer strednej voľnej dráhy a charakteristického rozmeru
+            $$
+                \mathrm{Kn} = \frac{\lambda}{L}
+            $$
+            Pre ideálny plyn
+            $$
+                \mathrm{Kn} = \frac{kT}{\sqrt{2} \pi d^2 p L} = \frac{\mu}{\rho L}\sqrt{\frac{\pi m}{2 k T}}
+            $$
+            \pause
+            \begin{description}
+                \item[$\mathrm{Kn} < 0.01$]         continuum flow
+                \item[$0.01 < \mathrm{Kn} < 0.1$]   slip flow
+                \item[$0.1 < \mathrm{Kn} < 10$]     transitional flow
+                \item[$10 < \mathrm{Kn}$]           free-molecular flow
+            \end{description}
+        }
+
+        \frejm{Machovo číslo}{
+            Pomer rýchlosti k rýchlosti zvuku v médiu
+            \begin{itemize}
+                \item a to je pri meteoroidoch dosť problém
+                \item model iba s $\mathrm{Re}$ sa nedá použiť
+            \end{itemize}
+
+            a platí vzťah...
+            $$
+                \mathrm{Kn} = \frac{\mathrm{Ma}}{\mathrm{Re}} \sqrt{\frac{\gamma\pi}{2}}
+            $$
+
+            \begin{description}
+                \item[$\mathrm{Ma} < 0.3$]          incompressible
+                \item[$0.3 < \mathrm{Ma} < 1$]      compressible
+                \item[$1 < \mathrm{Ma} < 5$]        supersonic
+                \item[$5 < \mathrm{Ma}$]            hypersonic
+            \end{description}
+        }
+
+        \frejm{Singh+2020}{
+        }
+
+        \frejm{Implementácia}{
+        }
+
+\end{document}

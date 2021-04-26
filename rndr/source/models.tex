@@ -68,12 +68,12 @@ determine its values over the domain.
     \subsection{Physical quantities in the model} \label{msp}
         The design process of any model in astronomy -- or physics in general -- begins with the selection
         of physical quantities available for analysis. Then we should decide which ones are important enough
-        to be included in the model and which can be ignored.
+        to be included in the model and which can be ignored or treated as constants.
 
         Each of the important quantities then corresponds to a distinct dimension in a virtual coordinate space.
         The task of building the model is reduced to finding the values of some multivariate
         function $\mathcal{A}(x_1, x_2, \ldots, x_n)$ describing the expected number density of observable meteors.
-        Easily measurable quantities are for instance time, position, velocity or apparent magnitude.
+        Measurable quantities are for instance time, position, velocity or apparent magnitude.
 
         \subsubsection{Time} \label{mspt}
             The first measurable quantity is the time of the atmospheric entry of the meteoroid.
@@ -396,8 +396,66 @@ determine its values over the domain.
             which leads to underestimating the number of faint meteors observable in the sky.
             For a detailed list of possible sources of bias and methods refer to \citet{balaz-thesis}.
 
+
+            % make this a separate chapters
 \subsection{Models of meteoroid dynamics} \label{mm}
     We will introduce all relevant constants and properties of the meteoroids and the environment.
+
+    we obtain a tuple which we we call the \emph{state} of the meteoroid.
+    This tuple contains the key properties which are bound to the meteoroid body,
+    and which can vary during its lifetime and determine its final fate.
+    We use the same tuple in all models, with some properties
+    kept constant or ignored completely in models where they are not needed.
+
+    \subsection{Drag} \label{md}
+        The that can be independetly varies is the model of drag. While a complete analytical solution
+        is, according to modern knowledge, not possible, numerical simulations
+
+        a tradeoff between accuracy and complexity (and thus computation time).
+        The models described here vary from very simple to 
+
+        one particular problem is that the exact shape of the meteoroid is never known beforehand,
+        and any simulation working with the real shape can only be performed after the meteorite is
+        found -- which somewhat subtracts from the usefulness of running the simulation at all.
+
+        Therefore we always use spherical particles. This approximation is not justified
+        physically, but by lack of any better methods (OK this is cruel).
+
+        \subsubsection{No drag} \label{mdn}
+            A trivial model in which $\Gamma = 0$ at all times.
+            It is not useful for atmospheric modelling, but is computationally
+            very fast and makes testing other models easier.
+
+        \subsubsection{Constant drag} \label{mdc}
+            In textbooks and older papers a constant value of $\Gamma$ is often taken.
+            For a spherical particle in a turbulent flow a value of \num{0.47}
+            is used \cite{???}. \cite{hrábek} \cite{havrila}
+
+        \subsubsection{Morrison} \label{mdm}
+            The next step is the correlation by \cite{morrison}.
+
+            Variable with Reynolds number
+
+            extends both to very low Reynolds number as
+            \eqn{eq:mdm-limre}{
+                \lim_{\mathrm{Re} \to 0} \Gamma = \frac{24}{\mathrm{Re}},
+            }
+            yielding the formula for Stokes drag
+            \eqn{eq:mdm-stokes}{
+                F = \frac{1}{2} \Gamma S \rho_\mathrm{air} v^2
+                    = \frac{1}{2} \frac{24 \mu}{2 r \rho_\mathrm{air} v} \rho_\mathrm{air} \pi r^2 v^2
+                    = 6 \pi \mu r v;
+            }
+            and reproduces the effect of a sharp decrease of drag coefficient at high Reynolds
+            numbers (n the order of \num{5e5}, known as the \emph{drag crisis} \cite{???}.
+
+            \fig{}{
+
+            }
+
+            However, it is only valid in the incompressible limit and at high Knudsen numbers,
+            which are assumptions that are all but valid for a meteoroid in
+            hypersonic flight in the rarefied upper atmosphere.
 
 
     \subsubsection{Whipple model} \label{mmw}
@@ -474,7 +532,7 @@ determine its values over the domain.
             \item[$t$]
                 time (\si{\second}),
             \item[$A$]
-                shape factor (1),
+                shape factor (dimensionless),
             \item[$c$]
                 specific heat of the meteoroid ($\si{\joule\per\kilo\gram\per\kelvin} \equiv \si{\metre\squared\per\second\squared\per\kelvin}$),
             \item[$m$]
@@ -488,7 +546,7 @@ determine its values over the domain.
             \item[$\sigma$]
                 Stefan--Boltzmann constant (\SI{5.67e-8}{\watt\per\metre\squared\per\kelvin\tothe{4}}),
             \item[$\epsilon$]
-                emissivity of the meteoroid (1),
+                emissivity of the meteoroid (dimensionless),
             \item[$v$]
                 instantaneous speed of the meteoroid,
             \item[$T$]
@@ -514,8 +572,12 @@ determine its values over the domain.
         }
 
         Again, to increase numerical stability we may substitute $m \to \ln m$,
-        by the chain rule $\Derivative{\left(\ln m\right)}{t} = \frac{1}{m} \Derivative{m}{t}$.
-        The second term then can be separated and the whole equation \ref{eq:heh} rewritten as
+        by the chain rule
+        \eqn{eq:hrh-chain}{
+            \Derivative{\left(\ln m\right)}{t} = \frac{1}{m} \Derivative{m}{t}.
+        }
+
+        The second term then can be separated and the whole equation \ref{eq:hrh} rewritten as
         \eqn{eq:hrh-fixed}{
             \Derivative{T}{t} = \frac{1}{c} \left(
                 A \rho^{-2/3} \exp \left(- \frac{\ln m}{3}\right)
@@ -656,11 +718,11 @@ determine its values over the domain.
 
                 is model-dependent. The total force is then
                 \eqn{eq:sai-totalforce}{
-                    \vec{F} = \vec{F_\mathrm{G}} + \vec{F_\mathrm{Coriolis}} + \vec{F_\mathrm{Huygens}} + \vec{F_\mathrm{d}}
+                    \vec{F} = \vec{F_\mathrm{gravity}} + \vec{F_\mathrm{Coriolis}} + \vec{F_\mathrm{Huygens}} + \vec{F_\mathrm{drag}}
                 }
 %
 %    \subsection{Determination of luminosity} \label{sail}
-%        Currently we use... \citep{hill+2005} \todo{rmeasureeally?}
+%        Currently we use... \citep{hill+2005} \todo{measurereally?}
 %
 %        \citep{bronshten1983}
 
@@ -668,47 +730,6 @@ determine its values over the domain.
         Apart from the position and velocities, which we have already described, we can express
         several derived quantities which are standard in meteor astronomy. This makes comparison
         with other models easier.
-
-        \subsubsection{Fluxes and densities} \label{mopf}
-            While the distribution function $\mathcal{M}$ aims to provide complete information
-            about the density of particles and its change in time,
-            its number of dimensions makes it difficult to comprehend.
-            Methods of reduction to a lower number of dimensions are necessary.
-
-            The primary measure of activity of a meteor shower (or the sporadic background) is the number
-            of meteors encountered per unit area of the surface of the Earth (which is more suitable
-            in observational models), or per unit volume in interplanetary space (for orbital models).
-            Spatial number density is obtained from the model by integrating over all parameters
-            in the coordinate space except the spatial ones,
-            \eqn{eq:mopf-spatial}{
-                \varrho(t, \vec{r}) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3][]{\mathcal{M}(t, \vec{r}, \vec{v}, \mu)}{\vec{v}}
-                }{\mu}.
-            }
-
-            On the surface of the Earth, or in its close vicinity, we are more concerned with
-            the number of particles passing through an unit area of the surface. This depends not only
-            on the position $\vec{r}$, but also on the orientation of the surface, which we will denote as~$\Hat[-0.5em]{\vec{n}}$.
-            The absolute value of the dot product of the velocity and the normal vector is taken,
-            since we are ignoring the direction in which the meteoroid intersects the surface.
-            \eqn{eq:mopf-flux}{
-                \Phi(t, \vec{r}, \Hat[-0.5em]{\vec{n}}) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3]{
-                        \mathcal{M}(t, \vec{r}, \vec{v}, \mu) \Abs{\vec{v} \cdot \Hat[-0.5em]{\vec{n}}}
-                    }{\vec{v}}
-                }{\mu}.
-            }
-
-            Similarly, to determine the total mass influx, the first moment
-            of the distribution over particle masses and velocities is calculated.
-            \Cref{eq:mopf-spatial} becomes
-            \eqn{eq:mopf-mflux}{
-                \Phi_\mu(t, \vec{r}) = \Int[\mu_0][\infty]{
-                    \Int[\Real^3]{
-                        \mu \Abs{\vec{v}} \mathcal{M}(t, \vec{r}, \vec{v}, \mu)
-                    }{\vec{v}}
-                }{\mu}.
-            }
 
         \subsubsection{Mass index and the Pareto distribution} \label{moms}
             While theoretically any distribution of particle masses is possible,
@@ -753,23 +774,6 @@ determine its values over the domain.
         Apart from the dynamical properties, which describe only the density of particles
         and thus a probability of a collision at a point in space and time,
         we may observe and analyze additional properties of the stream.
-
-        \subsubsection{Petrological and chemical classification} \label{moac}
-            While we are not explicitly interested in chemical properties
-            or dynamical evolution of meteor streams, these properties
-            are correlated with the density and toughness of the material,
-            which in turn affect the process of ablation
-            and thus also the final luminosity of the meteor.
-            All of this contributes to unwanted selection bias.
-            Furthermore, differences in spectra are responsible for
-            variability in detection efficiency with different cameras.
-
-            So, in addition to previously mentioned \textit{numerical} data, we might want to
-            provide extraneous information about the meteoroids, such as their origin,
-            mineralogical or chemical properties.
-            For many meteoroids these data are not be available,
-            though as they provide a wealth of information on origin
-            it is definitely useful to include it when available.
 
 
 \section{Simulations} \label{mi}

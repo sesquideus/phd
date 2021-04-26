@@ -1,8 +1,8 @@
 \documentclass[12pt,aspectratio=1610]{beamer}
 \input{../../kvik-beamer.tex}
 
-\title{???}
-\subtitle{Traja pátrači: záhada koeficientu Γ}
+\title{Záhada koeficientu Γ}
+\subtitle{??? Traja pátrači ???}
 \author{\small \emph{Martin Baláž}}
 \institute{MPH seminár}
 \date{2021--04--23}
@@ -14,9 +14,11 @@
         \end{frame}
     }
 
-    \section{Overview}
+    \section{Prehľad}
         \frejm{Odpor vzduchu}{
-            Ab initio:
+            \begin{itemize}
+                \item Stagnation pressure: koľko ($\propto v$) a akú hybnosť nesú ($\propto v$)
+            \end{itemize}
             $$
                 F = \Derivative{p}{t} = k \frac{Mv}{t} = 2 e \frac{Mv}{t}
             $$
@@ -46,10 +48,19 @@
         \frejm{Drag crisis / Eiffel paradox}{
             \begin{itemize}
                 \item Prečo je golfová loptička poďobaná?
-                \item Prečo padajúci meteorit v exponenciálne hustnúcej atmosfére zrýchľuje?
+            \end{itemize}
+            \hfill\includegraphics[keepaspectratio, width=0.2\textwidth]{pictures/golfball.jpg}
+            \pause
+            \begin{itemize}
+                \item Prečo padajúci meteorit zrýchľuje?
+                    \begin{itemize}
+                        \item atmosféra predsa hustne $\propto e^{-h}$
+                        \item Havrila \& Hrábek
+                    \end{itemize}
             \end{itemize}
         }
 
+    \section{Riešenia}
         \setbeamersize{description width = 30mm}
         \frejm{Reynoldsovo číslo}{
             $$\mathrm{Re} = \frac{L \rho_\infty v_\infty}{\mu}$$
@@ -61,7 +72,7 @@
                 \item[$\mu$] koeficient dynamickej viskozity
             \end{description}
             \pause
-            Ale neuvažujeme...
+            Uvažujeme
             \begin{itemize}
                 \item inerciálne efekty pre veľké Re
                 \item viskózne efekty pre malé Re
@@ -91,7 +102,7 @@
                 \item dva ďalšie efekty
                     \begin{itemize}
                         \item riedka atmosféra vo veľkých výškach -- non-continuum effects
-                        \item vysoko nadzvuková rýchlosť a rázové vlny -- 
+                        \item vysoko nadzvuková rýchlosť a rázové vlny -- rázová vlna
                     \end{itemize}
             \end{itemize}
         }
@@ -118,9 +129,8 @@
             Pomer rýchlosti k rýchlosti zvuku v médiu
             \begin{itemize}
                 \item a to je pri meteoroidoch dosť problém
-                \item model iba s $\mathrm{Re}$ sa nedá použiť
+                \item model iba s $\mathrm{Re}$ sa \emph{nedá} použiť
             \end{itemize}
-
             a platí vzťah...
             $$
                 \mathrm{Kn} = \frac{\mathrm{Ma}}{\mathrm{Re}} \sqrt{\frac{\gamma\pi}{2}}
@@ -135,9 +145,7 @@
         }
 
         \frejm{Singh+2020}{
-        }
-
-        \frejm{Implementácia}{
+            Článok...
         }
 
 \end{document}

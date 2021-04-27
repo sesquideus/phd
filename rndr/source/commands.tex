@@ -59,7 +59,11 @@
 \NewDocumentCommand{\fig}{O{} m m m +m}{
     \begin{figure}[H]
         \centering
-        \includegraphics[keepaspectratio = true, width = #3]{source/pictures/#2}
+        \IfFileExists{source/pictures/#2}{%
+            \includegraphics[keepaspectratio=true, width=#3]{source/pictures/#2}%
+        }{%
+            \includegraphics[keepaspectratio=true, width=#3]{example-image-a}
+        }
         \caption[#1]{#5}
         \label{#4}
     \end{figure}

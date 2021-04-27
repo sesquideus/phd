@@ -1,0 +1,467 @@
+\Epigraph[0.4]{
+    You saw sagacious Solomon \\
+    You know what came of him \\
+    To him, complexities seemed plain
+}{
+    How Fortunate the Man With None \\
+    \textsc{Bertolt Brecht} \\
+    \textit{translation John Willett}
+}
+
+In this chapter we describe the forces acting on a meteoroid body
+and how they affect the resulting motion of the particle in the atmosphere.
+
+\section{Analysis} \label{da}
+    
+
+    We will introduce all relevant constants and properties of the meteoroids and the environment.
+
+    we obtain a tuple which we we call the \emph{state} of the meteoroid.
+    This tuple contains the key properties which are bound to the meteoroid body,
+    and which can vary during its lifetime and determine its final fate.
+    We use the same tuple in all models, with some properties
+    kept constant or ignored completely in models where they are not needed.
+
+
+\section{Acting forces} \label{df}
+
+    \subsection{Gravity} \label{dfg}
+
+
+    \subsection{Coriolis force} \label{dfC}
+
+
+    \subsection{Huygens force} \label{dfH}
+
+
+    \subsection{Drag force} \label{dfd}
+         and negative towards the South Pole;The that can be independetly varies is the model of drag. While a complete analytical solution
+        is, according to modern knowledge, not possible, numerical simulations
+
+        a tradeoff between accuracy and complexity (and thus computation time).
+        The models described here vary from very simple to 
+
+        one particular problem is that the exact shape of the meteoroid is never known beforehand,
+        and any simulation working with the real shape can only be performed after the meteorite is
+        found -- which somewhat subtracts from the usefulness of running the simulation at all.
+
+        Therefore we always use spherical particles. This approximation is not justified
+        physically, but by lack of any better methods (OK this is cruel).
+
+        \subsubsection{No drag} \label{mdn}
+            A trivial model in which $\Gamma = 0$ at all times.
+            It is not useful for atmospheric modelling, but is computationally
+            very fast and makes testing other models easier.
+
+        \subsubsection{Constant drag} \label{mdc}
+            In textbooks and older papers a constant value of $\Gamma$ is often taken.
+            For a spherical particle in a turbulent flow a value of \num{0.47}
+            is used \cite{???}. \cite{hrábek} \cite{havrila}
+
+        \subsubsection{Morrison} \label{mdm}
+            The next step is the correlation by \cite{morrison}.
+
+            Variable with Reynolds number
+
+            extends both to very low Reynolds number as
+            \eqn{eq:mdm-limre}{
+                \lim_{\mathrm{Re} \to 0} \Gamma = \frac{24}{\mathrm{Re}},
+            }
+            yielding the formula for laminar Stokes drag
+            \eqn{eq:mdm-stokes}{
+                \lim_{\mathrm{Re} \to 0} F
+                    = \frac{1}{2} \Gamma S \rho_\mathrm{air} v^2
+                    = \frac{1}{2} \frac{24 \mu}{2 r \rho_\mathrm{air} v} \rho_\mathrm{air} \pi r^2 v^2
+                    = 6 \pi \mu r v;
+            }
+            and reproduces the effect of a sharp decrease of drag coefficient at high Reynolds
+            numbers ($\mathrm{Re} \approx \num{5e5}$), known as the \emph{drag crisis} \cite{???}.
+
+            \fig{drag-crisis.png}{80mm}{ddm-drag-crisis}{Drag crisis}
+
+            However, it is only valid in the incompressible limit and at high Knudsen numbers,
+            which are assumptions that are all but valid for a meteoroid in
+            hypersonic flight in the rarefied upper atmosphere.
+
+
+\section{Conclusion} \label{dc}
+
+    \subsubsection{Whipple model} \label{mmw}
+        A standard, textbook model of meteoroid flight introduces a change in mass of the meteoroid
+        during its flight through the atmosphere. 
+        (Öpik) (Ceplecha)
+
+        Again, we assume a constant (spherical or nearly spherical) shape throughout the entire
+        lifetime of the meteoroid.\footnote{An advanced fragmentation model could probably assume a non-spherical
+        shape in the first moments, which would quickly change back into a spherical one during ablation
+        of the newly created particle.}
+
+        The drag coefficient $\Gamma$ is 
+
+        (Gamma) sometimes $C_d$ is used as a symbol instead.
+
+        are generally not available and would require running a proper CFD simulation
+        of the shape in question at various densities, orientations and flow speeds.
+
+        Valid across a wide range of conditions, as long as the value of Re is the same.
+        ultra-hypersonic flow?
+
+        A single value is used during the entire flight. Typically
+
+
+        \eqn{eq:reynolds}{
+            \mathrm{Re} = \frac{\rho_\infty v d}{\mu}.
+        }
+        where
+        \begin{description}
+            \item[$d$] is the typical size of the meteoroid in the stream.
+                For spherical or nearly-spherical particles the diameter ($d = 2r$) is used;
+            \item[$\rho_\infty$] is the density of the surrounding fluid, in this case
+                air at the location of the meteoroid, ignoring the compression caused
+                by the moving body itself;
+            \item[$\mu$] is the \emph{dynamic viscosity} of the surrounding medium.
+        \end{description}
+
+        Except for $\mu$, all three quantities will change significantly
+        during the atmospheric entry: $\rho_\mathrm{air}$ is negligible at first
+        and increases roughly exponentially in the range of approximately \SIrange{e-10}{1}{\kilo\gram\per\metre\cubed}
+        in the region of our interest, $v$ is typically on the order of \SIrange{1e4}{7e4}{\metre\per\second}
+        just above the atmosphere but can drop to about \SI{1}{\metre\per\second}
+        for a microscopic particle just above the surface, and the diameter also spans
+        about four orders of magnitude (\SIrange{e-4}{1}{\metre}).
+        All combined, this means that a wide range of values of $\mathrm{Re}$ has to be investigated.
+
+
+        To save computation time, two constants can be evaluated in advance as
+        \eqn{eq:mconst}{
+            C_v = A \rho^{-2/3}
+            \QQText{and}
+            C_m = \frac{\Lambda A \rho^{-2/3}}{2 Q} = \frac{C_v \Lambda}{2 Q}.
+        }
+
+
+    \subsubsection{Material evaporation model} \label{mwh}
+        Another useful extension of the model described in \cref{mmw} is due to
+        \cite{hill+2005}, which adds temperature as another variable property of the meteoroid.
+
+
+        In the code it is referred to as \texttt{HRH2005}.
+
+        \eqn{eq:hrh}{
+            \Derivative{T}{t} = \frac{A}{c m^{1/3} \rho^{2/3}}
+                \left(\frac{1}{2} \Lambda \rho_\mathrm{air} v^3
+                    - 4 \sigma \epsilon \left(T^{\,4} - T_\mathrm{air}^{\,4}\right)
+                    + \frac{L}{A} \left(\frac{\rho}{m}\right)^{2/3} \Derivative{m}{t}
+                \right),
+        }
+        where
+        \begin{description}
+            \item[$T$]
+                temperature of the meteoroid ($\mathrm{K}$),
+            \item[$t$]
+                time (\si{\second}),
+            \item[$A$]
+                shape factor (dimensionless),
+            \item[$c$]
+                specific heat of the meteoroid ($\si{\joule\per\kilo\gram\per\kelvin} \equiv \si{\metre\squared\per\second\squared\per\kelvin}$),
+            \item[$m$]
+                instantaneous mass of the meteoroid (\si{\kilo\gram}),
+            \item[$\rho$]
+                density of the meteoroid (\si{\kilo\gram\per\metre\cubed}),
+            \item[$\Lambda$]
+                heat transfer coefficient (\si{1}),
+            \item[$\rho_\mathrm{air}$]
+                density of the atmosphere at the position of the meteoroid (\si{\kilo\gram\per\metre\cubed}),
+            \item[$\sigma$]
+                Stefan--Boltzmann constant (\SI{5.67e-8}{\watt\per\metre\squared\per\kelvin\tothe{4}}),
+            \item[$\epsilon$]
+                emissivity of the meteoroid (dimensionless),
+            \item[$v$]
+                instantaneous speed of the meteoroid,
+            \item[$T$]
+                temperature of the meteoroid (\si{kelvin}),
+            \item[$T_\mathrm{air}$]
+                temperature of the atmosphere at the position of the meteoroid (\si{\kelvin}),
+            \item[$L$]
+                latent heat of fusion and vaporization ($\si{\joule\per\kilo\gram} \equiv \si{\metre\squared\per\second\squared}$.
+
+        \end{description}
+
+        The state of the meteroid is then defined by the tuple $(\vec{r}, \vec{v}, \ln m, T)$.
+
+        \eqn{eq:hrh2}{
+            \Derivative{T}{t} = \frac{1}{c} \left(
+                \frac{A}{m^{1/3} \rho^{2/3}}
+                \left(
+                    \frac{1}{2} \Lambda \rho_\mathrm{air} v^3
+                    - 4 \sigma \epsilon \left(T^{\,4} - T_\mathrm{air}^{\,4}\right)
+                \right)
+                + \frac{L}{m} \Derivative{m}{t}
+            \right)
+        }
+
+        Again, to increase numerical stability we may substitute $m \to \ln m$,
+        by the chain rule
+        \eqn{eq:hrh-chain}{
+            \Derivative{\left(\ln m\right)}{t} = \frac{1}{m} \Derivative{m}{t}.
+        }
+
+        The second term then can be separated and the whole equation \ref{eq:hrh} rewritten as
+        \eqn{eq:hrh-fixed}{
+            \Derivative{T}{t} = \frac{1}{c} \left(
+                A \rho^{-2/3} \exp \left(- \frac{\ln m}{3}\right)
+                \left(
+                    \frac{1}{2} \Lambda \rho_\mathrm{air} v^3
+                    - 4 \sigma \epsilon \left(T^{\,4} - T_\mathrm{air}^{\,4}\right)
+                \right)
+                + L \Derivative{\left(\ln m\right)}{t}
+            \right).
+        }
+
+        To further optimize the computation, we may precompute another constant
+        $c_T = 4 \sigma \epsilon$ and obtain the computational form of \cref{eq:hrh-fixed}:
+        \eqn{eq:hrh-final}{
+            \Derivative{T}{t} = \frac{1}{c} \left(
+                C_v \exp \left(- \frac{\ln m}{3}\right)
+                \left(
+                    \frac{1}{2} \Lambda \rho_\mathrm{air} v^3
+                    - C_T \left(T^{\,4} - T_\mathrm{air}^{\,4}\right)
+                \right)
+                + L \Derivative{\left(\ln m\right)}{t}
+            \right).
+        }
+
+
+
+%    Another method has been discussed and implemented in the author's master's thesis \citep{balaz-thesis}
+%    and used to determine the total flux of the Perseids in 2016. Instead of trying to
+%    estimate the biases we generated the meteoroids above the atmosphere and simulated
+%    their entry using a simplified set of equations for motion, ablation and luminosity.
+%    A collection of stochastic bias functions was then applied to the dataset and
+%    each meteor was marked as detected or missed. We varied the parameters of the bias functions
+%    and the mass index until agreement with observational data was achieved.
+%    The initial population was then declared as the model of the actual population
+%    and the bias functions were taken as descriptive of the observing system.
+
+%\section{Simulation in the atmosphere} \label{ma}
+%    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
+%    the physical processes manifested during their atmospheric entry and obtain the values of quantities
+%    that can be observed by ground-based observers.
+%
+%    To simulate the atmospheric entry we used \textsc{Asmodeus},
+%    a multi-purpose virtual meteor simulator developed as a part of our master's thesis and extended for numerous
+%    other purposes related to meteor astronomy \citep{balaz-thesis,balaz+2020}.
+%
+%    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
+%    and a numerical integration of the equations of motion is executed.
+%
+%    \subsection{Numerical integration of the equations of motion} \label{sai}
+%        Unlike in interplanetary space, where forces are completely dominated by the gravitational force exerted by the Sun
+%        and only slightly perturbed by other effects,
+%        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
+%        The precise order is subject to variations due to particle's size, entry speed and angle
+%        and material composition.
+%
+%        \subsubsection{Acting forces} \label{saia}
+%            In the simulation we consider only two real forces:
+%            \begin{itemize}
+%                \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
+%                \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
+%            \end{itemize}
+%
+%            The precision of the calculations may be improved if we also account for two fictitious forces,
+%            arising from the fact the simulation is performed in a rotating reference frame:
+%            \begin{itemize}
+%                \item the fictitious \emph{centrifugal} or \emph{Huygens force} $\vec{F_{\mathrm{C}}}$,
+%                    pushing the particle away from the axis of rotation of the Earth;
+%                \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}} \equiv{-\vec{\Omega} \times \vec{\Omega} \times \vec{v}}$,
+%                    which pushes the moving body in a direction perpendicular to its velocity vector.
+%            \end{itemize}
+%
+%            Except for the drag force, all forces can be readily expressed in terms of instantaneous
+%            position and velocity of the meteoroid and several constants.
+%            Calculating the drag force precisely is computationally very expensive and cannot be done
+%            without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
+%
+%            In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
+%            the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
+%            deeper into the atmosphere, the density of the surrounding gas increases roughly exponentially.
+%            At its peak, the atmospheric drag force exceeds all other effects by several orders of magnitude,
+%            decelerating the meteoroid very rapidly.
+%            As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
+%            to produce a significant deviation in trajectory. For statistical evaluation of artificial meteors
+%            it is sufficient to consider only the drag force.
+%            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
+%
+%            \paragraph{Coriolis force} \label{saiC}
+%                The fictitious Coriolis force arises in a rotating reference frame.
+%                \eqn{eq:saiC-coriolis}{
+%                    \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
+%                }
+%
+%                For a meteoroid, its magnitude is at most on the order of
+%                \eqn{eq:saiC-order}{
+%                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
+%                }
+%                roughly the same as gravitational acceleration.
+%
+%            \paragraph{Centrifugal force} \label{saic}
+%                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
+%                \eqn{eq:saic-centrifugal}{
+%                    \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
+%                }
+%                where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
+%                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$ in the direction
+%                towards the north celestial pole.
+%
+%                Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
+%                gravitational force. A simple calculation shows that its magnitude is on the order
+%                of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
+%                It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
+%                is used to investigate the motion of a meteoroid further from the Earth.
+%                However, in this case an inertial reference frame should be used instead.
+%
+%            \paragraph{Gravitational force} \label{saig}
+%                The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
+%                For particles that are generally moving on highly hyperbolic trajectories the
+%                simple approximation by a Newtonian point source with mass $M_\Earth$ is sufficient.
+%                The formula used in computation is then simply
+%                \eqn{eq:saig-gravity}{
+%                    \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
+%                }
+%
+%            \paragraph{Drag force} \label{said}
+%                The precise description of the drag force is crucial to understand the motion
+%                of meteoroids in the atmosphere. The drag force is dominant between approximately
+%                the point where meteoroids begin to emit visible light (about \SI{100}{\kilo\metre})
+%                until the very end of the visible trail. For all but the most massive meteoroids,
+%                which are able to survive the atmospheric entry, this can be approximated
+%                by the point where all of the matter has been ablated away; while for the bodies
+%                surviving as meteorites, during the terminal phase of the flight the drag and
+%                gravitational forces are nearly balanced out.
+%
+%                At peak deceleration the magnitude of the drag force can reach values several orders of magnitude
+%                higher than the sum of all other forces and is thus completely dominant.
+%                A very simple model of atmospheric flight can thus perform relatively
+%                well even when all other forces are neglected.
+
+                is model-dependent. The total force is then
+                \eqn{eq:sai-totalforce}{
+                    \vec{F} = \vec{F_\mathrm{gravity}} + \vec{F_\mathrm{Coriolis}} + \vec{F_\mathrm{Huygens}} + \vec{F_\mathrm{drag}}
+                }
+%
+%    \subsection{Determination of luminosity} \label{sail}
+%        Currently we use... \citep{hill+2005} \todo{measurereally?}
+%
+%        \citep{bronshten1983}
+
+    \subsection{Physical quantities and properties} \label{mop}
+        Apart from the position and velocities, which we have already described, we can express
+        several derived quantities which are standard in meteor astronomy. This makes comparison
+        with other models easier.
+
+        \subsubsection{Mass index and the Pareto distribution} \label{moms}
+            While theoretically any distribution of particle masses is possible,
+            in real meteoroid populations there is always a large excess of small particles.
+            In meteor science, it is customary to assume a specific distribution of masses within a population,
+            described by a power law with particle mass as the independent variable,
+            \eqn{eq:moms-sindex}{
+                \varrho(\mu) \propto \mu^{-s}
+            }
+            for some constant $s$ named the \emph{mass index}.
+
+            To obtain a distribution, this expression needs to be normalised first.
+            The expression $\mu^{-s}$ diverges to infinity for $\mu \to 0$,
+            which can be dealt with by setting a lower limit on the mass.
+            These requirements are satisfied by the well-known Pareto distribution \citep{arnold1983}.
+            In mathematical texts it is usually defined as $\Distribution{\mathrm{Pareto}}{x}{\alpha, x_0}$,
+            where $\alpha > 0$ is called \emph{shape} and $x_0 > 0$ is called the \emph{scale} of the distribution.
+
+            To conform with terminology commonly used in meteor science, we substitute the shape with mass index
+            $s = \alpha - 1$, and rename $x_0$ to \emph{minimum mass} of particles, $\mu_\mathrm{min}$.
+            The probability density function is then
+            \eqn{eq:moms-pareto}{
+                \varrho(\mu) = \mathrm{Pareto}\left(\mu;\ s-1, {\mu_\mathrm{min}}\right) \equiv
+                \begin{cases}
+                    0 &
+                        \text{for }\mu < \mu_{\mathrm{min}}\text{,} \\
+                    \dfrac{\left(s - 1\right) \mu_{\mathrm{min}}^{s - 1}}{\mu^s} &
+                        \text{for }\mu \geq \mu_{\mathrm{min}}\text{.}
+                \end{cases}
+            }
+
+            Typical values of $s$ are between \numrange{1.5}{2.5}, with values slightly below 2 being most common
+            for meteor showers and values around \num{2.2} for the sporadic background \citep{blaauw+2011}.
+            The collisional equilibrium for particles of equal strength is reached at $s = 11/6$ \citep{dohnanyi1969}.
+
+            The mass index $s$ can be related to the population index $r$ by an empirical relationship by \citet{koschack+1990},
+            \eqn{eq:moms-rs}{
+                r = 1 + \num{2.3} \log_{10} s.
+            }
+
+    \subsection{Additional properties} \label{moa}
+        Apart from the dynamical properties, which describe only the density of particles
+        and thus a probability of a collision at a point in space and time,
+        we may observe and analyze additional properties of the stream.
+
+
+\section{Simulations} \label{mi}
+    At the core of both the orbital and the observational models are numerical simulations.
+    The simulation works with a generic model of the analyzed physical processes and some initial
+    distribution of meteoroids and tries to match its output to observational data.
+
+
+%\section{Simulation in the atmosphere} \label{ma}
+%    Once it has been determined which meteoroids will enter the Earth's atmosphere, we may proceed to simulating
+%    the physical processes manifested during their atmospheric entry and obtain the values of quantities
+%    that can be observed by ground-based observers.
+%
+%    To simulate the atmospheric entry we used \textsc{Asmodeus},
+%    a multi-purpose virtual meteor simulator developed as a part of our master's thesis and extended for numerous
+%    other purposes related to meteor astronomy \citep{balaz-thesis,balaz+2020}.
+%
+%    Once a particle is selected for atmospheric entry, its velocity is transformed to the ECEF reference frame
+%    and a numerical integration of the equations of motion is executed.
+%
+%    \subsection{Numerical integration of the equations of motion} \label{sai}
+%        Unlike in interplanetary space, where forces are completely dominated by the gravitational force exerted by the Sun
+%        and only slightly perturbed by other effects,
+%        a particle entering the Earth's atmosphere switches between several regimes in rapid succession.
+%        The precise order is subject to variations due to particle's size, entry speed and angle
+%        and material composition.
+%
+%        \subsubsection{Acting forces} \label{saia}
+%            In the simulation we consider only two real forces:
+%            \begin{itemize}
+%                \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
+%                \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
+%            \end{itemize}
+%
+%            The precision of the calculations may be improved if we also account for two fictitious forces,
+%            arising from the fact the simulation is performed in a rotating reference frame:
+%            \begin{itemize}
+%                \item the fictitious \emph{centrifugal force} $\vec{F_{\mathrm{C}}}$,
+%                    pushing the particle away from the axis of rotation of the Earth;
+%                \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{c}}}$,
+%                    which pushes the moving body in a direction perpendicular to its velocity vector.
+%            \end{itemize}
+%
+%            Except for the drag force, all forces can be readily expressed in terms of instantaneous
+%            position and velocity of the meteoroid and several constants.
+%            Calculating the drag force precisely is computationally very expensive and cannot be done
+%            without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
+%
+%            In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
+%            the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
+%            deeper into the atmosphere, the density of the surrounding gas increases roughly exponentially.
+%            At its peak, the atmospheric drag force exceeds all other effects by several orders of magnitude,
+%            decelerating the meteoroid very rapidly.
+%            As the duration of the entire event is on the order of seconds, other forces simply do not act for long enough
+%            to produce a significant d964201eviation in trajectory. For statistical evaluation of artificial meteors
+%            it is sufficient to consider only the drag force.
+%            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
+
+
+
+\section{Case studies} \label{mc}
+    Here we will analyze some case studies.

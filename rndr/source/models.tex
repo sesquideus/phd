@@ -7,46 +7,89 @@
 
 
 
-\subsection{Models of meteoroid dynamics} \label{mm}
+\section{Models of meteoroid dynamics} \label{mm}
 
 
 
 
 
 \section{Models of the Earth}
+    Apart from the model of meteoroid dynamics, an important consideration is the level of precision
+    of the model of the Earth. We distinguish three separate models:
+
+    \begin{itemize}
+        \item A \emph{locally flat} Earth. This is useful for describing strictly local events
+            in the coordinate system of the observer, such as the simulation of the dark flight phase of a meteor.
+        \item A \emph{spherical} Earth, which is a suitable approximation for global coverage,
+            where high precision of trajectories and observation is not a concern, such as determination
+            of particle flux or density maps.
+        \item An \emph{oblate spheroid} model of the Earth, which is computationally more demanding,
+            but provides
+    \end{itemize}
+
+    Further refinement is possible by implementing a geoid model. This is usually done by means of
+    a spherical harmonics expansion \cite{???}, which accounts for variations in local gravity
+    and deviations of the local vertical.
+
+    In meteor science, this level of precision is generally not needed as any improvement over the
+    oblate spheroid model is dominated by other sources of measurement errors.
+    Hence these more precise models will not be investigated in this thesis.
+
 
 
     \subsection{Locally flat Earth} \label{mmf}
+     directly in the coordinates of the observer
+
+     \emph{local tangent plane coordinates}
+
+     The coordinate system of choice
+
+    with three Cartesian coordinates:
+     \begin{description}
+         \item[northing]
+         \item[easting]
+         \item[altitude]
+     \end{description}
+
 
 
     \subsection{Spherical Earth} \label{mms}
-        As the Earth is roughly spherical, 
+        The natural next step is to consider a spherical Earth model.
+        The true shape of the Earth's zero-altitude surface differs from
+        a perfect sphere by no more than one part in 300, which introduces errors
+        that are negligible for many purposes.
 
-        In mathematics, it is custom to denote spherical coordinates by a triplet
-        $(\theta, \phi, r)$
+        In mathematics, it is custom to denote spherical coordinates by the triplet $(\theta, \phi, r)$
+        where
+        \begin{description}
+            \item[$\theta \in \IntervalCC{0}{\pi}$] is the \emph{polar angle} or \emph{inclination},
+                measured from a chosen reference direction;
+            \item[$\phi \in \IntervalCO{0}{2\pi}$] is the \emph{azimuthal angle};
+            \item[$r \in \IntervalCO{0}{\infty}$] is the \emph{radial distance} from the origin of the coordinate system.
+        \end{description}
 
         (picture)
 
         However, for describing location in the ECEF frame it is more convenient
-        to use the \emph{geographical convention} with coordinates $(\phi, \lambda, h)$:
-        \begin{itemize}
-            \item latitude $\phi \in \IntervalCC{\ang{-90}}{\ang{+90}}$, measured from the equator,
+        to use the \emph{geographical convention} with coordinates $(\phi, \lambda, h)$, and degrees
+        instead of radians for angular measures. The coordinates are then rewritten as
+        \begin{description}[leftmargin=40mm]
+            \item[$\phi \in \IntervalCC{\ang{-90}}{\ang{+90}}$] is the \emph{latitude}, measured from the equator,
                 with values increasing towards the North Pole;
-            \item longitude $\lambda \in \IntervalCC{\ang{-180}}{\ang{+180}}$, measured from the IERS Reference Meridian,
+            \item[$\lambda \in \IntervalCC{\ang{-180}}{\ang{+180}}$] is the \emph{longitude}, measured from the IERS Reference Meridian,
                 with values increasing towards east;
-            \item altitude $h \in \IntervalCC{-R_\Earth}{\infty}$, measured from the surface of
+            \item[$h \in \IntervalCC{-R_\Earth}{\infty}$], is the \emph{latitude}, measured from the surface of
                 a sphere with diameter equal to the radius of the model of the Earth $R_\Earth$, increasing outwards.
                 At this level of approximation the value of $R_0$ can be chosen somewhat arbitrarily.
                 The equatorial radius of \SI{6378137}{\metre} or mean radius of \SI{6371008}{\metre} are commonly used.
-                For the sake of clarity and consistency we always use the
-                rounded value of \SI{6371000}{\metre} in our models.
-        \end{itemize}
+                For the sake of clarity and consistency we use the value of \SI{6371008}{\metre} in our models.
+        \end{description}
 
         (picture)
 
-        Tre transformations functions are then
+        Tre transformation functions are then
         \aln{eq:mms-xyz-to-sph}{
-            h       &= \sqrt{x^2 + y^2 + z^2} - R_0, \\
+            h       &= \sqrt{x^2 + y^2 + z^2} - R_\Earth, \\
             \phi    &= \arccos{\frac{z}{x^2 + y^2 + z^2}}, \\
             \lambda &= \mathrm{atan2}(y, x).
         }
@@ -72,9 +115,11 @@
         that is, an ellipsoid with a shorter polar axis and two
         equal longer equatorial axes.
 
-        The standard model to be used is \emph{WGS84}, 
-        The difference from the geoid is on the order of +110/-80 metres,
+        The standard model to be used is \emph{WGS84}.
+        The difference from the geoid is at most -105/+85 metres,
         which translates to a negligible local error.
+
+        The coordinates used are the same as in the spherical model. (Altitude always perpendicular to equipotential surface)
 
         The transformation formulae are mathematically complex and beyond the scope of this thesis.
         In our models we use the implementation by \cite{osen2017},

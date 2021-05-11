@@ -12,7 +12,6 @@ In this chapter we describe the forces acting on a meteoroid body
 and how they affect the resulting motion of the particle in the atmosphere.
 
 \section{Analysis} \label{da}
-    
 
     We will introduce all relevant constants and properties of the meteoroids and the environment.
 
@@ -20,7 +19,29 @@ and how they affect the resulting motion of the particle in the atmosphere.
     This tuple contains the key properties which are bound to the meteoroid body,
     and which can vary during its lifetime and determine its final fate.
     We use the same tuple in all models, with some properties
-    kept constant or ignored completely in models where they are not needed.
+    kept constant or ignored completely in simpler models where they are not needed.
+
+    The properties of the meteoroid stored in the state are
+    \begin{itemize}
+        \item \emph{position}, stored as a three-dimensional Cartesian vector $(x, y, z)$
+            in the Earth-Centered, Earth-Fixed (ECEF) coordinate system.
+            In text or graphical output it is more convenient to represent
+            coordinates in the \emph{WGS84} coordinate system, however
+            all calculations are performed in Cartesian coordinates;
+        \item \emph{velocity}, stored as a three-dimensional vector $(v_x, v_y, v_z)$
+            in the ECEF frame;
+        \item instantaneous \emph{mass} of the meteoroid. In order to mitigate
+            problems with rounding and numerical stability, internally $\log m$
+            is stored instead;
+        \item surface \emph{temperature} of the meteoroid. In all used models
+            it is taken as a constant throughout the volume of the body.
+            Surface temperature directly affects the rate of evaporation of the material
+            and also affect the drag coefficient of the moving body in more advanced models.
+    \end{itemize}
+
+    All remaining properties are treated as constants during the lifetime of the simulated
+    meteoroid and are set during the initialization. Therefore they do not have to be included
+    or updated in the state.
 
 
 \section{Acting forces} \label{df}

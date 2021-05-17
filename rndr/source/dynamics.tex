@@ -39,23 +39,33 @@ and how they affect the resulting motion of the particle in the atmosphere.
             and also affect the drag coefficient of the moving body in more advanced models.
     \end{itemize}
 
-    All remaining properties are treated as constants during the lifetime of the simulated
-    meteoroid and are set during the initialization. Therefore they do not have to be included
-    or updated in the state.
+    The remaining properties are constant during the lifetime of the simulated meteoroid.
+    They are set at the creation of the particle and do not have to be included in the state,
+    even if the differential equations describing the time evolution of the state
+    depend on them.
+
+    \subsection{Phases of meteoroid entry} \label{dap}
+        Within the classical categorisation of phases of meteroid flight \citep{???}
+
+        \begin{itemize}
+            \item the first 
+        \end{itemize}
+
+        limits of free-molecular flow (which is, in case of a meteoroid,
+        encountered during the pre-heating phase at altitudes above \SI{200}{\kilo\metre})
 
 
 \section{Acting forces} \label{df}
-    First, we need to consider which forces are included in he simulation.
+    First, we need to consider which forces are to be included in the simulation.
 
-
-    In the simulation we consider only two real forces:
+    In the simulation we consider two real forces,
     \begin{itemize}
         \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
         \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
     \end{itemize}
 
     Since the simulation is run in the ECEF reference frame, two fictitious forces are also present.
-    Including them may increase the precision of the simulation at a nagligible computational cost:
+    Including them may increase the precision of the simulation at a negligible computational cost:
     \begin{itemize}
         \item the fictitious \emph{centrifugal} or \emph{Huygens force} $\vec{F_{\mathrm{Huygens}}}$,
             pushing the particle away from the axis of rotation of the Earth;
@@ -165,13 +175,13 @@ and how they affect the resulting motion of the particle in the atmosphere.
             It is not useful for atmospheric modelling, but is computationally
             very fast and makes testing other models easier.
 
-        \subsubsection{Constant drag} \label{mdc}
+        \subsubsection{Constant drag model} \label{mdc}
             In textbooks and older papers a constant value of $\Gamma$ is often taken.
             For a spherical particle in a turbulent flow a value of \num{0.47}
             is used \cite{???}. \cite{hrábek} \cite{havrila}
 
-        \subsubsection{Morrison} \label{mdm}
-            The next step is the correlation by \cite{morrison}.
+        \subsubsection{Morrison model} \label{mdM}
+            The next step is the correlation by \cite{morrison2016}.
 
             Variable with Reynolds number
 
@@ -196,6 +206,17 @@ and how they affect the resulting motion of the particle in the atmosphere.
             hypersonic flight in the rarefied upper atmosphere.
 
             It can still be useful for modelling the subsonic part of the dark flight of a meteoroid.
+
+        \subsubsection{Loth model} \label{ddL}
+
+        \subsubsection{Henderson model} \label{ddH}
+
+        \subsubsection{Singh et al.} \label{ddS}
+            A semi-empirical, state-of-the-art model valid throughout the entire range of
+            conditions encountered during the atmospheric entry has been developed by
+            \citet{singh+2020}. The model is derived from first principles and
+            uses rational polynomial bridging functions to interpolate between
+            well understood flight regimes a meteoroid experiences during its flight \ref{dap}.
 
 
 \section{Conclusion} \label{dc}
@@ -228,9 +249,9 @@ and how they affect the resulting motion of the particle in the atmosphere.
         }
         where
         \begin{description}
-            \item[$d$] is the typical size of the meteoroid in the stream.
+            \item[$d$] is the \emph{typical size} of the meteoroid in the stream.
                 For spherical or nearly-spherical particles the diameter ($d = 2r$) is used;
-            \item[$\rho_\infty$] is the density of the surrounding fluid, in this case
+            \item[$\rho_\infty$] is the \emph{density} of the surrounding fluid, in this case
                 air at the location of the meteoroid, ignoring the compression caused
                 by the moving body itself;
             \item[$\mu$] is the \emph{dynamic viscosity} of the surrounding medium.

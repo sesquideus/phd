@@ -78,11 +78,14 @@
                 with values increasing towards the North Pole;
             \item[$\lambda \in \IntervalCC{\ang{-180}}{\ang{+180}}$] is the \emph{longitude}, measured from the IERS Reference Meridian,
                 with values increasing towards east;
-            \item[$h \in \IntervalCC{-R_\Earth}{\infty}$], is the \emph{latitude}, measured from the surface of
+            \item[$h \in \IntervalCC{-R_\Earth}{\infty}$] is the \emph{altitude}, measured from the surface of
                 a sphere with diameter equal to the radius of the model of the Earth $R_\Earth$, increasing outwards.
                 At this level of approximation the value of $R_0$ can be chosen somewhat arbitrarily.
                 The equatorial radius of \SI{6378137}{\metre} or mean radius of \SI{6371008}{\metre} are commonly used.
                 For the sake of clarity and consistency we use the value of \SI{6371008}{\metre} in our models.
+                Negative values represent points below the surface of the Earth --
+                while theoretically possible, they are of no interest in meteor
+                astronomy\footnote{unless we're observing near the Dead Sea or a meteorite is found inside a mine shaft}.
         \end{description}
 
         (picture)

@@ -200,14 +200,13 @@ and how they affect the resulting motion of the particle in the atmosphere.
         Reynolds numbers so low that the situation can be described by the relatively simple Stokes' drag.
 
         However, between these two the entering meteoroid experiences a vast range of conditions:
-        hypersonic entry into an atmosphere whose density grows exponentially with increasing depth,
-        then a transonic transition, where all sorts of turbulence and flow separation effects come
-        into play, and finally an atmospheric fall at subsonic terminal velocity.
+        a hypersonic entry of the particle into the atmosphere, whose density grows exponentially with increasing depth;
+        then a transonic transition, where all sorts of turbulence and flow separation effects come into play,
+        and finally an atmospheric free fall at subsonic terminal velocity.
 
         Furthermore, the functional dependences describing the exact motion
         of air around the particle are often chaotic and according to modern knowledge
         finding closed-form solutions is not possible at all, so we have to rely
-
 
 
         can only be investigated numerically using CFD simulations, or by semi-empirical
@@ -224,8 +223,8 @@ and how they affect the resulting motion of the particle in the atmosphere.
         and any simulation working with the real shape can only be performed after the meteorite is
         found -- which somewhat subtracts from the usefulness of running the simulation at all.
 
-        Therefore we always use spherical particles. This approximation is not justified
-        physically, but by lack of any better methods (OK this is cruel).
+        Therefore we always assume that our spherical particles.
+        This approximation is not justified physically, but by lack of any better methods (OK this is cruel).
 
         \subsubsection{No drag} \label{mdn}
             A trivial model in which $\Gamma = 0$ at all times.
@@ -235,7 +234,7 @@ and how they affect the resulting motion of the particle in the atmosphere.
         \subsubsection{Constant drag model} \label{mdc}
             In textbooks and older papers a constant value of $\Gamma$ is often taken.
             For a spherical particle in a turbulent flow a value of \num{0.47}
-            is used \cite{???}. \cite{hrábek} \cite{havrila}
+            is often used \cite{???}. \cite{hrábek} \cite{havrila}
 
         \subsubsection{Morrison model} \label{mdM}
             The next step is to include the effects of viscous and inertial forces -- or,
@@ -264,9 +263,10 @@ and how they affect the resulting motion of the particle in the atmosphere.
             However, it is only valid in the incompressible limit and at high Knudsen numbers,
             which are assumptions that are all but valid for a meteoroid in
             hypersonic flight in the rarefied upper atmosphere. Still, it can be useful
-            for modelling the subsonic part of the dark flight of a meteoroid.
+            for modelling the atmospheric free fall of a meteorite.
 
         \subsubsection{Loth model} \label{ddL}
+            A further refinement is due to \cite{loth???}.
 
         \subsubsection{Henderson model} \label{ddH}
 

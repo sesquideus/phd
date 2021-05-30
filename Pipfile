@@ -16,6 +16,7 @@ ipython = "*"
 django = ">=3.1"
 dotmap = "*"
 colorama = "*"
+pandoc-eqnos = "*"
 
 [requires]
 python_version = "3.9"

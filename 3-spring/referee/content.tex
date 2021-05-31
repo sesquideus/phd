@@ -1,7 +1,7 @@
-\hypertarget{dynamickuxe9-definovanie-dopadovuxfdch-oblasti-meteoritov-a-prachovuxfdch-ux10dastuxedc-pouux17eituxedm-duxe1t-z-celooblohovuxfdch-kamieramos}{%
+\hypertarget{dynamickuxe9-definovanie-dopadovuxfdch-oblasti-meteoritov-a-prachovuxfdch-ux10dastuxedc-pouux17eituxedm-duxe1t-z-celooblohovuxfdch-kamier-amos}{%
 \section{Dynamické definovanie dopadových oblasti meteoritov a
-prachových častíc použitím dát z celooblohových
-kamier~AMOS}\label{dynamickuxe9-definovanie-dopadovuxfdch-oblasti-meteoritov-a-prachovuxfdch-ux10dastuxedc-pouux17eituxedm-duxe1t-z-celooblohovuxfdch-kamieramos}}
+prachových častíc použitím dát z celooblohových kamier
+AMOS}\label{dynamickuxe9-definovanie-dopadovuxfdch-oblasti-meteoritov-a-prachovuxfdch-ux10dastuxedc-pouux17eituxedm-duxe1t-z-celooblohovuxfdch-kamier-amos}}
 
 Predložená práca sa zaoberá tvarom trajektórie meteoroidov počas tmavej
 fázy letu, predovšetkým jej určeniu na základe dát získaných systémom
@@ -16,8 +16,7 @@ vstupe do atmosféry. V tretej a štvrtej kapitole autorka popisuje
 fyzikálny model preletu telesa zemskou atmosférou a jeho implementáciu v
 programe (\(\mu\))m-Trajectory. V záverečnej kapitole je dôkladne
 popísaná aplikácia programu na konkrétny prípad bolidu
-\texttt{EN170420\_223923} Takisto sú v nej prezentované výsledky
-analýzy.
+\texttt{EN170420\_223923}.
 
 \hypertarget{pripomienky-k-obsahu-pruxe1ce}{%
 \subsection{Pripomienky k obsahu
@@ -25,7 +24,7 @@ práce}\label{pripomienky-k-obsahu-pruxe1ce}}
 
 K obsahu práce nemám závažné výhrady. Členenie a logická náväznosť textu
 sú na výbornej úrovni a deklarované ciele práce boli naplnené. Po
-dôkladnom preštudovaní nachádzam len dva výraznejšie nedostatky.
+dôkladnom preštudovaní nachádzam len dva výraznejšie nedostatky:
 
 \hypertarget{prachovuxe9-ux10dastice}{%
 \subsubsection{Prachové častice}\label{prachovuxe9-ux10dastice}}
@@ -33,24 +32,26 @@ dôkladnom preštudovaní nachádzam len dva výraznejšie nedostatky.
 Na obrázku 20a, resp. 23 sú znázornené miesta dopadu simulovaných
 prachových častíc, ktoré ležia prakticky na priamke. Pravdepodobne nejde
 o skutočný fyzikálny jav, ale len o artefakt simulácie spôsobený
-konštantným smerom a rýchlosťou vetra v modeli. Použitý model rýchlosti
-vetra pravdepodobne nie je aplikovateľný na takúto veľkú oblasť zemského
-povrchu.
+konštantným smerom a rýchlosťou vetra v modeli.
 
-Vzdialenosť miesta dopadu častice je potom zjavne priamo určená jej
-hmotnosťou a smer je prakticky nezávislý. Uvádzať vzdialenosť na štyri
-platné cifier je pri takejto presnosti modelu taktiež značne prehnané.
+Použitý model rýchlosti vetra zjavne nie je aplikovateľný na takúto
+veľkú oblasť zemského povrchu. Vzdialenosť miesta dopadu častice od
+počiatočného bodu je potom priamo určená jej hmotnosťou a smer je
+prakticky nezávislý. Uvádzať vzdialenosť na štyri platné cifry je pri
+takejto presnosti použitého modelu taktiež značne prehnané.
 
 \hypertarget{diskusia}{%
 \subsubsection{Diskusia}\label{diskusia}}
 
-Tento nedostatok modelu sám o sebe nie je závažný -- je však potrebné
-obmedzenia použitého modelu dôsledne popísať; prípadne aspoň teoreticky
-navrhnúť, ako ich obísť alebo odstrániť (tu napríklad zjavne zahrnutím
-lepšieho modelu vetra, ktorý by bol závislý aj na zemepisnej šírke a
-dĺžke). Za najproblematickejšiu časť práce preto považujem vyhodnotenie
-experimentálnych dát a diskusiu k nim. Na úrovni bakalárskej práce síce
-nejde o kritický nedostatok, je ale dôležité uvedomiť si mieru platnosti
+Tento nedostatok modelu je pomerne závažný -- neznehodnocuje síce celú
+prácu, je však potrebné obmedzenia použitého modelu dôsledne popísať;
+prípadne aspoň teoreticky navrhnúť, ako ich obísť alebo odstrániť (tu
+napríklad očividne použitím lepšieho modelu vetra, ktorý by bol závislý
+aj na zemepisnej šírke, dĺžke a čase, prípadne zahrnutím chýb samotného
+modelu vetra a opakovanou simuláciou s mierne odlišnými hodnotami). Za
+najproblematickejšiu časť práce preto považujem vyhodnotenie
+experimentálnych dát. Na úrovni bakalárskej práce síce nejde o kritický
+nedostatok, aj tu je však dôležité uvedomiť si doménu platnosti
 vlastných výsledkov.
 
 \hypertarget{pripomienky-k-forme-pruxe1ce}{%
@@ -58,26 +59,24 @@ vlastných výsledkov.
 práce}\label{pripomienky-k-forme-pruxe1ce}}
 
 Práca je písaná v slovenskom jazyku na dobrej gramatickej a syntaktickej
-úrovni. Odporúčam pracovať na schopnosti precízne formulovať myšlienky
-vo vedeckom texte a vyvarovať sa používaniu vágnych tvrdení.
+úrovni. Odporúčam viac pracovať na schopnosti precízne formulovať
+myšlienky vo vedeckom texte a vyvarovať sa používania vágnych tvrdení.
 
 Oceňujem množstvo a umiestnenie referencií na publikované práce iných
-autorov. Pri niektorých rovniciach však nie je z textu zrejmé, či ide o
-vlastnú myšlienku autorky alebo o myšlienku prebratú. Takisto fakty, o
+autorov. Pri niektorých rovniciach ale nie je z textu zrejmé, či ide o
+vlastnú myšlienku autorky alebo o myšlienku prebratú. Naopak fakty, o
 ktorých sa dá predpokladať, že sú čitateľovi zorientovanému v
-meteorickej astronómii všeobecne známe, nie je nutné citovať.
+meteorickej astronómii všeobecne známe, nie je nutné detailne citovať.
 
-\hypertarget{sec:technical}{%
-\subsubsection{Technická poznámka}\label{sec:technical}}
+\hypertarget{vux161eobecnuxe1-technickuxe1-poznuxe1mka}{%
+\subsubsection{Všeobecná technická
+poznámka}\label{vux161eobecnuxe1-technickuxe1-poznuxe1mka}}
 
-\begin{itemize}
-\tightlist
-\item
-  Citácie a odkazy na obrázky sú podľa všetkého písané ručne a nie
-  vytvorené automaticky. V budúcich prácach silne odporúčam použiť
-  zodpovedajúce softvérové riešenie, v záujme ušetrenia množstva
-  zbytočnej práce a predídenia prípadným chybám.
-\end{itemize}
+Citácie a odkazy na obrázky sú podľa všetkého písané ručne a nie
+vytvorené automaticky. V~budúcich prácach silne odporúčam použiť
+zodpovedajúce softvérové riešenie, predovšetkým v~záujme zníženia
+množstva zbytočnej práce a kvôli predchádzaniu chybám v referenciách. Na
+písanie vedeckých článkov odporúčam naučiť sa pracovať s~\LaTeX-om.
 
 \hypertarget{abstrakt}{%
 \subsubsection{Abstrakt}\label{abstrakt}}
@@ -85,7 +84,17 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Viacero chýbajúcich určitých členov v anglickej verzii.
+  Viacero chýbajúcich členov v anglickej verzii.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{„passage through \textbf{the} atmosphere“}
+  \item
+    \emph{„AMOS, \textbf{an} all-sky camera system“}
+  \item
+    \emph{„In \textbf{the} practical part {[}\ldots{}{]}“}
+  \end{itemize}
 \end{itemize}
 
 \hypertarget{strana-13}{%
@@ -94,8 +103,9 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „Na rozdiel od planét však nie sú schopné ich pôsobením gravitácie“
-  --- vhodnejšie by bolo napísať „svojím pôsobením“.
+  \emph{„Na rozdiel od planét však nie sú schopné ich pôsobením
+  gravitácie“} --- vhodnejšie by bolo napísať „pôsobením svojej
+  gravitácie“.
 \end{itemize}
 
 \hypertarget{strana-14}{%
@@ -106,8 +116,7 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \item
   Trpasličia planéta Ceres je v slovenčine ženského rodu.
 \item
-  Citácia (IAU, 2017) by nemala obsahovať názov publikácie
-  sec.~\ref{sec:technical}.
+  Citácia (IAU, 2017) by nemala obsahovať názov publikácie.
 \end{itemize}
 
 \hypertarget{strana-15}{%
@@ -116,18 +125,19 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „{[}\ldots{}{]} sú uvoľnené excitované alebo ionizované častice,
-  pozorovateľné optickými prístrojmi a radarovými meraniami.“ Priamo
-  pozorovateľné nie sú častice, ale vyžiarené elektromagnetické žiarenia
-  (pri pohľade na lampu nehovoríme o pozorovaní častíc žiarovky, ale
-  vidíme svetlo).
+  \emph{“{[}\ldots{}{]} sú uvoľnené excitované alebo ionizované
+  častice, pozorovateľné optickými prístrojmi a radarovými meraniami.“}
+  Priamo pozorovateľné tu nie sú častice, ale vyžiarené
+  elektromagnetické žiarenie (pri pohľade na lampu nehovoríme o
+  pozorovaní častíc žiarovky, ale vidíme jej svetlo).
 \item
-  „približne 42,5 km/s v mieste perihélia, ktorú dosahujú meteoroidy
-  kometárneho pôvodu obiehajúce okolo Slnka“ Tu by sa hodilo zdôrazniť,
-  že ide o teoreticky horný limit, nie všeobecnú charakteristiku.
+  \emph{„približne 42,5 km/s v mieste perihélia, ktorú dosahujú
+  meteoroidy kometárneho pôvodu obiehajúce okolo Slnka“} --- tu treba
+  zdôrazniť, že ide o teoretický horný limit, nie všeobecnú
+  charakteristiku.
 \item
-  Nepresná formulácia: „padajú ďalej k Zemi rýchlosťou danou gravitačným
-  zrýchlením“.
+  Nepresná formulácia: \emph{„padajú ďalej k Zemi rýchlosťou danou
+  gravitačným zrýchlením“}.
 \end{itemize}
 
 \hypertarget{strana-16}{%
@@ -136,15 +146,17 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „{[}\ldots{}{]} kým nestratia väčšinu, prípadne celú hmotnosť, kedy
-  končí svetlá fáza letu.“ Chýba kauzálna súvislosť.
+  \emph{“{[}\ldots{}{]} kým nestratia väčšinu, prípadne celú hmotnosť,
+  kedy končí svetlá fáza letu.“} Chýba kauzálna súvislosť --- svetlá
+  fáza letu nie je definovaná stratou hmotnosti.
 \item
-  Vágne, resp. nepresné tvrdenie „jasnosť meteoru je úmerná miere
-  ablácie“.
+  Vágne, resp. nepresné tvrdenie \emph{„jasnosť meteoru je úmerná miere
+  ablácie“}.
 \item
-  Tento druh citácie nie je potrebný (je to všeobecne známa definícia, a
-  takisto to nie je originálna myšlienka autora citovanej práce) „Veľmi
-  jasné meteory {[}\ldots{}{]} sa nazývajú bolidy (Havrila, 2018).“
+  \emph{„Veľmi jasné meteory {[}\ldots{}{]} sa nazývajú bolidy (Havrila,
+  2018).“} Tento druh citácie nie je potrebný. Je to všeobecne uznávaná
+  definícia, a takisto to nie je originálna myšlienka autora citovanej
+  práce.
 \end{itemize}
 
 \hypertarget{strana-17}{%
@@ -153,9 +165,9 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „Prachové častice veľkosti od niekoľko mikrometrov až milimetrov“ --
-  pri veľkosti rádovo niekoľko milimetrov už nie je možné hovoriť o
-  prachu.
+  \emph{„Prachové častice veľkosti od niekoľko mikrometrov až
+  milimetrov“} --- pri veľkosti rádovo niekoľko milimetrov už nie je
+  možné hovoriť o prachu.
 \end{itemize}
 
 \hypertarget{strana-21}{%
@@ -164,7 +176,7 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Správne meno autora v referencii je „Jean-Baptiste Kikwaya“.
+  Správne meno autora v referencii je „Jean-Baptiste Kikwa\textbf{y}a“.
 \end{itemize}
 
 \hypertarget{strana-23}{%
@@ -173,8 +185,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Definícia v texte odporuje obrázku 5: „\(v_h\) je vertikálna zložka,
-  kladná v smere nahor“
+  Definícia v texte odporuje obrázku 5: \emph{“\(v_h\) je vertikálna
+  zložka, kladná v smere nahor“}
 \end{itemize}
 
 \hypertarget{strana-26}{%
@@ -183,7 +195,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Netriviálna rovnica (6) nemá uvedený zdroj a nie je odvodená v texte.
+  Netriviálna rovnica (6) nemá uvedený zdroj a nie je odvodená v texte,
+  navyše nesedí jej fyzikálny rozmer.
 \end{itemize}
 
 \hypertarget{strana-27}{%
@@ -201,12 +214,13 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Python sa podľa štandardu píše s veľkým prvým písmenom.
+  Programovací jazyk Python sa podľa štandardu píše s veľkým prvým
+  písmenom.
 \item
-  „namiesto integračných krokov cez vzdialenosť (výšku) \(\mathrm{d}h\)
-  prebieha výpočet cez časové kroky \(\mathrm{d}t\)“ -- z tohoto dôvodu
-  by bolo vhodné v časti 3.2 uviesť rovnice s \(\mathrm{d}t\), nie
-  všeobecný popis.
+  \emph{„namiesto integračných krokov cez vzdialenosť (výšku)
+  \(\mathrm{d}h\) prebieha výpočet cez časové kroky \(\mathrm{d}t\)“}
+  -- z~tohto dôvodu by bolo vhodné v časti 3.2 uviesť rovnice s
+  \(\mathrm{d}t\), nie všeobecný popis.
 \item
   Obrázok 9: správny termín je \emph{používateľ}, nie \emph{užívateľ}
   programu.
@@ -218,8 +232,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „poznať fyzikálne charakteristiky tekutiny“ -- vhodnejšie by bolo
-  hovoriť o \emph{prostredí}
+  \emph{„poznať fyzikálne charakteristiky tekutiny“} -- vhodnejšie by
+  bolo hovoriť o \emph{prostredí} alebo \emph{atmosfére}.
 \end{itemize}
 
 \hypertarget{strana-34}{%
@@ -237,9 +251,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Vyjadrenie „Do svetlej fázy vstúpil vo výške 91,8 km nad zemou západne
-  od zenitu“ nemá zmysel bez udania pozorovateľa (v tomto prípade
-  zjavne stanica Važec).
+  Vyjadrenie \emph{„Do svetlej fázy vstúpil vo výške 91,8 km nad zemou
+  západne od zenitu“} nemá zmysel bez udania polohy pozorovateľa.
 \end{itemize}
 
 \hypertarget{strana-41}{%
@@ -248,7 +261,7 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  „Jedná sa o \ldots{}“ \(\rightarrow\) „Ide o \ldots{}“
+  \emph{„Jedná sa o \ldots{}“} \(\rightarrow\) „Ide o \ldots{}“
 \end{itemize}
 
 \hypertarget{strana-43}{%
@@ -257,8 +270,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Obrázok 16b: chýba určenie polynomickej funkcie a vysvetlenie, čo sú
-  jej nezávislé premenné
+  Obrázok 16b: chýba vyjadrenie konkrétnej polynomickej funkcie a
+  vysvetlenie, aké sú jej nezávislé premenné.
 \end{itemize}
 
 \hypertarget{strana-44}{%
@@ -267,8 +280,8 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 \begin{itemize}
 \tightlist
 \item
-  Vo vedeckej publikácii je primeranejšie uvádzať čas v sekundách,
-  prípadne iných jednotkách vhodných pre danú škálu.
+  Vo vedeckej publikácii je primeranejšie uvádzať čas v jednotkách SI
+  (tu v sekundách, prípadne iných jednotkách vhodných pre danú škálu).
 \end{itemize}
 
 \hypertarget{otuxe1zky}{%
@@ -276,41 +289,64 @@ meteorickej astronómii všeobecne známe, nie je nutné citovať.
 
 K práci mám nasledujúce otázky:
 
-\hypertarget{ruxfdchlosux165-pri-vstupe}{%
-\subsubsection{Rýchlosť pri vstupe}\label{ruxfdchlosux165-pri-vstupe}}
+\hypertarget{ruxfdchlosux165-pri-vstupe-do-atmosfuxe9ry}{%
+\subsubsection{Rýchlosť pri vstupe do
+atmosféry}\label{ruxfdchlosux165-pri-vstupe-do-atmosfuxe9ry}}
 
-(Strana 15) Rozpätie možných rýchlostí meteoroidov pri vstupe do
-atmosféry je autorkou uvedené ako
+Rozpätie možných rýchlostí meteoroidov pri vstupe do atmosféry je
+autorkou na strane 15 uvedené ako
 \SIrange{11.2}{72.8}{\kilo\metre\per\second}.
 
 \begin{itemize}
 \tightlist
 \item
-  Ide o vlastný výpočet autorky, alebo sú tieto hodnoty prevzaté?
+  Ide o vlastný výpočet autorky práce, alebo sú tieto hodnoty prevzaté?
 \item
-  Prečo nie je možná menšia, resp. väčšia rýchlosť?
+  Prečo nie je možná väčšia rýchlosť? Aký fyzikálny mechanizmus bráni
+  meteoroidom pohybovať sa voči Zemi rýchlosťou napríklad
+  \SI{100}{\kilo\metre\per\second}?
 \end{itemize}
 
-\hypertarget{viux10f-poznuxe1mka-2}{%
-\subsubsection{(viď poznámka 2)}\label{viux10f-poznuxe1mka-2}}
+\hypertarget{modely}{%
+\subsubsection{Modely}\label{modely}}
 
-V Ako by sa to dalo opraviť?
+\begin{itemize}
+\tightlist
+\item
+  Ako veľmi vplýva na presnosť určenia polohy prachovej častice pri
+  dopade
+
+  \begin{itemize}
+  \tightlist
+  \item
+    presnosť určenia polohy meteoroidu na konci svetelnej fázy letu;
+  \item
+    rýchlosti meteoroidu;
+  \item
+    rýchlosti vetra?
+  \end{itemize}
+\item
+  Ako by sa zmenili výsledky simulácie, keby sa model vetra modifikoval
+  tak, že pre každý beh simulácie jednej častice jemne náhodne zmeníme
+  zložky \(U\) a \(V\) (napríklad gaussovsky, so \(\sigma = 10\%\)
+  veľkosti \(U\), resp. \(V\))?
+\end{itemize}
 
 \hypertarget{zuxe1ver}{%
 \subsection{Záver}\label{zuxe1ver}}
 
-Práca je napísaná presne, zrozumiteľne a na odbornej úrovni. Študentka
+Práca je napísaná zrozumiteľne a na odbornej úrovni. Študentka
 preukázala porozumenie použitým matematickým metódam a algoritmom a je
 schopná ich aplikovať na získané experimentálne dáta a vyvodiť z nich
-vedecké závery. Napriek množstvu drobných formálnych nedostatkov
-konštatujem, že práca dosiahle ciele vytýčené v zadaní a spĺňa všeobecné
-požiadavky kladené na bakalársku prácu.
+vedecké závery. Napriek početným drobným formálnym nedostatkom
+konštatujem, že práca dosiahla ciele vytýčené v zadaní a splnila
+všeobecné požiadavky kladené na bakalársku prácu.
 
 Po úspešnej obhajobe ju odporúčam hodnotiť známkou \textbf{A}.
 
 ~
 
-V Bratislave, 2021--06--01
+V Bratislave, 2021--05--31
 
 \hfill Mgr. Martin Baláž
 

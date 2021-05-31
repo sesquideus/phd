@@ -43,12 +43,14 @@
 
      The coordinate system of choice
 
-    with three Cartesian coordinates:
+     with three Cartesian coordinates:
      \begin{description}
-         \item[northing]
-         \item[easting]
-         \item[altitude]
+         \item[northing] the distance in the direction of local true north;
+         \item[easting] the distance in the direction of local true east;
+         \item[altitude] the distance in the direction straight up (away from the centre of the Earth).
      \end{description}
+
+     (picture)
 
 
 
@@ -57,11 +59,12 @@
         The true shape of the Earth's zero-altitude surface differs from
         a perfect sphere by no more than one part in 300, which introduces errors
         that are for many purposes negligible.
+        The origin of the coordinate system lies in the centre of mass of the Earth.        
 
         In mathematics, it is custom to denote spherical coordinates by the triplet
         $(r, \theta, \phi)$, where
         \begin{description}
-            \item[$r$] is the \emph{radial distance} from the origin of the coordinate system,
+            \item[$r$] is the \emph{radial distance} from the Earth's centre of mass,
                 $r \in \IntervalCO{0}{\infty}$;
             \item[$\theta$] is the \emph{polar angle} or \emph{inclination}, measured
                 from a chosen reference direction called the \textit{zenith},
@@ -127,10 +130,10 @@
         with a semi-major axis $a = \SI{6378137}{\metre}$, inverse flattening
         $1/f = \num{298.257223563}$, which results in a semi-minor axis of
         $b \approx \SI{6356752.314245}{\metre}$ \cite{???}.
-        The difference from the geoid is at most -105/+85 metres,
+        The difference from the geoid is at most -105/+85 metres \cite{???}
         which translates to a negligible local error.
         Deviations of the local plumb line, caused by density inhomogeneities
-        inside the Earth, can also be safely ignored in our use case.
+        inside the Earth, can be safely ignored in our use case.
 
         The coordinates used are the same as in the spherical model. (Plumb line is always perpendicular to equipotential surface)
 
@@ -140,12 +143,15 @@
     \subsection{Comparison} \label{mmc}
         While absolute errors of the spherical model are on the order of kilometres,
         typical scales of interest in meteor science are not spanning the entire diameter of the Earth,
-        but are on the order of hundreds of kilometres. This keeps relative errors considerably lower.
+        but are on the order of hundreds of kilometres. This keeps the relative errors considerably lower.
 
         For a camera observing a meteor at a typical altitude of \SI{100}{\kilo\metre},
-        the 
+        the deviation is generally lowest for meteors in the zenith
+        and gradually increases towards the horizon.
 
         (conduct simulation experiment here)
+
+        flat vs spherical
 
     \subsection{Conclusion}
         With currently available computational power it is no longer reasonable to

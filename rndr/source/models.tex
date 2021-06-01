@@ -37,21 +37,38 @@
 
 
     \subsection{Locally flat Earth} \label{mmf}
-     directly in the coordinates of the observer
+        Some simulations, such as those of a single meteor, or a determination of
+        the number of meteors visible during one night, can be performed for a single virtual observer.
+        As the radius of the Earth -- and subsequently the curvature of its radius -- are
+        sufficiently large compared to the typical distances between the observer and meteors,
+        in these cases the Earth can be considered to be locally flat.
 
-     \emph{local tangent plane coordinates}
+        The natural system of referencing locations is then \emph{horizontal coordinate system},
+        centered in the observer and aligned with the cardinal directions.
+        A local tangent plane is laid out so that it touches the surface of the Earth
+        at the position of the observer. Special consideration has to be given to computation of altitudes:
+        unlike in deep-sky astronomy, where the altitude of the observer with respect to the sea level
+        is negligibly small compared to distances to objects and can be ignored, in meteor astronomy
+        this difference is significant (for instance when computing atmospheric density).
 
-     The coordinate system of choice
+        (picture)
 
-     with three Cartesian coordinates:
-     \begin{description}
-         \item[northing] the distance in the direction of local true north;
-         \item[easting] the distance in the direction of local true east;
-         \item[altitude] the distance in the direction straight up (away from the centre of the Earth).
-     \end{description}
-
-     (picture)
-
+        The coordinates are denoted by a triplet $(x, y, z)$, where
+        \begin{description}
+            \item[$x$]  is the \emph{northing}, the distance in the direction of local true north;
+            \item[$y$]  is the \emph{easting}, the distance in the direction of local true east;
+            \item[$z$]  is the \emph{altitude}, the distance in the direction straight up
+                (away from the centre of the Earth);
+        \end{description}
+        or expressed as spherical coordinates $(r, h, a)$, where
+        \begin{description}
+            \item[$r$]  is the \emph{radial distance} from the observer,
+                $r \in \IntervalCO{0}{\infty}$;
+            \item[$h$]  is the \emph{altitude} of the object, measured from the horizon upwards,
+                $h \in \IntervalCO{\ang{-90}}{\ang{90}}$,
+            \item[$a$]  is the \emph{azimuth}, measured from true north, east positive
+                ($a \in \IntervalCO{\ang{0}}{\ang{360}}$).
+        \end{description}
 
 
     \subsection{Spherical Earth} \label{mms}
@@ -112,7 +129,7 @@
         \aln{eq:mms-xyz-to-sph}{
             h       &= \sqrt{x^2 + y^2 + z^2} - R_\Earth, \\
             \phi    &= \arccos{\frac{z}{x^2 + y^2 + z^2}}, \\
-            \lambda &= \mathrm{atan2}(y, x).
+            \lambda &= \mathrm{atan2}(y, x)
         }
         and the inverse transformation is given as
         \aln{eq:mss-sph-to-xyz}{

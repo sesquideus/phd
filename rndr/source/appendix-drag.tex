@@ -1,0 +1,144 @@
+\section{Henderson model} \label{DH}
+    The Henderson model \cite{henderson} 
+
+    After substituting for the ratio of wall temperature to free-flow temperature
+    \eqn{eq:DH-tau}{
+        \tau = \frac{T_w}{T_\infty},
+    }
+    we may express
+    \eqn{eq:DH-G}{
+        \Gamma(M_\infty, \Reinf, \tau) =
+        \begin{dcases}
+            \frac{24}{
+                \Reinf + s \left[
+                    \num{4.33} + \left(
+                        \frac{\num{3.65} - \num{1.53} \tau}{1 + \num{0.353} \tau}
+                    \right) \exp \left(
+                        \num{-0.247}\frac{\Reinf}{s}
+                    \right)
+                \right]
+            }  \\ + \exp{\left(
+                -\frac{\num{0.5} M_\infty}{\sqrt{\Reinf}}
+            \right)}\left[
+                \frac{
+                    \num{4.5} + \num{0.38}\left(
+                        \num{0.03} \Reinf + \num{0.48}\sqrt{\Reinf}
+                    \right)
+                }{
+                    1 + \num{0.03} \Reinf + \num{0.48}\sqrt{\Reinf}
+                } + \num{0.1} M_\infty^2 + \num{0.2} M_\infty^8
+            \right] \\ + \left[
+                1 - \num{0.6} \exp{-\frac{M_\infty}{\Reinf}} s
+            \right], & M_\infty \leq 1 \\
+            \frac{
+                \num{0.9} + \frac{\num{0.34}}{M_\infty^2} + \num{1.86}\sqrt{
+                    \frac{M_\infty}{\Reinf}\left[
+                        2 + \frac{2}{s} + \frac{\num{1.058}}{s}\sqrt{\tau} - \frac{1}{s^4}
+                    \right]
+                }
+            }{
+                1 + \num{1.86}\sqrt{\frac{M_\infty}{\Reinf}}
+            }, & M_\infty \geq \num{1.75} \\
+            \Gamma(1, \Reinf, \tau) + \frac{4}{3}\left(M_\infty - 1\right)\left[
+                \Gamma(\num{1.75}, \Reinf, \tau) - \Gamma(1, \Reinf, \tau)
+            \right] & 1 < M_\infty < \num{1.75}
+        \end{dcases}
+    }
+
+\section{Loth model} \label{DL}
+    The Loth model \citep{loth2008} explicitly depends on free-flow Mach number $M_\infty$,
+    free-flow Reynolds number $\Reinf$, free-flow temperature $T_\infty$
+    and ??? temperature $T_p$.
+
+
+    \eqn{eq:DL-s}{
+        s = M_\infty \sqrt{\frac{\gamma}{2}}
+    }
+
+    \aln{eq:DL-Gfm}{
+        \Gamma_\mathrm{fm}^\prime &=
+            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{\sqrt{\pi} s^3} +
+            \frac{\left(4 s^4 + 4s^2 - 1\right) \erf s}{2 s^4}, \\
+        \Gamma_\mathrm{fm} &=
+            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{\sqrt{\pi} s^3} +
+            \frac{\left(4 s^4 + 4s^2 - 1\right) \erf s}{2 s^4} +
+            \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
+    }
+
+    \eqn{eq:DL-GM}{
+        G_M =
+        \begin{dcases}
+            1 - \num{1.525} M_\infty^4
+                & M_\infty \leq \num{0.89}, \\
+            \num{2e-4} + \num{8e-4} \tanh \left[\num{12.77} \left(M_\infty - \num{2.02}\right)\right]
+                & M_\infty > \num{0.89},
+        \end{dcases}
+    }
+
+    \eqn{eq:DL-CM}{
+        C_M =
+        \begin{dcases}
+            \frac{5 + 2 \tanh \left[3 \ln \left(M_\infty + 1\right)\right]}{3}
+                & M_\infty \leq \num{1.45}, \\
+            \num{2.044} + \num{0.2} \exp\left[\num{-1.8} \ln\left(\frac{M_\infty}{\num{1.5}}\right)^2\right]
+                & M_\infty > \num{1.45}.
+        \end{dcases}
+    }
+
+    \eqn{eq:DL-HM}{
+        H_M = 1 - \frac{\num{0.258} C_M}{1 + 514 G_M}.
+    }
+
+    \eqn{eq:DL-fKn}{
+        f_\mathrm{Kn} = \frac{
+            1
+        }{
+            1 + \mathrm{Kn}_\infty \left[\num{2.514} + \num{0.8} \exp \left(\frac{\num{-0.55}}{\mathrm{Kn}_\infty}\right)\right]
+        }
+    }
+
+    \eqn{eq:DL-GKnRe}{
+        \Gamma_\mathrm{Kn, Re} =
+        \frac{24}{\Reinf} \left(1 + \num{0.15} \Reinf^{\num{0.687}}\right) f_\mathrm{Kn}
+    }
+
+    The free-molecular component
+    \eqn{eq:DL-GfmRe}{
+        \Gamma_\mathrm{fm, Re} =
+        \frac{
+            \Gamma_\mathrm{fm}
+        }{
+            1 + \left(\frac{\Gamma_\mathrm{fm}^\prime}{\num{1.63}} - 1\right)\sqrt{\frac{\Reinf}{45}}
+        }
+    }
+
+    The final expression for $\Gamma$ is obtained by stitching two functions
+    \eqn{eq:DL-Cd}{
+        \Gamma =
+        \begin{dcases}
+            \frac{
+                \Gamma_\mathrm{Kn, Re} + M_\infty^4 \Gamma_\mathrm{fm, Re}
+            }{
+                1 + M_\infty^4
+            } & \Reinf \leq 45; \\
+            \frac{24}{\Reinf} \left(1 + \num{0.15} \Reinf^{\num{0.687}}\right) H_M
+                + \frac{\num{0.42} C_M}{1 + \frac{\num{42500} G_M}{\Reinf^{\num{1.16}}}}
+                & \Reinf > 45.
+        \end{dcases}
+    }
+
+\section{Singh model} \label{DS}
+    The Singh model \citep{singh+2020} is an extension of the Loth model.
+
+    The bridging correlation parameter
+    \eqn{eq:DS-B}{
+        B = W_r^T \frac{M_\infty^{2\omega - 1} + 1}{M_\infty^{2\omega - 1}}
+    }
+
+    Finally the drag coefficient $\Gamma$ is obtained by bridging \cref{eq:DS-Gc} and \cref{eq:DS-Gfm}
+    by a generalized rational polynomial function of $B$, with $\eta = \num{1.8}$:
+    \eqn{eq:DS-G}{
+        \Gamma =
+            \Gamma_c(M_\infty, \Reinf) f_{\mathrm{Kn_\infty}, W_r} \frac{1}{1 + B^\eta} +
+            \Gamma_\mathrm{fm} \frac{B^\eta}{1 + B^\eta}.
+    }

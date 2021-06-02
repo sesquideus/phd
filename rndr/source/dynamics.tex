@@ -48,7 +48,7 @@ and how they affect the resulting motion of the particle in the atmosphere.
         Within the classical categorisation of phases of meteoroid flight \citep{???}
         we 
 
-        \begin{itemize}
+        \begin{enumerate}
             \item For the vast majority of its lifetime the meteoroid remains in
                 the \emph{interplanetary phase}, during which it is orbiting the Sun
                 far from any planetary atmosphere. Neglecting solar wind and
@@ -68,10 +68,37 @@ and how they affect the resulting motion of the particle in the atmosphere.
                 as long as heating from collisions with atmospheric molecules is negligible,
                 which does not happen until the meteoroid crossed to within several hundred
                 kilometres from the surface of the Earth.
-            \item he \emph{pre-heating phase}, which occurs in the exosphere. The  The frequency of these collisions
+            \item The \emph{pre-heating phase}, which occurs in the exosphere. The frequency of these collisions
                 and the surface temperature of the meteoroid are still too low to produce a visible
-                trail,
-        \end{itemize}
+                trail, but some ablation is already possible. The surface temperature
+                gradually increases (...)
+            \item The \emph{light phase}, which typically begins at altitudes of about \SI{100}{\kilo\metre}.
+                The density of the atmosphere at this altitude already presents significant drag,
+                the meteoroid is vio
+
+                dynamical pressure may exceed the limit of toughness (???) of the particle,
+                so fragmentation is also possible. Peak brightness
+
+                For more massive meteoroids (on the order of kilograms to tons) the light phase often continues
+                to below \SI{50}{\kilo\metre} or even lower. For dense and solid meteoroids or small asteroids
+                it is possible not to be slowed down and impact the surface at hypersonic speeds,
+                emitting light until the last moment.
+
+            \item Smaller particles burn up completely within the upper atmosphere,
+                leaving a trail of ionized material and possibly microscopic dust behind,
+                and therefore do not experience the next \emph{dark flight phase}.
+
+                Meteoroids with pre-atmospheric masses of tens of kilograms (or fragments
+                of larger bodies separated while still in the atmosphere) can be slowed down
+                to subsonic speed and continue falling towards the surface.
+                With current technology it is virtually impossible to observe them directly.
+                Trajectories can be computed and simulated from the known combination
+                of position and velocity during the light phase of flight, and extrapolated
+                until they reach the surface.
+
+                The resulting area of possible impacts is called the \emph{strewn field}.
+
+        \end{enumerate}
 
         limits of free-molecular flow (which is, in case of a meteoroid,
         encountered during the pre-heating phase at altitudes above \SI{200}{\kilo\metre})
@@ -260,74 +287,37 @@ and how they affect the resulting motion of the particle in the atmosphere.
 
             \fig{drag-crisis.png}{80mm}{ddm-drag-crisis}{Drag crisis}
 
-            However, it is only valid in the incompressible limit and at high Knudsen numbers,
-            which are assumptions that are all but valid for a meteoroid in
-            hypersonic flight in the rarefied upper atmosphere. Still, it can be useful
-            for modelling the atmospheric free fall of a meteorite.
+            However, it is only valid in the incompressible limit (generally expressed as $M \lessapprox \numrange{0.2}{0.3}$ or
+            about \SIrange{70}{100}{\metre\per\second}) and in continuum flow ($\mathrm{Kn} < \num{0.01}$).
+            These conditions are not met during most of an atmospheric entry,
+            but the model can be useful for simulating the atmospheric free
+            fall\footnote{The terms here are a bit confusing. We distinguish true \emph{free fall} as
+            the motion of a body in the absence of external forces other than gravity; and an \emph{atmospheric free fall}
+            as the motion of a body where atmospheric drag force is already in equilibrium
+            with the force of gravity. To make matters even more complicated, an object falling from rest
+            (or being slowed down from a higher-than-terminal speed, as in the case of a meteoroid)
+            can also be said to be in ``free fall'' all the time.}
+
 
         \subsubsection{Loth model} \label{ddL}
             A further refinement is due to \cite{loth???}.
 
-            \eqn{eq:ddL-GM}{
-                G_M =
-                \begin{dcases}
-                    1 - \num{1.525} M_\infty^4
-                        & M_\infty \leq \num{0.89}, \\
-                    \num{2e-4} + \num{8e-4} \tanh \left[\num{12.77} \left(M_\infty - \num{2.02}\right)\right]
-                        & M_\infty > \num{0.89},
-                \end{dcases}
-            }
-
-            \eqn{eq:ddL-CM}{
-                C_M = 
-                \begin{dcases}
-                    \frac{5 + 2 \tanh \left[3 \ln \left(M_\infty + 1\right)\right]}{3}
-                        & M_\infty \leq \num{1.45}, \\
-                    \num{2.044} + \num{0.2} \exp\left[\num{-1.8} \ln\left(\frac{M_\infty}{\num{1.5}}\right)^2\right]
-                        & M_\infty > \num{1.45}.
-                \end{dcases}
-            }
-
-            \eqn{eq:ddL-HM}{
-                H_M = 1 - \frac{\num{0.258} C_M}{1 + 514 G_M}.
-            }
-
-            \eqn{eq:ddL-CdKnRe}{
-                C_\mathrm{d, Kn, Re} =
-                \frac{24}{\mathrm{Re}_\infty} \left(1 + \num{0.15} \mathrm{Re}_\infty^{\num{0.687}}\right) f_\mathrm{Kn}
-            }
-
-            \eqn{eq:ddL-CdfmRe}{
-                C_\mathrm{d, fm, Re} =
-                \frac{
-                    C_\mathrm{d, fm}
-                }{
-                    1 + \left(\frac{C_\mathrm{d,fm}^\prime}{\num{1.63}} - 1\right)\sqrt{\frac{\mathrm{Re}_\infty}{45}}
-                }
-            }
-            and the final expression for $C_d$ is
-            \eqn{eq:ddL-Cd}{
-                C_d =
-                \begin{dcases}
-                    \frac{
-                        C_\mathrm{d, Kn, Re} + M_\infty^4 C_\mathrm{d, fm, Re}
-                    }{
-                        1 + M_\infty^4
-                    } & \mathrm{Re}_\infty \leq 45; \\
-                    \frac{24}{\mathrm{Re}_\infty} \left(1 + \num{0.15} \mathrm{Re}_\infty^{\num{0.687}}\right) H_M
-                        + \frac{\num{0.42} C_M}{1 + \frac{\num{42500} G_M}{\mathrm{Re}_\infty^{\num{1.16}}}}
-                        & \mathrm{Re}_\infty > 45.
-                \end{dcases}
-            }
 
         \subsubsection{Henderson model} \label{ddH}
 
         \subsubsection{Singh et al.} \label{ddS}
-            A semi-empirical, state-of-the-art model valid throughout the entire range of
-            conditions encountered during the atmospheric entry has been developed by
+            A semi-empirical, state-of-the-art model with a wide range of validity has been developed by
             \citet{singh+2020}. The model is derived from first principles and
             uses rational polynomial bridging functions to interpolate between
-            well understood flight regimes a meteoroid experiences during its flight \ref{dap}.
+            well understood flight regimes (as described in \cref{dap}).
+
+            The model is considered valid throughout the entire range of
+            conditions encountered during the atmospheric entry of a meteoroid
+            ($0 < \mathrm{Kn} < \infty$, $0 < \mathrm{Re} < \num{1e6}$, $0 < M < 200$)
+            as confirmed by N. Singh (personnal communication, 2021--05--13).
+
+            A detailed description accomodated for notation used in meteor science can be found in
+            \cref{DS}.
 
 
 \section{Conclusion} \label{dc}

@@ -1,35 +1,46 @@
 \section{Henderson model} \label{DH}
-    The Henderson model \cite{henderson} 
+    The Henderson model \cite{henderson} explicitly depends on the Mach
+    and Reynolds numbers $M_\infty$ and $\Reinf$,
+    and on the ratio of wall temperature of the object to the free-flow temperature.
 
-    After substituting for the ratio of wall temperature to free-flow temperature
+    To simplify to expressions a bit we can substitute
     \eqn{eq:DH-tau}{
-        \tau = \frac{T_w}{T_\infty},
+        \tau \leftarrow \frac{T_w}{T_\infty},
     }
-    we may express
-    \eqn{eq:DH-G}{
-        \Gamma(M_\infty, \Reinf, \tau) =
-        \begin{dcases}
-            \frac{24}{
-                \Reinf + s \left[
-                    \num{4.33} + \left(
-                        \frac{\num{3.65} - \num{1.53} \tau}{1 + \num{0.353} \tau}
-                    \right) \exp \left(
-                        \num{-0.247}\frac{\Reinf}{s}
-                    \right)
-                \right]
-            }  \\ + \exp{\left(
-                -\frac{\num{0.5} M_\infty}{\sqrt{\Reinf}}
-            \right)}\left[
-                \frac{
-                    \num{4.5} + \num{0.38}\left(
-                        \num{0.03} \Reinf + \num{0.48}\sqrt{\Reinf}
-                    \right)
-                }{
-                    1 + \num{0.03} \Reinf + \num{0.48}\sqrt{\Reinf}
-                } + \num{0.1} M_\infty^2 + \num{0.2} M_\infty^8
-            \right] \\ + \left[
-                1 - \num{0.6} \exp{-\frac{M_\infty}{\Reinf}} s
-            \right], & M_\infty \leq 1 \\
+    and
+    \eqn{eq:DH-Rep}{
+        \Reinf^\prime \leftarrow \num{0.03}\Reinf + \num{0.48}\sqrt{\Reinf}.
+    }
+
+    \subsection{Subsonic case}
+        In the subsonic case ($M_\infty \leq 1$), $\Gamma$ is given as
+        \aln{eq:DH-G}{
+            \Gamma(M_\infty, \Reinf, \tau) &=
+                \frac{24}{
+                    \Reinf + s \left[
+                        \num{4.33} + \left(
+                            \frac{\num{3.65} - \num{1.53} \tau}{1 + \num{0.353} \tau}
+                        \right) \exp \left(
+                            \num{-0.247}\frac{\Reinf}{s}
+                        \right)
+                    \right]
+                } \\ &+ \exp{\left(
+                    -\frac{\num{0.5} M_\infty}{\sqrt{\Reinf}}
+                \right)}\left[
+                    \frac{
+                        \num{4.5} + \num{0.38}\Reinf^\prime
+                    }{
+                        1 + \mathrm{Re}_\infty^\prime
+                    } + \num{0.1} M_\infty^2 + \num{0.2} M_\infty^8
+                \right] \\ &+ \left[
+                    1 - \num{0.6} \exp{\left(-\frac{M_\infty}{\Reinf}\right)} s
+                \right],
+        }
+
+    \subsection{High-supersonic case} \label{DH-h}
+        For higher supersonic and hypersonic speeds ($M_\infty \geq \num{1.75}$), $\Gamma$ is given as
+        \eqn{eq:DH-h}{
+            \Gamma(M_\infty, \Reinf, \tau) =
             \frac{
                 \num{0.9} + \frac{\num{0.34}}{M_\infty^2} + \num{1.86}\sqrt{
                     \frac{M_\infty}{\Reinf}\left[
@@ -38,12 +49,19 @@
                 }
             }{
                 1 + \num{1.86}\sqrt{\frac{M_\infty}{\Reinf}}
-            }, & M_\infty \geq \num{1.75} \\
+            }.
+        }
+
+    \subsection{Low-supersonic case} \label{DH-l}
+        Finally, in the transitional case ($1 < M_\infty < \num{1.75}$) $\Gamma$ is obtained by bridging the boundary values of the expressions for
+        the subsonic and high-supersonic case as
+        \eqn{eq:DH-Gss}{
+            \Gamma(M_\infty, \Reinf, \tau) =
             \Gamma(1, \Reinf, \tau) + \frac{4}{3}\left(M_\infty - 1\right)\left[
                 \Gamma(\num{1.75}, \Reinf, \tau) - \Gamma(1, \Reinf, \tau)
-            \right] & 1 < M_\infty < \num{1.75}
-        \end{dcases}
-    }
+            \right]
+        }
+
 
 \section{Loth model} \label{DL}
     The Loth model \citep{loth2008} explicitly depends on free-flow Mach number $M_\infty$,
@@ -58,10 +76,10 @@
     \aln{eq:DL-Gfm}{
         \Gamma_\mathrm{fm}^\prime &=
             \frac{\left(1 + 2s^2\right) \exp(-s^2)}{\sqrt{\pi} s^3} +
-            \frac{\left(4 s^4 + 4s^2 - 1\right) \erf s}{2 s^4}, \\
+            \frac{\left(4s^4 + 4s^2 - 1\right) \erf(s)}{2 s^4}, \\
         \Gamma_\mathrm{fm} &=
-            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{\sqrt{\pi} s^3} +
-            \frac{\left(4 s^4 + 4s^2 - 1\right) \erf s}{2 s^4} +
+            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{s^3 \sqrt{\pi}} +
+            \frac{\left(4s^4 + 4s^2 - 1\right) \erf(s)}{2 s^4} +
             \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
     }
 
@@ -89,8 +107,9 @@
         H_M = 1 - \frac{\num{0.258} C_M}{1 + 514 G_M}.
     }
 
+    A rarefaction correction $r$ is expressed as a function of Knudsen number
     \eqn{eq:DL-fKn}{
-        f_\mathrm{Kn} = \frac{
+        r(\mathrm{Kn}) = \frac{
             1
         }{
             1 + \mathrm{Kn}_\infty \left[\num{2.514} + \num{0.8} \exp \left(\frac{\num{-0.55}}{\mathrm{Kn}_\infty}\right)\right]
@@ -99,17 +118,17 @@
 
     \eqn{eq:DL-GKnRe}{
         \Gamma_\mathrm{Kn, Re} =
-        \frac{24}{\Reinf} \left(1 + \num{0.15} \Reinf^{\num{0.687}}\right) f_\mathrm{Kn}
+        \frac{24}{\Reinf} \left(1 + \num{0.15} \Reinf^{\num{0.687}}\right) r(\mathrm{Kn}).
     }
 
-    The free-molecular component
+    The free-molecular component was determined by \citet{patterson1971} as
     \eqn{eq:DL-GfmRe}{
         \Gamma_\mathrm{fm, Re} =
         \frac{
             \Gamma_\mathrm{fm}
         }{
             1 + \left(\frac{\Gamma_\mathrm{fm}^\prime}{\num{1.63}} - 1\right)\sqrt{\frac{\Reinf}{45}}
-        }
+        }.
     }
 
     The final expression for $\Gamma$ is obtained by stitching two functions
@@ -134,6 +153,50 @@
     \eqn{eq:DS-B}{
         B = W_r^T \frac{M_\infty^{2\omega - 1} + 1}{M_\infty^{2\omega - 1}}
     }
+
+    \eqn{eq:DS-Wr}{
+        W_r = \frac{M_\infty^{2\omega}}{\Reinf} = \mathrm{Kn}_\infty M_\infty^{2\omega - 1} \sqrt{\frac{2}{\pi \gamma}}.
+    }
+
+    $W_r$ is then corrected for supersonic speeds as
+    \eqn{eq:DS-WrT}{
+        W_r^T =
+        \begin{dcases}
+            W_r & M_\infty \leq 1, \\
+            W_r \left(1 + \frac{T_p}{T_s}\right) & M_\infty > 1. \\
+        \end{dcases}
+    }
+
+    \eqn{eq:DS-ReT}{
+        \widetilde{{\mathrm{Re}_s}} =
+            \Reinf \left[
+                \frac{1}{\alpha^2} \frac{T_\infty}{T_s}
+            \right]^\omega
+        \Theta(M_s)^{
+            \frac{\gamma + 1}{2 \gamma} - \frac{\gamma - 1}{\gamma}\omega
+        }
+    }
+
+    \eqn{eq:DS-Gc}{
+        \Gamma_c =
+        \left[
+            C_1 \left(1 - \alpha \frac{v_s}{v_\infty}\right)
+                + C_0 \Theta(M_s)\left(1 + \frac{\delta_0}{\sqrt{\widetilde{\mathrm{Re}_s}}}\right)^2
+        \right]
+    }
+
+    The expression for free-molecular flow is the same as in the Loth model (see \cref{eq:DL-Gfm}),
+    \eqn{eq:DS-Gfm}{
+        \Gamma_\mathrm{fm} =
+            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{s^3 \sqrt{\pi}} +
+            \frac{\left(4s^4 + 4s^2 - 1\right) \erf(s)}{2 s^4} +
+            \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
+    }
+
+    \eqn{eq:DS-Ym}{
+        \Theta(M) = \left[1 + \left(\gamma - 1\right) \frac{M^2}{2}\right]^{\frac{\gamma}{\gamma - 1}}
+    }
+
 
     Finally the drag coefficient $\Gamma$ is obtained by bridging \cref{eq:DS-Gc} and \cref{eq:DS-Gfm}
     by a generalized rational polynomial function of $B$, with $\eta = \num{1.8}$:

@@ -149,22 +149,31 @@
 \section{Singh model} \label{DS}
     The Singh model \citep{singh+2020} is an extension of the Loth model.
 
-    The bridging correlation parameter
-    \eqn{eq:DS-B}{
-        B = W_r^T \frac{M_\infty^{2\omega - 1} + 1}{M_\infty^{2\omega - 1}}
-    }
-
+    Next a \emph{non-continuum parameter} is defined as
     \eqn{eq:DS-Wr}{
         W_r = \frac{M_\infty^{2\omega}}{\Reinf} = \mathrm{Kn}_\infty M_\infty^{2\omega - 1} \sqrt{\frac{2}{\pi \gamma}}.
     }
+    where $\omega$ is the exponent in the in the power-law dependence of viscosity
+    on the temperature ($\mu \propto T^\omega$).
+    For air, one such approximate correlation \citep{tec-science-viscosity} uses $\omega = \num{0.7355}$
+    and the viscosity is determined as
+    \eqn{eq:DS-visc}{
+        \mu_\mathrm{air}(T) = \num{2.791e-7} \left(\frac{T}{\si{\kelvin}}\right)^{\num{0.7355}} \si{\pascal\second}.
+    }
+    The correlation is valid for $\SI{253}{\kelvin} \leq T \leq \SI{673}{\kelvin}$.
 
-    $W_r$ is then corrected for supersonic speeds as
+    Further, $W_r$ is corrected for supersonic speeds as
     \eqn{eq:DS-WrT}{
         W_r^T =
         \begin{dcases}
             W_r & M_\infty \leq 1, \\
             W_r \left(1 + \frac{T_p}{T_s}\right) & M_\infty > 1. \\
         \end{dcases}
+    }
+
+
+    \eqn{eq:DS-Ym}{
+        \Theta(M) = \left[1 + \left(\gamma - 1\right) \frac{M^2}{2}\right]^{\frac{\gamma}{\gamma - 1}}
     }
 
     \eqn{eq:DS-ReT}{
@@ -177,12 +186,26 @@
         }
     }
 
+    \eqn{eq:DS-alpha}{
+        \alpha = \frac{1}{1 + \alpha_0 M_\infty - \alpha_0}
+    }
+
     \eqn{eq:DS-Gc}{
         \Gamma_c =
         \left[
             C_1 \left(1 - \alpha \frac{v_s}{v_\infty}\right)
                 + C_0 \Theta(M_s)\left(1 + \frac{\delta_0}{\sqrt{\widetilde{\mathrm{Re}_s}}}\right)^2
         \right]
+    }
+    where
+    \eqn{eq:DS-C1}{
+        C_1 = \frac{
+            \Gamma_{M_\infty} - C_0 \left[
+                1 + \frac{\left(\gamma - 1\right)^2}{4 \gamma}
+            \right]^{\frac{\gamma}{\gamma - 1}}
+        }{
+            1 - \frac{1}{\alpha_0 M_\infty} \frac{\gamma - 1}{\gamma + 1}
+        }
     }
 
     The expression for free-molecular flow is the same as in the Loth model (see \cref{eq:DL-Gfm}),
@@ -193,15 +216,26 @@
             \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
     }
 
-    \eqn{eq:DS-Ym}{
-        \Theta(M) = \left[1 + \left(\gamma - 1\right) \frac{M^2}{2}\right]^{\frac{\gamma}{\gamma - 1}}
+    For low $M_\infty$, a rarefaction correction is computed,
+    \eqn{eq:DS-fKn}{
+        f(\mathrm{Kn}_\infty, W_r^T) =
+        \frac{1}{
+            1 + \mathrm{Kn}_\infty \left[\num{2.514} + \num{0.8} \exp \left(\frac{\num{-0.55}}{\mathrm{Kn}_\infty}\right)\right]
+        }
+        \frac{1}{1 + \alpha_\mathrm{hoc} W_r^T}
     }
 
-
     Finally the drag coefficient $\Gamma$ is obtained by bridging \cref{eq:DS-Gc} and \cref{eq:DS-Gfm}
-    by a generalized rational polynomial function of $B$, with $\eta = \num{1.8}$:
+    by a generalized rational polynomial function of the bridging correlation parameter $B$,
+    which is defined as
+    \eqn{eq:DS-B}{
+        B = W_r^T \frac{M_\infty^{2\omega - 1} + 1}{M_\infty^{2\omega - 1}}
+    }
+
+    The full expression is then
     \eqn{eq:DS-G}{
         \Gamma =
             \Gamma_c(M_\infty, \Reinf) f_{\mathrm{Kn_\infty}, W_r} \frac{1}{1 + B^\eta} +
             \Gamma_\mathrm{fm} \frac{B^\eta}{1 + B^\eta}.
     }
+    where the bridging modulator $\eta$ is set to $\eta = \num{1.8}$.

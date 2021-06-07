@@ -209,7 +209,7 @@ and how they affect the resulting motion of the particle in the atmosphere.
         The last -- but the most important and interesting -- force acting on the meteoroid during
         its atmospheric entry is the drag force. It arises as a consequence of its collisions with
         the molecules of atmospheric air, decreasing the momentum of the particle and at the
-        same time convertic its kinetic energy to heat.
+        same time converting its kinetic energy to heat.
 
         Unlike other forces, which can be readily described in terms of several easily understandable
         quantities, drag force is much more variable and somewhat inscrutable: it depends on the shape
@@ -234,14 +234,9 @@ and how they affect the resulting motion of the particle in the atmosphere.
         Furthermore, the functional dependences describing the exact motion
         of air around the particle are often chaotic and according to modern knowledge
         finding closed-form solutions is not possible at all, so we have to rely
-
-
-        can only be investigated numerically using CFD simulations, or by semi-empirical
+        on numerical investigation using CFD simulations, or by semi-empirical
         relations that have to be derived from experiments.
 
-
-         a complete analytical solution
-        is, according to modern knowledge, not possible, numerical simulations
 
         a tradeoff between accuracy and complexity (and thus computation time).
         The models described here vary from very simple to 
@@ -257,6 +252,17 @@ and how they affect the resulting motion of the particle in the atmosphere.
             A trivial model in which $\Gamma = 0$ at all times.
             It is not useful for atmospheric modelling, but is computationally
             very fast and makes testing other models easier.
+
+            While atmospheric density is still non-zero in the exosphere,
+            and result in minuscule drag force acting on particles on low-Earth orbits.
+            Over long time periods (months to millenia, depending on altitude) it is able to slow
+            an orbiting particle enough to bring it down to the surface.
+
+            However, in meteor science any effects of this very tenuous layer can be safely ignored:
+            Meteoroids are always on hyperbolic trajectories with respect to the Earth
+            and pass through this volume within seconds. Any long-term effects
+            are too small to be measured or to appreciably alter the trajectory.
+            Therefore practically all models fall back to zero drag above the altitude of \SI{400}{\kilo\metre}.
 
         \subsubsection{Constant drag model} \label{mdc}
             In textbooks and older papers a constant value of $\Gamma$ is often taken.
@@ -298,27 +304,26 @@ and how they affect the resulting motion of the particle in the atmosphere.
             (or being slowed down from a higher-than-terminal speed, as in the case of a meteoroid)
             can also be said to be in ``free fall'' all the time.}
 
+        \subsubsection{Henderson model} \label{ddH}
 
         \subsubsection{Loth model} \label{ddL}
             A further refinement is due to \cite{loth???}.
 
-
-        \subsubsection{Henderson model} \label{ddH}
+            The full model is described in \cref{DH}.
 
         \subsubsection{Singh et al.} \label{ddS}
             A semi-empirical, state-of-the-art model with a wide range of validity has been developed by
             \citet{singh+2020}. The model is derived from first principles and
             uses rational polynomial bridging functions to interpolate between
-            well understood flight regimes (as described in \cref{dap}).
+            the limits of well understood flight regimes (as described in \cref{dap}).
 
-            The model is considered valid throughout the entire range of
+            At the time of writing it is the most elaborate and complex model available.
+            It is considered valid throughout the entire range of
             conditions encountered during the atmospheric entry of a meteoroid
             ($0 < \mathrm{Kn} < \infty$, $0 < \mathrm{Re} < \num{1e6}$, $0 < M < 200$)
             as confirmed by N. Singh (personnal communication, 2021--05--13).
 
-            A detailed description accomodated for notation used in meteor science can be found in
-            \cref{DS}.
-
+            For a full set of equations, accomodated for notation used in meteor science, see \cref{DS}.
 
 \section{Conclusion} \label{dc}
 

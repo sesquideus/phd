@@ -12,6 +12,8 @@
         \Reinf^\prime \leftarrow \num{0.03}\Reinf + \num{0.48}\sqrt{\Reinf}.
     }
 
+    The model consists of three separate cases depending on the Mach number.
+
     \subsection{Subsonic case}
         In the subsonic case ($M_\infty \leq 1$), $\Gamma$ is given as
         \aln{eq:DH-G}{
@@ -149,35 +151,31 @@
 \section{Singh model} \label{DS}
     In the Singh model, the drag coefficient $\Gamma$ explicitly depends on the
     free-flow Mach number $M_\infty$, free-flow Reynolds number $\Reinf$,
-    free-flow temperature $T_\infty$ and 
+    free-flow temperature $T_\infty$ and particle surface temperature $T_p$.
 
     Furthermore, the correlation requires several constants:
     \begin{itemize}
         \item the \emph{ratio of heat capacities} $\gamma \equiv \frac{c_p}{c_V}$,
-            whose value for air is $7/5 = \num{1.4}$;
+            whose value for air is $\frac{7}{5} = \num{1.4}$;
         \item $\omega$, the exponent in the power law dependence
-            of viscosity on temperature ($\mu \propto T^\omega$).
-            For air, one such approximate correlation \citep{tec-science-viscosity}
-            uses $\omega = \num{0.7355}$. Viscosity is then determined as
-            \eqn{eq:DS-visc}{
-                \mu_\mathrm{air}(T) = \num{2.791e-7} \left(\frac{T}{\si{\kelvin}}\right)^{\num{0.7355}} \si{\pascal\second}.
-            }
-            The correlation is valid for $\SI{253}{\kelvin} \leq T \leq \SI{673}{\kelvin}$;
+            of viscosity on temperature ($\mu \propto T^\omega$, see \cref{fdv}).
         \item \emph{shock curvature parameter} $\alpha_0 = \num{0.356}$;
         \item \emph{high speed rarefaction correction} $\alpha_\mathrm{hoc} = \num{1.27}$;
+        \item \emph{} $\Gamma_{M_\infty} = \num{0.9}$;
+        \item \emph{} $\delta_0 = \num{9.4}$;
+        \item $A_0 = \frac{24}{\delta_0^2}$.
     \end{itemize}
 
-    Next a \emph{non-continuum parameter} is defined as
+    First a \emph{non-continuum parameter} is defined as
     \eqn{eq:DS-Wr}{
         W_r = \frac{M_\infty^{2\omega}}{\Reinf} = \mathrm{Kn}_\infty M_\infty^{2\omega - 1} \sqrt{\frac{2}{\pi \gamma}}.
     }
-
-    Further, $W_r$ is corrected for supersonic speeds as
+    For supersonic speeds, a correction is computed,
     \eqn{eq:DS-WrT}{
         W_r^T =
         \begin{dcases}
             W_r & M_\infty \leq 1, \\
-            W_r \left(1 + \frac{T_p}{T_s}\right) & M_\infty > 1. \\
+            W_r \left(1 + \frac{T_p}{T_s}\right) & M_\infty > 1, \\
         \end{dcases}
     }
     where $T_p$ is the surface temperature of the particle and
@@ -195,25 +193,9 @@
         }.
     }
 
+    
 
-    \eqn{eq:DS-ReT}{
-        \widetilde{{\mathrm{Re}_s}} =
-            \Reinf \left[
-                \frac{1}{\alpha^2} \frac{T_\infty}{T_s}
-            \right]^\omega
-        \Theta(M_s)^{
-            \frac{\gamma + 1}{2 \gamma} - \frac{\gamma - 1}{\gamma}\omega
-        },
-    }
-    where $\Theta$ is a function of Mach number $M$:
-    \eqn{eq:DS-Ym}{
-        \Theta(M) = \left[1 + \left(\gamma - 1\right) \frac{M^2}{2}\right]^{\frac{\gamma}{\gamma - 1}}
-    }
-    and $\alpha$ is a free parameter that was determined as
-    \eqn{eq:DS-alpha}{
-        \alpha = \frac{1}{1 + \alpha_0 M_\infty - \alpha_0}.
-    }
-
+    
     The continuum drag coefficient is expressed as
     \eqn{eq:DS-Gc}{
         \Gamma_c
@@ -230,19 +212,25 @@
             1 - \frac{1}{\alpha_0 M_\infty} \frac{\gamma - 1}{\gamma + 1}
         },
     }
-    \eqn{eq:DS_GMinf}{
-        \Gamma_{M_\infty} = \num{0.9},
+    \eqn{eq:DS-ReT}{
+        \widetilde{{\mathrm{Re}_s}} =
+            \Reinf \left[
+                \frac{1}{\alpha^2} \frac{T_\infty}{T_s}
+            \right]^\omega
+        \Theta(M_s)^{
+            \frac{\gamma + 1}{2 \gamma} - \frac{\gamma - 1}{\gamma}\omega
+        },
+    }
+    $\Theta$ is a function of Mach number $M$
+    \eqn{eq:DS-Ym}{
+        \Theta(M) = \left[1 + \left(\gamma - 1\right) \frac{M^2}{2}\right]^{\frac{\gamma}{\gamma - 1}}
+    }
+    and $\alpha$ is a free parameter that was determined as
+    \eqn{eq:DS-alpha}{
+        \alpha = \frac{1}{1 + \alpha_0 M_\infty - \alpha_0}
     }
 
-    The expression for free-molecular flow is the same as in the Loth model (see \cref{eq:DL-Gfm}),
-    \eqn{eq:DS-Gfm}{
-        \Gamma_\mathrm{fm} =
-            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{s^3 \sqrt{\pi}} +
-            \frac{\left(4s^4 + 4s^2 - 1\right) \erf(s)}{2 s^4} +
-            \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
-    }
-
-    For low $M_\infty$, a rarefaction correction is computed,
+    For low $M_\infty$ a \emph{rarefaction correction function} $f$ is computed,
     \eqn{eq:DS-fKn}{
         f(\mathrm{Kn}_\infty, W_r^T) =
         \frac{1}{
@@ -251,17 +239,25 @@
         \frac{1}{1 + \alpha_\mathrm{hoc} W_r^T}
     }
 
-    Finally the drag coefficient $\Gamma$ is obtained by bridging \cref{eq:DS-Gc} and \cref{eq:DS-Gfm}
+    The expression for free-molecular flow is the same as in the Loth model, \cref{eq:DL-Gfm},
+    \eqn{eq:DS-Gfm}{
+        \Gamma_\mathrm{fm} =
+            \frac{\left(1 + 2s^2\right) \exp(-s^2)}{s^3 \sqrt{\pi}} +
+            \frac{\left(4s^4 + 4s^2 - 1\right) \erf(s)}{2 s^4} +
+            \frac{2}{3s} \sqrt{\pi \frac{T_p}{T_\infty}}.
+    }
+
+    Finally, the drag coefficient $\Gamma$ is obtained by bridging \labelcref{eq:DS-Gc} and \labelcref{eq:DS-Gfm}
     by a generalized rational polynomial function of the bridging correlation parameter $B$,
-    which is defined as
+    which is defined~as
     \eqn{eq:DS-B}{
         B = W_r^T \frac{M_\infty^{2\omega - 1} + 1}{M_\infty^{2\omega - 1}}.
     }
 
-    The full expression is then
+    The expression for $\Gamma$ is then
     \eqn{eq:DS-G}{
         \Gamma =
             \Gamma_c(M_\infty, \Reinf) f(\mathrm{Kn_\infty}, W_r) \frac{1}{1 + B^\eta} +
             \Gamma_\mathrm{fm} \frac{B^\eta}{1 + B^\eta}.
     }
-    where the bridging modulator $\eta$ is set to $\eta = \num{1.8}$.
+    where the \emph{bridging modulator} $\eta$ is set to $\eta = \num{1.8}$.

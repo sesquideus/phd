@@ -60,8 +60,8 @@
 \NewDocumentCommand{\fig}{O{} m m m +m}{
     \begin{figure}[H]
         \centering
-        \IfFileExists{source/pictures/#2}{%
-            \includegraphics[keepaspectratio=true, width=#3]{source/pictures/#2}%
+        \IfFileExists{input/pictures/#2}{%
+            \includegraphics[keepaspectratio=true, width=#3]{input/pictures/#2}%
         }{%
             \includegraphics[keepaspectratio=true, width=#3]{example-image-a}
         }

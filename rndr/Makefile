@@ -12,11 +12,18 @@ input/%.pdf: source/%.gp
 	@echo -e '$(c_action)[gnuplot] Rendering file $(c_filename)$<$(c_action) to PDF file $(c_filename)$@$(c_action):$(c_default)'
 	@mkdir -p $(dir $@)
 	gnuplot -e "set output '$@'; set fit quiet;" $<
+	#
+input/%.pdf: source/%.svg
+	@echo -e '$(c_action)[rsvg-convert] Converting $(c_filename)$<$(c_action) to PDF file $(c_filename)$@$(c_action):$(c_default)'
+	@mkdir -p $(dir $@)
+	rsvg-convert --format pdf --keep-aspect-ratio --output $@ $<
 
 output/thesis.pdf: \
 	input/thesis.tex \
 	$$(subst source/,input/,$$(wildcard source/*.tex)) \
-	$$(wildcard pictures/*.pdf) \
+	$$(subst source/,input/,$$(wildcard source/pictures/*.pdf)) \
+	$$(subst source/,input/,$$(subst,.gp,.pdf,$$(wildcard source/pictures/*.gp))) \
+	$$(subst source/,input/,$$(subst,.svg,.pdf,$$(wildcard source/pictures/*.svg))) \
 	source/thesis.bib
 	@mkdir -p $(dir $@)
 	@echo -e '$(c_action)Compiling XeLaTeX file $(c_filename)$@$(c_action), primary run:$(c_default)'

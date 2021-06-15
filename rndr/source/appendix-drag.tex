@@ -68,12 +68,12 @@
 \section{Loth model} \label{DL}
     The Loth model \citep{loth2008} explicitly depends on free-flow Mach number $M_\infty$,
     free-flow Reynolds number $\Reinf$, free-flow temperature $T_\infty$
-    and ??? temperature $T_p$.
-
+    and object's surface temperature $T_p$.
 
     \eqn{eq:DL-s}{
         s = M_\infty \sqrt{\frac{\gamma}{2}}
     }
+
 
     \aln{eq:DL-Gfm}{
         \Gamma_\mathrm{fm}^\prime &=
@@ -151,8 +151,7 @@
 \section{Singh model} \label{DS}
     In the Singh model, the drag coefficient $\Gamma$ explicitly depends on the
     free-flow Mach number $M_\infty$, free-flow Reynolds number $\Reinf$,
-    free-flow temperature $T_\infty$ and particle surface temperature $T_p$.
-
+    free-flow temperature $T_\infty$ and surface temperature of the particle $T_p$.
     Furthermore, the correlation requires several constants:
     \begin{itemize}
         \item the \emph{ratio of heat capacities} $\gamma \equiv \frac{c_p}{c_V}$,
@@ -163,7 +162,7 @@
         \item \emph{high speed rarefaction correction} $\alpha_\mathrm{hoc} = \num{1.27}$;
         \item \emph{} $\Gamma_{M_\infty} = \num{0.9}$;
         \item \emph{} $\delta_0 = \num{9.4}$;
-        \item $A_0 = \frac{24}{\delta_0^2}$.
+        \item $C_0 = \frac{24}{\delta_0^2}$.
     \end{itemize}
 
     First a \emph{non-continuum parameter} is defined as
@@ -193,9 +192,6 @@
         }.
     }
 
-    
-
-    
     The continuum drag coefficient is expressed as
     \eqn{eq:DS-Gc}{
         \Gamma_c

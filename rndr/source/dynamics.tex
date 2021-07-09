@@ -255,13 +255,13 @@ and how they affect the resulting motion of the particle in the atmosphere.
         in the continuum regime, and that it is not fully turbulent.
 
         In the free-molecular flow limit $\mathrm{Kn} \to \infty$ the drag force does not
-        depend on viscosity. The concept of viscosity does not even make any sense,
-        as the molecules only interact with the meteoroid but not between themselves.
+        depend on viscosity. The concept of viscosity is not even applicable here -- the
+        molecules only interact with the meteoroid but not with each other.
         Despite that, the drag force is nonzero as long as there are collisions
         between the particles of the medium and the meteoroid.
 
         In the turbulent limit ($\mathrm{Re} \to \infty$) viscous forces are dominated
-        by inertial forces and the intermolecular forces can be ignored.
+        by inertial forces and intermolecular forces can be ignored.
 
         \subsubsection{Formulae} \label{fdvf}
             The only medium we need to consider is regular air, composed of roughly 78\%~N,
@@ -300,7 +300,8 @@ and how they affect the resulting motion of the particle in the atmosphere.
 
             A better model also considers the change in viscosity with temperature as well.
             The exact dependence cannot be derived easily, but various empirical correlations
-            exist. For air, one such approximation \citep{tec-science-viscosity}
+            exist, usually in the form $\mu \propto T^\omega$.
+            For air, one such approximation \citep{tec-science-viscosity}
             uses $\omega = \num{0.7355}$. Viscosity is then determined~as
             \eqn{eq:fdvf-exp}{
                 \mu_\mathrm{air}(T) = \num{2.791e-7} \left(\frac{T}{\si{\kelvin}}\right)^{\num{0.7355}} \si{\pascal\second}.
@@ -308,8 +309,8 @@ and how they affect the resulting motion of the particle in the atmosphere.
 
             The correlation is considered valid for $\SI{253}{\kelvin} \leq T \leq \SI{673}{\kelvin}$
             and outputs a value equal to the simpler model for $T \approx \SI{288.5}{\kelvin}$.
-            Since temperatures in the atmosphere fall within this range most of the time
-            and the model is simple enough, we shall use it in all our calculations.
+            Since temperatures encountered in the atmosphere fall within this range most of the time
+            and the model is fairly simple, we shall use it in all our calculations.
 
     \subsection{Analysed models} \label{fdm}
         In the thesis we will compare six different drag models of varying precision
@@ -332,29 +333,31 @@ and how they affect the resulting motion of the particle in the atmosphere.
             Therefore practically all models fall back to zero drag above the altitude of \SI{400}{\kilo\metre}.
 
         \subsubsection{Constant drag model} \label{fdmc}
-            In textbooks and older papers a constant value of $\Gamma$ is often taken.
+            In older textbooks and papers a constant value of $\Gamma$ is often taken as a first approximation.
             For a spherical particle in a turbulent flow a value of \num{0.47}
             is often used \cite{???}. \cite{hrábek} \cite{havrila}
 
         \subsubsection{Morrison model} \label{fdmM}
             The next step is to include the effects of viscous and inertial forces -- or,
-            as it is more commonly express, the effect of their ratio or the \emph{Reynolds number}.
+            as it is more commonly expressed, the effect of their ratio, the \emph{Reynolds number}.
+            Precise values can be only obtained by direct measurement or CFD simulations,
+            which is clearly not viable in our case.
 
-            the correlation by \citet{morrison2016}.
-
-            Variable with Reynolds number
-
-            extends both to very low Reynolds number as
+            As a rough approximation we use the correlation by \citet{morrison2016},
+            which is an empirical fit of experimental data for a smooth sphere.
+            The model extends from very low to very high Reynolds numbers.
+            In the viscous limit it approaches
             \eqn{eq:fdM-limre}{
                 \lim_{\mathrm{Re} \to 0} \Gamma = \frac{24}{\mathrm{Re}},
             }
-            yielding the formula for laminar Stokes' drag
+            yielding the classic formula for laminar Stokes' drag
             \eqn{eq:fdM-stokes}{
                 \lim_{\mathrm{Re} \to 0} F
                     = \lim_{\mathrm{Re} \to 0} \frac{1}{2} \Gamma S \rho_\mathrm{air} v^2
                     = \frac{1}{2} \frac{24 \mu}{2 r \rho_\mathrm{air} v} \rho_\mathrm{air} \pi r^2 v^2
                     = 6 \pi \mu r v.
             }
+
             It also reproduces the sharp decrease of drag coefficient at high Reynolds
             numbers ($\mathrm{Re} \approx \num{5e5}$), known as the \emph{drag crisis} \cite{???}.
 
@@ -364,13 +367,19 @@ and how they affect the resulting motion of the particle in the atmosphere.
             (generally expressed as $M \lessapprox \numrange{0.2}{0.3}$ or
             about \SIrange{70}{100}{\metre\per\second}) and in continuum flow ($\mathrm{Kn} < \num{0.01}$).
             These conditions are not met during most of an atmospheric entry,
-            but the model can be useful for simulating the atmospheric free
-            fall\footnote{The terms here are a bit confusing. We distinguish true \emph{free fall} as
-            the motion of a body in the absence of external forces other than gravity; and an \emph{atmospheric free fall}
-            as the motion of a body where atmospheric drag force is already in equilibrium
-            with the force of gravity. To make matters even more complicated, an object falling from rest
-            (or being slowed down from a higher-than-terminal speed, as in the case of a meteoroid)
-            can also be said to be in ``free fall'' all the time.}
+            but the model can be useful for simulating the atmospheric free fall.
+
+            \begin{example}[A note on the term ``free fall'']
+                The terms here are a bit confusing. We distinguish true \emph{free fall} as
+                the motion of a body in the absence of external forces other than gravity; and an \emph{atmospheric free fall}
+                as the motion of a body where atmospheric drag force is already in equilibrium
+                with the force of gravity.
+
+                To make matters even more complicated, an object falling from rest
+                (or being slowed down from a higher-than-terminal speed, as in the case of a meteoroid)
+                can also be said to be in ``free fall'' all the time even if neither
+                of the stricter definitions applies at any moment.
+            \end{example}
 
         \subsubsection{Henderson model} \label{fdmH}
 
@@ -390,7 +399,7 @@ and how they affect the resulting motion of the particle in the atmosphere.
             At the time of writing it is the most elaborate and complex model available.
             It is considered valid throughout the entire range of
             conditions encountered during the atmospheric entry of a meteoroid
-            ($0 < \mathrm{Kn} < \infty$, $0 < \mathrm{Re} < \num{1e6}$, $0 < M < 200$)
+            ($0 < \mathrm{Kn} < \infty$, $0 < \mathrm{Re} < \num{e6}$, $0 < M < 200$)
             (N. Singh, personnal communication, 2021--05--13).
 
             For a full set of equations, accomodated for notation used in meteor science, see \cref{DS}.
@@ -435,7 +444,7 @@ and how they affect the resulting motion of the particle in the atmosphere.
 
         Except for $\mu$, all three quantities will change significantly
         during the atmospheric entry: $\rho_\mathrm{air}$ is negligible at first
-        and increases roughly exponentially in the range of approximately \SIrange{1e-10}{1}{\kilo\gram\per\metre\cubed}
+        and increases roughly exponentially in the range of approximately \SIrange{e-10}{1}{\kilo\gram\per\metre\cubed}
         in the region of our interest, $v$ is typically on the order of \SIrange{1e4}{7e4}{\metre\per\second}
         just above the atmosphere but can drop to about \SI{1}{\metre\per\second}
         for a microscopic particle just above the surface, and the diameter also spans

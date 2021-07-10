@@ -268,26 +268,29 @@ and how they affect the resulting motion of the particle in the atmosphere.
             21\%~O, 1\%~Ar and trace amounts of other gases.
 
             \begin{example}[Homosphere and heterosphere]
-                The atmosphere can be divided into two regions depending on its chemical composition:
+                The atmosphere can be divided into two regions based on its chemical composition:
                 \begin{itemize}
                     \item From the sea level to approximately \SI{100}{\kilo\metre} the chemical
-                        composition does not vary appreciably, as it is constantly mixed by
-                        atmospheric turbulens. Therefore it can be considered to
-                        be the same as near the surface, where it can be readily analysed.
+                        composition does not vary appreciably, as the constituents are constantly mixed by
+                        atmospheric turbulence. The composition is thus the same as near the surface,
+                        where it can be readily analysed.
                         This part of the atmosphere is called the \emph{homosphere}.
                     \item Above about \SI{100}{\kilo\metre}, lighter species are more abundant
-                        relative to heavier species. The dominant mixing mechanism is molecular diffusion,
-                        which depends on thermal velocities of molecules, which decrease
+                        relative to heavier species. The dominant mixing mechanism is molecular diffusion.
+                        Mixing depends on thermal velocities of molecules, which decrease
                         with increasing molecular mass. This region is called the \emph{heterosphere}.
 
-                        Fortunately, atmospheric density at these altitudes is very low
-                        and the flow around the meteoroid is in the free-molecular regime.
+                        Variations in chemical composition would affect viscosity and other properties
+                        of the flow -- however, mean free paths of molecules at these altitudes are
+                        very long and the flow around the meteoroid is essentially always free-molecular.
                         Viscous drag can be safely neglected.
                 \end{itemize}
 
-                \fig{msis-species.pdf}{0.8\textwidth}{fig:fdvf-species}{
+                \fig{msis-species.pdf}{0.75\textwidth}{fig:fdvf-species}{
                     The volume fraction of the main constituents of the Earth's atmosphere
                     as a function of height, based on the MSIS-E-90 atmospheric model.
+                    The homosphere extends to about \SI{100}{\kilo\metre} and is clearly visible
+                    in the graph.
 
                     \textit{Credit: Wikipedia, user Amaurea, based on the data from the MSIS-E-90 model.}
                 }
@@ -308,11 +311,11 @@ and how they affect the resulting motion of the particle in the atmosphere.
             }
 
             The correlation is considered valid for $\SI{253}{\kelvin} \leq T \leq \SI{673}{\kelvin}$
-            and outputs a value equal to the simpler model for $T \approx \SI{288.5}{\kelvin}$.
-            Since temperatures encountered in the atmosphere fall within this range most of the time
-            and the model is fairly simple, we shall use it in all our calculations.
+            and yields the value from the simpler model for $T \approx \SI{288.5}{\kelvin}$.
+            Since temperatures encountered in the atmosphere mostly fall within this range
+            and the model is fairly simple, we use it in all our calculations.
 
-    \subsection{Analysed models} \label{fdm}
+    \subsection{Analysed drag models} \label{fdm}
         In the thesis we will compare six different drag models of varying precision
         and computational cost.
 
@@ -329,8 +332,8 @@ and how they affect the resulting motion of the particle in the atmosphere.
             However, in meteor science any effects of this very tenuous layer can be safely ignored:
             Meteoroids are always on hyperbolic trajectories with respect to the Earth
             and pass through this volume within seconds. Any long-term effects
-            are too small to be measured or to appreciably alter the trajectory.
-            Therefore practically all models fall back to zero drag above the altitude of \SI{400}{\kilo\metre}.
+            are too small to appreciably alter the meteoroids' trajectories.
+            Therefore all models can safely fall back to zero drag above the altitude of \SI{400}{\kilo\metre}.
 
         \subsubsection{Constant drag model} \label{fdmc}
             In older textbooks and papers a constant value of $\Gamma$ is often taken as a first approximation.
@@ -359,9 +362,17 @@ and how they affect the resulting motion of the particle in the atmosphere.
             }
 
             It also reproduces the sharp decrease of drag coefficient at high Reynolds
-            numbers ($\mathrm{Re} \approx \num{5e5}$), known as the \emph{drag crisis} \cite{???}.
+            numbers ($\mathrm{Re} \approx \num{e5}$), known as the \emph{drag crisis} \cite{???}.
 
-            \fig{drag-crisis.png}{80mm}{ddm-drag-crisis}{Drag crisis}
+            \fig{drag-crisis.pdf}{100mm}{ddm-drag-crisis}{%
+                Dependence of drag coefficient $\Gamma$ for a smooth sphere (teal) and rough sphere (green).
+                For a smooth sphere, the drag coefficient decreases abruptly from about \num{0.5} to
+                \num{0.1} at $\mathrm{Re} \approx \num{3e5}$, which corresponds to the transition from
+
+                For a rough sphere, the magnitude of the decrease is significantly smaller, but the change
+                occurs at much a lower Reynolds number, about \num{8e4}. Although typical meteoroids cannot
+                be reasonably approximated by smooth spheres, 
+                }
 
             However, it is only valid in the incompressible limit
             (generally expressed as $M \lessapprox \numrange{0.2}{0.3}$ or
@@ -370,9 +381,9 @@ and how they affect the resulting motion of the particle in the atmosphere.
             but the model can be useful for simulating the atmospheric free fall.
 
             \begin{example}[A note on the term ``free fall'']
-                The terms here are a bit confusing. We distinguish true \emph{free fall} as
-                the motion of a body in the absence of external forces other than gravity; and an \emph{atmospheric free fall}
-                as the motion of a body where atmospheric drag force is already in equilibrium
+                The terms here are a bit confusing. We distinguish true \emph{free fall},
+                the motion of a body in the absence of external forces other than gravity;
+                and an \emph{atmospheric free fall}, the motion of a body where atmospheric drag force is already in equilibrium
                 with the force of gravity.
 
                 To make matters even more complicated, an object falling from rest

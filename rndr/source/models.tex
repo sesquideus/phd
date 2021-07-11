@@ -116,8 +116,8 @@
                 which yields $h \in \IntervalCO{-R_\Earth}{\infty}$.
                 Negative values represent points below the surface of the Earth --
                 while theoretically possible, they are of no interest in meteor
-                astronomy.\footnote{Of course, unless we're observing near the Dead Sea
-                or a meteorite is found inside a mine shaft.}
+                astronomy.\footnote{Observations near the Dead Sea or meteorites
+                found inside a mine shaft are some exceptions to this rule.}
                 The value of $R_\Earth$ can be chosen somewhat arbitrarily:
                 equatorial radius of \SI{6378137}{\metre} or mean radius of \SI{6371008}{\metre} are commonly used.
                 For the sake of clarity and consistency we use the value of \SI{6371008}{\metre} in our models.
@@ -128,7 +128,7 @@
         The transformation functions are then
         \aln{eq:mms-xyz-to-sph}{
             h       &= \sqrt{x^2 + y^2 + z^2} - R_\Earth, \\
-            \phi    &= \arccos{\frac{z}{x^2 + y^2 + z^2}}, \\
+            \phi    &= \arccos{\frac{z}{\sqrt{x^2 + y^2 + z^2}}}, \\
             \lambda &= \mathrm{atan2}(y, x)
         }
         and the inverse transformation is given as
@@ -143,14 +143,14 @@
         that is, an ellipsoid with a shorter polar axis and two
         equal longer equatorial axes.
 
-        The standard model to be used is \emph{WGS84}, defined as an ellipsoid
+        The current de facto standard model is \emph{WGS84}, defined as an ellipsoid
         with a semi-major axis $a = \SI{6378137}{\metre}$, inverse flattening
         $1/f = \num{298.257223563}$, which results in a semi-minor axis of
         $b \approx \SI{6356752.314245}{\metre}$ \cite{???}.
         The difference from the geoid is at most -105/+85 metres \cite{???}
-        which translates to a negligible local error.
+        which translates to a local error that is negligible for our purposes.
         Deviations of the local plumb line, caused by density inhomogeneities
-        inside the Earth, can be safely ignored in our use case.
+        inside the Earth, can be also safely ignored.
 
         The coordinates used are the same as in the spherical model. (Plumb line is always perpendicular to equipotential surface)
 

@@ -61,47 +61,48 @@ and how they affect the resulting motion of the particle in the atmosphere.
                 depends on the properties of the meteoroid material and its current distance from the Sun,
                 which is necessarily about \SI{1}{au}.
 
-                From the dynamical point of view it is useful to distinguish a truly heliocentric orbit
+                From the dynamical point of view it is useful to distinguish a true heliocentric orbit
                 (as long as the particle is outside of the gravitational sphere of influence of the Earth)
                 and a hyperbolic geocentric orbit (once it has crossed into the Earth's vicinity).
                 However, from the perspective of ablation, nothing is changed
                 as long as heating from collisions with atmospheric molecules is negligible,
                 which does not happen until the meteoroid crossed to within several hundred
                 kilometres from the surface of the Earth.
-            \item The \emph{pre-heating phase}, which occurs in the exosphere. The frequency of these collisions
-                and the surface temperature of the meteoroid are still too low to produce a visible
-                trail, but some ablation is already possible. The surface temperature
-                gradually increases (...)
-            \item The \emph{light phase}, which typically begins at altitudes of about \SI{100}{\kilo\metre}.
-                The density of the atmosphere at this altitude already presents significant drag,
-                the meteoroid is vio
+            \item The \emph{pre-heating phase}, which occurs in the exosphere.
+                The frequency of collisions with particles of the Earth's atmosphere
+                is no longer negligible but still very low. The surface temperature rises,
+                but not enough to produce a visible trail. Some ablation is already possible.
+            \item As the density of the atmosphere increases, so does the frequency of collisions
+                and the heat flux absorbed by the meteoroid. The surface temperature gradually increases
+                until the meteoroid produces a visible glow and thus enters the \emph{light phase}.
+                This typically happens at altitudes of about \SIrange{90}{120}{\kilo\metre}.
 
-                dynamical pressure may exceed the limit of toughness (???) of the particle,
+                The density of the atmosphere at this altitude presents significant drag.
+
+
+                dynamical pressure may exceed the toughness of the particle,
                 so fragmentation is also possible. Peak brightness
 
-                For more massive meteoroids (on the order of kilograms to tons) the light phase often continues
-                to below \SI{50}{\kilo\metre} or even lower. For dense and solid meteoroids or small asteroids
+                For more massive meteoroids (masses on the order of kilograms to tons) the light phase often continues
+                to below \SI{50}{\kilo\metre} or even lower. Very dense and solid meteoroids or small asteroids
                 it is possible not to be slowed down and impact the surface at hypersonic speeds,
                 emitting light until the last moment.
 
-            \item Smaller particles burn up completely within the upper atmosphere,
-                leaving a trail of ionized material and possibly microscopic dust behind,
-                and therefore do not experience the next \emph{dark flight phase}.
-
+            \item
+                Small particles burn up completely within the upper atmosphere,
+                leaving only a trail of ionized material and possibly microscopic dust behind.
                 Meteoroids with pre-atmospheric masses of tens of kilograms (or fragments
-                of larger bodies separated while still in the atmosphere) can be slowed down
-                to subsonic speed and continue falling towards the surface.
+                of larger bodies which separated from the parents body while still in the atmosphere)
+                are gradually decelerated and their surface is cooled enough
+                to stop emitting visible light and enters the \emph{dark flight phase}.
+
                 With current technology it is virtually impossible to observe them directly.
-                Trajectories can be computed and simulated from the known combination
+                Trajectories can be computed and simulated from a known combination
                 of position and velocity during the light phase of flight, and extrapolated
                 until they reach the surface.
 
                 The resulting area of possible impacts is called the \emph{strewn field}.
-
         \end{enumerate}
-
-        limits of free-molecular flow (which is, in case of a meteoroid,
-        encountered during the pre-heating phase at altitudes above \SI{200}{\kilo\metre})
 
 
 \section{Acting forces} \label{df}
@@ -113,14 +114,19 @@ and how they affect the resulting motion of the particle in the atmosphere.
         \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
     \end{itemize}
 
-    Since the simulation is run in the ECEF reference frame, two fictitious forces are also present.
-    Including them may increase the precision of the simulation at a negligible computational cost:
+    Other forces, such as aerodynamic lift produced by irregular shape of the meteoroid
+    or rocket effect, caused by violent expulsion of gases during fragmentation,
+    are impossible to be modeled without precise knowledge of meteoroid shape and composition
+    and are thus ignored in our simulations.
+
+    Since the simulation is run in a non-inertial rotating reference frame, two fictitious forces are also present:
     \begin{itemize}
         \item the fictitious \emph{centrifugal} or \emph{Huygens force} $\vec{F_{\mathrm{Huygens}}}$,
             pushing the particle away from the axis of rotation of the Earth;
         \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{Coriolis}}}$,
             which pushes a moving body in a direction perpendicular to its velocity vector.
     \end{itemize}
+    Including them in the simulation increases the precision at a negligible computational cost.
 %
 %            Except for the drag force, all forces can be readily expressed in terms of instantaneous
 %            position and velocity of the meteoroid and several constants.
@@ -138,41 +144,17 @@ and how they affect the resulting motion of the particle in the atmosphere.
 %            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
 %
 %            \paragraph{Coriolis force} \label{saiC}
-%                The fictitious Coriolis force arises in a rotating reference frame.
-%                \eqn{eq:saiC-coriolis}{
-%                    \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
-%                }
-%
-%                For a meteoroid, its magnitude is at most on the order of
-%                \eqn{eq:saiC-order}{
-%                    2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-%                }
-%                roughly the same as gravitational acceleration.
-%
-%            \paragraph{Centrifugal force} \label{saic}
-%                The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-%                \eqn{eq:saic-centrifugal}{
-%                    \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
-%                }
-%                where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
-%                $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$ in the direction
-%                towards the north celestial pole.
-%
-%                Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
-%                gravitational force. A simple calculation shows that its magnitude is on the order
-%                of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
-%                It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
-%                is used to investigate the motion of a meteoroid further from the Earth.
-%                However, in this case an inertial reference frame should be used instead.
+%                %
+
 %
 %            \paragraph{Gravitational force} \label{saig}
-%                The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
-%                For particles that are generally moving on highly hyperbolic trajectories the
-%                simple approximation by a Newtonian point source with mass $M_\Earth$ is sufficient.
-%                The formula used in computation is then simply
-%                \eqn{eq:saig-gravity}{
-%                    \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
-%                }
+%                
+%                
+%                
+%                
+%                
+%                
+%                
 %
 %            \paragraph{Drag force} \label{said}
 %                The precise description of the drag force is crucial to understand the motion
@@ -191,19 +173,44 @@ and how they affect the resulting motion of the particle in the atmosphere.
 
 
 
-    is model-dependent. The total force is then
-    \eqn{eq:sai-totalforce}{
-        \vec{F} = \vec{F_\mathrm{gravity}} + \vec{F_\mathrm{Coriolis}} + \vec{F_\mathrm{Huygens}} + \vec{F_\mathrm{drag}}.
-    }
-
     \subsection{Gravity} \label{dfg}
-        
+        The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
+        For particles that are generally moving on highly hyperbolic trajectories the
+        simple approximation by a Newtonian point source with mass $M_\Earth$ is sufficient.
+        The formula used in computation is then simply
+        \eqn{eq:saig-gravity}{
+            \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
+        }
 
     \subsection{Coriolis force} \label{dfC}
+        The fictitious Coriolis force arises in a rotating reference frame.
+        \eqn{eq:saiC-coriolis}{
+            \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
+        }
+
+        For a meteoroid, its magnitude is at most on the order of
+        \eqn{eq:saiC-order}{
+            2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
+        }
+        roughly the same as gravitational acceleration.
+
 
 
     \subsection{Huygens force} \label{dfH}
+        The centrifugal force pushes the particles away from the axis of rotation of the Earth.
+        \eqn{eq:saic-centrifugal}{
+            \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
+        }
+        where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
+        $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$
+        with the rotation axis in the direction towards the north celestial pole.
 
+        Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
+        gravitational force. A simple calculation shows that its magnitude is on the order
+        of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
+        It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
+        is used to investigate the motion of a meteoroid further from the Earth.
+        However, in this case an inertial reference frame should be used instead.
 
 \section{Drag force} \label{fd}
         The last -- but the most important and interesting -- force acting on the meteoroid during
@@ -319,6 +326,8 @@ and how they affect the resulting motion of the particle in the atmosphere.
         In the thesis we will compare six different drag models of varying precision
         and computational cost.
 
+        research: see which combinations of Re, Kn and Ma are normally attained during flight
+
         \subsubsection{No drag} \label{fdmn}
             A trivial model in which $\Gamma = 0$ at all times.
             It is not useful for atmospheric modelling, but is computationally
@@ -362,29 +371,35 @@ and how they affect the resulting motion of the particle in the atmosphere.
             }
 
             It also reproduces the sharp decrease of drag coefficient at high Reynolds
-            numbers ($\mathrm{Re} \approx \num{e5}$), known as the \emph{drag crisis} \cite{???}.
+            numbers ($\mathrm{Re} \approx \num{e5}$), known as the \emph{drag crisis}
+            or the \emph{Eiffel paradox} \cite{???}.
 
-            \fig{drag-crisis.pdf}{100mm}{ddm-drag-crisis}{%
+            \fig{drag-crisis.pdf}{90mm}{ddm-drag-crisis}{%
                 Dependence of drag coefficient $\Gamma$ for a smooth sphere (teal) and rough sphere (green).
                 For a smooth sphere, the drag coefficient decreases abruptly from about \num{0.5} to
                 \num{0.1} at $\mathrm{Re} \approx \num{3e5}$, which corresponds to the transition from
+                laminar to turbulent boundary flow \citep{roshko1961}.
 
                 For a rough sphere, the magnitude of the decrease is significantly smaller, but the change
-                occurs at much a lower Reynolds number, about \num{8e4}. Although typical meteoroids cannot
-                be reasonably approximated by smooth spheres, 
-                }
+                occurs at a much lower Reynolds number, about \num{e5}. Although meteoroids are
+                never perfectly smooth spheres, a rough sphere is a reasonable
+                approximation where there is no prior knowledge about the shape.
 
-            However, it is only valid in the incompressible limit
-            (generally expressed as $M \lessapprox \numrange{0.2}{0.3}$ or
-            about \SIrange{70}{100}{\metre\per\second}) and in continuum flow ($\mathrm{Kn} < \num{0.01}$).
+                \textit{Credit: Original image \citet{nasa-drag}, vectorized by%
+                Wikipedia user Kraaiennest, edits by Olivier Cleynen}
+            }
+
+            The problem with this model is that it is only valid in the incompressible limit.
+            For air, this is justifiable at low speeds ($M \lessapprox \numrange{0.2}{0.3}$ or
+            about \SIrange{70}{100}{\metre\per\second}) and only in continuum flow ($\mathrm{Kn} < \num{0.01}$).
             These conditions are not met during most of an atmospheric entry,
             but the model can be useful for simulating the atmospheric free fall.
 
             \begin{example}[A note on the term ``free fall'']
                 The terms here are a bit confusing. We distinguish true \emph{free fall},
                 the motion of a body in the absence of external forces other than gravity;
-                and an \emph{atmospheric free fall}, the motion of a body where atmospheric drag force is already in equilibrium
-                with the force of gravity.
+                and an \emph{atmospheric free fall}, the motion of a body where the atmospheric
+                drag force is already in equilibrium with the gravitational force.
 
                 To make matters even more complicated, an object falling from rest
                 (or being slowed down from a higher-than-terminal speed, as in the case of a meteoroid)
@@ -393,9 +408,13 @@ and how they affect the resulting motion of the particle in the atmosphere.
             \end{example}
 
         \subsubsection{Henderson model} \label{fdmH}
+            One of the first high-precision drag models for spherical bodies,
+            valid across a wide range of Reynolds and Knudsen numbers, was published by \citet{henderson1976}.
+            It was specifically designed to be utilized in computer simulations
+            and displayed high agreement with experimental data.
 
         \subsubsection{Loth model} \label{fdmL}
-            A further refinement is due to \cite{loth???}.
+            A further refinement is due to \citet{loth2008}.
             The Loth model accounts for effects of compression of the gas
             during subsonic and supersonic flight.
 

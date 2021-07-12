@@ -1,5 +1,27 @@
+\section{Morrison model} \label{DM}
+
+    \eqn{eq:DM-G}{
+        \Gamma(\mathrm{Re}) =
+            \frac{24}{\mathrm{Re}} +
+            \frac{
+                \num{2.6} \left(\frac{\mathrm{Re}}{5}\right)
+            }{
+                1 + \left(\frac{\mathrm{Re}}{5}\right)^{\num{1.52}}
+            } +
+            \frac{
+                \num{0.411} \left(\frac{\mathrm{Re}}{263000}\right)^{\num{-7.94}}
+            }{
+                1 + \left(\frac{\mathrm{Re}}{263000}\right)^{-8}
+            } +
+            \frac{
+                \num{0.25} \left(\frac{\mathrm{Re}}{\num{e6}}\right)
+            }{
+                1 + \left(\frac{\mathrm{Re}}{\num{e6}}\right)
+            }
+    }
+
 \section{Henderson model} \label{DH}
-    The Henderson model \cite{henderson} explicitly depends on the Mach
+    The Henderson model \cite{henderson1976} explicitly depends on the Mach
     and Reynolds numbers $M_\infty$ and $\Reinf$,
     and on the ratio of wall temperature of the object to the free-flow temperature.
 
@@ -55,8 +77,8 @@
         }
 
     \subsection{Low-supersonic case} \label{DH-l}
-        Finally, in the transitional case ($1 < M_\infty < \num{1.75}$) $\Gamma$ is obtained by bridging the boundary values of the expressions for
-        the subsonic and high-supersonic case as
+        Finally, in the transitional case ($1 < M_\infty < \num{1.75}$) $\Gamma$ is obtained
+        by bridging the boundary values of the expressions for the subsonic and high-supersonic case as
         \eqn{eq:DH-Gss}{
             \Gamma(M_\infty, \Reinf, \tau) =
             \Gamma(1, \Reinf, \tau) + \frac{4}{3}\left(M_\infty - 1\right)\left[
@@ -66,9 +88,9 @@
 
 
 \section{Loth model} \label{DL}
-    The Loth model \citep{loth2008} explicitly depends on free-flow Mach number $M_\infty$,
-    free-flow Reynolds number $\Reinf$, free-flow temperature $T_\infty$
-    and object's surface temperature $T_p$.
+    The Loth model \citep{loth2008} explicitly depends on free-flow Mach number~$M_\infty$,
+    free-flow Reynolds number $\Reinf$, free-flow temperature~$T_\infty$
+    and object's surface temperature~$T_p$.
 
     \eqn{eq:DL-s}{
         s = M_\infty \sqrt{\frac{\gamma}{2}}

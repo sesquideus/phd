@@ -8,12 +8,17 @@
     \textit{translation John Willett}
 }
 
-In this chapter we describe the forces acting on a meteoroid body
-and how they affect the resulting motion of the particle in the atmosphere.
+In this chapter we describe the forces acting on a body in the atmosphere and how they affect the resulting motion.
+At its end, we should obtain several dynamical models of various complexity and precision.
+Each such model should comprise a set of differential equations that govern the evolution
+of the particle's position and velocity over time until it is destroyed, reaches the surface
+or escapes the Earth.
 
 \section{Analysis} \label{da}
-    First of all we need to decide which constants and properties of the meteoroids
-    and the environment are relevant.
+    First of all, we need to decide which properties of the meteoroids
+    and the environment are relevant to our effort.
+
+
 
     we obtain a tuple which we we call the \emph{state} of the meteoroid.
     This tuple contains the key properties which are bound to the meteoroid body,
@@ -322,15 +327,40 @@ and how they affect the resulting motion of the particle in the atmosphere.
             Since temperatures encountered in the atmosphere mostly fall within this range
             and the model is fairly simple, we use it in all our calculations.
 
+    \subsection{Atmospheric density} \label{fdd}
+
+        \subsubsection{No atmosphere} \label{fddn}
+            The simplest possible model does not account for the presence of the atmosphere at all.
+            It is not suitable for modelling of meteoroid entry, but it is useful for testing.
+
+        \subsubsection{Isothermal atmosphere} \label{fddt}
+
+        \subsubsection{International Standard Atmosphere} \label{fddi}
+
+        \subsubsection{MSIS-E-90} \label{fdd9}
+            daily variations
+            yearly variations
+            solar activity
+            recommended for studies across several atmospheric layers \cite{...}
+
+            To obtain even higher precision for simulations of significant entry events,
+            the model output can be downloaded for the precise time and location of the event.
+
+        \subsubsection{NRLMSISE-00} \label{fdd0}
+            (...)
+
+            For our purposes NRLMSISE-00 is just an updated version of the previous MSIS-E-90 model.
+
+
     \subsection{Analysed drag models} \label{fdm}
         In the thesis we will compare six different drag models of varying precision
         and computational cost.
 
-        research: see which combinations of Re, Kn and Ma are normally attained during flight
+        research: see which region of combinations of Re, Kn and Ma are normally attained during flight
 
         \subsubsection{No drag} \label{fdmn}
             A trivial model in which $\Gamma = 0$ at all times.
-            It is not useful for atmospheric modelling, but is computationally
+            Again, it is not useful for atmospheric modelling, but is computationally
             very fast and makes testing other models easier.
 
             While atmospheric density is still non-zero in the exosphere,
@@ -342,12 +372,14 @@ and how they affect the resulting motion of the particle in the atmosphere.
             Meteoroids are always on hyperbolic trajectories with respect to the Earth
             and pass through this volume within seconds. Any long-term effects
             are too small to appreciably alter the meteoroids' trajectories.
-            Therefore all models can safely fall back to zero drag above the altitude of \SI{400}{\kilo\metre}.
+            Therefore all models can safely fall back to zero drag above the
+            altitude of about \SI{400}{\kilo\metre}.
 
         \subsubsection{Constant drag model} \label{fdmc}
             In older textbooks and papers a constant value of $\Gamma$ is often taken as a first approximation.
-            For a spherical particle in a turbulent flow a value of \num{0.47}
-            is often used \cite{???}. \cite{hrábek} \cite{havrila}
+            For a spherical particle in a turbulent flow a value of \num{0.47} is often used \cite{???}.
+            One of the primary objectives of this thesis is to quantify how large these errors
+            are and whether it is justifiable to use such simple models at all.
 
         \subsubsection{Morrison model} \label{fdmM}
             The next step is to include the effects of viscous and inertial forces -- or,

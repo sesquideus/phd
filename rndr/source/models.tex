@@ -13,7 +13,7 @@
 
 
 
-\section{Models of the Earth}
+\section{Models of the Earth} \label{mE}
     Apart from the model of meteoroid dynamics, an important consideration is the level of precision
     of the model of the Earth. We distinguish three separate models:
 
@@ -35,21 +35,20 @@
     oblate spheroid model will be dominated by other sources of measurement errors.
     More precise models thus will not be investigated in this thesis.
 
-
-    \subsection{Locally flat Earth} \label{mmf}
+    \subsection{Locally flat Earth} \label{mEf}
         Some simulations, such as those of a single meteor, or a determination of
         the number of meteors visible during one night, can be performed for a single virtual observer.
         As the radius of the Earth -- and subsequently the curvature of its radius -- are
         sufficiently large compared to the typical distances between the observer and meteors,
         in these cases the Earth can be considered to be locally flat.
 
-        The natural system of referencing locations is then \emph{horizontal coordinate system},
+        The natural system of referencing locations is then the \emph{horizontal coordinate system},
         centered in the observer and aligned with the cardinal directions.
         A local tangent plane is laid out so that it touches the surface of the Earth
         at the position of the observer. Special consideration has to be given to computation of altitudes:
         unlike in deep-sky astronomy, where the altitude of the observer with respect to the sea level
         is negligibly small compared to distances to objects and can be ignored, in meteor astronomy
-        this difference is significant (for instance when computing atmospheric density).
+        this difference is significant -- for instance when computing atmospheric density.
 
         (picture)
 
@@ -70,13 +69,15 @@
                 ($a \in \IntervalCO{\ang{0}}{\ang{360}}$).
         \end{description}
 
+        In the simulator we are primarily concerned with global simulations
+        and there we do not implement the locally flat Earth model at all.
 
-    \subsection{Spherical Earth} \label{mms}
+    \subsection{Spherical Earth} \label{mEs}
         The natural next step is to consider a spherical Earth model.
         The true shape of the Earth's zero-altitude surface differs from
         a perfect sphere by no more than one part in 300, which introduces errors
         that are for many purposes negligible.
-        The origin of the coordinate system lies in the centre of mass of the Earth.        
+        The origin of the coordinate system lies in the centre of mass of the Earth.
 
         In mathematics, it is custom to denote spherical coordinates by the triplet
         $(r, \theta, \phi)$, where
@@ -96,7 +97,7 @@
 
         For describing locations in the ECEF frame, it is customary to use the
         more convenient \emph{geographical convention}. The coordinates are substituted
-        \aln{mms-subst}{
+        \aln{eq:mEs-subst}{
             h &:= r - R_\Earth, \\
             \phi &:= \ang{90} - \theta, \\
             \lambda &:= \phi
@@ -116,29 +117,30 @@
                 which yields $h \in \IntervalCO{-R_\Earth}{\infty}$.
                 Negative values represent points below the surface of the Earth --
                 while theoretically possible, they are of no interest in meteor
-                astronomy.\footnote{Observations near the Dead Sea or meteorites
-                found inside a mine shaft are some exceptions to this rule.}
+                astronomy.\footnote{Observations made from near the Dead Sea or meteorites
+                found inside a mine shaft are some of the exceptions to this rule.}
                 The value of $R_\Earth$ can be chosen somewhat arbitrarily:
-                equatorial radius of \SI{6378137}{\metre} or mean radius of \SI{6371008}{\metre} are commonly used.
+                equatorial radius of \SI{6378137}{\metre}, mean radius of \SI{6371008}{\metre} or polar radius
+                of \SI{6356752}{\metre} are commonly used.
                 For the sake of clarity and consistency we use the value of \SI{6371008}{\metre} in our models.
         \end{itemize}
 
         (picture)
 
         The transformation functions are then
-        \aln{eq:mms-xyz-to-sph}{
+        \aln{eq:mEs-xyz-to-sph}{
             h       &= \sqrt{x^2 + y^2 + z^2} - R_\Earth, \\
             \phi    &= \arccos{\frac{z}{\sqrt{x^2 + y^2 + z^2}}}, \\
             \lambda &= \mathrm{atan2}(y, x)
         }
         and the inverse transformation is given as
-        \aln{eq:mss-sph-to-xyz}{
+        \aln{eq:mEs-sph-to-xyz}{
             x &= \left(h + R_\Earth\right) \cos\phi \cos\lambda, \\
             y &= \left(h + R_\Earth\right) \cos\phi \sin\lambda, \\
             z &= \left(h + R_\Earth\right) \sin\phi.
         }
 
-    \subsection{Oblate spheroid} \label{mmo}
+    \subsection{Oblate spheroid} \label{mEo}
         An even better approximation is to use an oblate spheroid,
         that is, an ellipsoid with a shorter polar axis and two
         equal longer equatorial axes.
@@ -157,7 +159,7 @@
         The transformation formulae are mathematically complex and beyond the scope of this thesis.
         In our models we use the optimized implementation by \citet{osen2017}.
 
-    \subsection{Comparison} \label{mmc}
+    \subsection{Comparison} \label{mEc}
         While absolute errors of the spherical model are on the order of kilometres,
         typical scales of interest in meteor science are not spanning the entire diameter of the Earth,
         but are on the order of hundreds of kilometres. This keeps the relative errors considerably lower.
@@ -166,12 +168,12 @@
         the deviation is generally lowest for meteors in the zenith
         and gradually increases towards the horizon.
 
-        (conduct simulation experiment here)
+        (conduct simulation experiment here with same seed)
 
         flat vs spherical
 
     \subsection{Conclusion}
-        With currently available computational power it is no longer reasonable to
+        We believe that with currently available computational power it is no longer reasonable to
         use a locally-flat Earth model, not even for the simplest cases.
         The transformations involved in the use of the spherical model
         are simple and computationally inexpensive enough to warrant its employment everywhere.

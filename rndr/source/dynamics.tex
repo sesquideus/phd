@@ -179,66 +179,71 @@ or escapes the Earth.
 
 
     \subsection{Gravity} \label{dfg}
-        The real shape of the gravitational potential around the Earth is fairly complex and difficult to describe accurately.
-        For particles that are generally moving on highly hyperbolic trajectories the
-        simple approximation by a Newtonian point source with mass $M_\Earth$ is sufficient.
-        The formula used in computation is then simply
-        \eqn{eq:saig-gravity}{
-            \vec{F_{\mathrm{G}}} = - \frac{GM_\Earth}{r^3} \vec{r}.
+        The true shape of the gravitational potential field around the Earth is complex.
+        Fortunately, meteoroids are mostly moving on highly hyperbolic trajectories,
+        and a simple approximation by a Newtonian point source with mass $M_\Earth$ is sufficient.
+        The formula used in computation of gravitational force is
+        \eqn{eq:dfg-gravity}{
+            \vec{F_{\mathrm{G}}}(\vec{r}) = - \frac{GM_\Earth}{r^3} \vec{r}.
         }
+
+        Its magnitude is at most about \SI{10}{\metre\per\second\squared} near the surface.
 
     \subsection{Coriolis force} \label{dfC}
         The fictitious Coriolis force arises in a rotating reference frame.
-        \eqn{eq:saiC-coriolis}{
-            \vec{F_{\mathrm{C}}} = -2 m \vec{\Omega}_\Earth \times \vec{v}.
-        }
-
-        For a meteoroid, its magnitude is at most on the order of
-        \eqn{eq:saiC-order}{
-            2 \frac{2\pi}{\SI{86400}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \sim \SI{10}{\metre\per\second\squared},
-        }
-        roughly the same as gravitational acceleration.
-
-
-
-    \subsection{Huygens force} \label{dfH}
-        The centrifugal force pushes the particles away from the axis of rotation of the Earth.
-        \eqn{eq:saic-centrifugal}{
-            \vec{F_{\mathrm{c}}} = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right),
+        It depends explicitly on the velocity vector of the particle,
+        \eqn{eq:dfg-coriolis}{
+            \vec{F_{\mathrm{C}}}(\vec{v}) = -2 m \vec{\Omega}_\Earth \times \vec{v},
         }
         where $\vec{\Omega}_\Earth$ is the angular speed of rotation of the Earth,
         $\frac{2\pi}{\SI{86164}{\second}} \approx \SI{7.292e-5}{\per\second}$
         with the rotation axis in the direction towards the north celestial pole.
 
+        For a meteoroid, its magnitude is at most on the order of
+        \eqn{eq:dfg-order}{
+            2 \frac{2\pi}{\SI{86164}{\second}} \cdot \SI{70}{\kilo\metre\per\second} \approx \SI{10}{\metre\per\second\squared},
+        }
+        roughly the same as gravitational acceleration.
+
+    \subsection{Huygens force} \label{dfH}
+        In a rotating reference frame, the centrifugal Huygens force pushes
+        the particles away from the axis of rotation. It is equal to
+        \eqn{eq:saic-centrifugal}{
+            \vec{F_{\mathrm{c}}}(\vec{r})
+                = - m \vec{\Omega}_\Earth \times \left(\vec{\Omega}_\Earth \times \vec{r}\right).
+        }
+
         Since it only depends on the instantaneous position, it can be thought of as a minor correction to the
-        gravitational force. A simple calculation shows that its magnitude is on the order
-        of \SI{0.03}{\metre\per\second\squared}. Near the surface it can be safely neglected for most purposes.
-        It only becomes important when the distance from the axis of rotation is large, for instance if the simulation
-        is used to investigate the motion of a meteoroid further from the Earth.
-        However, in this case an inertial reference frame should be used instead.
+        gravitational force. A simple calculation shows that near the surface, its magnitude is on the order
+        of \SI{0.03}{\metre\per\second\squared} and it can be safely ignored in the simulation.
+        It only becomes important when the distance from the axis of rotation is large -- for
+        instance if the simulation is used to investigate the motion of a meteoroid further from the Earth.
+        However, for orbital simulations it is more advantageous to use an inertial reference frame instead.
 
 \section{Drag force} \label{fd}
-        The last -- but the most important and interesting -- force acting on the meteoroid during
+        The last -- but the most important and least understood -- force acting on the meteoroid during
         its atmospheric entry is the drag force. It arises as a consequence of its collisions with
-        the molecules of atmospheric air, decreasing the momentum of the particle and at the
+        the molecules of atmospheric air, decreasing the momentum of the meteoroid and at the
         same time converting its kinetic energy to heat.
 
         Unlike other forces, which can be readily described in terms of several easily understandable
         quantities, drag force is much more variable and somewhat inscrutable: it depends on the shape
-        of the particle, which is not known \textit{a priori}, but can be measured only after
-        the meteorite is recovered, which means we generally have to work with assumptions.
-        It also depends on atmospheric density, which can be modelled but not measured precisely,
-        and varies with time of year, day and solar activity.
+        of the particle, which is not known \textit{a priori}. It can be measured after
+        a meteorite is recovered, but for most part we have to work with assumptions.
+        Drag also depends on atmospheric density, which can be modelled but not measured precisely,
+        and varies with time of day, time of year and solar activity.
 
-        And it gets worse. While certain limits can be described accurately using
-        simple concepts and formulae -- for instance, in exosphere the air density is extremely low,
-        interactions between constituent particles are very rare and the Knudsen number is virtually infinite.
-        The atmospheric drag can be then modelled as a succession of collisions with individual
-        molecules that do not acknowledge others' presence anyhow, which is fairly simple.
+        And it gets worse. Although certain limits can be described accurately using
+        simple concepts and formulae, in general the behaviour is chaotic.
+        For instance in exosphere the air density is extremely low,
+        and interactions between constituent particles are very rare.
+        Atmospheric drag can be then modelled as a succession of collisions with individual
+        molecules, which is fairly simple.
         On the other hand, a microscopic dust particle falling near the sea level encounters
         Reynolds numbers so low that the situation can be described by the relatively simple Stokes' drag.
+        \todo{is this actually true?}
 
-        However, between these two the entering meteoroid experiences a vast range of conditions:
+        However, inbetween these two extremes an entering meteoroid experiences a vast range of conditions:
         a hypersonic entry of the particle into the atmosphere, whose density grows exponentially with increasing depth;
         then a transonic transition, where all sorts of turbulence and flow separation effects come into play,
         and finally an atmospheric free fall at subsonic terminal velocity.
@@ -334,8 +339,61 @@ or escapes the Earth.
             It is not suitable for modelling of meteoroid entry, but it is useful for testing.
 
         \subsubsection{Isothermal atmosphere} \label{fddt}
+            The simplest at least somewhat realistic model that allows limited closed-form
+            solutions of equations of motion is that of \emph{isothermal atmosphere}.
+            The atmosphere is modelled as having constant composition and temperature
+            throughout its entire altitudinal profile. The density then only depends on pressure.
+            Such model is called \textit{barotropic} \citep{shames1992}.
+            These models are customarily computed not in terms of \textit{geometric altitude},
+            but of \textit{geopotential altitude}.
+
+            \begin{example}[Geometric and geopotential altitude]
+                In numerical simulations we prefer to work with true geometric coordinates.
+                However, in atmospheric modelling it is advantageous to transform the coordinates first
+                in order to eliminate the slight changes in gravitational acceleration with altitude.
+
+                The ISA model is defined in terms of geopotential meters \citep{nasa-isa}.
+                Instead of measuring the true distance between two points and taking its radial component,
+                the difference in actual gravitational potential between these points
+                is measured. The obtained value is divided by standard acceleration due to gravity,
+                $g_0 = \SI{9.80665}{\metre\per\second\squared}$. The resulting value has a dimension of length
+                and is termed \textit{geopotential height}.
+            \end{example}
+
+            Pressure and density then decrease exponentially with altitude as
+            \eqn{eq:fddt-denspress}{
+                p(h) = p(0) e^{\frac{-mgh}{kT}}
+                \qquad\text{and}\qquad
+                \rho(h) = \rho(0) e^{\frac{-mgh}{kT}},
+            }
+            where
+            \begin{itemize}
+                \item $m$ is the mean molecular mass of the air ($\approx \SI{29}{\atomicmass}$),
+                \item $g$ is the acceleration due to gravity ($\approx \SI{9.81}{\metre\per\second\squared}$),
+                \item $h$ is the altitude above mean sea level,
+                \item $k$ is the Boltzmann constant, $\SI{1.380649}{\joule\per\kelvin}$ and
+                \item $T$ is the constant temperature, usually set to \SI{287.15}{\kelvin}.
+            \end{itemize}
+
+            Additionally, $p(0) = \SI{101325}{\pascal}$ and
+            $\rho(0) = p(0) \frac{m}{kT} \approx \SI{1.23}{\kilo\gram\per\cubic\metre}$.
+
+            If we consider the atmosphere to be thin compared to the radius of the Earth,
+            gravitational acceleration can also be assumed to be constant, in which case
+            geopotential and geometric altitude are identical on a spherical Earth model;
+            and the introduced errors remain tolerably small even with the WGS84 model.
 
         \subsubsection{International Standard Atmosphere} \label{fddi}
+            The next step towards a more precise model involves allowing the temperature to change with altitude.
+            Of course, temperature also varies with time of day, time of year and is influenced by weather,
+            so any model that is not directly based on current data will differ from reality significantly.
+
+            and the ISA model may differ from reality significantly. However, most of the variations
+            are contained within the troposphere. At altitudes which are most important to us
+            (\SIrange{60}{120}{\kilo\metre}) weather is virtually nonexistent, however atmospheric
+            density 
+
+
 
         \subsubsection{MSIS-E-90} \label{fdd9}
             daily variations
@@ -343,14 +401,15 @@ or escapes the Earth.
             solar activity
             recommended for studies across several atmospheric layers \cite{...}
 
-            To obtain even higher precision for simulations of significant entry events,
+            For generic simulations, such as those of meteor showers,
+            it is reasonable to use one output of the model that is considered valid for the entire simulation.
+            In case higher precision is needed (for instance when modelling a particular bolide),
             the model output can be downloaded for the precise time and location of the event.
 
         \subsubsection{NRLMSISE-00} \label{fdd0}
-            (...)
-
-            For our purposes NRLMSISE-00 is just an updated version of the previous MSIS-E-90 model.
-
+            The next update of the MSIS-E-90 model was released in 2000 by \citet{picone+nrlmsise00}
+            after updating with new satellite drag data. NRLMSISE-00 is considered to be
+            the reference model for all meteor simulations.
 
     \subsection{Analysed drag models} \label{fdm}
         In the thesis we will compare six different drag models of varying precision
@@ -565,7 +624,7 @@ or escapes the Earth.
             \item[$T_\mathrm{air}$]
                 temperature of the atmosphere at the position of the meteoroid (\si{\kelvin}),
             \item[$L$]
-                latent heat of fusion and vaporization ($\si{\joule\per\kilo\gram} \equiv \si{\metre\squared\per\second\squared}$.
+                latent heat of fusion and vaporization ($\si{\joule\per\kilo\gram} \equiv \si{\metre\squared\per\second\squared}$).
 
         \end{description}
 

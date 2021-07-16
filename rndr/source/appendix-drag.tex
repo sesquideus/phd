@@ -1,3 +1,9 @@
+In this appendix we present full drag correlations for a smooth sphere,
+in a compact form suitable for direct implementation in an imperative programming language
+and using notation commonly used in meteor science.
+For full derivations of the correlations and reasoning behind them,
+refer to the respective original paper.
+
 \section{Morrison model} \label{DM}
     In the Morrison model of drag \citep{morrison2016}, $\Gamma$ is an explicit function
     of the Reynolds number $\mathrm{Re}$,
@@ -97,7 +103,6 @@
         s = M_\infty \sqrt{\frac{\gamma}{2}}
     }
 
-
     \aln{eq:DL-Gfm}{
         \Gamma_\mathrm{fm}^\prime &=
             \frac{\left(1 + 2s^2\right) \exp(-s^2)}{\sqrt{\pi} s^3} +
@@ -172,7 +177,7 @@
     }
 
 \section{Singh model} \label{DS}
-    In the Singh model, the drag coefficient $\Gamma$ explicitly depends on the
+    In the Singh model \citep{singh+2020}, the drag coefficient $\Gamma$ explicitly depends on the
     free-flow Mach number $M_\infty$, free-flow Reynolds number $\Reinf$,
     free-flow temperature $T_\infty$ and surface temperature of the particle $T_p$.
     Furthermore, the correlation requires several constants:
@@ -188,7 +193,7 @@
         \item $C_0 = \frac{24}{\delta_0^2}$.
     \end{itemize}
 
-    First a \emph{non-continuum parameter} is defined as
+    First, a \emph{non-continuum parameter} is defined as
     \eqn{eq:DS-Wr}{
         W_r = \frac{M_\infty^{2\omega}}{\Reinf} = \mathrm{Kn}_\infty M_\infty^{2\omega - 1} \sqrt{\frac{2}{\pi \gamma}}.
     }
@@ -255,10 +260,10 @@
         \frac{1}{
             1 + \mathrm{Kn}_\infty \left[\num{2.514} + \num{0.8} \exp \left(\frac{\num{-0.55}}{\mathrm{Kn}_\infty}\right)\right]
         }
-        \frac{1}{1 + \alpha_\mathrm{hoc} W_r^T}
+        \frac{1}{1 + \alpha_\mathrm{hoc} W_r^T}.
     }
 
-    The expression for free-molecular flow is the same as in the Loth model, \cref{eq:DL-Gfm},
+    The expression for free-molecular flow drag is the same as in the Loth model, \cref{eq:DL-Gfm},
     \eqn{eq:DS-Gfm}{
         \Gamma_\mathrm{fm} =
             \frac{\left(1 + 2s^2\right) \exp(-s^2)}{s^3 \sqrt{\pi}} +

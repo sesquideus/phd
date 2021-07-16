@@ -1,25 +1,3 @@
-\makeatletter
-    \newsavebox\myboxA
-    \newsavebox\myboxB
-    \newlength\mylenA
-
-    \newcommand*\overbar[2][0.75]{%
-        \sbox{\myboxA}{$\m@th#2$}%
-        \setbox\myboxB\null% Phantom box
-        \ht\myboxB=\ht\myboxA%
-        \dp\myboxB=\dp\myboxA%
-        \wd\myboxB=#1\wd\myboxA% Scale phantom
-        \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
-        \setlength\mylenA{\the\wd\myboxA}%   calc width diff
-        \addtolength\mylenA{-\the\wd\myboxB}%
-        \ifdim\wd\myboxB<\wd\myboxA%
-           \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
-        \else
-            \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
-        \fi%
-    }
-\makeatother
-
 \RenewDocumentCommand{\emph}{m}{{\semibold #1}}
 
 \NewDocumentCommand{\eqn}{m +m}{%
@@ -57,15 +35,15 @@
 \DeclareMathOperator\erf{erf}
 \NewDocumentCommand{\Reinf}{}{\mathrm{Re}_\infty}
 
-\NewDocumentCommand{\fig}{O{} m m m +m}{
-    \begin{figure}[H]
+\NewDocumentCommand{\fig}{O{} m m m O{H} +m}{
+    \begin{figure}[#5]
         \centering
         \IfFileExists{input/pictures/#2}{%
             \includegraphics[keepaspectratio=true, width=#3]{input/pictures/#2}%
         }{%
             \includegraphics[keepaspectratio=true, width=#3]{example-image-a}
         }
-        \caption[#1]{#5}
+        \caption[#1]{#6}
         \label{#4}
     \end{figure}
 }

@@ -149,17 +149,18 @@
         with a semi-major axis $a = \SI{6378137}{\metre}$, inverse flattening
         $1/f = \num{298.257223563}$, which results in a semi-minor axis of
         $b \approx \SI{6356752.314245}{\metre}$ \cite{???}.
-        The difference from the geoid is at most -105/+85 metres \cite{???}
+        The difference from the geoid is at most -105/+85 metres \cite{???},
         which translates to a local error that is negligible for our purposes.
         Deviations of the local plumb line, caused by density inhomogeneities
         inside the Earth, can be also safely ignored.
 
-        The coordinates used are the same as in the spherical model. (Plumb line is always perpendicular to equipotential surface)
-
+        The coordinates used are the same as in the spherical model, that is, latitude $\phi$,
+        longitude $\lambda$ and altitude $h$, measured from the surface of the spheroid.
         The transformation formulae are mathematically complex and beyond the scope of this thesis.
         In our models we use the optimized implementation by \citet{osen2017}.
 
     \subsection{Comparison} \label{mEc}
+
         While absolute errors of the spherical model are on the order of kilometres,
         typical scales of interest in meteor science are not spanning the entire diameter of the Earth,
         but are on the order of hundreds of kilometres. This keeps the relative errors considerably lower.

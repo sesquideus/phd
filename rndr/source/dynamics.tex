@@ -115,28 +115,27 @@ or escapes the Earth.
 
     In the simulation we consider two real forces,
     \begin{itemize}
-        \item the \emph{drag force} $\vec{F_d}$, always acting against the instantaneous velocity vector of the particle;
-        \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth.
+        \item the \emph{gravitational force} $\vec{F_g}$, pulling the meteoroid towards the centre of the Earth;
+        \item and the \emph{drag force} $\vec{F_d}$, acting against the instantaneous velocity vector of the particle.
     \end{itemize}
 
     Other forces, such as aerodynamic lift produced by irregular shape of the meteoroid
-    or rocket effect, caused by violent expulsion of gases during fragmentation,
+    or rocket effect, caused by expulsion of gases during ablation or fragmentation,
     are impossible to be modeled without precise knowledge of meteoroid shape and composition
     and are thus ignored in our simulations.
 
-    Since the simulation is run in a non-inertial rotating reference frame, two fictitious forces are also present:
+    However, since the simulation is run in a non-inertial, rotating reference frame,
+    two fictitious forces are also present:
     \begin{itemize}
-        \item the fictitious \emph{centrifugal} or \emph{Huygens force} $\vec{F_{\mathrm{Huygens}}}$,
-            pushing the particle away from the axis of rotation of the Earth;
-        \item and the fictitious \emph{Coriolis force} $\vec{F_{\mathrm{Coriolis}}}$,
+        \item the \emph{centrifugal} or \emph{Huygens force} $\vec{F_{\mathrm{Huygens}}}$,
+            pushing a body away from the axis of rotation of the Earth;
+        \item and the \emph{Coriolis force} $\vec{F_{\mathrm{Coriolis}}}$,
             which pushes a moving body in a direction perpendicular to its velocity vector.
     \end{itemize}
     Including them in the simulation increases the precision at a negligible computational cost.
-%
-%            Except for the drag force, all forces can be readily expressed in terms of instantaneous
-%            position and velocity of the meteoroid and several constants.
-%            Calculating the drag force precisely is computationally very expensive and cannot be done
-%            without knowing the shape of the particle. Therefore we have to choose an appropriate simplified model.
+
+    Except for the drag force, all forces can be readily expressed in terms of instantaneous
+    position and velocity of the meteoroid and several constants.
 %
 %            In its cosmic stage and during most of the motion in the gravitational sphere of influence of the Earth,
 %            the forces acting on the particle are dominated by gravitational effects. As the meteoroid penetrates
@@ -148,18 +147,7 @@ or escapes the Earth.
 %            it is sufficient to consider only the drag force.
 %            However, should the meteoroid survive the entry as a meteorite, their influence is important during the dark phase of flight.
 %
-%            \paragraph{Coriolis force} \label{saiC}
-%                %
 
-%
-%            \paragraph{Gravitational force} \label{saig}
-%                
-%                
-%                
-%                
-%                
-%                
-%                
 %
 %            \paragraph{Drag force} \label{said}
 %                The precise description of the drag force is crucial to understand the motion
@@ -288,37 +276,37 @@ or escapes the Earth.
                 The atmosphere can be divided into two regions based on its chemical composition:
                 \begin{itemize}
                     \item From the sea level to approximately \SI{100}{\kilo\metre} the chemical
-                        composition does not vary appreciably, as the constituents are constantly mixed by
-                        atmospheric turbulence. The composition is thus the same as near the surface,
-                        where it can be readily analysed.
+                        composition does not vary appreciably (see \cref{fig:fdvf-species}),
+                        as the constituents are constantly mixed by atmospheric turbulence.
+                        The composition is thus the same as near the surface, where it can be readily analysed.
                         This part of the atmosphere is called the \emph{homosphere}.
                     \item Above about \SI{100}{\kilo\metre}, lighter species are more abundant
                         relative to heavier species. The dominant mixing mechanism is molecular diffusion.
                         Mixing depends on thermal velocities of molecules, which decrease
                         with increasing molecular mass. This region is called the \emph{heterosphere}.
 
-                        Variations in chemical composition would affect viscosity and other properties
+                        Variations in chemical composition affect viscosity and other properties
                         of the flow -- however, mean free paths of molecules at these altitudes are
                         very long and the flow around the meteoroid is essentially always free-molecular.
-                        Viscous drag can be safely neglected.
+                        Viscous drag can be safely neglected there.
                 \end{itemize}
-
-                \fig{msis-species.pdf}{0.75\textwidth}{fig:fdvf-species}{
-                    The volume fraction of the main constituents of the Earth's atmosphere
-                    as a function of height, based on the MSIS-E-90 atmospheric model.
-                    The homosphere extends to about \SI{100}{\kilo\metre} and is clearly visible
-                    in the graph.
-
-                    \textit{Credit: Wikipedia, user Amaurea, based on the data from the MSIS-E-90 model.}
-                }
             \end{example}
+
+            \fig{msis-species.pdf}{0.875\textwidth}{fig:fdvf-species}[ht]{
+                The volume fraction of the main constituents of the Earth's atmosphere
+                as a function of height, based on the MSIS-E-90 atmospheric model.
+                The homosphere extends to about \SI{100}{\kilo\metre} and is clearly visible
+                in the graph.
+
+                \textit{Credit: Wikipedia, user Amaurea, based on the data from the MSIS-E-90 model.}
+            }
 
             For simple calculations a constant value is customarily used,
             \eqn{eq:fdvf-const}{
                 \mu_\mathrm{air} = \SI{1.8e-5}{\pascal\second}.
             }
 
-            A better model also considers the change in viscosity with temperature as well.
+            A better model also considers the change of viscosity with temperature as well.
             The exact dependence cannot be derived easily, but various empirical correlations
             exist, usually in the form $\mu \propto T^\omega$.
             For air, one such approximation \citep{tec-science-viscosity}
@@ -446,7 +434,7 @@ or escapes the Earth.
             Precise values can be only obtained by direct measurement or CFD simulations,
             which is clearly not viable in our case.
 
-            As a rough approximation we use the correlation by \citet{morrison2016},
+            As a rough approximation we can use the correlation by \citet{morrison2016},
             which is an empirical fit of experimental data for a smooth sphere.
             The model extends from very low to very high Reynolds numbers.
             In the viscous limit it approaches
@@ -463,7 +451,7 @@ or escapes the Earth.
 
             It also reproduces the sharp decrease of drag coefficient at high Reynolds
             numbers ($\mathrm{Re} \approx \num{e5}$), known as the \emph{drag crisis}
-            or the \emph{Eiffel paradox} \cite{???}.
+            or the \emph{Eiffel paradox} \citep{eiffel1912}.
 
             \fig{drag-crisis.pdf}{90mm}{ddm-drag-crisis}{%
                 Dependence of drag coefficient $\Gamma$ for a smooth sphere (teal) and rough sphere (green).
@@ -476,7 +464,7 @@ or escapes the Earth.
                 never perfectly smooth spheres, a rough sphere is a reasonable
                 approximation where there is no prior knowledge about the shape.
 
-                \textit{Credit: Original image \citet{nasa-drag}, vectorized by%
+                \textit{Credit: Original image by \citet{nasa-drag}, vectorized by%
                 Wikipedia user Kraaiennest, edits by Olivier Cleynen}
             }
 
@@ -522,14 +510,13 @@ or escapes the Earth.
             conditions encountered during the atmospheric entry of a meteoroid
             ($0 < \mathrm{Kn} < \infty$, $0 < \mathrm{Re} < \num{e6}$, $0 < M < 200$)
             (N. Singh, personnal communication, 2021--05--13).
-
-            For a full set of equations, accomodated for notation used in meteor science, see \cref{DS}.
+            For a full set of equations see \cref{DS}.
 
 \section{Conclusion} \label{dc}
 
     \subsubsection{Whipple model} \label{mmw}
         A standard, textbook model of meteoroid flight introduces a change in mass of the meteoroid
-        during its flight through the atmosphere. 
+        during its flight through the atmosphere.
         (Öpik) (Ceplecha)
 
         Again, we assume a constant (spherical or nearly spherical) shape throughout the entire

@@ -374,14 +374,12 @@ or escapes the Earth.
         \subsubsection{International Standard Atmosphere} \label{fddi}
             The next step towards a more precise model involves allowing the temperature to change with altitude.
             Of course, temperature also varies with time of day, time of year and is influenced by weather,
-            so any model that is not directly based on current data will differ from reality significantly.
+            so any model that is not directly based on current data will differ from reality.
+            Most of these variations are caused by weather and are contained within the troposphere.
 
-            and the ISA model may differ from reality significantly. However, most of the variations
-            are contained within the troposphere. At altitudes which are most important to us
-            (\SIrange{60}{120}{\kilo\metre}) weather is virtually nonexistent, however atmospheric
-            density 
-
-
+            However, atmospheric density at altitudes which are most important to us
+            (\SIrange{60}{120}{\kilo\metre}) can vary significantly due to various factors including
+            solar activity,
 
         \subsubsection{MSIS-E-90} \label{fdd9}
             daily variations
@@ -405,6 +403,9 @@ or escapes the Earth.
 
         research: see which region of combinations of Re, Kn and Ma are normally attained during flight
 
+        six distinct drag models: \hyperref[fdmn]{no drag}, \hyperref[fdmc]{constant drag}, and four advanced
+        models by \hyperref[fdmM]{Morrison}, \hyperref[fdmL]{Loth}, \hyperref[fdmH]{Henderson} and \hyperref[fdmS]{Singh et al}.
+
         \subsubsection{No drag} \label{fdmn}
             A trivial model in which $\Gamma = 0$ at all times.
             Again, it is not useful for atmospheric modelling, but is computationally
@@ -424,9 +425,10 @@ or escapes the Earth.
 
         \subsubsection{Constant drag model} \label{fdmc}
             In older textbooks and papers a constant value of $\Gamma$ is often taken as a first approximation.
-            For a spherical particle in a turbulent flow a value of \num{0.47} is often used \cite{???}.
-            One of the primary objectives of this thesis is to quantify how large these errors
-            are and whether it is justifiable to use such simple models at all.
+            For a spherical particle in a turbulent flow a value of \num{0.47} is often used,
+            which corresponds to a smooth sphere at a Reynolds number of \num{e5} \cite{???}.
+            One of the primary objectives of this thesis is to quantify how large is the resulting
+            and whether it is justifiable to use such simple models at all.
 
         \subsubsection{Morrison model} \label{fdmM}
             The next step is to include the effects of viscous and inertial forces -- or,
